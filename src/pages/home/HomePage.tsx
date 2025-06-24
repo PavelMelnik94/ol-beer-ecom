@@ -1,9 +1,15 @@
 import { Link } from 'react-router-dom'
+import { Heading, Text } from '@radix-ui/themes'
 import styles from './HomePage.module.scss'
 
 export default function HomePage() {
   return (
     <div className={styles.page}>
+
+      <Heading mb="2" size="9">Typographic principles</Heading>
+      <Heading mb="2" size="9" className="playfair-bold">Typographic principles</Heading>
+      <Text>The goal of typography is to relate font size, line height, and line width in a proportional way that maximizes beauty and makes reading easier and more pleasant.</Text>
+
       <section className={styles.hero}>
         <h1 className={styles.title}>Welcome to Beer App</h1>
         <p className={styles.subtitle}>
