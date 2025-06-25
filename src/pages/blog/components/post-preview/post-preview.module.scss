@@ -1,0 +1,17 @@
+.postPreview {
+  border-radius: var(--radius-3);
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  max-height: 300px;
+}
+
+
+.postContent {
+  flex: 1;
+}
+
+.postImg {
+  border-radius: var(--radius-3);
+}
+

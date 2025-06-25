@@ -7,3 +7,4 @@ export type * from './api/types'
 
 export { useUiStore } from './stores/ui-store'
 export { useScrollStore } from './stores/scroll-store'
+export { dateFormat } from './utils/dateFormat'

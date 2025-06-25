@@ -1,4 +1,5 @@
-import { Section } from '@radix-ui/themes'
+import { PostPreview } from '@pages/blog/components/post-preview/post-preview'
+import { Box, Flex, Heading, Section, Separator, Text } from '@radix-ui/themes'
 
 interface Props {
   posts: unknown[]
@@ -6,7 +7,9 @@ interface Props {
 export function Posts({ posts }: Props) {
   return (
     <Section>
-      {posts.map((item, index) => <div key={index}>{item?.title}</div>)}
+      {posts?.map((item, index) => (
+        <PostPreview post={item} key={index} />
+      ))}
     </Section>
   )
 }

@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { Box, Button, Flex, Text } from '@radix-ui/themes'
-import { ThemeButton } from '@shared/components'
+import { Pulse, ThemeButton } from '@shared/components'
 import styles from './header.module.scss'
 
 interface Props {
@@ -20,7 +20,11 @@ export function Header({ isActive }: Props) {
       </Box>
 
       <Flex align="center" gap="4">
-        <Button variant="ghost" size="1">Store</Button>
+
+        <Button variant="ghost" size="1">
+          Store
+          {/* <Pulse size={8} intensity={5} duration={1.5} /> */}
+        </Button>
         <Button variant="ghost" size="1">Breweries</Button>
         <Button variant="ghost" size="1">About</Button>
       </Flex>

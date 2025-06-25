@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { apiClient } from '@kernel/index'
+import { Pulse } from '@shared/components'
 import { Hero } from './components/hero'
 import styles from './blog-page.module.scss'
 import { Posts } from './components/posts'

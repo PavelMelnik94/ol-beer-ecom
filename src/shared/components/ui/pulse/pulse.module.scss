@@ -1,0 +1,47 @@
+.pulse {
+  // Значения по умолчанию
+  --pulse-size: 20px;
+  --pulse-color: #ff6b35;
+  --pulse-duration: 2s;
+  --pulse-spread: 10px;
+  --pulse-r: 255;
+  --pulse-g: 107;
+  --pulse-b: 53;
+  --pulse-intensity: 0.7;
+
+  width: var(--pulse-size);
+  height: var(--pulse-size);
+  background-color: var(--pulse-color);
+  border-radius: 50%;
+  position: relative;
+
+  // Анимация с динамическими RGB значениями
+  animation: pulse var(--pulse-duration) ease-out infinite;
+
+  &:focus-visible {
+    outline: 2px solid var(--pulse-color);
+    outline-offset: 2px;
+  }
+
+  &.disabled {
+    animation-play-state: paused;
+    opacity: 0.5;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(var(--pulse-r), var(--pulse-g), var(--pulse-b), var(--pulse-intensity));
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 var(--pulse-spread) rgba(var(--pulse-r), var(--pulse-g), var(--pulse-b), 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(var(--pulse-r), var(--pulse-g), var(--pulse-b), 0);
+  }
+}
