@@ -1,3 +1,9 @@
 @import './normalizer.css';
 @import '@radix-ui/themes/styles.css';
 @import './fonts.css';
+
+html {
+  color: #222;
+}
+
+

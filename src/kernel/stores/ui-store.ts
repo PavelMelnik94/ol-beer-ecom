@@ -16,7 +16,7 @@ interface UiState {
   isSidebarOpen: boolean
 
   // Theme
-  theme: 'light' | 'dark' | 'system'
+  theme: 'light' | 'dark'
 
   // Notifications
   notifications: Array<{
@@ -59,7 +59,7 @@ export const useUiStore = create<UiState & UiActions>()(
       isLoading: false,
       loadingText: '',
       isSidebarOpen: false,
-      theme: 'system',
+      theme: 'light',
       notifications: [],
 
       // Modal actions

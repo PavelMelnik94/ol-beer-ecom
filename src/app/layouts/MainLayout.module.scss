@@ -4,10 +4,17 @@
   flex-direction: column;
 }
 
-.main {
-  flex: 1;
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
+.layoutWithScrollActive {
+    margin-top: 48px;
+}
+
+.decorativeBg {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    height: 480px;
+    opacity: 0.6;
+    background: linear-gradient(to bottom, var(--accent-4), transparent);
+
+    z-index: -1;
 }

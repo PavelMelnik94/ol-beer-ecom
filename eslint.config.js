@@ -28,20 +28,21 @@ export default antfu({
       typescript: {
         alwaysTryTypes: true,
         project: './tsconfig.json',
+        paths: {
+          '@shared/*': ['./src/shared/*'],
+          '@kernel/*': ['./src/kernel/*'],
+          '@modules/*': ['./src/modules/*'],
+          '@pages/*': ['./src/pages/*'],
+          '@app/*': ['./src/app/*'],
+          '@/*': ['./src/*'],
+        },
       },
-      alias: {
-        map: [
-          ['@shared', './src/shared'],
-          ['@kernel', './src/kernel'],
-          ['@modules', './src/modules'],
-          ['@pages', './src/pages'],
-          ['@app', './src/app'],
-          ['@', './src'],
-        ],
+      node: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
       },
     },
     'boundaries/include': ['src/**/*'],
+    'boundaries/ignore': ['**/*.test.*', '**/*.spec.*'],
     'boundaries/elements': [
       // Shared слой (уровень 0)
       {
@@ -72,10 +73,14 @@ export default antfu({
     ],
   },
   rules: {
-    ...boundaries.configs.recommended.rules,
     'boundaries/element-types': [2, {
       default: 'allow',
       rules: [
+        // Разрешаем всем слоям импортировать из node_modules
+        {
+          from: ['shared', 'kernel', 'modules', 'pages', 'app'],
+          allow: ['**/node_modules/**'],
+        },
         // Shared не может импортировать ничего кроме shared
         {
           from: ['shared'],
@@ -115,8 +120,12 @@ export default antfu({
       message: 'Импорты из внутренних файлов запрещены. Импортируйте только из index.ts файлов.',
       rules: [
         {
-          target: ['shared', 'kernel', 'modules', 'pages'],
-          disallow: '!index.{ts,tsx}',
+          target: ['shared'],
+          allow: ['index.{ts,tsx}', '*/index.{ts,tsx}'],
+        },
+        {
+          target: ['kernel', 'modules', 'pages'],
+          disallow: ['**/*', '!index.{ts,tsx}'],
         },
       ],
     }],
