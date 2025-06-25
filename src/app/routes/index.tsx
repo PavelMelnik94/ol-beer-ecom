@@ -1,5 +1,6 @@
 import { AuthLayout } from '@app/layouts/AuthLayout'
-import { MainLayout } from '@app/layouts/MainLayout'
+import { BlogLayout } from '@app/layouts/blog-layout/blog-layout'
+import { BlogPage } from '@pages/index'
 import { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
@@ -11,8 +12,8 @@ export function AppRoutes() {
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
         {/* Main routes with layout */}
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<HomePage />} />
+        <Route path="/" element={<BlogLayout />}>
+          <Route index element={<BlogPage />} />
         </Route>
 
         {/* Auth routes with auth layout */}
