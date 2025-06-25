@@ -10,24 +10,12 @@ export function BlogLayout() {
 
   const isActiveHeader = scrollY > 3
 
-  const heroContent = {
-    headline: 'Your Guide to Liquid Gold',
-    subheadline: 'From Belgian abbeys to American craft breweries, explore curated reviews, brewing insights, and exclusive marketplace finds that elevate your beer experience.',
-    cta: 'Explore Now',
-  } as const;
-
   return (
     <div className={clsx(styles.layout, { [styles.layoutWithScrollActive]: isActiveHeader })}>
       <Header isActive={isActiveHeader} />
       <Box className={styles.decorativeBg} />
       <main className={styles.main}>
-
         <Container>
-          <Section>
-            <Heading align="center" mb="4" size="9">{heroContent.headline}</Heading>
-            <Heading align="center" mb="4" size="6">{heroContent.subheadline}</Heading>
-            <Flex justify="center"><Button>{heroContent.cta}</Button></Flex>
-          </Section>
           <Outlet />
         </Container>
       </main>

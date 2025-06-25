@@ -1,11 +1,15 @@
-import { Heading, Section, Text } from '@radix-ui/themes';
+import { Button, Flex, Heading, Section } from '@radix-ui/themes';
 
 export function Hero() {
   return (
     <Section>
-      <Heading mb="2" size="9">Typographic principles</Heading>
-      <Heading mb="2" size="9" className="playfair-bold">Typographic principles</Heading>
-      <Text>The goal of typography is to relate font size, line height, and line width in a proportional way that maximizes beauty and makes reading easier and more pleasant.</Text>
+      <Heading mb="2" size="9" align="center">Your Guide to Liquid Gold</Heading>
+      <Heading mb="2" size="7" align="center">From Belgian abbeys to American craft breweries, explore curated reviews, brewing insights, and exclusive marketplace finds that elevate your beer experience.</Heading>
+      <Flex justify="center" align="center">
+        <Button>
+          Explore Now
+        </Button>
+      </Flex>
     </Section>
   )
 }

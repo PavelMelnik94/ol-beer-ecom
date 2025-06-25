@@ -1,45 +1,22 @@
-import { Link } from 'react-router-dom'
-import { Hero } from '@pages/blog/components/hero'
+import { useQuery } from '@tanstack/react-query'
+import { apiClient } from '@kernel/index'
+import { Hero } from './components/hero'
 import styles from './blog-page.module.scss'
+import { Posts } from './components/posts'
 
 export function BlogPage() {
+  const { data, isLoading } = useQuery({
+    queryKey: ['posts'],
+    queryFn: () => apiClient.get('blog/posts'),
+  })
+
   return (
     <div className={styles.page}>
 
       <Hero />
 
-      <section className={styles.hero}>
-        <h1 className={styles.title}>Welcome to Beer App</h1>
-        <p className={styles.subtitle}>
-          Discover amazing craft beers from breweries around the world
-        </p>
-        <div className={styles.actions}>
-          <Link to="/products">
-            <button>Browse Beers</button>
-          </Link>
-          <button>
-            Learn More
-          </button>
-        </div>
-      </section>
+      <Posts posts={data?.data?.data} />
 
-      <section className={styles.features}>
-        <h2 className={styles.sectionTitle}>Features</h2>
-        <div className={styles.grid}>
-          <div className={styles.card}>
-            <h3>🍺 Craft Beers</h3>
-            <p>Explore thousands of craft beers with detailed information</p>
-          </div>
-          <div className={styles.card}>
-            <h3>🏭 Breweries</h3>
-            <p>Discover breweries and their unique brewing stories</p>
-          </div>
-          <div className={styles.card}>
-            <h3>🔍 Advanced Search</h3>
-            <p>Filter beers by style, ABV, IBU and more criteria</p>
-          </div>
-        </div>
-      </section>
     </div>
   )
 }
