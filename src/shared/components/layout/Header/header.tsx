@@ -20,9 +20,9 @@ export function Header({ isActive }: Props) {
       </Box>
 
       <Flex align="center" gap="4">
-        <Button variant="ghost" size="1">Home</Button>
+        <Button variant="ghost" size="1">Store</Button>
+        <Button variant="ghost" size="1">Breweries</Button>
         <Button variant="ghost" size="1">About</Button>
-        <Button variant="ghost" size="1">Contact</Button>
       </Flex>
 
       <Flex align="center" gap="4">
