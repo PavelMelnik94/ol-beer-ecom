@@ -35,7 +35,7 @@ apiClient.interceptors.response.use(
       console.log('✅ API Response:', response.status, response.config.url)
     }
 
-    return response
+    return response.data
   },
   (error: AxiosError) => {
     console.error('❌ Response Error:', error.response?.status, error.config?.url)

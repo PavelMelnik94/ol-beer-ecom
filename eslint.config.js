@@ -120,12 +120,16 @@ export default antfu({
       message: 'Импорты из внутренних файлов запрещены. Импортируйте только из index.ts файлов.',
       rules: [
         {
-          target: ['shared'],
+          target: ['shared', 'kernel', 'modules', 'pages', 'app'],
           allow: ['index.{ts,tsx}', '*/index.{ts,tsx}'],
         },
         {
           target: ['kernel', 'modules', 'pages'],
-          disallow: ['**/*', '!index.{ts,tsx}'],
+          disallow: [
+            // '**/*',
+            // '!index.{ts,tsx}'
+            '!**/index.{ts,tsx}',
+          ],
         },
       ],
     }],

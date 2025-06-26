@@ -1,5 +1,16 @@
 // Query key factories для типобезопасности и переиспользования
 export const queryKeys = {
+
+  // Articles queries
+  articles: {
+    all: ['articles'] as const,
+    lists: () => [...queryKeys.articles.all, 'list'] as const,
+    list: (filters: Record<string, any>) => [...queryKeys.articles.lists(), filters] as const,
+    details: () => [...queryKeys.articles.all, 'detail'] as const,
+    detail: (id: number) => [...queryKeys.articles.details(), id] as const,
+    random: () => [...queryKeys.articles.all, 'random'] as const,
+  },
+
   // Beer queries
   beers: {
     all: ['beers'] as const,

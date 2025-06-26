@@ -10,6 +10,10 @@ align-items: center;
 justify-content: space-between;
 }
 
+.logo {
+  cursor: default;
+}
+
 .headerActive {
   position: fixed;
   top: 0;
