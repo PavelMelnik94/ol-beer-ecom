@@ -1,6 +1,6 @@
 import { API_ENDPOINTS, type ApiErrorResponse, type ApiSuccessResponsePaginated, apiClient, queryKeys } from '@kernel/index'
-import type { Article } from '@modules/articles/types'
 import { useInfiniteQuery } from '@tanstack/react-query'
+import type { Article } from './../types'
 
 type SuccessResponse = ApiSuccessResponsePaginated<Article>;
 type ErrorResponse = ApiErrorResponse;

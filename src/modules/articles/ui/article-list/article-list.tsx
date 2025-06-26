@@ -1,7 +1,7 @@
 import { Section } from '@radix-ui/themes'
 import { useEffect, useRef } from 'react'
 import { ArticleSkeleton } from '@modules/articles/ui/article-list/article/article-skeleton'
-import { Show } from '@shared/components'
+import { For, Show } from '@shared/components'
 import { useArticlesInfinite } from '../../hooks/useArticlesInfinite'
 import { ArticlePreview } from './article/article-preview'
 
@@ -40,9 +40,13 @@ export function ArticleList() {
 
   return (
     <Section ml="4" mr="4">
-      {articles?.map((item, index) => (
-        <ArticlePreview post={item} key={index} />
-      ))}
+
+      <For each={articles}>
+        {article => (
+          <ArticlePreview article={article} key={article.id} />
+        )}
+      </For>
+
       <div ref={loadMoreRef} style={{ height: 1 }} />
 
       <Show when={isFetchingNextPage || isLoading}>

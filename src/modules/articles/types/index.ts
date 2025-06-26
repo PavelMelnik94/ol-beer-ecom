@@ -20,3 +20,7 @@ export interface Article {
 
   tags: ArticleTag[]
 }
+
+export interface ArticleDetails extends Article {
+  longDescription: string;
+}

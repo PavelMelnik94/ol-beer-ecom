@@ -29,5 +29,9 @@ export function useGlobalScroll() {
     };
   }, []);
 
-  return { scrollY, scrollDirection, isScrolling, scrollProgress };
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  return { scrollY, scrollDirection, isScrolling, scrollProgress, scrollToTop };
 }
