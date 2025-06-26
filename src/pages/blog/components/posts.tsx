@@ -6,7 +6,7 @@ interface Props {
 }
 export function Posts({ posts }: Props) {
   return (
-    <Section>
+    <Section ml="4" mr="4">
       {posts?.map((item, index) => (
         <PostPreview post={item} key={index} />
       ))}

@@ -19,6 +19,7 @@ interface ImageProps extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'sr
   sizeMode?: ImageSizeMode;
   width?: number | string;
   height?: number | string;
+  containerClassName?: string;
 }
 
 export const Image: React.FC<ImageProps> = ({
@@ -30,6 +31,7 @@ export const Image: React.FC<ImageProps> = ({
   onLoad,
   onError,
   className,
+  containerClassName,
   fallbackSrc,
   blurOnLoad = true,
   sizeMode = 'cover',
@@ -112,6 +114,7 @@ export const Image: React.FC<ImageProps> = ({
       [styles.contain]: sizeMode === 'contain',
       [styles.responsive]: sizeMode === 'responsive',
     },
+    containerClassName,
   );
 
   return (
@@ -133,8 +136,7 @@ export const Image: React.FC<ImageProps> = ({
         onError={handleError}
         className={imageClasses}
         loading={lazy ? 'lazy' : 'eager'}
-        width={width}
-        height={height}
+
         {...restProps}
       />
 

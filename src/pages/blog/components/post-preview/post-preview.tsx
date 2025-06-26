@@ -33,7 +33,7 @@ interface Props {
 
 export function PostPreview({ post, withSeparator = true }: Props) {
   return (
-    <Section>
+    <Section className={styles.postPreviewSection} data-preview-section>
       <Flex className={styles.postPreview}>
 
         <Flex className={styles.postContent} direction="column" flexBasis="1" align="stretch">
@@ -105,8 +105,9 @@ export function PostPreview({ post, withSeparator = true }: Props) {
         <Image
           alt="post preview"
           className={styles.postImg}
+          containerClassName={styles.imageContainer}
           src={post.image}
-          lazy
+          lazy={false}
           blurOnLoad
         />
 
