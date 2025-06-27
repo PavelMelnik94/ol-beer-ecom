@@ -76,37 +76,29 @@ export default antfu({
     'boundaries/element-types': [2, {
       default: 'allow',
       rules: [
-        // Разрешаем всем слоям импортировать из node_modules
         {
           from: ['shared', 'kernel', 'modules', 'pages', 'app'],
           allow: ['**/node_modules/**'],
         },
-        // Shared не может импортировать ничего кроме shared
         {
           from: ['shared'],
           disallow: ['kernel', 'modules', 'pages', 'app'],
           message: 'Shared слой не может импортировать из других слоев. Используйте только shared компоненты.',
         },
-        // Kernel не может импортировать modules, pages, app
         {
           from: ['kernel'],
           disallow: ['modules', 'pages', 'app'],
           message: 'Kernel слой не может импортировать из modules, pages или app слоев.',
         },
-        // Modules не могут импортировать pages, app или другие модули
+        // Теперь modules могут импортировать другие modules
         {
           from: ['modules'],
           disallow: [
             'pages',
             'app',
-            ['modules', {
-              // eslint-disable-next-line no-template-curly-in-string
-              module: '!${module}',
-            }],
           ],
-          message: 'Модули не могут импортировать из pages, app или других модулей. Модули должны быть изолированы.',
+          message: 'Модули не могут импортировать из pages или app.',
         },
-        // Pages не могут импортировать app или другие страницы
         {
           from: ['pages'],
           disallow: ['app'],
@@ -114,7 +106,6 @@ export default antfu({
         },
       ],
     }],
-
     'boundaries/entry-point': [2, {
       default: 'allow',
       message: 'Импорты из внутренних файлов запрещены. Импортируйте только из index.ts файлов.',
@@ -126,14 +117,11 @@ export default antfu({
         {
           target: ['kernel', 'modules', 'pages'],
           disallow: [
-            // '**/*',
-            // '!index.{ts,tsx}'
             '!**/index.{ts,tsx}',
           ],
         },
       ],
     }],
-
     /* плагин для безопасного кода */
     'security/detect-possible-timing-attacks': 'error',
     'security/detect-child-process': 'error',
