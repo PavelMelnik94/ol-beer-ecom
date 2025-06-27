@@ -1,7 +1,5 @@
-// Query key factories для типобезопасности и переиспользования
 export const queryKeys = {
 
-  // Articles queries
   articles: {
     all: ['articles'] as const,
     lists: () => [...queryKeys.articles.all, 'list'] as const,
@@ -9,9 +7,10 @@ export const queryKeys = {
     details: () => [...queryKeys.articles.all, 'detail'] as const,
     detail: (id: number | string) => [...queryKeys.articles.details(), id] as const,
     random: () => [...queryKeys.articles.all, 'random'] as const,
+    like: (id: number | string) => [...queryKeys.articles.detail(id), 'like'] as const,
+    comments: (id: number | string) => [...queryKeys.articles.detail(id), 'comments'] as const,
   },
 
-  // Beer queries
   beers: {
     all: ['beers'] as const,
     lists: () => [...queryKeys.beers.all, 'list'] as const,
@@ -21,14 +20,12 @@ export const queryKeys = {
     random: () => [...queryKeys.beers.all, 'random'] as const,
   },
 
-  // Auth queries (future)
   auth: {
     all: ['auth'] as const,
     user: () => [...queryKeys.auth.all, 'user'] as const,
     profile: () => [...queryKeys.auth.user(), 'profile'] as const,
   },
 
-  // User queries (future)
   user: {
     all: ['user'] as const,
     profile: () => [...queryKeys.user.all, 'profile'] as const,
