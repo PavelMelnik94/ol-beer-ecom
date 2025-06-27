@@ -1,7 +1,7 @@
 import { Flex, Heading, Section, Separator, Skeleton, Text } from '@radix-ui/themes';
 import styles from './article-preview.module.scss';
 
-export function ArticleSkeleton() {
+export function ArticlePreviewSkeleton() {
   return (
     <Section className={styles.section} data-preview-section>
       <Flex className={styles.article}>

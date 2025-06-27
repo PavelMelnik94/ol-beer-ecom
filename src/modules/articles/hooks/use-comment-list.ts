@@ -15,7 +15,7 @@ export function useCommentList(id: string) {
   });
 
   return {
-    commentList: response?.data ?? [],
+    commentList: response?.data,
     isLoading,
     error,
   }

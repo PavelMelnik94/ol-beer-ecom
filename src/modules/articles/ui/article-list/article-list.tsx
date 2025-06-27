@@ -1,15 +1,15 @@
 import { Section } from '@radix-ui/themes'
 import { useEffect, useRef } from 'react'
-import { ArticleSkeleton } from '@modules/articles/ui/article-list/article/article-skeleton'
+import { ArticlePreviewSkeleton } from '@modules/articles/ui/article-list/article/article-preview-skeleton'
 import { For, Show } from '@shared/components'
 import { useArticlesInfinite } from '../../hooks/use-articles-infinite'
 import { ArticlePreview } from './article/article-preview'
 
 const Skeletons = (
   <div>
-    <ArticleSkeleton />
-    <ArticleSkeleton />
-    <ArticleSkeleton />
+    <ArticlePreviewSkeleton />
+    <ArticlePreviewSkeleton />
+    <ArticlePreviewSkeleton />
   </div>
 )
 
