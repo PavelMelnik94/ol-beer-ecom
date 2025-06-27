@@ -1,41 +1,31 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { tokenStorage } from '@kernel/index'
 import type { AuthState, User } from '../types'
 
 interface AuthStore extends AuthState {
-  // Actions
   setUser: (user: User | null) => void
   setLoading: (loading: boolean) => void
-  setError: (error: string | null) => void
   login: (user: User, tokens: { accessToken: string; refreshToken: string }) => void
   logout: () => void
-  clearError: () => void
 }
 
 export const useAuthStore = create<AuthStore>()(
   persist(
     set => ({
-      // Initial state
       user: null,
       isAuthenticated: false,
       isLoading: false,
       error: null,
 
-      // Actions
       setUser: user =>
         set({ user, isAuthenticated: !!user }),
 
       setLoading: isLoading =>
         set({ isLoading }),
 
-      setError: error =>
-        set({ error }),
-
       login: (user, tokens) => {
-        // Store tokens in localStorage (in real app, consider more secure storage)
-        localStorage.setItem('accessToken', tokens.accessToken)
-        localStorage.setItem('refreshToken', tokens.refreshToken)
-
+        tokenStorage.set(tokens.accessToken)
         set({
           user,
           isAuthenticated: true,
@@ -45,9 +35,7 @@ export const useAuthStore = create<AuthStore>()(
       },
 
       logout: () => {
-        // Clear tokens
-        localStorage.removeItem('accessToken')
-        localStorage.removeItem('refreshToken')
+        tokenStorage.remove()
 
         set({
           user: null,
@@ -57,8 +45,6 @@ export const useAuthStore = create<AuthStore>()(
         })
       },
 
-      clearError: () =>
-        set({ error: null }),
     }),
     {
       name: 'auth-storage',

@@ -1,5 +1,1 @@
-export { Header } from './Header/header'
 export { Footer } from './Footer/footer'
-// export { Container } from './Container'
-// export { Footer } from './Footer'
-// export { Sidebar } from './Sidebar'

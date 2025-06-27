@@ -1,8 +1,8 @@
 import { Outlet } from 'react-router-dom'
-import { Header } from '@shared/components'
 import clsx from 'clsx'
 import { Box, Button, Container, Flex, Heading, Section } from '@radix-ui/themes'
-import { useGlobalScroll } from '@shared/hooks'
+import { useGlobalScroll } from '@kernel/hooks'
+import { Header } from '@kernel/components'
 import styles from './MainLayout.module.scss'
 
 export function MainLayout() {

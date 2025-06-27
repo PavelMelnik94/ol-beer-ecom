@@ -1,5 +1,5 @@
 import { Button } from '@radix-ui/themes';
-import { useTheme } from '@shared/hooks/use-theme';
+import { useTheme } from '@kernel/hooks';
 import { Moon, Sun } from 'lucide-react';
 
 export function ThemeButton() {

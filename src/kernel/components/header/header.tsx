@@ -1,9 +1,10 @@
 import clsx from 'clsx'
 import { Box, Button, Flex, Text } from '@radix-ui/themes'
-import { Pulse, ThemeButton } from '@shared/components'
+import { Pulse } from '@shared/components'
 import { GithubButton } from '@shared/components/ui/github-button'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '@kernel/index'
+import { ThemeButton } from '../theme-button'
 import styles from './header.module.scss'
 
 interface Props {

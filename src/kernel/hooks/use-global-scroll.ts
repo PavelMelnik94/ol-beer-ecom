@@ -1,5 +1,5 @@
-import { useScrollStore } from '@kernel/index';
 import { useEffect } from 'react';
+import { useScrollStore } from './../stores';
 
 export function useGlobalScroll() {
   const { scrollY, scrollDirection, isScrolling, scrollProgress } = useScrollStore();

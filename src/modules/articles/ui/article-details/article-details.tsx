@@ -1,9 +1,10 @@
 import { Flex, Heading, Section, Text } from '@radix-ui/themes';
 import { Image } from '@shared/components';
-import { useGlobalScroll } from '@shared/hooks';
+import { useGlobalScroll } from '@kernel/hooks';
 import { useLayoutEffect } from 'react';
 import { useLikePost } from '../../hooks/use-like-post';
 import { useArticlesDetails } from '../../hooks/use-article-details';
+import { LikesCounterWithAuthorizePopup } from '../likes-counter/likes-counter-with-auth-popup';
 import { ArticleSkeleton } from './article-skeleton/article-skeleton';
 import styles from './article-details.module.scss';
 import { LikesCounter } from './../likes-counter/likes-counter';
@@ -39,7 +40,8 @@ export function ArticleDetails({ id }: { id: string }) {
             year: 'numeric',
           })}
         </Text>
-        <LikesCounter likesCount={article.likesCount} onClick={likePost} />
+
+        <LikesCounterWithAuthorizePopup likesCount={article.likesCount} onClick={likePost} />
       </Flex>
 
       <Heading size="5" mb="6" wrap="pretty">

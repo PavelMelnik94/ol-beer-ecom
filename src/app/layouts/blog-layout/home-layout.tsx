@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router-dom'
-import { Header } from '@shared/components'
 import clsx from 'clsx'
 import { Box, Container } from '@radix-ui/themes'
-import { useGlobalScroll } from '@shared/hooks'
+import { useGlobalScroll } from '@kernel/hooks'
 import { Footer } from '@shared/components/layout'
+import { Header } from '@kernel/components'
 import styles from './home-layout.module.scss'
 
 export function HomeLayout() {
