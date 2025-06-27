@@ -3,17 +3,19 @@ interface ArticleTag {
   name: string;
 }
 
+interface Author {
+  id: string,
+  firstName: string;
+  lastName: string;
+  avatar: string;
+}
+
 export interface Article {
   id: string;
   title: string;
   shortDescription: string;
   image: string;
-  author: {
-    id: string,
-    firstName: string;
-    lastName: string;
-    avatar: string;
-  },
+  author: Author,
   likesCount: number;
   commentsCount: number;
   createdAt: string;
@@ -23,4 +25,14 @@ export interface Article {
 
 export interface ArticleDetails extends Article {
   longDescription: string;
+}
+
+export interface Comment {
+
+  author: Author
+  content: string;
+  createdAt: string;
+  id: string
+  likesCount: number;
+  updatedAt: string
 }
