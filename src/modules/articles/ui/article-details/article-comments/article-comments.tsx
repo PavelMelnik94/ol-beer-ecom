@@ -2,6 +2,7 @@ import { Avatar, Blockquote, Box, Card, Flex, Section, Text } from '@radix-ui/th
 import { SquarePen } from 'lucide-react'
 import { useCommentList } from '@modules/articles/hooks/use-comment-list';
 import { LikesCounter } from '../../likes-counter/likes-counter'
+import { LikesCounterWithAuthorizePopup } from '../../likes-counter/likes-counter-with-auth-popup';
 import styles from './article-comments.module.css';
 
 interface Props {
@@ -50,7 +51,7 @@ export function ArticleComments({ id }: Props) {
 
           <Flex className={styles.commentActions} align="center" gap="2">
             <SquarePen color="gray" size={16} />
-            <LikesCounter likesCount={comment.likesCount} />
+            <LikesCounterWithAuthorizePopup likesCount={comment.likesCount} />
           </Flex>
 
         </Card>

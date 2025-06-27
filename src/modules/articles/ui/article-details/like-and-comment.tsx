@@ -1,5 +1,5 @@
 import { Flex, Text } from '@radix-ui/themes';
-import { LikesCounter } from '../likes-counter/likes-counter';
+import { LikesCounterWithAuthorizePopup } from '../likes-counter/likes-counter-with-auth-popup';
 
 interface Props {
   likesCount: number;
@@ -11,7 +11,7 @@ export function LikeAndComment({ likesCount, likePost }: Props) {
       <Text size="2" color="gray">
         Support the article with a like
       </Text>
-      <LikesCounter likesCount={likesCount} onClick={likePost} />
+      <LikesCounterWithAuthorizePopup likesCount={likesCount} onClick={likePost} />
       <Text size="2" color="gray">
         and a comment
       </Text>
