@@ -2,7 +2,7 @@ import { Section } from '@radix-ui/themes'
 import { useEffect, useRef } from 'react'
 import { ArticleSkeleton } from '@modules/articles/ui/article-list/article/article-skeleton'
 import { For, Show } from '@shared/components'
-import { useArticlesInfinite } from '../../hooks/useArticlesInfinite'
+import { useArticlesInfinite } from '../../hooks/use-articles-infinite'
 import { ArticlePreview } from './article/article-preview'
 
 const Skeletons = (
@@ -39,7 +39,7 @@ export function ArticleList() {
   if (isError) refetch();
 
   return (
-    <Section ml="4" mr="4">
+    <Section>
 
       <For each={articles}>
         {article => (

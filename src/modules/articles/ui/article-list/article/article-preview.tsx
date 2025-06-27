@@ -1,10 +1,12 @@
-import { Badge, Flex, Heading, Section, Separator, Text, Tooltip } from '@radix-ui/themes';
+import { Flex, Heading, Section, Separator, Text, Tooltip } from '@radix-ui/themes';
 import { Image } from '@shared/components';
-import { CalendarDays, HandHeart, Hop, MessageCircleReply, Signature } from 'lucide-react';
+import { CalendarDays, MessageCircleReply, Signature } from 'lucide-react';
 import { ROUTES, dateFormat } from '@kernel/index';
 import { useNavigate } from 'react-router-dom';
 import type { Article as ArticleType } from '../../../types';
+import { LikesCounter } from './../../likes-counter/likes-counter';
 import styles from './article-preview.module.scss';
+import { TagList } from './../../tag-list/tag-list';
 
 interface Props {
   article: ArticleType
@@ -24,20 +26,7 @@ export function ArticlePreview({ article }: Props) {
             {article.shortDescription}
           </Text>
 
-          <Flex direction="row" wrap="wrap" gap="2" mb="4">
-            {article.tags.map(tag => (
-
-              <Badge key={tag.name} color="bronze" variant="soft" highContrast>
-                <Flex direction="row" align="center" gap="1">
-                  <Hop size={16} color="gray" />
-                  <Text size="2" color="gray">
-                    {tag.name}
-                  </Text>
-                </Flex>
-              </Badge>
-
-            ))}
-          </Flex>
+          <TagList tags={article.tags} />
 
           <Flex direction="row" gap="4" flexBasis="1" flexGrow="1" align="end">
 
@@ -59,16 +48,7 @@ export function ArticlePreview({ article }: Props) {
               </Flex>
             </Tooltip>
 
-            <Tooltip content={`${article.likesCount} ${article.likesCount === 1 ? 'clap' : 'claps'}`}>
-              <Flex direction="row" align="center" gap="2">
-                <HandHeart size={16} color="gray" />
-                <Text size="2" color="gray">
-                  {article.likesCount}
-                  {' '}
-                  likes
-                </Text>
-              </Flex>
-            </Tooltip>
+            <LikesCounter likesCount={article.likesCount} />
 
             <Tooltip content={`${article.commentsCount} ${article.commentsCount === 1 ? 'response' : 'responses'}`}>
               <Flex direction="row" align="center" gap="2">

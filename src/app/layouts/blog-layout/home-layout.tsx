@@ -16,7 +16,7 @@ export function HomeLayout() {
       <Header isActive={isActiveHeader} />
       <Box className={styles.decorativeBg} />
       <main className={styles.main}>
-        <Container>
+        <Container pr="5" pl="5">
           <Outlet />
         </Container>
       </main>
