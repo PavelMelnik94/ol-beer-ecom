@@ -11,6 +11,11 @@ export const queryKeys = {
     comments: (id: number | string) => [...queryKeys.articles.detail(id), 'comments'] as const,
   },
 
+  breweries: {
+    all: ['breweries'] as const,
+    lists: () => [...queryKeys.breweries.all, 'list'] as const,
+  },
+
   beers: {
     all: ['beers'] as const,
     lists: () => [...queryKeys.beers.all, 'list'] as const,
