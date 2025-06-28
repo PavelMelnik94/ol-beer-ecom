@@ -23,7 +23,7 @@ export function ArticleMeta({ author, tags }: Props) {
             {author.lastName}
           </Text>
           <Text as="div" size="2" color="gray">
-            Writer, Brewster
+            Writer, Brewer
           </Text>
         </Box>
 

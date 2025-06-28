@@ -1,13 +1,13 @@
 .header {
-height: 48px;
-max-height: 48px;
-background-color: transparent;
-width: 100%;
-padding: 1rem;
+  height: 48px;
+  max-height: 48px;
+  background-color: transparent;
+  width: 100%;
+  padding: 1rem;
 
-display: flex;
-align-items: center;
-justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .logo {
@@ -24,4 +24,8 @@ justify-content: space-between;
   max-height: 48px;
   background-color: var(--color-background);
   box-shadow: 0 1px var(--gray-a4);
+}
+
+[data-active="true"].active {
+  background-color: var(--accent-a3);
 }

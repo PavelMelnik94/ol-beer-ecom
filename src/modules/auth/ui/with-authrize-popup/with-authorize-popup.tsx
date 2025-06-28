@@ -1,13 +1,13 @@
 import type { ComponentType } from 'react';
 import { Button, Flex, Popover, Text } from '@radix-ui/themes';
-import { useNavigate } from 'react-router-dom';
 import { Image } from '@shared/components';
+import { useGoTo } from '@kernel/index';
 import { useAuth } from '../../hooks/use-auth';
 
 export function withAuthorizePopup<P extends object>(WrappedComponent: ComponentType<P>) {
   return function WithAuthorizePopup(props: P) {
     const { isAuthenticated } = useAuth();
-    const navigate = useNavigate();
+    const { navigateToRegister } = useGoTo();
 
     if (isAuthenticated) return <WrappedComponent {...props} />;
 
@@ -47,11 +47,11 @@ export function withAuthorizePopup<P extends object>(WrappedComponent: Component
             />
 
             <Flex align="center" justify="end" mt="4">
-              <Button size="1" variant="ghost" onClick={() => navigate('/auth')} mr="3">
+              <Button size="1" variant="ghost" onClick={() => console.log('login modal ?')} mr="3">
                 Log In
               </Button>
 
-              <Button size="1" variant="ghost" onClick={() => navigate('/register')}>
+              <Button size="1" variant="ghost" onClick={navigateToRegister}>
                 Register
               </Button>
             </Flex>

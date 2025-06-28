@@ -1,8 +1,7 @@
 import { Flex, Heading, Section, Separator, Text, Tooltip } from '@radix-ui/themes';
 import { Image } from '@shared/components';
 import { CalendarDays, MessageCircleReply, Signature } from 'lucide-react';
-import { ROUTES, dateFormat } from '@kernel/index';
-import { useNavigate } from 'react-router-dom';
+import { dateFormat, useGoTo } from '@kernel/index';
 import type { Article as ArticleType } from '../../../types';
 import { LikesCounter } from './../../likes-counter/likes-counter';
 import styles from './article-preview.module.scss';
@@ -13,9 +12,9 @@ interface Props {
 }
 
 export function ArticlePreview({ article }: Props) {
-  const navigate = useNavigate()
+  const { navigateToArticle } = useGoTo()
   return (
-    <Section className={styles.section} data-preview-section onClick={() => navigate(`${ROUTES.articles.article(article.id)}`)}>
+    <Section className={styles.section} data-preview-section onClick={() => navigateToArticle(article.id)}>
       <Flex className={styles.article}>
 
         <Flex className={styles.articleContent} direction="column" flexBasis="1" align="stretch">
