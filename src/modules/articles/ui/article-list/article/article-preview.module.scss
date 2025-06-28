@@ -25,8 +25,9 @@
 @media (max-width: 865px) {
 
   .article {
-    max-height: auto;
+    max-height: fit-content;
   }
+
   .imageContainer {
     display: none;
   }
