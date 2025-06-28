@@ -1,5 +1,6 @@
 import { Flex, Table, TextField } from '@radix-ui/themes';
 import { Show } from '@shared/components';
+import clsx from 'clsx';
 import { Search } from 'lucide-react';
 
 interface Props {
@@ -19,7 +20,7 @@ export function BreweriesTableHead({ showBreweriesInput, isSearchLayout, showLoc
   return (
     <Table.Header>
       <Table.Row>
-        <Table.ColumnHeaderCell className="pointer" align="center">
+        <Table.ColumnHeaderCell className={clsx({ pointer: isSearchLayout })} align="center">
           <Show
             when={showBreweriesInput && isSearchLayout}
             fallback={(
@@ -44,7 +45,7 @@ export function BreweriesTableHead({ showBreweriesInput, isSearchLayout, showLoc
             />
           </Show>
         </Table.ColumnHeaderCell>
-        <Table.ColumnHeaderCell className="pointer" align="center">
+        <Table.ColumnHeaderCell className={clsx({ pointer: isSearchLayout })} align="center">
           <Show
             when={showLocationsInput && isSearchLayout}
             fallback={(
