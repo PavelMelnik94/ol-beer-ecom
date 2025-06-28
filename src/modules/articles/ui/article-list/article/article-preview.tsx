@@ -22,13 +22,13 @@ export function ArticlePreview({ article }: Props) {
           <Heading size="7" mb="2" className="playfair-bold">
             {article.title}
           </Heading>
-          <Text size="4" mb="2" color="gray">
+          <Text size="4" mb="4" color="gray">
             {article.shortDescription}
           </Text>
 
           <TagList tags={article.tags} />
 
-          <Flex direction="row" gap="4" flexBasis="1" flexGrow="1" align="end">
+          <Flex direction="row" gap="4" mt="4" flexBasis="1" flexGrow="1" align="end">
 
             <Flex direction="row" align="center" gap="2">
               <CalendarDays size={16} color="gray" />
