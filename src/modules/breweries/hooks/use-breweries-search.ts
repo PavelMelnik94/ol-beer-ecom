@@ -1,8 +1,12 @@
 import { useOnClickOutside } from '@shared/hooks'
 import { useMemo, useRef, useState } from 'react'
+import { useMediaQuery } from 'react-responsive'
 import type { BreweryPreview } from '../types'
 
 export function useBreweriesSearch({ breweriesList }: { breweriesList: BreweryPreview[] }) {
+    const isEnabled = useMediaQuery({
+        query: '(min-width: 568px)',
+    })
     const [isActiveBrewerySearch, setIsActiveBrewerySearch] = useState<boolean>(false)
     const [isActiveLocationSearch, setIsActiveLocationSearch] = useState<boolean>(false)
 
@@ -25,7 +29,7 @@ export function useBreweriesSearch({ breweriesList }: { breweriesList: BreweryPr
     }
 
     const breweries = useMemo(() => {
-        if (!search) return breweriesList
+        if (!search || !isEnabled) return breweriesList
 
         if (isActiveBrewerySearch) {
             return breweriesList?.filter((brewery) => {
@@ -38,7 +42,7 @@ export function useBreweriesSearch({ breweriesList }: { breweriesList: BreweryPr
                 return brewery.location.toLowerCase().includes(search.toLowerCase())
             })
         }
-    }, [search, breweriesList])
+    }, [search, breweriesList, isEnabled])
 
     const toggleBrewerySearch = () => {
         setIsActiveLocationSearch(false)
@@ -55,6 +59,7 @@ export function useBreweriesSearch({ breweriesList }: { breweriesList: BreweryPr
         showBreweriesInput: isActiveBrewerySearch && !isActiveLocationSearch,
         showLocationsInput: isActiveLocationSearch && !isActiveBrewerySearch,
         searchValue: search,
+        isSearchLayout: isEnabled,
         refs: {
             location: locationInputSearchRef,
             brewery: breweryInputSearchRef,

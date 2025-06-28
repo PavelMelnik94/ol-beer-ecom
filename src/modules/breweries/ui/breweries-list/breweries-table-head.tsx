@@ -6,6 +6,7 @@ interface Props {
   showBreweriesInput: boolean;
   showLocationsInput: boolean;
   searchValue: string;
+  isSearchLayout: boolean;
   refs: {
     brewery: React.RefObject<HTMLInputElement>;
     location: React.RefObject<HTMLInputElement>;
@@ -14,13 +15,13 @@ interface Props {
   toggleBrewerySearch: () => void;
   toggleLocationSearch: () => void;
 }
-export function BreweriesTableHead({ showBreweriesInput, showLocationsInput, searchValue, refs, handleSearch, toggleBrewerySearch, toggleLocationSearch }: Props) {
+export function BreweriesTableHead({ showBreweriesInput, isSearchLayout, showLocationsInput, searchValue, refs, handleSearch, toggleBrewerySearch, toggleLocationSearch }: Props) {
   return (
     <Table.Header>
       <Table.Row>
         <Table.ColumnHeaderCell className="pointer" align="center">
           <Show
-            when={showBreweriesInput}
+            when={showBreweriesInput && isSearchLayout}
             fallback={(
               <Flex
                 direction="row"
@@ -45,7 +46,7 @@ export function BreweriesTableHead({ showBreweriesInput, showLocationsInput, sea
         </Table.ColumnHeaderCell>
         <Table.ColumnHeaderCell className="pointer" align="center">
           <Show
-            when={showLocationsInput}
+            when={showLocationsInput && isSearchLayout}
             fallback={(
               <Flex
                 direction="row"
