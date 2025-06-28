@@ -5,6 +5,7 @@
   gap: 1rem;
   max-height: 300px;
   cursor: pointer;
+  max-height: fit-content;
 }
 
 
@@ -23,11 +24,6 @@
 
 
 @media (max-width: 865px) {
-
-  .article {
-    max-height: fit-content;
-  }
-
   .imageContainer {
     display: none;
   }

@@ -1,16 +1,16 @@
 .decorativeBg {
-    position: absolute;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    opacity: 0.6;
-    background: linear-gradient(to top, var(--accent-4), transparent);
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  opacity: 0.6;
+  background: linear-gradient(to top, var(--accent-4), transparent);
 
-    z-index: -1;
-    height: 350px;
+  z-index: -1;
+  height: 350px;
 }
 
 .footer,
 .textContent {
-  height: 150px;
+  height: 100px;
 }

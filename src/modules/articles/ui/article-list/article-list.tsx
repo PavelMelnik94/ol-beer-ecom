@@ -39,7 +39,7 @@ export function ArticleList() {
   if (isError) refetch();
 
   return (
-    <Section>
+    <Section pb="0">
 
       <For each={articles}>
         {article => (
