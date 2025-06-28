@@ -1,10 +1,11 @@
 import { Button } from '@radix-ui/themes';
 import { Github } from 'lucide-react';
+import type { CSSProperties } from 'react';
 
-export function GithubButton() {
+export function GithubButton({ withTitle = false, style }: { withTitle?: boolean, style?: CSSProperties }) {
   return (
     <Button
-      style={{ padding: '6px' }}
+      style={{ ...(!withTitle ? { padding: '6px' } : {}), ...style }}
       variant="ghost"
       size="1"
       onClick={() => window.open(
@@ -15,6 +16,7 @@ export function GithubButton() {
     >
       {' '}
       <Github height={16} width={16} />
+      {withTitle && 'Github'}
     </Button>
   )
 }

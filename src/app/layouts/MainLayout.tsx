@@ -2,13 +2,13 @@ import { Outlet } from 'react-router-dom'
 import clsx from 'clsx'
 import { Box, Button, Container, Flex, Heading, Section } from '@radix-ui/themes'
 import { useGlobalScroll } from '@kernel/hooks'
-import { Header } from '@kernel/components'
+import { Header } from '@modules/layout'
 import styles from './MainLayout.module.scss'
 
 export function MainLayout() {
   const { scrollY } = useGlobalScroll()
 
-  const isActiveHeader = scrollY > 3
+  const isFixedHeader = scrollY > 3
 
   const heroContent = {
     headline: 'Your Guide to Liquid Gold',
@@ -17,8 +17,8 @@ export function MainLayout() {
   } as const;
 
   return (
-    <div className={clsx(styles.layout, { [styles.layoutWithScrollActive]: isActiveHeader })}>
-      <Header isActive={isActiveHeader} />
+    <div className={clsx(styles.layout, { [styles.layoutWithScrollActive]: isFixedHeader })}>
+      <Header isFixed={isFixedHeader} />
       <Box className={styles.decorativeBg} />
       <main className={styles.main}>
 

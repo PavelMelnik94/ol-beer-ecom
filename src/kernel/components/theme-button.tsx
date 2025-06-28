@@ -1,8 +1,29 @@
 import { Button } from '@radix-ui/themes';
 import { useTheme } from '@kernel/hooks';
 import { Moon, Sun } from 'lucide-react';
+import type { CSSProperties } from 'react';
 
-export function ThemeButton() {
+export function ThemeButton({ withTitle = false, style }: { withTitle?: boolean, style?: CSSProperties }) {
   const { theme, toggleTheme } = useTheme()
-  return <Button style={{ padding: '6px' }} variant="ghost" size="1" onClick={toggleTheme}>{theme === 'light' ? <Sun height={16} width={16} /> : <Moon height={16} width={16} />}</Button>
+  return (
+    <Button
+      style={{ ...(!withTitle ? { padding: '6px' } : {}), ...style }}
+      variant="ghost"
+      size="1"
+      onClick={toggleTheme}
+    >
+      {theme === 'light' && (
+        <>
+          <Sun height={16} width={16} />
+          {withTitle && 'Light'}
+        </>
+      ) }
+      {theme === 'dark' && (
+        <>
+          <Moon height={16} width={16} />
+          {withTitle && 'Dark'}
+        </>
+      )}
+    </Button>
+  )
 }
