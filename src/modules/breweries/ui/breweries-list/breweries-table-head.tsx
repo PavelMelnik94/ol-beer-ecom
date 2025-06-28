@@ -31,7 +31,7 @@ export function BreweriesTableHead({ showBreweriesInput, isSearchLayout, showLoc
                 onClick={toggleBrewerySearch}
               >
                 Brewery
-                <Search size={16} color="gray" />
+                {isSearchLayout && <Search size={16} color="gray" />}
               </Flex>
             )}
           >
@@ -56,7 +56,7 @@ export function BreweriesTableHead({ showBreweriesInput, isSearchLayout, showLoc
                 onClick={toggleLocationSearch}
               >
                 Location
-                <Search size={16} color="gray" />
+                {isSearchLayout && <Search size={16} color="gray" />}
               </Flex>
             )}
           >
