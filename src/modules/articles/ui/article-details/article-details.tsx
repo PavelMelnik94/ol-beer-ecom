@@ -7,7 +7,6 @@ import { useArticlesDetails } from '../../hooks/use-article-details';
 import { LikesCounterWithAuthorizePopup } from '../likes-counter/likes-counter-with-auth-popup';
 import { ArticleSkeleton } from './article-skeleton/article-skeleton';
 import styles from './article-details.module.scss';
-import { LikesCounter } from './../likes-counter/likes-counter';
 import { ArticleMeta } from './article-meta';
 import { LikeAndComment } from './like-and-comment';
 import { ArticleComments } from './article-comments/article-comments';
@@ -25,7 +24,6 @@ export function ArticleDetails({ id }: { id: string }) {
     return <ArticleSkeleton />;
   }
 
-  console.log(article, 'article')
   return (
     <Section>
       <Heading size="9" mb="4" className="playfair-bold">

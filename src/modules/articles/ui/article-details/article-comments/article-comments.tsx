@@ -11,8 +11,6 @@ interface Props {
 export function ArticleComments({ id }: Props) {
   const { commentList, isLoading } = useCommentList(id);
 
-  console.log(commentList, 'commentList')
-
   if (isLoading || !Array.isArray(commentList)) {
     return <Section>Loading...</Section>;
   }
