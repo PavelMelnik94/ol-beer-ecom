@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react';
-import { Box, Button, Flex, Link, Popover, Text } from '@radix-ui/themes';
+import { Button, Flex, Popover, Text } from '@radix-ui/themes';
 import { useNavigate } from 'react-router-dom';
 import { Image } from '@shared/components';
 import { useAuth } from '../../hooks/use-auth';
