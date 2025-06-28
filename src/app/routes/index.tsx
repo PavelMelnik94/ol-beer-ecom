@@ -1,10 +1,12 @@
 import { AuthLayout } from '@app/layouts/AuthLayout'
 import { HomeLayout } from '@app/layouts/blog-layout/home-layout'
+import { ROUTES } from '@kernel/index';
 import { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 const LazyHomePage = lazy(() => import('./../../pages').then(module => ({ default: module.HomePage })));
 const LazyArticlePage = lazy(() => import('./../../pages').then(module => ({ default: module.ArticlePage })));
+const LazyBreweriesPage = lazy(() => import('./../../pages').then(module => ({ default: module.BreweriesPage })));
 
 export function AppRoutes() {
   return (
@@ -12,8 +14,12 @@ export function AppRoutes() {
       {/* Main routes with layout */}
       <Routes>
         {/* Main routes with layout */}
-        <Route path="/" element={<HomeLayout />}>
+        <Route path={ROUTES.home.root} element={<HomeLayout />}>
           <Route index element={<LazyHomePage />} />
+        </Route>
+
+        <Route path={ROUTES.breweries.root} element={<HomeLayout />}>
+          <Route index element={<LazyBreweriesPage />} />
         </Route>
 
         <Route path="/articles" element={<HomeLayout />}>
