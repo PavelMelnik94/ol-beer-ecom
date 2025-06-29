@@ -1,4 +1,4 @@
-import { Container, Flex, Heading, Section, Text } from '@radix-ui/themes';
+import { Container, Flex, Heading, Section, Separator, Text } from '@radix-ui/themes';
 import { Image } from '@shared/components';
 import { useGlobalScroll } from '@kernel/hooks';
 import { useLayoutEffect } from 'react';
@@ -30,7 +30,7 @@ export function ArticleDetails({ id }: { id: string }) {
 
   return (
     <Section pb="0">
-      <Container>
+      <Container pr="5" pl="5">
 
         <Heading size="9" mb="4" className="playfair-bold">
           {article.title}
@@ -62,7 +62,10 @@ export function ArticleDetails({ id }: { id: string }) {
         </Text>
 
         <ArticleMeta author={article.author} tags={article.tags} />
+      </Container>
+      <Separator size="4" mb="4" />
 
+      <Container pr="5" pl="5">
         <LikeAndComment likesCount={article.likesCount} likePost={likePost} />
 
         <ArticleComments id={article.id} />

@@ -1,7 +1,8 @@
-import { Avatar, Blockquote, Box, Card, Flex, Section, Text } from '@radix-ui/themes'
+import { Avatar, Blockquote, Box, Button, Card, Flex, Section, Text, TextArea } from '@radix-ui/themes'
 import { SquarePen } from 'lucide-react'
 import { useCommentList } from '@modules/articles/hooks/use-comment-list';
 import { LikesCounter } from '../../likes-counter/likes-counter'
+import { CommentEditor } from '../comment-editor/comment-editor';
 import styles from './article-comments.module.css';
 
 interface Props {
@@ -15,45 +16,75 @@ export function ArticleComments({ id }: Props) {
     return <Section>Loading...</Section>;
   }
 
-  return commentList.map((comment) => {
-    return (
-      <Flex key={comment.id} direction="column" mb="2">
-        <Card>
-          <Flex gap="3" align="center">
-            <Avatar
-              size="3"
-              src={comment.author.avatar}
-              radius="full"
-              fallback="T"
-            />
-            <Box>
-              <Text as="div" size="2" weight="bold">
-                {comment.author.firstName}
-                {' '}
-                {comment.author.lastName}
-              </Text>
-              <Text as="div" size="2" color="gray">
-                {new Date(comment.createdAt).toLocaleDateString('en-US', {
-                  month: 'long',
-                  day: 'numeric',
-                  year: 'numeric',
-                })}
-              </Text>
-            </Box>
-          </Flex>
+  return (
+    <>
+      {/* TODO comment block */}
+      <Box mb="6">
+        <Flex gap="3" mb="2" align="center">
+          <Avatar
+            size="3"
+            src={undefined}
+            radius="full"
+            fallback="T"
+          />
+          <Box>
+            <Text as="div" size="2" weight="bold">
+              user
+              {' '}
+              user
+            </Text>
 
-          <Blockquote size="2" mt="2">
-            {comment.content}
-          </Blockquote>
+          </Box>
+        </Flex>
+        <TextArea placeholder="What are you throughts?" />
+        <Flex justify="end" align="center" mt="2">
+          <Button>Respond</Button>
+        </Flex>
+      </Box>
+      {
+        // todo - For
+        commentList.map((comment) => {
+          return (
+            <Flex key={comment.id} direction="column" mb="2">
+              <Card>
+                <Flex gap="3" align="center">
+                  <Avatar
+                    size="3"
+                    src={comment.author.avatar}
+                    radius="full"
+                    fallback="T"
+                  />
+                  <Box>
+                    <Text as="div" size="2" weight="bold">
+                      {comment.author.firstName}
+                      {' '}
+                      {comment.author.lastName}
+                    </Text>
+                    <Text as="div" size="2" color="gray">
+                      {new Date(comment.createdAt).toLocaleDateString('en-US', {
+                        month: 'long',
+                        day: 'numeric',
+                        year: 'numeric',
+                      })}
+                    </Text>
+                  </Box>
+                </Flex>
 
-          <Flex className={styles.commentActions} align="center" gap="2">
-            <SquarePen color="gray" size={16} />
-            <LikesCounter likesCount={comment.likesCount} />
-          </Flex>
+                <Blockquote size="2" mt="2">
+                  {comment.content}
+                </Blockquote>
 
-        </Card>
+                <Flex className={styles.commentActions} align="center" gap="2">
+                  <SquarePen color="gray" size={16} />
+                  <LikesCounter likesCount={comment.likesCount} />
+                </Flex>
 
-      </Flex>
-    )
-  })
+              </Card>
+
+            </Flex>
+          )
+        })
+      }
+    </>
+  )
 }
