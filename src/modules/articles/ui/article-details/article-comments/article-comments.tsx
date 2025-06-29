@@ -32,7 +32,13 @@ export function ArticleComments({ id }: Props) {
               {' '}
               user
             </Text>
-
+            <Text as="div" size="1" color="gray">
+              {new Date().toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+              })}
+            </Text>
           </Box>
         </Flex>
         <TextArea placeholder="What are you throughts?" />
@@ -59,7 +65,7 @@ export function ArticleComments({ id }: Props) {
                       {' '}
                       {comment.author.lastName}
                     </Text>
-                    <Text as="div" size="2" color="gray">
+                    <Text as="div" size="1" color="gray">
                       {new Date(comment.createdAt).toLocaleDateString('en-US', {
                         month: 'long',
                         day: 'numeric',
