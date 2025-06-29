@@ -11,7 +11,7 @@ export function Hero() {
   })
 
   return (
-    <Section pb="0" pt={isMobile ? '4' : '9'}>
+    <Section pb="0" pt={isMobile ? '7' : '9'}>
       <Flex gap="2" direction={isColumnDirection ? 'column' : 'row'}>
         <Box>
           <Heading mb="2" size="9" align="center">Your Guide to Liquid Gold</Heading>
