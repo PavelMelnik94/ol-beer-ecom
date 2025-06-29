@@ -16,9 +16,7 @@ export function HomeLayout() {
       <Header isFixed={isFixedHeader} />
       <Box className={styles.decorativeBg} />
       <main className={styles.main}>
-        <Container pr="5" pl="5">
-          <Outlet />
-        </Container>
+        <Outlet />
       </main>
       <Footer />
     </div>

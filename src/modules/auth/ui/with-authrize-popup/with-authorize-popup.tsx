@@ -34,7 +34,7 @@ export function withAuthorizePopup<P extends object>(WrappedComponent: Component
         </Popover.Trigger>
         <Popover.Content width="360px">
           <Flex direction="column">
-            <Text>
+            <Text size="2" mb="4">
               We see that you are not logged in 🤔
             </Text>
 
@@ -47,11 +47,12 @@ export function withAuthorizePopup<P extends object>(WrappedComponent: Component
             />
 
             <Flex align="center" justify="end" mt="4">
-              <Button size="1" variant="ghost" onClick={() => console.log('login modal ?')} mr="3">
+              {/* // todo modal */}
+              <Button size="1" variant="soft" onClick={() => console.log('login modal ?')} mr="3">
                 Log In
               </Button>
 
-              <Button size="1" variant="ghost" onClick={navigateToRegister}>
+              <Button size="1" variant="soft" onClick={navigateToRegister}>
                 Register
               </Button>
             </Flex>

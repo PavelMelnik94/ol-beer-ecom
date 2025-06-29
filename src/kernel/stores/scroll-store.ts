@@ -6,6 +6,7 @@ interface ScrollState {
   scrollDirection: 'up' | 'down' | null;
   isScrolling: boolean;
   scrollProgress: number;
+  scrollVelocity: number
 }
 
 interface ScrollActions {
@@ -13,6 +14,7 @@ interface ScrollActions {
   setScrollDirection: (direction: 'up' | 'down' | null) => void;
   setIsScrolling: (isScrolling: boolean) => void;
   setScrollProgress: (progress: number) => void;
+  setScrollVelocity: (velocity: number) => void;
 }
 
 export const useScrollStore = create<ScrollState & ScrollActions>()(
@@ -21,6 +23,7 @@ export const useScrollStore = create<ScrollState & ScrollActions>()(
     scrollDirection: null,
     isScrolling: false,
     scrollProgress: 0,
+    scrollVelocity: 0,
 
     setScrollY: (y) => {
       const prevY = get().scrollY;
@@ -35,5 +38,6 @@ export const useScrollStore = create<ScrollState & ScrollActions>()(
     setScrollDirection: direction => set({ scrollDirection: direction }),
     setIsScrolling: isScrolling => set({ isScrolling }),
     setScrollProgress: progress => set({ scrollProgress: progress }),
+    setScrollVelocity: velocity => set(() => ({ scrollVelocity: velocity })),
   })),
 );

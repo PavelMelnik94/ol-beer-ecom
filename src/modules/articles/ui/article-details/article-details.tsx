@@ -1,4 +1,4 @@
-import { Flex, Heading, Section, Text } from '@radix-ui/themes';
+import { Container, Flex, Heading, Section, Text } from '@radix-ui/themes';
 import { Image } from '@shared/components';
 import { useGlobalScroll } from '@kernel/hooks';
 import { useLayoutEffect } from 'react';
@@ -21,45 +21,52 @@ export function ArticleDetails({ id }: { id: string }) {
   }, []);
 
   if (isLoading || !article?.title) {
-    return <ArticleSkeleton />;
+    return (
+      <Container mr="5" ml="5">
+        <ArticleSkeleton />
+      </Container>
+    );
   }
 
   return (
-    <Section>
-      <Heading size="9" mb="4" className="playfair-bold">
-        {article.title}
-      </Heading>
+    <Section pb="0">
+      <Container>
 
-      <Flex direction="row" justify="start" align="center" gap="4" mb="4">
-        <Text size="2" color="gray">
-          {new Date(article.createdAt).toLocaleDateString('en-US', {
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric',
-          })}
+        <Heading size="9" mb="4" className="playfair-bold">
+          {article.title}
+        </Heading>
+
+        <Flex direction="row" justify="start" align="center" gap="4" mb="4">
+          <Text size="2" color="gray">
+            {new Date(article.createdAt).toLocaleDateString('en-US', {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric',
+            })}
+          </Text>
+
+          <LikesCounterWithAuthorizePopup likesCount={article.likesCount} onClick={likePost} />
+        </Flex>
+
+        <Heading size="5" mb="6" wrap="pretty">
+          {article.shortDescription}
+        </Heading>
+        <Image
+          alt="image"
+          src={article.image}
+          containerClassName={styles.imageContainer}
+        />
+
+        <Text size="5" mt="4" mb="9" as="p">
+          {article.longDescription}
         </Text>
 
-        <LikesCounterWithAuthorizePopup likesCount={article.likesCount} onClick={likePost} />
-      </Flex>
+        <ArticleMeta author={article.author} tags={article.tags} />
 
-      <Heading size="5" mb="6" wrap="pretty">
-        {article.shortDescription}
-      </Heading>
-      <Image
-        alt="image"
-        src={article.image}
-        containerClassName={styles.imageContainer}
-      />
+        <LikeAndComment likesCount={article.likesCount} likePost={likePost} />
 
-      <Text size="5" mt="4" mb="9" as="p">
-        {article.longDescription}
-      </Text>
-
-      <ArticleMeta author={article.author} tags={article.tags} />
-
-      <LikeAndComment likesCount={article.likesCount} likePost={likePost} />
-
-      <ArticleComments id={article.id} />
+        <ArticleComments id={article.id} />
+      </Container>
 
     </Section>
   );

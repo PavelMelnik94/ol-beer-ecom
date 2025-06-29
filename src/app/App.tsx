@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { queryClient } from '@kernel/query/query-client'
 import { Theme } from '@radix-ui/themes';
 import { useTheme } from '@kernel/hooks';
+import { NuqsAdapter } from 'nuqs/adapters/react-router/v6'
 import { AppRoutes } from './routes'
 
 function App() {
@@ -11,17 +12,21 @@ function App() {
 
   return (
     // <ErrorBoundary>
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Theme accentColor="bronze" radius="full" appearance={theme}>
-          <AppRoutes />
+    <NuqsAdapter>
 
-        </Theme>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Theme accentColor="bronze" radius="full" appearance={theme}>
+            <AppRoutes />
 
-        {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
-      </BrowserRouter>
-    </QueryClientProvider>
-    // </ErrorBoundary>
+          </Theme>
+
+          {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
+        </BrowserRouter>
+      </QueryClientProvider>
+    </NuqsAdapter>
+
+  // </ErrorBoundary>
   )
 }
 

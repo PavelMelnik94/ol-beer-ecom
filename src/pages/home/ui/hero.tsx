@@ -8,7 +8,7 @@ export function Hero() {
   })
 
   return (
-    <Section>
+    <Section pb="0">
       <Flex gap="2" direction={isColumnDirection ? 'column' : 'row'}>
         <Box>
           <Heading mb="2" size="9" align="center">Your Guide to Liquid Gold</Heading>
