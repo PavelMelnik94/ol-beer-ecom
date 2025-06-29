@@ -27,19 +27,19 @@ export function ArticlePreview({ article }: Props) {
 
           <TagList tags={article.tags} />
 
-          <Flex direction="row" gap="4" mt="4" flexBasis="1" flexGrow="1" align="end">
+          <Flex direction="row" gap="3" mt="4" flexBasis="1" flexGrow="1" align="end">
 
-            <Flex direction="row" align="center" gap="2">
+            <Flex direction="row" align="center" gap="1">
               <CalendarDays size={16} color="gray" />
-              <Text size="2" color="gray">
+              <Text size="2" color="gray" wrap="nowrap">
                 {dateFormat(article.createdAt)}
               </Text>
             </Flex>
 
-            <Tooltip content="written by">
-              <Flex direction="row" align="center" gap="2">
-                <Signature size={16} color="gray" />
-                <Text size="2" color="gray">
+            <Tooltip content="written by" minWidth="120px">
+              <Flex direction="row" align="center" gap="1">
+                <Signature size={16} min={16} color="gray" />
+                <Text size="2" color="gray" wrap="nowrap">
                   {article.author.firstName}
                   {' '}
                   {article.author.lastName}
