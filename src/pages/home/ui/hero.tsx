@@ -6,9 +6,12 @@ export function Hero() {
   const isColumnDirection = useMediaQuery({
     query: '(max-width: 1100px)',
   })
+  const isMobile = useMediaQuery({
+    query: '(max-width: 576px)',
+  })
 
   return (
-    <Section pb="0">
+    <Section pb="0" pt={isMobile ? '4' : '9'}>
       <Flex gap="2" direction={isColumnDirection ? 'column' : 'row'}>
         <Box>
           <Heading mb="2" size="9" align="center">Your Guide to Liquid Gold</Heading>

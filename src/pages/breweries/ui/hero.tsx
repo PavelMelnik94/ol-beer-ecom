@@ -8,8 +8,12 @@ export function Hero() {
   const isColumnDirection = useMediaQuery({
     query: '(max-width: 1100px)',
   })
+  const isMobile = useMediaQuery({
+    query: '(max-width: 576px)',
+  })
+
   return (
-    <Section>
+    <Section pt={isMobile ? '4' : '9'}>
       <Flex gap="2" direction={isColumnDirection ? 'column' : 'row'}>
         <Box>
           <Heading mb="2" size="9" align="center">Brewery Insights & Inspirations</Heading>

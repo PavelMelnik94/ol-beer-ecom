@@ -2,7 +2,6 @@ import { Avatar, Blockquote, Box, Button, Card, Flex, Section, Text, TextArea } 
 import { SquarePen } from 'lucide-react'
 import { useCommentList } from '@modules/articles/hooks/use-comment-list';
 import { LikesCounter } from '../../likes-counter/likes-counter'
-import { CommentEditor } from '../comment-editor/comment-editor';
 import styles from './article-comments.module.css';
 
 interface Props {

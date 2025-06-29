@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import clsx from 'clsx'
-import { Box, Container } from '@radix-ui/themes'
+import { Box } from '@radix-ui/themes'
 import { useGlobalScroll } from '@kernel/hooks'
 import { Footer } from '@shared/components/layout'
 import { Header } from '@modules/layout'

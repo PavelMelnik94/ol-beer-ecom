@@ -2,6 +2,7 @@ import { Container, Flex, Heading, Section, Separator, Text } from '@radix-ui/th
 import { Image } from '@shared/components';
 import { useGlobalScroll } from '@kernel/hooks';
 import { useLayoutEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { useLikePost } from '../../hooks/use-like-post';
 import { useArticlesDetails } from '../../hooks/use-article-details';
 import { LikesCounterWithAuthorizePopup } from '../likes-counter/likes-counter-with-auth-popup';
@@ -15,6 +16,9 @@ export function ArticleDetails({ id }: { id: string }) {
   const { article, isLoading } = useArticlesDetails(id)
   const { scrollToTop } = useGlobalScroll();
   const { likePost } = useLikePost(id)
+  const isMobile = useMediaQuery({
+    query: '(max-width: 576px)',
+  })
 
   useLayoutEffect(() => {
     scrollToTop();
@@ -32,9 +36,11 @@ export function ArticleDetails({ id }: { id: string }) {
     <Section pb="0">
       <Container pr="5" pl="5">
 
-        <Heading size="9" mb="4" className="playfair-bold">
-          {article.title}
-        </Heading>
+        <Flex mt={isMobile ? '-7' : '9'}>
+          <Heading size="9" mb="4" className="playfair-bold" wrap="wrap">
+            {article.title}
+          </Heading>
+        </Flex>
 
         <Flex direction="row" justify="start" align="center" gap="4" mb="4">
           <Text size="2" color="gray">
