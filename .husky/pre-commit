@@ -1,1 +1,1 @@
-npx lint-staged --config lint-staged.config.ts
+tsc --noEmit
