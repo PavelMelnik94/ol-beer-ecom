@@ -30,7 +30,7 @@
   -webkit-text-fill-color: transparent;
 
   z-index: 2;
-  pointer-events: none;
+  pointer-events: none !important;
   will-change: transform, opacity, filter;
 
   backface-visibility: hidden;
@@ -39,7 +39,7 @@
 
 .contentContainer {
   position: relative;
-  z-index: 3;
+  z-index: 100;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -69,7 +69,7 @@
 }
 
 .buttonContainer {
-  z-index: 1001;
+  z-index: 101;
   transition: opacity 0.5s ease-out 0.2s, transform 0.5s ease-out 0.2s;
   transform: translateY(16px);
 
