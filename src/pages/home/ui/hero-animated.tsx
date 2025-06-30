@@ -91,7 +91,7 @@ function useScrollAnimation(
 
     if (maxScroll <= 0) return;
 
-    const progress = Math.min(Math.max(scrollY / (maxScroll * 0.85), 0), 1);
+    const progress = Math.min(Math.max(scrollY / (maxScroll * 0.65), 0), 1);
 
     const direction = scrollY > prevScrollPos
       ? 1
