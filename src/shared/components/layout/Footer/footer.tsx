@@ -1,5 +1,6 @@
 import { Box, Flex, Link, Text } from '@radix-ui/themes'
 import styles from './footer.module.scss'
+import * as pckg from './../../../../../package.json'
 
 export function Footer() {
   return (
@@ -14,8 +15,20 @@ export function Footer() {
           size="2"
           weight="medium"
           align="center"
+          mr="2"
           style={{ marginBottom: '1rem' }}
         >
+          v
+          {pckg.version}
+        </Text>
+
+        <Text
+          size="2"
+          weight="medium"
+          align="center"
+          style={{ marginBottom: '1rem' }}
+        >
+
           ©
           {' '}
           {new Date().getFullYear()}

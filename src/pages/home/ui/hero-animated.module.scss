@@ -6,8 +6,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
-
 }
 
 
@@ -55,7 +53,7 @@
     transform: translateY(0);
   }
 
-    @media (max-width: 768px) {
+  @media (max-width: 768px) {
     margin-top: calc(48px * 3);
   }
 }
@@ -71,8 +69,9 @@
 }
 
 .buttonContainer {
+  z-index: 4;
   transition: opacity 0.5s ease-out 0.2s, transform 0.5s ease-out 0.2s;
-  transform: translateY(20px);
+  transform: translateY(16px);
 
   .visible & {
     opacity: 1;
@@ -113,9 +112,12 @@
 }
 
 @keyframes arrowBounce {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: rotate(45deg) translate(-5px, -5px);
   }
+
   50% {
     transform: rotate(45deg) translate(0, 0);
   }
