@@ -6,6 +6,10 @@ html {
   color: #222;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 
 .pointer {
   cursor: pointer;

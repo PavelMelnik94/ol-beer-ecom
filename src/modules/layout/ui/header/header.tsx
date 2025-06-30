@@ -28,7 +28,7 @@ export function Header({ isFixed }: Props) {
 
   const getActiveProps = (path: string) => ({
     'data-active': path === pathname ? 'true' : 'false',
-    'className': clsx({ [styles.active]: path === pathname }),
+    'className': clsx({ [styles.active]: pathname.includes(path) || pathname === path }),
   });
 
   const onClickHandlers = {

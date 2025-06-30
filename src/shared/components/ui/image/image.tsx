@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
+import { Skeleton } from '@radix-ui/themes';
+import { Show } from '@shared/components/utils/Show';
 import styles from './image.module.scss';
 
 type ImageLoadState = 'idle' | 'loading' | 'loaded' | 'error';
@@ -140,17 +142,14 @@ export const Image: React.FC<ImageProps> = ({
         {...restProps}
       />
 
-      {showLoader && loadState === 'loading' && (
-        <div className={styles.loader}>
-          <div className={styles.spinner} />
-        </div>
-      )}
+      <Show when={loadState === 'loading' && showLoader}>
+        <Skeleton />
+      </Show>
 
-      {loadState === 'error' && (
-        <div className={styles.errorMessage} role="alert">
-          <span>Broken img</span>
-        </div>
-      )}
+      <Show when={loadState === 'error'}>
+        <Skeleton />
+      </Show>
+
     </div>
   );
 };

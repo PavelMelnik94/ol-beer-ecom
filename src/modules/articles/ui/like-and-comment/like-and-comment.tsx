@@ -13,7 +13,15 @@ export function LikeAndComment({ likesCount, likePost }: Props) {
     query: '(max-width: 900px)',
   });
   return (
-    <Flex direction={isColumnLayout ? 'column' : 'row'} justify="center" align="center" mt="4" gap="1" mb="4" wrap="wrap">
+    <Flex
+      direction={isColumnLayout ? 'column' : 'row'}
+      justify="center"
+      align="center"
+      mt="4"
+      gap="1"
+      mb="4"
+      wrap="wrap"
+    >
       <Flex
         direction={isColumnLayout ? 'row' : 'column'}
         mb={isColumnLayout ? '3' : '0'}
@@ -22,11 +30,22 @@ export function LikeAndComment({ likesCount, likePost }: Props) {
         justify="center"
         align="center"
       >
-        <Text size={isColumnLayout ? '2' : '5'} color="gray">
+        <Text
+          size={isColumnLayout ? '2' : '5'}
+          color="gray"
+        >
           Support the article with a like
         </Text>
-        <LikesCounterWithAuthorizePopup likesCount={likesCount} onClick={likePost} heartSize={isColumnLayout ? 16 : 24} textSize={isColumnLayout ? '2' : '5'} />
-        <Text size={isColumnLayout ? '2' : '5'} color="gray">
+        <LikesCounterWithAuthorizePopup
+          likesCount={likesCount}
+          onClick={likePost}
+          heartSize={isColumnLayout ? 16 : 24}
+          textSize={isColumnLayout ? '2' : '5'}
+        />
+        <Text
+          size={isColumnLayout ? '2' : '5'}
+          color="gray"
+        >
           and a comment
         </Text>
       </Flex>

@@ -24,9 +24,9 @@ export function HeaderNav({
         variant="ghost"
         size="1"
         onClick={onClickHandlers.onHome}
-        {...getActiveProps(ROUTES.home.root)}
-        className={clsx({ [styles.fullWidth]: fullWidth })}
         style={fullWidth ? { width: '100%' } : undefined}
+        className={clsx({ [styles.fullWidth]: fullWidth })}
+        {...getActiveProps(ROUTES.home.root)}
       >
         Blog
       </Button>
@@ -36,6 +36,7 @@ export function HeaderNav({
         onClick={onClickHandlers.onStore}
         className={clsx({ [styles.fullWidth]: fullWidth })}
         style={fullWidth ? { width: '100%' } : undefined}
+        {...getActiveProps(ROUTES.store.root)}
       >
         Store
         <Pulse size={8} intensity={5} duration={1.5} />
@@ -44,9 +45,9 @@ export function HeaderNav({
         variant="ghost"
         size="1"
         onClick={onClickHandlers.onBreweries}
-        {...getActiveProps(ROUTES.breweries.root)}
         className={clsx({ [styles.fullWidth]: fullWidth })}
         style={fullWidth ? { width: '100%' } : undefined}
+        {...getActiveProps(ROUTES.breweries.root)}
       >
         Breweries
       </Button>
@@ -54,9 +55,9 @@ export function HeaderNav({
         variant="ghost"
         size="1"
         onClick={onClickHandlers.onAbout}
-        {...getActiveProps(ROUTES.about.root)}
         className={clsx({ [styles.fullWidth]: fullWidth })}
         style={fullWidth ? { width: '100%' } : undefined}
+        {...getActiveProps(ROUTES.about.root)}
       >
         About
       </Button>
