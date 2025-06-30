@@ -27,8 +27,8 @@ export const queryKeys = {
 
   auth: {
     all: ['auth'] as const,
-    user: () => [...queryKeys.auth.all, 'user'] as const,
-    profile: () => [...queryKeys.auth.user(), 'profile'] as const,
+    login: () => [...queryKeys.auth.all, 'login'] as const,
+    register: () => [...queryKeys.auth.all, 'register'] as const,
   },
 
   user: {

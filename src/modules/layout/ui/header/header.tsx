@@ -21,7 +21,7 @@ export function Header({ isFixed }: Props) {
   const { navigateToBlog, navigateToHome, navigateToBreweries, navigateToAbout, navigateToRegister, navigateToStore } = useGoTo();
   const { pathname } = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuth, logout } = useAuth();
   const isMobileLayout = useMediaQuery({
     query: '(max-width: 560px)',
   })
@@ -50,7 +50,7 @@ export function Header({ isFixed }: Props) {
     },
   };
 
-  const AuthSectionMobile = isAuthenticated
+  const AuthSectionMobile = isAuth
     ? (
         <>
           <Separator my="1" size="4" />
@@ -78,7 +78,7 @@ export function Header({ isFixed }: Props) {
         </>
       );
 
-  const AuthSectionDesktop = isAuthenticated
+  const AuthSectionDesktop = isAuth
     ? (
         <Button
           variant="ghost"
@@ -122,7 +122,7 @@ export function Header({ isFixed }: Props) {
           <HeaderNav getActiveProps={getActiveProps} onClickHandlers={onClickHandlers} />
         </Flex>
         <Flex align="center" gap="5" className={styles.desktopActions}>
-          {isAuthenticated && <CartButton />}
+          {isAuth && <CartButton />}
           {AuthSectionDesktop}
           <ThemeButton />
           <GithubButton />
@@ -150,7 +150,7 @@ export function Header({ isFixed }: Props) {
                 <Separator my="1" size="4" />
                 <ThemeButton withTitle style={{ width: '100%' }} />
                 <GithubButton withTitle style={{ width: '100%' }} />
-                {isAuthenticated && (
+                {isAuth && (
                   <>
                     <Separator my="1" size="4" />
                     <Button

@@ -1,19 +1,15 @@
 import type { ComponentType } from 'react';
-import { Button, Flex, Popover, Text } from '@radix-ui/themes';
-import { Image } from '@shared/components';
-import { useGoTo } from '@kernel/index';
 import { useAuth } from '../../hooks/use-auth';
+import { LoginDialog } from './login-dialog.ts/login-dialog';
 
 export function withAuthorizePopup<P extends object>(WrappedComponent: ComponentType<P>) {
   return function WithAuthorizePopup(props: P) {
-    const { isAuthenticated } = useAuth();
-    const { navigateToRegister } = useGoTo();
-
-    if (isAuthenticated) return <WrappedComponent {...props} />;
+    const { isAuth } = useAuth();
+    if (isAuth) return <WrappedComponent {...props} />;
 
     return (
-      <Popover.Root>
-        <Popover.Trigger>
+      <LoginDialog
+        trigger={(
           <button
             type="button"
             style={{
@@ -31,34 +27,9 @@ export function withAuthorizePopup<P extends object>(WrappedComponent: Component
               <WrappedComponent {...props} />
             </div>
           </button>
-        </Popover.Trigger>
-        <Popover.Content width="360px">
-          <Flex direction="column">
-            <Text size="2" mb="4">
-              We see that you are not logged in 🤔
-            </Text>
+        )}
+      />
 
-            <Image
-              src="/illustrations/u_auth.svg"
-              width="240px"
-              height="240px"
-              alt="Auth"
-
-            />
-
-            <Flex align="center" justify="end" mt="4">
-              {/* // todo #4 modal */}
-              <Button size="1" variant="soft" onClick={() => console.log('login modal ?')} mr="3">
-                Log In
-              </Button>
-
-              <Button size="1" variant="soft" onClick={navigateToRegister}>
-                Register
-              </Button>
-            </Flex>
-          </Flex>
-        </Popover.Content>
-      </Popover.Root>
     );
   };
 }

@@ -10,4 +10,9 @@ export const API_ENDPOINTS = {
     details: (breweryId: string) => `/breweries/${breweryId}`,
     products: (breweryId: string) => `/breweries/${breweryId}/products`,
   },
+
+  auth: {
+    login: 'auth/login',
+    register: 'auth/register',
+  },
 } as const

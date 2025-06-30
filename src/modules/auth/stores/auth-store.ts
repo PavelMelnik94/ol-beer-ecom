@@ -1,12 +1,12 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import type { User } from '@kernel/index';
 import { tokenStorage } from '@kernel/index'
-import type { AuthState, User } from '../types'
+import type { AuthState } from '../model/types'
 
 interface AuthStore extends AuthState {
   setUser: (user: User | null) => void
-  setLoading: (loading: boolean) => void
-  login: (user: User, tokens: { accessToken: string; refreshToken: string }) => void
+  login: (user: User) => void
   logout: () => void
 }
 
@@ -14,34 +14,24 @@ export const useAuthStore = create<AuthStore>()(
   persist(
     set => ({
       user: null,
-      isAuthenticated: false,
-      isLoading: false,
-      error: null,
+      isAuth: false,
 
       setUser: user =>
-        set({ user, isAuthenticated: !!user }),
+        set({ user, isAuth: !!user }),
 
-      setLoading: isLoading =>
-        set({ isLoading }),
-
-      login: (user, tokens) => {
-        tokenStorage.set(tokens.accessToken)
+      login: (user) => {
+        tokenStorage.set(user.token)
         set({
           user,
-          isAuthenticated: true,
-          isLoading: false,
-          error: null,
+          isAuth: true,
         })
       },
 
       logout: () => {
         tokenStorage.remove()
-
         set({
           user: null,
-          isAuthenticated: false,
-          isLoading: false,
-          error: null,
+          isAuth: false,
         })
       },
 
@@ -50,7 +40,7 @@ export const useAuthStore = create<AuthStore>()(
       name: 'auth-storage',
       partialize: state => ({
         user: state.user,
-        isAuthenticated: state.isAuthenticated,
+        isAuth: state.isAuth,
       }),
     },
   ),
