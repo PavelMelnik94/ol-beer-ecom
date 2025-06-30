@@ -17,7 +17,14 @@ export const ROUTES = {
   store: {
     root: '/store',
   },
+  profile: {
+    root: '/profile',
+    orders: '/profile/orders',
+  },
   about: {
     root: '/about',
+  },
+  basket: {
+    root: '/basket',
   },
 } as const;
