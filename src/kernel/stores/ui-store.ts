@@ -1,3 +1,4 @@
+import { themeStorage } from '@kernel/storage'
 import { create } from 'zustand'
 import { devtools, subscribeWithSelector } from 'zustand/middleware'
 
@@ -59,7 +60,7 @@ export const useUiStore = create<UiState & UiActions>()(
       isLoading: false,
       loadingText: '',
       isSidebarOpen: false,
-      theme: 'light',
+      theme: themeStorage.get() ?? 'light',
       notifications: [],
 
       // Modal actions
