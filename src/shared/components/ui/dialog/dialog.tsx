@@ -53,7 +53,7 @@ export function Dialog({
             {children}
           </fieldset>
           {(closeLabel || confirmLabel) && (
-            <Flex gap="3" mt="8" justify="end">
+            <Flex gap="3" mt="4" justify="end">
               {closeLabel && (
                 <Modal.Close>
                   <Button
