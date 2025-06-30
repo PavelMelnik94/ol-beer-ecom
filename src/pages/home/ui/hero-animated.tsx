@@ -186,9 +186,12 @@ export function AnimatedHero(): JSX.Element {
     if (scrollState.isComplete) {
       jsConfetti.addConfetti({
         confettiNumber: 15,
-        emojiSize: isMobile ? 35 : 35,
+        emojiSize: 55,
 
         emojis: ['🍺'],
+      }).then(() => {
+        jsConfetti.clearCanvas();
+        jsConfetti.destroyCanvas();
       })
     }
     return () => {
