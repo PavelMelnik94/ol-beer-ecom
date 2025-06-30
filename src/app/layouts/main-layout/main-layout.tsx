@@ -4,9 +4,9 @@ import { Box } from '@radix-ui/themes'
 import { useGlobalScroll } from '@kernel/hooks'
 import { Footer } from '@shared/components/layout'
 import { Header } from '@modules/layout'
-import styles from './home-layout.module.scss'
+import styles from './main-layout.module.scss'
 
-export function HomeLayout() {
+export function MainLayout() {
   const { scrollY } = useGlobalScroll()
 
   const isFixedHeader = scrollY > 3

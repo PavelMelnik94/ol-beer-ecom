@@ -1,5 +1,5 @@
 import { AuthLayout } from '@app/layouts/AuthLayout'
-import { HomeLayout } from '@app/layouts/blog-layout/home-layout'
+import { MainLayout } from '@app/layouts/main-layout/main-layout'
 import { ROUTES } from '@kernel/index';
 import { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
@@ -14,15 +14,15 @@ export function AppRoutes() {
       {/* Main routes with layout */}
       <Routes>
         {/* Main routes with layout */}
-        <Route path={ROUTES.home.root} element={<HomeLayout />}>
+        <Route path={ROUTES.home.root} element={<MainLayout />}>
           <Route index element={<LazyHomePage />} />
         </Route>
 
-        <Route path={ROUTES.breweries.root} element={<HomeLayout />}>
+        <Route path={ROUTES.breweries.root} element={<MainLayout />}>
           <Route index element={<LazyBreweriesPage />} />
         </Route>
 
-        <Route path="/articles" element={<HomeLayout />}>
+        <Route path="/articles" element={<MainLayout />}>
           <Route path=":id" element={<LazyArticlePage />} />
         </Route>
 
