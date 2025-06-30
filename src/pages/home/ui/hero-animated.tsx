@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { animated, config, useSpring } from '@react-spring/web';
 import { useGoTo } from '@kernel/index';
+import JSConfetti from 'js-confetti'
 import styles from './hero-animated.module.scss';
 
 interface ScrollAnimationState {
@@ -180,13 +181,28 @@ export function AnimatedHero(): JSX.Element {
     immediate: false,
   });
 
+  useEffect(() => {
+    const jsConfetti = new JSConfetti();
+    if (scrollState.isComplete) {
+      jsConfetti.addConfetti({
+        confettiNumber: 15,
+        emojiSize: isMobile ? 35 : 35,
+
+        emojis: ['🍺'],
+      })
+    }
+    return () => {
+      jsConfetti.clearCanvas();
+      jsConfetti.destroyCanvas();
+    }
+  }, [scrollState.isComplete]);
+
   return (
     <Section
       pb="0"
       pt={isMobile ? '7' : '9'}
       className={styles.heroSection}
     >
-
       <animated.div
         className={styles.colorBackground}
         style={{ opacity: backgroundSpring.opacity }}
@@ -228,6 +244,7 @@ export function AnimatedHero(): JSX.Element {
             <Button size="2" onClick={navigateToStore}>Explore Now</Button>
           </animated.div>
         </Flex>
+
       </animated.div>
 
       <div className={`${styles.scrollIndicator} ${scrollState.isComplete ? styles.hidden : ''}`}>
