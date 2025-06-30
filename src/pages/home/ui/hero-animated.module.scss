@@ -1,12 +1,16 @@
 .heroSection {
   position: relative;
-  min-height: calc(100vh + 48px);
-  min-height: calc(100dvh + 48px);
+  min-height: 100vh;
+  min-height: 100dvh;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
 
+  @media (max-width: 768px) {
+    min-height: calc(100vh - (48px * 2));
+    min-height: calc(100dvh - (48px * 2));
+  }
 }
 
 
