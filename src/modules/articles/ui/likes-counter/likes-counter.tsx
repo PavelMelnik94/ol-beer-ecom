@@ -4,14 +4,14 @@ import { Heart } from 'lucide-react';
 import { useState } from 'react';
 import type { LikesCounterProps } from './types';
 
-function LikedHeart() {
-  return <Heart size={16} min={16} color="red" stroke="red" fill="red" />
+function LikedHeart({ heartSize }: { heartSize?: number }) {
+  return <Heart size={heartSize} min={heartSize} color="red" stroke="red" fill="red" />
 }
 
-function UnlikedHeart() {
-  return <Heart size={16} min={16} color="gray" />
+function UnlikedHeart({ heartSize }: { heartSize?: number }) {
+  return <Heart size={heartSize} min={heartSize} color="gray" />
 }
-export function LikesCounter({ likesCount, onClick }: LikesCounterProps) {
+export function LikesCounter({ likesCount, onClick, heartSize = 16, textSize = '2' }: LikesCounterProps) {
   const [isLiked, setIsLiked] = useState(false);
 
   const handleClick = () => {
@@ -25,11 +25,11 @@ export function LikesCounter({ likesCount, onClick }: LikesCounterProps) {
   return (
     <Tooltip content={`${likesCount} ${likesCount === 1 ? 'clap' : 'claps'}`}>
       <Flex direction="row" align="center" gap="1" onClick={handleClick}>
-        <Show when={isLiked} fallback={<UnlikedHeart />}>
-          <LikedHeart />
+        <Show when={isLiked} fallback={<UnlikedHeart heartSize={heartSize} />}>
+          <LikedHeart heartSize={heartSize} />
         </Show>
 
-        <Text size="2" color="gray">
+        <Text size={textSize} color="gray">
           {likesCount}
         </Text>
       </Flex>

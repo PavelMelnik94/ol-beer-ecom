@@ -1,6 +1,7 @@
 import { Avatar, Blockquote, Box, Button, Card, Flex, Section, Text, TextArea } from '@radix-ui/themes'
 import { SquarePen } from 'lucide-react'
 import { useCommentList } from '@modules/articles/hooks/use-comment-list';
+import { Image } from '@shared/components';
 import { LikesCounter } from '../../likes-counter/likes-counter'
 import styles from './article-comments.module.css';
 
@@ -19,32 +20,36 @@ export function ArticleComments({ id }: Props) {
     <>
       {/* TODO #2 comment block */}
       <Box mb="6">
-        <Flex gap="3" mb="2" align="center">
-          <Avatar
-            size="3"
-            src={undefined}
-            radius="full"
-            fallback="T"
-          />
-          <Box>
-            <Text as="div" size="2" weight="bold">
-              user
-              {' '}
-              user
-            </Text>
-            <Text as="div" size="1" color="gray">
-              {new Date().toLocaleDateString('en-US', {
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric',
-              })}
-            </Text>
-          </Box>
+
+        <Flex direction="column" width="100%">
+          <Flex gap="3" mb="2" align="center">
+            <Avatar
+              size="3"
+              src={undefined}
+              radius="full"
+              fallback="T"
+            />
+            <Box>
+              <Text as="div" size="2" weight="bold">
+                user
+                {' '}
+                user
+              </Text>
+              <Text as="div" size="1" color="gray">
+                {new Date().toLocaleDateString('en-US', {
+                  month: 'long',
+                  day: 'numeric',
+                  year: 'numeric',
+                })}
+              </Text>
+            </Box>
+          </Flex>
+          <TextArea placeholder="What are you throughts?" />
+          <Flex justify="end" align="center" mt="2">
+            <Button>Respond</Button>
+          </Flex>
         </Flex>
-        <TextArea placeholder="What are you throughts?" />
-        <Flex justify="end" align="center" mt="2">
-          <Button>Respond</Button>
-        </Flex>
+
       </Box>
       {
         // todo #1 - For

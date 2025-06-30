@@ -21,7 +21,7 @@ export function Hero() {
         </Box>
         <Image
           containerClassName={clsx({ [styles.imgContainer]: isColumnDirection })}
-          src="/illustrations/u_company.svg"
+          src="/illustrations/u_peoples.svg"
           alt="have a fun"
         />
       </Flex>

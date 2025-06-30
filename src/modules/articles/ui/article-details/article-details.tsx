@@ -6,10 +6,10 @@ import { useMediaQuery } from 'react-responsive';
 import { useLikePost } from '../../hooks/use-like-post';
 import { useArticlesDetails } from '../../hooks/use-article-details';
 import { LikesCounterWithAuthorizePopup } from '../likes-counter/likes-counter-with-auth-popup';
+import { LikeAndComment } from '../like-and-comment/like-and-comment';
 import { ArticleSkeleton } from './article-skeleton/article-skeleton';
 import styles from './article-details.module.scss';
 import { ArticleMeta } from './article-meta';
-import { LikeAndComment } from './like-and-comment';
 import { ArticleComments } from './article-comments/article-comments';
 
 export function ArticleDetails({ id }: { id: string }) {
