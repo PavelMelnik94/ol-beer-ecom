@@ -18,7 +18,7 @@ interface Props {
 }
 
 export function Header({ isFixed }: Props) {
-  const { navigateToHome, navigateToBreweries, navigateToAbout, navigateToRegister, navigateToStore } = useGoTo();
+  const { navigateToBlog, navigateToHome, navigateToBreweries, navigateToAbout, navigateToRegister, navigateToStore } = useGoTo();
   const { pathname } = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isAuthenticated, logout } = useAuth();
@@ -32,8 +32,8 @@ export function Header({ isFixed }: Props) {
   });
 
   const onClickHandlers = {
-    onHome: () => {
-      navigateToHome();
+    onBlog: () => {
+      navigateToBlog();
       setMobileMenuOpen(false);
     },
     onBreweries: () => {
@@ -118,10 +118,10 @@ export function Header({ isFixed }: Props) {
       </Box>
 
       <Show when={!isMobileLayout}>
-        <Flex align="center" gap="4" className={styles.desktopNav}>
+        <Flex align="center" gap="5" className={styles.desktopNav}>
           <HeaderNav getActiveProps={getActiveProps} onClickHandlers={onClickHandlers} />
         </Flex>
-        <Flex align="center" gap="3" className={styles.desktopActions}>
+        <Flex align="center" gap="5" className={styles.desktopActions}>
           {isAuthenticated && <CartButton />}
           {AuthSectionDesktop}
           <ThemeButton />
@@ -143,7 +143,7 @@ export function Header({ isFixed }: Props) {
               </IconButton>
             </Popover.Trigger>
             <Popover.Content align="end" sideOffset={8}>
-              <Flex direction="column" gap="2" align="start" style={{ minWidth: 100 }}>
+              <Flex direction="column" gap="3" align="start" style={{ minWidth: 100 }}>
                 <HeaderNav getActiveProps={getActiveProps} onClickHandlers={onClickHandlers} fullWidth />
 
                 {AuthSectionMobile}

@@ -4,10 +4,13 @@ import { Box } from '@radix-ui/themes'
 import { useGlobalScroll } from '@kernel/hooks'
 import { Footer } from '@shared/components/layout'
 import { Header } from '@modules/layout'
+import { useLayoutEffect } from 'react'
 import styles from './main-layout.module.scss'
 
 export function MainLayout() {
-  const { scrollY } = useGlobalScroll()
+  const { scrollY, scrollToTop } = useGlobalScroll()
+
+  useLayoutEffect(() => scrollToTop(), [window.location.pathname]);
 
   const isFixedHeader = scrollY > 3
 

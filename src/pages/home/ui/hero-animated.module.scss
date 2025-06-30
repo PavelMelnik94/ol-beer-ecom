@@ -1,0 +1,126 @@
+.heroSection {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.goldHighlight {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
+  transform: translate(-50%, -50%) scale(1);
+  font-size: 40vw;
+  font-weight: 700;
+
+  background-image: url('https://images.unsplash.com/photo-1580822115965-0b2532068eff?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-size: cover;
+  background-position: center;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  z-index: 2;
+  pointer-events: none;
+  will-change: transform, opacity, filter;
+
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.contentContainer {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Подсветка слова GOLD в заголовке
+.highlightedText {
+  color: #222;
+  font-weight: 700;
+
+  :global(.radix-themes.dark) & {
+    color: #FFF;
+  }
+}
+
+.buttonContainer {
+  transition: opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s;
+  transform: translateY(20px);
+
+  .visible & {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scrollIndicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  color: #333;
+  z-index: 4;
+
+  &.hidden {
+    opacity: 0;
+  }
+
+  span {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .arrow {
+    width: 20px;
+    height: 20px;
+    border-right: 2px solid #666;
+    border-bottom: 2px solid #666;
+    transform: rotate(45deg);
+    animation: arrowBounce 2s infinite;
+  }
+}
+
+@keyframes arrowBounce {
+  0%, 100% {
+    transform: rotate(45deg) translate(-5px, -5px);
+  }
+  50% {
+    transform: rotate(45deg) translate(0, 0);
+  }
+}
+
+@media (max-width: 768px) {
+  .goldHighlight {
+    font-size: 30vw;
+  }
+}
+
+@media (max-width: 576px) {
+  .goldHighlight {
+    font-size: 40vw;
+  }
+}

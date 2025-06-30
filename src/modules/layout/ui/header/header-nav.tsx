@@ -11,7 +11,7 @@ export function HeaderNav({
 }: {
   getActiveProps: (path: string) => { [key: string]: string };
   onClickHandlers: {
-    onHome: () => void;
+    onBlog: () => void;
     onBreweries: () => void;
     onAbout: () => void;
     onStore: () => void;
@@ -23,10 +23,10 @@ export function HeaderNav({
       <Button
         variant="ghost"
         size="1"
-        onClick={onClickHandlers.onHome}
+        onClick={onClickHandlers.onBlog}
         style={fullWidth ? { width: '100%' } : undefined}
         className={clsx({ [styles.fullWidth]: fullWidth })}
-        {...getActiveProps(ROUTES.home.root)}
+        {...getActiveProps(ROUTES.articles.root)}
       >
         Blog
       </Button>

@@ -7,7 +7,7 @@ export function BreweriesTableBody({ breweries }: { breweries: BreweryPreview[] 
   return (
     <Table.Body>
       <For each={breweries}>
-        {brewery => <BreweriesTableRow brewery={brewery} />}
+        {brewery => <BreweriesTableRow key={brewery.id} brewery={brewery} />}
       </For>
     </Table.Body>
   )

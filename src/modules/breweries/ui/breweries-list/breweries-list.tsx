@@ -1,8 +1,6 @@
 import { useBreweriesList } from '@modules/breweries/hooks/use-breweries-list'
 import { useBreweriesSearch } from '@modules/breweries/hooks/use-breweries-search'
 import { Table } from '@radix-ui/themes'
-import { useLayoutEffect } from 'react'
-import { useGlobalScroll } from '@kernel/index'
 import { BreweriesListSkeleton } from './breweries-list-skeleton'
 import { BreweriesTableHead } from './breweries-table-head'
 import { BreweriesTableBody } from './breweries-table-body'
@@ -10,11 +8,6 @@ import { BreweriesTableBody } from './breweries-table-body'
 export function BreweriesList() {
   const { breweriesList, isLoading } = useBreweriesList()
   const { breweries = [], ...theadProps } = useBreweriesSearch({ breweriesList: breweriesList ?? [] })
-  const { scrollToTop } = useGlobalScroll();
-
-  useLayoutEffect(() => {
-    scrollToTop();
-  }, []);
 
   if (isLoading) return <BreweriesListSkeleton />
 

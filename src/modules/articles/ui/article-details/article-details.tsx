@@ -1,7 +1,5 @@
 import { Container, Flex, Heading, Section, Separator, Text } from '@radix-ui/themes';
 import { Image } from '@shared/components';
-import { useGlobalScroll } from '@kernel/hooks';
-import { useLayoutEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useLikePost } from '../../hooks/use-like-post';
 import { useArticlesDetails } from '../../hooks/use-article-details';
@@ -14,16 +12,11 @@ import { ArticleComments } from './article-comments/article-comments';
 
 export function ArticleDetails({ id }: { id: string }) {
   const { article, isLoading } = useArticlesDetails(id)
-  const { scrollToTop } = useGlobalScroll();
   const { likePost } = useLikePost(id)
 
   const isMobile = useMediaQuery({
     query: '(max-width: 576px)',
   })
-
-  useLayoutEffect(() => {
-    scrollToTop();
-  }, []);
 
   if (isLoading || !article?.title) {
     return (

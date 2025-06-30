@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Heading, Section } from '@radix-ui/themes';
+import { Box, Flex, Heading, Section } from '@radix-ui/themes';
 import { Image, Show } from '@shared/components';
 import { useMediaQuery } from 'react-responsive';
 
@@ -14,22 +14,18 @@ export function Hero() {
     <Section pb="0" pt={isMobile ? '7' : '9'}>
       <Flex gap="2" direction={isColumnDirection ? 'column' : 'row'}>
         <Box>
-          <Heading mb="2" size="9" align="center">Your Guide to Liquid Gold</Heading>
-          <Heading mb="3" size="7" align="center">From Belgian abbeys to American craft breweries, explore curated reviews, brewing insights, and exclusive marketplace finds that elevate your beer experience.</Heading>
+          <Heading mb="2" size="9" align="center">Discover Beer Beyond the Glass</Heading>
+          <Heading mb="3" size="7" align="center">Dive into expert reviews, brewing stories, and insider guides. From rare finds to brewing trends, our blog connects you to the world of craft beer—one post at a time.</Heading>
         </Box>
         <Show when={!isColumnDirection}>
           <Image
-            src="/illustrations/u_beer.svg"
+            src="/illustrations/u_blog.svg"
             alt="have a fun"
           />
         </Show>
 
       </Flex>
-      <Flex justify="center" align="center">
-        <Button size="2">
-          Explore Now
-        </Button>
-      </Flex>
+
     </Section>
   )
 }

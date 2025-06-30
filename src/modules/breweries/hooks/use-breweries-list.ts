@@ -6,16 +6,16 @@ type SuccessResponse = ApiSuccessResponsePaginated<BreweryPreview>;
 type ErrorResponse = ApiErrorResponse;
 
 export function useBreweriesList() {
-    const { data: response, error, isLoading } = useQuery<SuccessResponse, ErrorResponse>({
-        queryKey: queryKeys.breweries.all,
-        queryFn: () => apiClient.get(`${API_ENDPOINTS.breweries.all}`),
-        refetchOnWindowFocus: true,
-        refetchOnReconnect: true,
-    });
+  const { data: response, error, isLoading } = useQuery<SuccessResponse, ErrorResponse>({
+    queryKey: queryKeys.breweries.all,
+    queryFn: () => apiClient.get(`${API_ENDPOINTS.breweries.all}`),
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: true,
+  });
 
-    return {
-        breweriesList: response?.data,
-        isLoading,
-        error,
-    }
+  return {
+    breweriesList: response?.data,
+    isLoading,
+    error,
+  }
 }

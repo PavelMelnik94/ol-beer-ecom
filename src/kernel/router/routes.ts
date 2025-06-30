@@ -3,6 +3,7 @@ export const ROUTES = {
     root: '/',
   },
   articles: {
+    root: '/articles',
     article: (id: string) => `/articles/${id}`,
   },
   breweries: {
