@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { animated, config, useSpring } from '@react-spring/web';
 import { useGoTo } from '@kernel/index';
-import JSConfetti from 'js-confetti'
+// import JSConfetti from 'js-confetti'
 import styles from './hero-animated.module.scss';
 
 interface ScrollAnimationState {
@@ -181,24 +181,24 @@ export function AnimatedHero(): JSX.Element {
     immediate: false,
   });
 
-  useEffect(() => {
-    const jsConfetti = new JSConfetti();
-    if (scrollState.isComplete) {
-      jsConfetti.addConfetti({
-        confettiNumber: 15,
-        emojiSize: 55,
+  // useEffect(() => {
+  //   const jsConfetti = new JSConfetti();
+  //   if (scrollState.isComplete) {
+  //     jsConfetti.addConfetti({
+  //       confettiNumber: 15,
+  //       emojiSize: 55,
 
-        emojis: ['🍺'],
-      }).then(() => {
-        jsConfetti.clearCanvas();
-        jsConfetti.destroyCanvas();
-      })
-    }
-    return () => {
-      jsConfetti.clearCanvas();
-      jsConfetti.destroyCanvas();
-    }
-  }, [scrollState.isComplete]);
+  //       emojis: ['🍺'],
+  //     }).then(() => {
+  //       jsConfetti.clearCanvas();
+  //       jsConfetti.destroyCanvas();
+  //     })
+  //   }
+  //   return () => {
+  //     jsConfetti.clearCanvas();
+  //     jsConfetti.destroyCanvas();
+  //   }
+  // }, [scrollState.isComplete]);
 
   return (
     <Section
