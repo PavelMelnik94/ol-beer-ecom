@@ -39,3 +39,5 @@ export function Footer() {
     </footer>
   )
 }
+
+Footer.displayName = 'Footer'

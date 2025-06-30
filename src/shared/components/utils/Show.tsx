@@ -19,3 +19,5 @@ export function Show<T>(props: ShowProps<T>): JSX.Element {
 
   return isValidElement(result) ? result : <>{result}</>
 }
+
+Show.displayName = 'Show'

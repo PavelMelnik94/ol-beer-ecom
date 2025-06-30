@@ -17,3 +17,5 @@ export function For<T extends string | number | Dict | undefined>(
 
   return each?.map(children as any)
 }
+
+For.displayName = 'For'

@@ -20,3 +20,5 @@ export function GithubButton({ withTitle = false, style }: { withTitle?: boolean
     </Button>
   )
 }
+
+GithubButton.displayName = 'GithubButton';

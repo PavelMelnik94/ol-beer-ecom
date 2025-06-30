@@ -22,6 +22,7 @@ interface ImageProps extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'sr
   width?: number | string;
   height?: number | string;
   containerClassName?: string;
+  skeletonStyle?: React.CSSProperties;
 }
 
 export const Image: React.FC<ImageProps> = ({
@@ -39,6 +40,7 @@ export const Image: React.FC<ImageProps> = ({
   sizeMode = 'cover',
   width,
   height,
+  skeletonStyle,
   ...restProps
 }) => {
   const [loadState, setLoadState] = useState<ImageLoadState>('idle');
@@ -143,11 +145,11 @@ export const Image: React.FC<ImageProps> = ({
       />
 
       <Show when={loadState === 'loading' && showLoader}>
-        <Skeleton />
+        <Skeleton style={skeletonStyle} />
       </Show>
 
       <Show when={loadState === 'error'}>
-        <Skeleton />
+        <Skeleton style={skeletonStyle} />
       </Show>
 
     </div>

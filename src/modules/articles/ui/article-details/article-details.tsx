@@ -16,6 +16,7 @@ export function ArticleDetails({ id }: { id: string }) {
   const { article, isLoading } = useArticlesDetails(id)
   const { scrollToTop } = useGlobalScroll();
   const { likePost } = useLikePost(id)
+
   const isMobile = useMediaQuery({
     query: '(max-width: 576px)',
   })
@@ -61,6 +62,10 @@ export function ArticleDetails({ id }: { id: string }) {
           alt="image"
           src={article.image}
           containerClassName={styles.imageContainer}
+          skeletonStyle={{
+            minWidth: '100%',
+            minHeight: '400px',
+          }}
         />
 
         <Text size="5" mt="4" mb="9" as="p">
