@@ -33,9 +33,11 @@ const DEFAULT_CONFIG = {
 export function useConfetti({
     playWhen = false,
     config = DEFAULT_CONFIG,
+    depends = [],
 }: {
     playWhen: boolean;
     config?: Config;
+    depends?: unknown[]
 }) {
     useEffect(() => {
         const jsConfetti = new JSConfetti();
@@ -49,5 +51,5 @@ export function useConfetti({
             jsConfetti.clearCanvas();
             jsConfetti.destroyCanvas();
         }
-    }, [playWhen]);
+    }, [playWhen, ...depends]);
 }

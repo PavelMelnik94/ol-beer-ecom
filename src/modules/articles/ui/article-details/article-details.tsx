@@ -17,7 +17,7 @@ export function ArticleDetails({ id }: { id: string }) {
   })
   const { likePost } = useLikePost(id)
 
-  useConfetti({ playWhen: isIntersecting })
+  useConfetti({ playWhen: isIntersecting, depends: [id] })
 
   if (!article?.title) {
     return (
