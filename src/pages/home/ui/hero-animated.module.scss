@@ -1,15 +1,14 @@
 .heroSection {
-  position: absolute;
+  position: relative;
   min-height: 100vh;
   min-height: 100dvh;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  @media (max-width: 768px) {
+    margin-top: 50px;
+  }
 }
 
 
@@ -129,6 +128,6 @@
 @media (max-width: 576px) {
   .goldHighlight {
     font-size: 40vw;
-    font-size: 40dvw;
+    font-size: 40vw;
   }
 }
