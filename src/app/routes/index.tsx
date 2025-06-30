@@ -1,4 +1,4 @@
-import { AuthLayout } from '@app/layouts/AuthLayout'
+import { AuthLayout } from '@app/layouts/auth-layout/auth-layout'
 import { MainLayout } from '@app/layouts/main-layout/main-layout'
 import { ROUTES } from '@kernel/index';
 import { Suspense, lazy } from 'react'
