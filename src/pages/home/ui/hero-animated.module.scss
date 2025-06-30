@@ -8,8 +8,7 @@
   align-items: center;
 
   @media (max-width: 768px) {
-    min-height: calc(100vh - (48px * 2));
-    min-height: calc(100dvh - (48px * 2));
+    margin-top: calc(48px * 2);
   }
 }
 
