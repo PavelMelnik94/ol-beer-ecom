@@ -1,4 +1,4 @@
-import { Box, Container, Section } from '@radix-ui/themes'
+import { Container, Section, Text } from '@radix-ui/themes'
 import React, { useEffect, useRef } from 'react'
 import { ArticlePreviewSkeleton } from '@modules/articles/ui/article-list/article/article-preview-skeleton'
 import { For, Show } from '@shared/components'
@@ -53,11 +53,12 @@ export function ArticleList() {
                   rotateDeg={getRandomFromArray([1, -1])}
                   className="customMarquee"
                   // TODO #3 - promocode
+                  // eslint-disable-next-line no-alert
                   onClick={() => alert('promo activated')}
                 >
-                  <Box mr="4">
-                    SUMMER2025
-                  </Box>
+                  <Text size="9" weight="bold" color="bronze">
+                    SUMMER2025 - 20% OFF
+                  </Text>
                 </VelocityScroll>
                 <Container pr="5" pl="5">
                   <ArticlePreview article={article} key={article.id} />
