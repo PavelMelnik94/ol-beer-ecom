@@ -1,6 +1,8 @@
 import { Container, Flex, Heading, Section, Separator, Text } from '@radix-ui/themes';
 import { Image } from '@shared/components';
 import { useMediaQuery } from 'react-responsive';
+import { useConfetti } from '@shared/hooks/use-confetti';
+import { useIntersectionObserver } from '@shared/hooks';
 import { useLikePost } from '../../hooks/use-like-post';
 import { useArticlesDetails } from '../../hooks/use-article-details';
 import { LikesCounterWithAuthorizePopup } from '../likes-counter/likes-counter-with-auth-popup';
@@ -11,12 +13,17 @@ import { ArticleMeta } from './article-meta';
 import { ArticleComments } from './article-comments/article-comments';
 
 export function ArticleDetails({ id }: { id: string }) {
-  const { article, isLoading } = useArticlesDetails(id)
-  const { likePost } = useLikePost(id)
-
   const isMobile = useMediaQuery({
     query: '(max-width: 576px)',
   })
+  const { article, isLoading } = useArticlesDetails(id)
+  const { likePost } = useLikePost(id)
+
+  const { isIntersecting, ref } = useIntersectionObserver({
+    freezeOnceVisible: true,
+  })
+
+  useConfetti({ playWhen: isIntersecting })
 
   if (isLoading || !article?.title) {
     return (
@@ -68,8 +75,7 @@ export function ArticleDetails({ id }: { id: string }) {
         <ArticleMeta author={article.author} tags={article.tags} />
       </Container>
       <Separator size="4" mb="4" />
-
-      <Container pr="5" pl="5">
+      <Container ref={ref} pr="5" pl="5">
         <LikeAndComment likesCount={article.likesCount} likePost={likePost} />
 
         <ArticleComments id={article.id} />

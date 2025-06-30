@@ -5,6 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 import { animated, config, useSpring } from '@react-spring/web';
 import { useGoTo } from '@kernel/index';
 import JSConfetti from 'js-confetti'
+import { useConfetti } from '@shared/hooks/use-confetti';
 import styles from './hero-animated.module.scss';
 
 interface ScrollAnimationState {
@@ -199,6 +200,12 @@ export function AnimatedHero(): JSX.Element {
       jsConfetti.destroyCanvas();
     }
   }, [scrollState.isComplete]);
+
+  useConfetti({ playWhen: scrollState.isComplete, config: {
+    confettiNumber: 15,
+    emojiSize: 55,
+    emojis: ['🍺'],
+  } })
 
   return (
     <Section

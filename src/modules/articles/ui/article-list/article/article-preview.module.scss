@@ -22,10 +22,18 @@
   min-height: 294px;
 }
 
+.mobileImageContainer {
+  display: none;
+}
 
 @media (max-width: 865px) {
   .imageContainer {
     display: none;
+  }
+
+  .mobileImageContainer {
+    display: block;
+    margin-bottom: 1rem;
   }
 
   [data-preview-section].section {

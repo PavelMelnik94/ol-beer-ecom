@@ -21,6 +21,14 @@ export function ArticlePreview({ article }: Props) {
           <Heading size="7" mb="2" className="playfair-bold">
             {article.title}
           </Heading>
+          <Image
+            alt="article preview"
+            className={styles.articleImg}
+            containerClassName={styles.mobileImageContainer}
+            src={article.image}
+            lazy={false}
+            blurOnLoad
+          />
           <Text size="4" mb="4" color="gray">
             {article.shortDescription}
           </Text>
