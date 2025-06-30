@@ -33,6 +33,7 @@
     "react-router-dom": "^6.23.1",
     "react-sticky-el": "^2.1.1",
     "sass": "^1.77.5",
+    "sonner": "^2.0.5",
     "tailwind-merge": "^3.3.0",
     "zod": "^3.25.67",
     "zustand": "^4.5.2"

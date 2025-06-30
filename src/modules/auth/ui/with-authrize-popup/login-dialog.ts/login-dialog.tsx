@@ -6,6 +6,7 @@ import { Dialog, ErrorAlert, Image, InputPassword, InputText, Show } from '@shar
 import { useAuth } from '@modules/auth/hooks/use-auth';
 import { Flex, Text } from '@radix-ui/themes';
 import { useGoTo } from '@kernel/index';
+import { toast } from 'sonner';
 import type { LoginFormValues } from './../../../model/types';
 import { LoginSchema } from './../../../model/schema';
 
@@ -39,6 +40,7 @@ export function LoginDialog({ trigger }: LoginDialogProps) {
     if (res?.success) {
       setOpen(false);
       handleClose()
+      toast.success(`Welcome back, ${res.data.firstName}`)
     }
     return true;
   };

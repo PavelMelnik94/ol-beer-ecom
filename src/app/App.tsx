@@ -5,6 +5,7 @@ import { queryClient } from '@kernel/query/query-client'
 import { Theme } from '@radix-ui/themes';
 import { useTheme } from '@kernel/hooks';
 import { NuqsAdapter } from 'nuqs/adapters/react-router/v6'
+import { Toaster } from 'sonner';
 import { AppRoutes } from './routes'
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
         <BrowserRouter>
           <Theme accentColor="bronze" radius="full" appearance={theme}>
             <AppRoutes />
-
+            <Toaster richColors theme={theme} />
           </Theme>
 
           {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}

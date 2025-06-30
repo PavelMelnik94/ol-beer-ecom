@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
+const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Z\d]{6,}$/i;
 
 export const LoginSchema = z.object({
     email: z.string({
