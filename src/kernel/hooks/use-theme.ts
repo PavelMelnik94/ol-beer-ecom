@@ -2,6 +2,18 @@ import { useUiStore } from '@kernel/index'
 import { useEffect } from 'react';
 import { themeStorage } from './../storage/';
 
+function updateMetaColor() {
+  const updateThemeColor = () => {
+    const radixRoot = document.querySelector('[data-is-root-theme="true"]');
+    const metaThemeColor = document.querySelector('meta[name=theme-color]');
+    if (radixRoot && metaThemeColor) {
+      const computedColor = getComputedStyle(radixRoot).getPropertyValue('--color-background');
+      metaThemeColor.setAttribute('content', computedColor.trim() || '#fff');
+    }
+  };
+  requestAnimationFrame(updateThemeColor);
+}
+
 export function useTheme() {
   const { setTheme, theme } = useUiStore(store => ({ theme: store.theme, setTheme: store.setTheme }))
 
@@ -15,19 +27,8 @@ export function useTheme() {
     else {
       themeStorage.set(theme);
     }
-  }, [theme]);
-
-  useEffect(() => {
-    const updateThemeColor = () => {
-      const radixRoot = document.querySelector('[data-is-root-theme="true"]');
-      const metaThemeColor = document.querySelector('meta[name=theme-color]');
-      if (radixRoot && metaThemeColor) {
-        const computedColor = getComputedStyle(radixRoot).getPropertyValue('--color-background');
-        metaThemeColor.setAttribute('content', computedColor.trim() || '#fff');
-      }
-    };
-    requestAnimationFrame(updateThemeColor);
-  }, [theme]);
+    updateMetaColor();
+  }, [theme, setTheme]);
 
   return { theme, setTheme, toggleTheme: () => setTheme(theme === 'light' ? 'dark' : 'light') }
 }
