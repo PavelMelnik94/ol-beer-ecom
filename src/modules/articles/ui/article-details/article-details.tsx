@@ -38,7 +38,7 @@ export function ArticleDetails({ id }: { id: string }) {
       <Container pr="5" pl="5">
 
         <Flex mt={isMobile ? '-7' : '9'}>
-          <Heading size="9" mb="4" className="playfair-bold" wrap="wrap">
+          <Heading size={isMobile ? '7' : '9'} mb="4" className="playfair-bold" wrap="wrap">
             {article.title}
           </Heading>
         </Flex>
@@ -55,7 +55,7 @@ export function ArticleDetails({ id }: { id: string }) {
           <LikesCounterWithAuthorizePopup likesCount={article.likesCount} onClick={likePost} />
         </Flex>
 
-        <Heading size="5" mb="6" wrap="pretty">
+        <Heading size={isMobile ? '4' : '5'} mb="6" wrap="pretty">
           {article.shortDescription}
         </Heading>
         <Image
@@ -68,7 +68,7 @@ export function ArticleDetails({ id }: { id: string }) {
           }}
         />
 
-        <Text size="5" mt="4" mb="9" as="p">
+        <Text size={isMobile ? '3' : '5'} mt="4" mb="9" as="p">
           {article.longDescription}
         </Text>
 
