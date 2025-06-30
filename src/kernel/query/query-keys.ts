@@ -3,6 +3,7 @@ export const queryKeys = {
   articles: {
     all: ['articles'] as const,
     lists: () => [...queryKeys.articles.all, 'list'] as const,
+    tags: () => [...queryKeys.articles.all, 'tags'] as const,
     list: (filters: Record<string, any>) => [...queryKeys.articles.lists(), filters] as const,
     details: () => [...queryKeys.articles.all, 'detail'] as const,
     detail: (id: number | string) => [...queryKeys.articles.details(), id] as const,

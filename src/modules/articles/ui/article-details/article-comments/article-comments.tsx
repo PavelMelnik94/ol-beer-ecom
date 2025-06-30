@@ -1,15 +1,20 @@
 import { Avatar, Blockquote, Box, Button, Card, Flex, Section, Text, TextArea } from '@radix-ui/themes'
-import { SquarePen } from 'lucide-react'
+import { SquarePen, Trash2 } from 'lucide-react'
 import { useCommentList } from '@modules/articles/hooks/use-comment-list';
 import { LikesCounterWithAuthorizePopup } from '@modules/articles/ui/likes-counter/likes-counter-with-auth-popup';
+import { useAuth } from '@modules/auth';
+import { Show } from '@shared/components';
+import type { Comment } from '@modules/articles/types';
 import styles from './article-comments.module.css';
 
 interface Props {
   id: string;
+
 }
 
 export function ArticleComments({ id }: Props) {
   const { commentList, isLoading } = useCommentList(id);
+  const { user } = useAuth()
 
   if (isLoading || !Array.isArray(commentList)) {
     return <Section>Loading...</Section>;
@@ -30,9 +35,9 @@ export function ArticleComments({ id }: Props) {
             />
             <Box>
               <Text as="div" size="2" weight="bold">
-                user
+                {user?.firstName}
                 {' '}
-                user
+                {user?.lastName}
               </Text>
               <Text as="div" size="1" color="gray">
                 {new Date().toLocaleDateString('en-US', {
@@ -52,7 +57,8 @@ export function ArticleComments({ id }: Props) {
       </Box>
       {
         // todo #1 - For
-        commentList.map((comment) => {
+        commentList.map((comment: Comment) => {
+          const isSelfComment = user?.id === comment.author.id
           return (
             <Flex key={comment.id} direction="column" mb="2">
               <Card>
@@ -84,8 +90,14 @@ export function ArticleComments({ id }: Props) {
                 </Blockquote>
 
                 <Flex className={styles.commentActions} align="center" gap="2">
-                  <SquarePen color="gray" size={16} />
-                  <LikesCounterWithAuthorizePopup likesCount={comment.likesCount} />
+                  <Show when={isSelfComment}>
+                    <Trash2 color="gray" size={16} />
+                    <SquarePen color="gray" size={16} />
+                  </Show>
+
+                  <Show when={!isSelfComment}>
+                    <LikesCounterWithAuthorizePopup likesCount={comment.likesCount} />
+                  </Show>
                 </Flex>
 
               </Card>

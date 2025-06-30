@@ -2,6 +2,7 @@ import { Flex, Heading, Section, Separator, Text, Tooltip } from '@radix-ui/them
 import { Image } from '@shared/components';
 import { CalendarDays, MessageCircleReply, Signature } from 'lucide-react';
 import { dateFormat, useGoTo } from '@kernel/index';
+import type { CSSProperties } from 'react';
 import type { Article as ArticleType } from '../../../types';
 import { LikesCounter } from './../../likes-counter/likes-counter';
 import styles from './article-preview.module.scss';
@@ -9,12 +10,14 @@ import { TagList } from './../../tag-list/tag-list';
 
 interface Props {
   article: ArticleType
+  sectionStyles?: CSSProperties
 }
 
-export function ArticlePreview({ article }: Props) {
+export function ArticlePreview({ article, sectionStyles }: Props) {
   const { navigateToArticle } = useGoTo()
+
   return (
-    <Section className={styles.section} data-preview-section onClick={() => navigateToArticle(article.id)}>
+    <Section className={styles.section} style={sectionStyles} data-preview-section onClick={() => navigateToArticle(article.id)}>
       <Flex className={styles.article}>
 
         <Flex className={styles.articleContent} direction="column" flexBasis="1" align="stretch">
