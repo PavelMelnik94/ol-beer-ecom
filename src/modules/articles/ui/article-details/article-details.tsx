@@ -2,6 +2,8 @@ import { Box, Container, Section } from '@radix-ui/themes';
 import { useConfetti } from '@shared/hooks/use-confetti';
 import { useIntersectionObserver } from '@shared/hooks';
 import { useLikePost } from '@modules/articles/hooks/use-like-post';
+import { useGlobalScroll } from '@kernel/index';
+import { useLayoutEffect } from 'react';
 import { useArticlesDetails } from '../../hooks/use-article-details';
 import { LikeAndComment } from '../like-and-comment/like-and-comment';
 import { ArticleComments } from './article-comments/article-comments';
@@ -11,6 +13,7 @@ import { ArticleSkeleton } from './article-skeleton/article-skeleton';
 
 export function ArticleDetails({ id }: { id: string }) {
   const { article } = useArticlesDetails(id)
+  const { scrollToTop } = useGlobalScroll()
 
   const { isIntersecting, ref } = useIntersectionObserver({
     freezeOnceVisible: true,
@@ -18,6 +21,10 @@ export function ArticleDetails({ id }: { id: string }) {
   const { likePost } = useLikePost(id)
 
   useConfetti({ playWhen: isIntersecting, depends: [id] })
+
+  useLayoutEffect(() => {
+    scrollToTop()
+  }, [id])
 
   if (!article?.title) {
     return (
