@@ -1,11 +1,15 @@
 .heroSection {
-  position: relative;
+  position: absolute;
   min-height: 100vh;
   min-height: 100dvh;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
 
 
