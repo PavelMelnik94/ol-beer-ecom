@@ -7,9 +7,7 @@
   justify-content: center;
   align-items: center;
 
-  @media (max-width: 768px) {
-    margin-top: calc(48px * 2);
-  }
+
 }
 
 
@@ -55,6 +53,10 @@
   &.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+    @media (max-width: 768px) {
+    margin-top: calc(48px * 2);
   }
 }
 
