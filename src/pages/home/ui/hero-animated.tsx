@@ -174,9 +174,9 @@ export function AnimatedHero(): JSX.Element {
 
   const buttonSpring = useSpring({
     opacity: scrollState.isComplete ? 1 : 0,
-    transform: scrollState.isComplete ? 'translateY(0px)' : 'translateY(20px)',
+    transform: scrollState.isComplete ? 'translateY(0px)' : 'translateY(30px)',
     config: config.gentle,
-    delay: scrollState.isComplete ? 400 : 0,
+    delay: scrollState.isComplete ? 300 : 0,
     immediate: false,
   });
 
