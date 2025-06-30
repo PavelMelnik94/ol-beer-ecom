@@ -10,7 +10,26 @@ body {
   overflow-x: hidden;
 }
 
-
 .pointer {
   cursor: pointer;
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+
+}
+
+fieldset[disabled]  {
+    user-select: none;
+    pointer-events: none;
+}
+
+.rt-BaseDialogOverlay::before {
+  backdrop-filter: blur(4px);
+}
+
+:root {
+  --color-form-error: #e5484d;
 }
