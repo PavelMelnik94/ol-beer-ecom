@@ -47,7 +47,7 @@ export function withAuthorizePopup<P extends object>(WrappedComponent: Component
             />
 
             <Flex align="center" justify="end" mt="4">
-              {/* // todo modal */}
+              {/* // todo #4 modal */}
               <Button size="1" variant="soft" onClick={() => console.log('login modal ?')} mr="3">
                 Log In
               </Button>

@@ -52,7 +52,7 @@ export function ArticleList() {
                   numRows={2}
                   rotateDeg={getRandomFromArray([1, -1])}
                   className="customMarquee"
-                  // TODO - promocode
+                  // TODO #3 - promocode
                   onClick={() => alert('promo activated')}
                 >
                   <Box mr="4">

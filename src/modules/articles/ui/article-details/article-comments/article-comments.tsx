@@ -17,7 +17,7 @@ export function ArticleComments({ id }: Props) {
 
   return (
     <>
-      {/* TODO comment block */}
+      {/* TODO #2 comment block */}
       <Box mb="6">
         <Flex gap="3" mb="2" align="center">
           <Avatar
@@ -47,7 +47,7 @@ export function ArticleComments({ id }: Props) {
         </Flex>
       </Box>
       {
-        // todo - For
+        // todo #1 - For
         commentList.map((comment) => {
           return (
             <Flex key={comment.id} direction="column" mb="2">
