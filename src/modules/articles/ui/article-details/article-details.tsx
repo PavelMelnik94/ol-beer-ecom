@@ -1,6 +1,4 @@
 import { Box, Container, Section } from '@radix-ui/themes';
-import { useConfetti } from '@shared/hooks/use-confetti';
-import { useIntersectionObserver } from '@shared/hooks';
 import { useLikePost } from '@modules/articles/hooks/use-like-post';
 import { useGlobalScroll } from '@kernel/index';
 import { useLayoutEffect } from 'react';
@@ -8,19 +6,14 @@ import { useArticlesDetails } from '../../hooks/use-article-details';
 import { LikeAndComment } from '../like-and-comment/like-and-comment';
 import { ArticleComments } from './article-comments/article-comments';
 import { ArticleRandom } from './article-random';
-import { ArticleContent } from './article-content';
+import { ArticleContent } from './article-content/article-content';
 import { ArticleSkeleton } from './article-skeleton/article-skeleton';
 
 export function ArticleDetails({ id }: { id: string }) {
   const { article } = useArticlesDetails(id)
   const { scrollToTop } = useGlobalScroll()
 
-  const { isIntersecting, ref } = useIntersectionObserver({
-    freezeOnceVisible: true,
-  })
   const { likePost } = useLikePost(id)
-
-  useConfetti({ playWhen: isIntersecting, depends: [id] })
 
   useLayoutEffect(() => {
     scrollToTop()
@@ -38,13 +31,9 @@ export function ArticleDetails({ id }: { id: string }) {
     <Section pb="0">
       <ArticleContent article={article} likePost={likePost} />
 
-      <Container pr="5" pl="5">
-        <LikeAndComment likesCount={article.likesCount} likePost={likePost} />
-      </Container>
+      <LikeAndComment likesCount={article.likesCount} likePost={likePost} />
 
-      <Container ref={ref} pr="5" pl="5">
-        <ArticleComments id={article.id} />
-      </Container>
+      <ArticleComments id={article.id} />
 
       <Box mt="7">
         <ArticleRandom id={id} />

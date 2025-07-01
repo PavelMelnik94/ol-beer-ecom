@@ -2,9 +2,9 @@ import { Container, Flex, Heading, Separator, Text } from '@radix-ui/themes';
 import { Image } from '@shared/components';
 import type { ArticleDetails } from '@modules/articles/types';
 import { useMediaQuery } from 'react-responsive';
-import { LikesCounterWithAuthorizePopup } from '../likes-counter/likes-counter-with-auth-popup';
+import { LikesCounterWithAuthorizePopup } from '../../likes-counter/likes-counter-with-auth-popup';
 import { ArticleMeta } from './article-meta';
-import styles from './article-details.module.scss'
+import styles from './article-content.module.scss'
 
 export function ArticleContent({ article, likePost }: { article: ArticleDetails, likePost: () => void }) {
   const isMobile = useMediaQuery({

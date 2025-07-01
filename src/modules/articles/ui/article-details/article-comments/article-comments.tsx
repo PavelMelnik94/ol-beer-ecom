@@ -1,28 +1,25 @@
-import { Avatar, Blockquote, Box, Button, Card, Flex, Section, Text, TextArea } from '@radix-ui/themes'
-import { SquarePen, Trash2 } from 'lucide-react'
+import { Avatar, Box, Button, Container, Flex, Text, TextArea } from '@radix-ui/themes'
 import { useCommentList } from '@modules/articles/hooks/use-comment-list';
-import { LikesCounterWithAuthorizePopup } from '@modules/articles/ui/likes-counter/likes-counter-with-auth-popup';
 import { useAuth } from '@modules/auth';
-import { Show } from '@shared/components';
-import type { Comment } from '@modules/articles/types';
-import styles from './article-comments.module.css';
+import { CommentList } from '@modules/articles/ui/article-details/article-comments/comment-list/comment-list';
+import { useMemo } from 'react';
+import { getCommentAtctions } from '@modules/articles/model';
 
 interface Props {
   id: string;
-
 }
 
 export function ArticleComments({ id }: Props) {
-  const { commentList, isLoading } = useCommentList(id);
+  const { commentList } = useCommentList(id);
   const { user } = useAuth()
 
-  if (isLoading || !Array.isArray(commentList)) {
-    return <Section>Loading...</Section>;
-  }
+  const commentsActions = useMemo(() => {
+    return getCommentAtctions(user, commentList)
+  }, [id, user, commentList])
 
   return (
-    <>
-      {/* TODO #2 comment block */}
+    <Container pr="5" pl="5">
+      {/* TODO #2 new comment block */}
       <Box mb="6">
 
         <Flex direction="column" width="100%">
@@ -55,57 +52,8 @@ export function ArticleComments({ id }: Props) {
         </Flex>
 
       </Box>
-      {
-        // todo #1 - For
-        commentList.map((comment: Comment) => {
-          const isSelfComment = user?.id === comment.author.id
-          return (
-            <Flex key={comment.id} direction="column" mb="2">
-              <Card>
-                <Flex gap="3" align="center">
-                  <Avatar
-                    size="3"
-                    src={comment.author.avatar}
-                    radius="full"
-                    fallback="T"
-                  />
-                  <Box>
-                    <Text as="div" size="2" weight="bold">
-                      {comment.author.firstName}
-                      {' '}
-                      {comment.author.lastName}
-                    </Text>
-                    <Text as="div" size="1" color="gray">
-                      {new Date(comment.createdAt).toLocaleDateString('en-US', {
-                        month: 'long',
-                        day: 'numeric',
-                        year: 'numeric',
-                      })}
-                    </Text>
-                  </Box>
-                </Flex>
 
-                <Blockquote size="2" mt="2">
-                  {comment.content}
-                </Blockquote>
-
-                <Flex className={styles.commentActions} align="center" gap="2">
-                  <Show when={isSelfComment}>
-                    <Trash2 color="gray" size={16} />
-                    <SquarePen color="gray" size={16} />
-                  </Show>
-
-                  <Show when={!isSelfComment}>
-                    <LikesCounterWithAuthorizePopup likesCount={comment.likesCount} />
-                  </Show>
-                </Flex>
-
-              </Card>
-
-            </Flex>
-          )
-        })
-      }
-    </>
+      <CommentList commentList={commentList} commentsActions={commentsActions} />
+    </Container>
   )
 }

@@ -36,3 +36,11 @@ export interface Comment {
   likesCount: number;
   updatedAt: string
 }
+
+interface CommentAction {
+  withDelete: boolean;
+  withEdit: boolean;
+  withLike: boolean;
+}
+
+export type CommentsActions = Record<string, CommentAction>

@@ -4,9 +4,9 @@ import { CalendarDays, MessageCircleReply, Signature } from 'lucide-react';
 import { dateFormat, useGoTo } from '@kernel/index';
 import type { CSSProperties } from 'react';
 import type { Article as ArticleType } from '../../../types';
-import { LikesCounter } from './../../likes-counter/likes-counter';
+import { LikesCounter } from '../../likes-counter/likes-counter';
 import styles from './article-preview.module.scss';
-import { TagList } from './../../tag-list/tag-list';
+import { TagList } from '../../tag-list/tag-list';
 
 interface Props {
   article: ArticleType

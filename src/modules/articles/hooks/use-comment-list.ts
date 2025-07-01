@@ -2,7 +2,7 @@ import { API_ENDPOINTS, type ApiErrorResponse, type ApiSuccessResponse, apiClien
 import type { Comment } from '@modules/articles/types';
 import { useQuery } from '@tanstack/react-query';
 
-type SuccessResponse = ApiSuccessResponse<Comment>;
+type SuccessResponse = ApiSuccessResponse<Comment[]>;
 type ErrorResponse = ApiErrorResponse;
 
 export function useCommentList(id: string) {
@@ -15,7 +15,7 @@ export function useCommentList(id: string) {
   });
 
   return {
-    commentList: response?.data,
+    commentList: response?.data ?? [],
     isLoading,
     error,
   }
