@@ -7,7 +7,7 @@ export const queryKeys = {
     list: (filters: Record<string, any>) => [...queryKeys.articles.lists(), filters] as const,
     details: () => [...queryKeys.articles.all, 'detail'] as const,
     detail: (id: number | string) => [...queryKeys.articles.details(), id] as const,
-    random: () => [...queryKeys.articles.all, 'random'] as const,
+    random: (id: string) => [...queryKeys.articles.all, 'random', id] as const,
     like: (id: number | string) => [...queryKeys.articles.detail(id), 'like'] as const,
     comments: (id: number | string) => [...queryKeys.articles.detail(id), 'comments'] as const,
   },

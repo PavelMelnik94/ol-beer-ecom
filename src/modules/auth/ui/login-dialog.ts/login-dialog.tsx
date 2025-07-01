@@ -23,6 +23,7 @@ export function LoginDialog({ trigger }: LoginDialogProps) {
     >
       <LoginForm
         onSuccess={handleSuccess}
+        onCancel={() => setOpen(false)}
         onNavigateToRegister={navigateToRegister}
       />
     </Dialog>

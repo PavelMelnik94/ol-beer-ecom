@@ -5,6 +5,7 @@ export const API_ENDPOINTS = {
     like: (postId: string) => `/blog/posts/${postId}/like`,
     comments: (postId: string) => `/blog/posts/${postId}/comments`,
     tags: 'blog/tags',
+    random: (excludePostId: string) => `/blog/posts/random?excludePostId=${excludePostId}`,
   },
   breweries: {
     all: '/breweries',

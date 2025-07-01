@@ -10,10 +10,11 @@ import { LoginSchema } from './../model/schema';
 
 interface LoginFormProps {
   onSuccess?: () => void;
+  onCancel?: () => void;
   onNavigateToRegister?: () => void;
 }
 
-export function LoginForm({ onSuccess, onNavigateToRegister }: LoginFormProps) {
+export function LoginForm({ onSuccess, onCancel, onNavigateToRegister }: LoginFormProps) {
   const {
     register,
     handleSubmit,
@@ -35,6 +36,11 @@ export function LoginForm({ onSuccess, onNavigateToRegister }: LoginFormProps) {
     }
   };
 
+  const handleCancel = () => {
+    resetForm();
+    onCancel?.()
+  }
+
   const isFormDisabled = isSubmitting || isLoading;
 
   return (
@@ -52,7 +58,12 @@ export function LoginForm({ onSuccess, onNavigateToRegister }: LoginFormProps) {
         error={errors.password?.message}
         {...register('password')}
       />
-      <Image src="/illustrations/u_login.svg" alt="have a fun" />
+      <Image
+        src="/illustrations/u_login.svg"
+        alt="have a fun"
+        lazy
+        skeletonStyle={{ width: '100%', height: 'auto' }}
+      />
 
       <Flex mt="2" align="center" justify="center" gap="1">
         <Text size="2">Not registered yet?</Text>
@@ -78,7 +89,7 @@ export function LoginForm({ onSuccess, onNavigateToRegister }: LoginFormProps) {
           variant="soft"
           color="gray"
           type="button"
-          onClick={() => resetForm()}
+          onClick={handleCancel}
           disabled={isFormDisabled}
         >
           Cancel

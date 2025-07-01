@@ -1,6 +1,7 @@
-import { Blockquote, Box, Card, Flex, Text } from '@radix-ui/themes'
+import { Blockquote, Box, Card, Flex } from '@radix-ui/themes'
 import { For } from '@shared/components'
 import { CommentAuthor } from '@modules/articles/ui/article-details/article-comments/comment-author'
+import { CommentActions } from '@modules/articles/ui/article-details/article-comments/comment-actions'
 import type { Comment, CommentsActions } from '../../../../types'
 import { LikesCounterWithAuthorizePopup } from '../../../likes-counter/likes-counter-with-auth-popup'
 import styles from './comment-list.module.css';
@@ -14,7 +15,7 @@ export function CommentList({ commentList, commentsActions }: { commentList: Com
         return (
           <Flex key={comment.id} direction="column" mb="2">
             <Card>
-              <CommentAuthor author={comment.author} createdAt={comment.createdAt} />
+              <CommentAuthor author={comment.author} createdAt={new Date(comment.createdAt)} />
 
               <Blockquote size="2" mt="2">
                 {comment.content}
@@ -24,10 +25,7 @@ export function CommentList({ commentList, commentsActions }: { commentList: Com
                 {withLike && <LikesCounterWithAuthorizePopup likesCount={comment.likesCount} />}
               </Box>
 
-              <Flex className={styles.actions} justify="end" gap="4" mt="2">
-                {withDelete && <Text size="2" className="pointer" color="blue">Edit</Text>}
-                {withEdit && <Text size="2" className="pointer" color="ruby">Delete</Text>}
-              </Flex>
+              <CommentActions withDelete={withDelete} withEdit={withEdit} />
             </Card>
 
           </Flex>

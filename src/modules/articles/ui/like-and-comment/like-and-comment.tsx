@@ -1,21 +1,19 @@
 import { Container, Flex, Text } from '@radix-ui/themes';
-import { Image } from '@shared/components';
-import { useMediaQuery } from 'react-responsive';
+import { useAuth } from '@modules/auth';
+import { LoginCTA } from '@modules/articles/ui/article-details/article-comments/login-cta';
 import { LikesCounterWithAuthorizePopup } from '../likes-counter/likes-counter-with-auth-popup';
-import styles from './like-and-comment.module.scss';
 
 interface Props {
   likesCount: number;
   likePost: () => void;
 }
 export function LikeAndComment({ likesCount, likePost }: Props) {
-  const isColumnLayout = useMediaQuery({
-    query: '(max-width: 900px)',
-  });
+  const { isAuth } = useAuth()
+
   return (
     <Container pr="5" pl="5">
       <Flex
-        direction={isColumnLayout ? 'column' : 'row'}
+        direction="column"
         justify="center"
         align="center"
         mt="4"
@@ -24,15 +22,14 @@ export function LikeAndComment({ likesCount, likePost }: Props) {
         wrap="wrap"
       >
         <Flex
-          direction={isColumnLayout ? 'row' : 'column'}
-          mb={isColumnLayout ? '3' : '0'}
+          direction="row"
           gap="1"
-          wrap={isColumnLayout ? 'wrap' : 'nowrap'}
+          wrap="wrap"
           justify="center"
           align="center"
         >
           <Text
-            size={isColumnLayout ? '2' : '5'}
+            size="2"
             color="gray"
           >
             Support the article with a like
@@ -40,22 +37,19 @@ export function LikeAndComment({ likesCount, likePost }: Props) {
           <LikesCounterWithAuthorizePopup
             likesCount={likesCount}
             onClick={likePost}
-            heartSize={isColumnLayout ? 16 : 24}
-            textSize={isColumnLayout ? '2' : '5'}
+            heartSize={16}
+            textSize="2"
           />
           <Text
-            size={isColumnLayout ? '2' : '5'}
+            size="2"
             color="gray"
           >
             and a comment
           </Text>
         </Flex>
 
-        <Image
-          alt="comments illustration"
-          src="/illustrations/u_comments.svg"
-          containerClassName={styles.commentsImageContainer}
-        />
+        {!isAuth && <LoginCTA>Login</LoginCTA>}
+
       </Flex>
     </Container>
 
