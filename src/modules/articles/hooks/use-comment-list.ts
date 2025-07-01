@@ -1,6 +1,6 @@
 import type { ApiErrorResponse, ApiSuccessResponsePaginated } from '@kernel/index';
-import type { Comment } from '@modules/articles/types';
 import { API_ENDPOINTS, apiClient, queryKeys } from '@kernel/index';
+import type { Comment } from '@modules/articles/types';
 import { useQuery } from '@tanstack/react-query';
 import { parseAsInteger, useQueryState } from 'nuqs';
 

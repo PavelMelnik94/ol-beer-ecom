@@ -3,7 +3,7 @@ import { getCommentAtctions } from '@modules/articles/model';
 import { CommentCreate } from '@modules/articles/ui/article-details/article-comments/comment-create';
 import { CommentList } from '@modules/articles/ui/article-details/article-comments/comment-list/comment-list';
 import { useAuth } from '@modules/auth';
-import { Box, Container, Flex, Separator } from '@radix-ui/themes'
+import { Box, Container, Flex, Separator } from '@radix-ui/themes';
 import { Pagination, Show } from '@shared/components';
 import { useMemo } from 'react';
 
@@ -25,7 +25,7 @@ export function ArticleComments({ id }: Props) {
         {isAuth && !!user && <CommentCreate user={user} id={id} /> }
       </Box>
 
-      <CommentList commentList={commentList} commentsActions={commentsActions} />
+      <CommentList commentList={commentList} commentsActions={commentsActions} id={id} />
       <Show when={totalPages && totalPages > 1}>
         <Flex justify="end" align="center">
           <Pagination page={Number(currentPage)} total={Number(totalPages)} onPageChange={p => onChangePage(p)} />

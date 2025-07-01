@@ -11,6 +11,8 @@ export const queryKeys = {
     like: (id: number | string) => [...queryKeys.articles.detail(id), 'like'] as const,
     comments: (id: number | string) => [...queryKeys.articles.detail(id), 'comments'] as const,
     comment: (id: number | string) => [...queryKeys.articles.comments(id), 'comment'] as const,
+    commentEdit: (id: number | string) => [...queryKeys.articles.comment(id), 'edit'] as const,
+    commentDelete: (id: number | string) => [...queryKeys.articles.comment(id), 'delete'] as const,
   },
 
   breweries: {

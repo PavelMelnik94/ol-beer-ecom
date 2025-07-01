@@ -1,33 +1,15 @@
-import type { Comment, CommentsActions } from '../../../../types'
-import { CommentActions } from '@modules/articles/ui/article-details/article-comments/comment-actions'
-import { CommentAuthor } from '@modules/articles/ui/article-details/article-comments/comment-author'
-import { Blockquote, Box, Card, Flex } from '@radix-ui/themes'
-import { For } from '@shared/components'
-import { LikesCounterWithAuthorizePopup } from '../../../likes-counter/likes-counter-with-auth-popup'
-import styles from './comment-list.module.css';
+import { Flex } from '@radix-ui/themes';
+import { For } from '@shared/components';
+import type { Comment, CommentsActions } from '../../../../types';
+import { CommentItem } from '../comment/comment';
 
-export function CommentList({ commentList, commentsActions }: { commentList: Comment[] | [], commentsActions: CommentsActions }) {
+export function CommentList({ commentList, commentsActions, id }: { commentList: Comment[] | [], commentsActions: CommentsActions, id: string }) {
   return (
     <For each={commentList}>
       {(comment) => {
-        const { withDelete, withEdit, withLike } = commentsActions[comment.id]
-
         return (
           <Flex key={comment.id} direction="column" mb="2">
-            <Card>
-              <CommentAuthor author={comment.author} createdAt={new Date(comment.createdAt)} />
-
-              <Blockquote size="2" mt="2">
-                {comment.content}
-              </Blockquote>
-
-              <Box className={styles.likeBlock}>
-                {withLike && <LikesCounterWithAuthorizePopup likesCount={comment.likesCount} />}
-              </Box>
-
-              <CommentActions withDelete={withDelete} withEdit={withEdit} />
-            </Card>
-
+            <CommentItem comment={comment} actions={commentsActions[comment.id]} id={id} />
           </Flex>
         )
       }}
