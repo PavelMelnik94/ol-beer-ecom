@@ -1,0 +1,14 @@
+.spinner {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 500;
+}
+
+.circle {
+  stroke-dasharray: 110;
+  stroke-dashoffset: 30;
+  transition: stroke 0.3s;
+  stroke: #a18072;
+}
