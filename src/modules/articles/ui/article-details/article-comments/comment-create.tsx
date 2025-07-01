@@ -12,7 +12,7 @@ export function CommentCreate({ user, id }: { user: User, id: string }) {
       <CommentAuthor author={user} createdAt={new Date()} />
       <TextArea disabled={isLoading} mt="2" placeholder="What are you throughts?" value={value} onChange={handleChangeComment} />
       <Flex justify="end" align="center" mt="2">
-        <Button disabled={!isValid} loading={isLoading} onClick={handleSubmitComment}>Respond</Button>
+        <Button disabled={!isValid || isLoading} loading={isLoading} onClick={handleSubmitComment}>Respond</Button>
       </Flex>
     </Flex>
   )
