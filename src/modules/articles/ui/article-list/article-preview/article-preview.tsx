@@ -3,10 +3,12 @@ import { Image } from '@shared/components';
 import { CalendarDays, MessageCircleReply, Signature } from 'lucide-react';
 import { dateFormat, useGoTo } from '@kernel/index';
 import type { CSSProperties } from 'react';
+import { getIsLiked } from '@modules/articles/model';
+import { useAuth } from '@modules/auth';
 import type { Article as ArticleType } from '../../../types';
 import { LikesCounter } from '../../likes-counter/likes-counter';
-import styles from './article-preview.module.scss';
 import { TagList } from '../../tag-list/tag-list';
+import styles from './article-preview.module.scss';
 
 interface Props {
   article: ArticleType
@@ -15,6 +17,9 @@ interface Props {
 
 export function ArticlePreview({ article, sectionStyles }: Props) {
   const { navigateToArticle } = useGoTo()
+  const { user } = useAuth()
+
+  const isLiked = getIsLiked({ likes: article.likedByUserIds, userId: user?.id })
 
   return (
     <Section className={styles.section} style={sectionStyles} data-preview-section onClick={() => navigateToArticle(article.id)}>
@@ -58,7 +63,7 @@ export function ArticlePreview({ article, sectionStyles }: Props) {
               </Flex>
             </Tooltip>
 
-            <LikesCounter likesCount={article.likesCount} />
+            <LikesCounter likesCount={article.likesCount} isLiked={isLiked} />
 
             <Tooltip content={`${article.commentsCount} ${article.commentsCount === 1 ? 'response' : 'responses'}`}>
               <Flex direction="row" align="center" gap="2">

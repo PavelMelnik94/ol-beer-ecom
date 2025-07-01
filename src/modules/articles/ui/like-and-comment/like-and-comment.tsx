@@ -1,15 +1,18 @@
 import { Container, Flex, Text } from '@radix-ui/themes';
 import { useAuth } from '@modules/auth';
 import { LoginCTA } from '@modules/articles/ui/article-details/article-comments/login-cta';
+import { getIsLiked } from '@modules/articles/model';
 import { LikesCounterWithAuthorizePopup } from '../likes-counter/likes-counter-with-auth-popup';
 
 interface Props {
   likesCount: number;
+  likes: string[] | []
   likePost: () => void;
 }
-export function LikeAndComment({ likesCount, likePost }: Props) {
-  const { isAuth } = useAuth()
+export function LikeAndComment({ likesCount, likes, likePost }: Props) {
+  const { isAuth, user } = useAuth()
 
+  const isLiked = getIsLiked({ likes, userId: user?.id as string })
   return (
     <Container pr="5" pl="5">
       <Flex
@@ -35,6 +38,7 @@ export function LikeAndComment({ likesCount, likePost }: Props) {
             Support the article with a like
           </Text>
           <LikesCounterWithAuthorizePopup
+            isLiked={isLiked}
             likesCount={likesCount}
             onClick={likePost}
             heartSize={16}

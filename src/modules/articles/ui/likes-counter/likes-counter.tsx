@@ -1,7 +1,6 @@
 import { Flex, Text, Tooltip } from '@radix-ui/themes';
 import { Show } from '@shared/components';
 import { Heart } from 'lucide-react';
-import { useState } from 'react';
 import type { LikesCounterProps } from './types';
 
 function LikedHeart({ heartSize }: { heartSize?: number }) {
@@ -11,11 +10,14 @@ function LikedHeart({ heartSize }: { heartSize?: number }) {
 function UnlikedHeart({ heartSize }: { heartSize?: number }) {
   return <Heart size={heartSize} min={heartSize} color="gray" />
 }
-export function LikesCounter({ likesCount, onClick, heartSize = 16, textSize = '2' }: LikesCounterProps) {
-  const [isLiked, setIsLiked] = useState(false);
-
+export function LikesCounter({
+  likesCount,
+  onClick,
+  heartSize = 16,
+  textSize = '2',
+  isLiked,
+}: LikesCounterProps) {
   const handleClick = () => {
-    setIsLiked(!isLiked);
     onClick?.(!isLiked);
   };
 

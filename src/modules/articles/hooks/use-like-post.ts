@@ -1,9 +1,9 @@
 import { API_ENDPOINTS, type ApiErrorResponse, type ApiSuccessResponse, apiClient, queryClient, queryKeys } from '@kernel/index';
-import type { ArticleDetails } from '@modules/articles/types';
+import type { LikeResponse } from '@modules/articles/types';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
-type SuccessResponse = ApiSuccessResponse<ArticleDetails>;
+type SuccessResponse = ApiSuccessResponse<LikeResponse>;
 type ErrorResponse = ApiErrorResponse;
 
 export function useLikePost(id: string) {
@@ -19,7 +19,14 @@ export function useLikePost(id: string) {
       queryClient.invalidateQueries({
         queryKey: queryKeys.articles.detail(id),
       });
-      toast('Thank you, the author will be very pleased!')
+
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.articles.all,
+      });
+
+      if (res.data.liked) {
+        toast('Thank you, the author will be very pleased!')
+      }
     }
   };
 

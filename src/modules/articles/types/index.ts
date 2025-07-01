@@ -19,12 +19,22 @@ export interface Article {
   likesCount: number;
   commentsCount: number;
   createdAt: string;
+  likedByUserIds: string[] | []
 
   tags: ArticleTag[]
 }
 
 export interface ArticleDetails extends Article {
   longDescription: string;
+}
+
+export interface LikeResponse {
+  liked: boolean;
+  like: {
+    id: string
+    userId: string
+    createdAt: string
+  }
 }
 
 export interface Comment {

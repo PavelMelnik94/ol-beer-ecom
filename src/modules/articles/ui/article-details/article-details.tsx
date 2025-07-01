@@ -31,7 +31,11 @@ export function ArticleDetails({ id }: { id: string }) {
     <Section pb="0">
       <ArticleContent article={article} likePost={likePost} />
 
-      <LikeAndComment likesCount={article.likesCount} likePost={likePost} />
+      <LikeAndComment
+        likesCount={article.likesCount}
+        likes={article.likedByUserIds}
+        likePost={likePost}
+      />
 
       <ArticleComments id={article.id} />
 
