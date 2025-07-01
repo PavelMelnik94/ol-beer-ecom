@@ -10,6 +10,7 @@ export const queryKeys = {
     random: (id: string) => [...queryKeys.articles.all, 'random', id] as const,
     like: (id: number | string) => [...queryKeys.articles.detail(id), 'like'] as const,
     comments: (id: number | string) => [...queryKeys.articles.detail(id), 'comments'] as const,
+    comment: (id: number | string) => [...queryKeys.articles.comments(id), 'comment'] as const,
   },
 
   breweries: {

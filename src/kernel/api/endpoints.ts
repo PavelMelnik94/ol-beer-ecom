@@ -4,8 +4,10 @@ export const API_ENDPOINTS = {
     details: (postId: string) => `/blog/posts/${postId}`,
     like: (postId: string) => `/blog/posts/${postId}/like`,
     comments: (postId: string) => `/blog/posts/${postId}/comments`,
+    comment: (postId: string) => `/blog/posts/${postId}/comments`,
     tags: 'blog/tags',
     random: (excludePostId: string) => `/blog/posts/random?excludePostId=${excludePostId}`,
+
   },
   breweries: {
     all: '/breweries',

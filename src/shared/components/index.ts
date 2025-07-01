@@ -5,6 +5,7 @@ export { Dialog } from './ui/dialog/dialog'
 
 export { Image } from './ui/image/image'
 export { Pulse } from './ui/pulse/pulse'
+export { Spinner } from './ui/spinner/spinner'
 
 export { InputText } from './ui/input-text/input-text'
 export { InputPassword } from './ui/input-password/input-password'

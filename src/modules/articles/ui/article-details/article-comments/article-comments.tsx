@@ -21,7 +21,7 @@ export function ArticleComments({ id }: Props) {
   return (
     <Container pr="5" pl="5">
       <Box mb="6">
-        {isAuth && !!user && <CommentCreate user={user} /> }
+        {isAuth && !!user && <CommentCreate user={user} id={id} /> }
       </Box>
 
       <CommentList commentList={commentList} commentsActions={commentsActions} />
