@@ -13,7 +13,7 @@ export function useLikeArticle() {
 
   const { mutateAsync } = useMutation<SuccessResponse, ErrorResponse>({
     mutationKey: queryKeys.articles.like(articleId),
-    mutationFn: () => apiClient.post(`${API_ENDPOINTS.articles.like(articleId)}`),
+    mutationFn: () => apiClient.post(`${API_ENDPOINTS.articles.likeArticle(articleId)}`),
   });
 
   const likeArticle = async () => {

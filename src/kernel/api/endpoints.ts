@@ -2,13 +2,14 @@ export const API_ENDPOINTS = {
   articles: {
     all: '/blog/posts',
     details: (postId: string) => `/blog/posts/${postId}`,
-    like: (postId: string) => `/blog/posts/${postId}/like`,
+    likeArticle: (postId: string) => `/blog/posts/${postId}/like`,
+    likeComment: (commentId: string) => `/blog/comments/${commentId}/like`,
     comments: (postId: string) => `/blog/posts/${postId}/comments`,
-    comment: (postId: string) => `/blog/posts/${postId}/comments`,
+    commentCreate: (postId: string) => `/blog/posts/${postId}/comments`,
     commentEdit: (commentId: string) => `/blog/comments/${commentId}`,
     commentDelete: (commentId: string) => `/blog/comments/${commentId}`,
     tags: 'blog/tags',
-    random: (excludePostId: string) => `/blog/posts/random?excludePostId=${excludePostId}`,
+    randomArticle: (excludePostId: string) => `/blog/posts/random?excludePostId=${excludePostId}`,
 
   },
   breweries: {

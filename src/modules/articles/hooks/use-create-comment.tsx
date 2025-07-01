@@ -20,7 +20,7 @@ export function useCreateComment() {
 
   const { mutateAsync, isPending } = useMutation<SuccessResponse, ErrorResponse, Comment>({
     mutationKey: queryKeys.articles.comment(articleId),
-    mutationFn: ({ content }) => apiClient.post(`${API_ENDPOINTS.articles.comment(articleId)}`, { content }),
+    mutationFn: ({ content }) => apiClient.post(`${API_ENDPOINTS.articles.commentCreate(articleId)}`, { content }),
   });
 
   const createComment = async (content: Comment) => {
