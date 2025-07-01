@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react';
 import { useAuth } from '../../hooks/use-auth';
-import { LoginDialog } from './login-dialog.ts/login-dialog';
+import { LoginDialog } from '../login-dialog.ts/login-dialog';
 
 export function withAuthorizePopup<P extends object>(WrappedComponent: ComponentType<P>) {
   return function WithAuthorizePopup(props: P) {
