@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
-import clsx from 'clsx';
 import { ColorUtils } from '@shared/lib';
+import clsx from 'clsx';
+import React, { useMemo } from 'react';
 import styles from './pulse.module.scss';
 
 interface PulseProps {

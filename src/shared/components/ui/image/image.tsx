@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import clsx from 'clsx';
 import { Skeleton } from '@radix-ui/themes';
 import { Show } from '@shared/components/utils/Show';
+import clsx from 'clsx';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styles from './image.module.scss';
 
 type ImageLoadState = 'idle' | 'loading' | 'loaded' | 'error';

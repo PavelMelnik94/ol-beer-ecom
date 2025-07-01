@@ -1,11 +1,11 @@
-import { Box, Container, Flex, Separator } from '@radix-ui/themes'
 import { useCommentList } from '@modules/articles/hooks/use-comment-list';
-import { useAuth } from '@modules/auth';
-import { CommentList } from '@modules/articles/ui/article-details/article-comments/comment-list/comment-list';
-import { useMemo } from 'react';
 import { getCommentAtctions } from '@modules/articles/model';
 import { CommentCreate } from '@modules/articles/ui/article-details/article-comments/comment-create';
+import { CommentList } from '@modules/articles/ui/article-details/article-comments/comment-list/comment-list';
+import { useAuth } from '@modules/auth';
+import { Box, Container, Flex, Separator } from '@radix-ui/themes'
 import { Pagination, Show } from '@shared/components';
+import { useMemo } from 'react';
 
 interface Props {
   id: string;

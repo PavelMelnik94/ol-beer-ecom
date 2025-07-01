@@ -1,7 +1,7 @@
+import type { BreweryPreview } from '../types'
 import { useOnClickOutside } from '@shared/hooks'
 import { useMemo, useRef, useState } from 'react'
 import { useMediaQuery } from 'react-responsive'
-import type { BreweryPreview } from '../types'
 
 export function useBreweriesSearch({ breweriesList }: { breweriesList: BreweryPreview[] }) {
   const isEnabled = useMediaQuery({

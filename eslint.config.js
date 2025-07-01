@@ -1,7 +1,7 @@
 import antfu from '@antfu/eslint-config'
-import security from 'eslint-plugin-security'
-import jsxA11y from 'eslint-plugin-jsx-a11y'
 import boundaries from 'eslint-plugin-boundaries'
+import jsxA11y from 'eslint-plugin-jsx-a11y'
+import security from 'eslint-plugin-security'
 
 export default antfu({
   react: true,

@@ -1,7 +1,7 @@
-import { Button } from '@radix-ui/themes';
-import { useTheme } from '@kernel/hooks';
-import { Moon, Sun } from 'lucide-react';
 import type { CSSProperties } from 'react';
+import { useTheme } from '@kernel/hooks';
+import { Button } from '@radix-ui/themes';
+import { Moon, Sun } from 'lucide-react';
 
 export function ThemeButton({ withTitle = false, style }: { withTitle?: boolean, style?: CSSProperties }) {
   const { theme, toggleTheme } = useTheme()

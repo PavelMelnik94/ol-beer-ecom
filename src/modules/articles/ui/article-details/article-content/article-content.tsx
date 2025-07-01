@@ -1,12 +1,12 @@
+import type { ArticleDetails } from '@modules/articles/types';
+import { getIsLiked } from '@modules/articles/model';
+import { useAuth } from '@modules/auth';
 import { Container, Flex, Heading, Separator, Text } from '@radix-ui/themes';
 import { Image } from '@shared/components';
-import type { ArticleDetails } from '@modules/articles/types';
 import { useMediaQuery } from 'react-responsive';
-import { useAuth } from '@modules/auth';
-import { getIsLiked } from '@modules/articles/model';
 import { LikesCounterWithAuthorizePopup } from '../../likes-counter/likes-counter-with-auth-popup';
-import { ArticleMeta } from './article-meta';
 import styles from './article-content.module.scss'
+import { ArticleMeta } from './article-meta';
 
 export function ArticleContent({ article, likePost }: { article: ArticleDetails, likePost: () => void }) {
   const isMobile = useMediaQuery({

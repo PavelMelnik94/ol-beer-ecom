@@ -1,7 +1,7 @@
 import type { ForwardedRef, InputHTMLAttributes } from 'react';
-import React, { forwardRef } from 'react';
 import { TextField } from '@radix-ui/themes';
 import clsx from 'clsx';
+import React, { forwardRef } from 'react';
 import styles from './input-text.module.scss';
 
 interface InputTextProps extends InputHTMLAttributes<HTMLInputElement> {

@@ -1,7 +1,7 @@
 import type { ApiErrorResponse, ApiSuccessResponse, User } from '@kernel/index';
+import type { LoginCredentials } from '../model/types';
 import { API_ENDPOINTS, apiClient, queryKeys } from '@kernel/index';
 import { useMutation } from '@tanstack/react-query';
-import type { LoginCredentials } from '../model/types';
 import { useAuthStore } from '../stores/auth-store';
 
 type SuccessResponse = ApiSuccessResponse<User>;

@@ -1,8 +1,8 @@
 import type { ForwardedRef, InputHTMLAttributes } from 'react';
-import React, { forwardRef, useRef, useState } from 'react';
 import { TextField } from '@radix-ui/themes';
-import { Eye, EyeClosed } from 'lucide-react';
 import clsx from 'clsx';
+import { Eye, EyeClosed } from 'lucide-react';
+import React, { forwardRef, useRef, useState } from 'react';
 import styles from './input-password.module.scss';
 
 interface InputPasswordProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {

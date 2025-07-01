@@ -1,6 +1,7 @@
-import { API_ENDPOINTS, type ApiErrorResponse, type ApiSuccessResponsePaginated, apiClient, queryKeys } from '@kernel/index'
-import { useQuery } from '@tanstack/react-query'
+import type { ApiErrorResponse, ApiSuccessResponsePaginated } from '@kernel/index';
 import type { BreweryPreview } from '../types';
+import { API_ENDPOINTS, apiClient, queryKeys } from '@kernel/index'
+import { useQuery } from '@tanstack/react-query'
 
 type SuccessResponse = ApiSuccessResponsePaginated<BreweryPreview>;
 type ErrorResponse = ApiErrorResponse;

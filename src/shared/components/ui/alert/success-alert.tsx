@@ -1,5 +1,5 @@
-import { Smile } from 'lucide-react';
 import type { ReactNode } from 'react';
+import { Smile } from 'lucide-react';
 import { Alert } from './alert';
 
 export function SuccessAlert({ children }: { children: ReactNode }) {

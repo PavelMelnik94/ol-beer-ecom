@@ -14,7 +14,7 @@ export function ArticlePreviewSkeleton() {
           </Text>
 
           <Flex direction="row" gap="2" mb="4">
-            {[...Array(3)].map((_, i) => (
+            {[...Array.from({ length: 3 })].map((_, i) => (
               <Flex key={i} direction="row" align="center" gap="1">
                 <Skeleton width="2rem" height="1.2rem" />
               </Flex>
@@ -22,7 +22,7 @@ export function ArticlePreviewSkeleton() {
           </Flex>
 
           <Flex direction="row" gap="4" flexBasis="1" flexGrow="1" align="end">
-            {[...Array(4)].map((_, i) => (
+            {[...Array.from({ length: 4 })].map((_, i) => (
               <Flex key={i} direction="row" align="center" gap="2">
                 <Skeleton width="1.5rem" height="1.2rem" />
                 <Skeleton width="3rem" height="1.2rem" />

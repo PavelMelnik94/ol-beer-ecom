@@ -1,6 +1,6 @@
-import React from 'react';
 import { Flex, IconButton, SegmentedControl } from '@radix-ui/themes';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React from 'react';
 import styles from './pagination.module.scss';
 
 interface PaginationProps {

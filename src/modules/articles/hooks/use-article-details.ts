@@ -1,5 +1,6 @@
-import { API_ENDPOINTS, type ApiErrorResponse, type ApiSuccessResponse, apiClient, queryKeys } from '@kernel/index';
+import type { ApiErrorResponse, ApiSuccessResponse } from '@kernel/index';
 import type { ArticleDetails } from '@modules/articles/types';
+import { API_ENDPOINTS, apiClient, queryKeys } from '@kernel/index';
 import { useQuery } from '@tanstack/react-query';
 
 type SuccessResponse = ApiSuccessResponse<ArticleDetails>;

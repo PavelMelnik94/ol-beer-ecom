@@ -1,17 +1,17 @@
-import clsx from 'clsx';
-import { useState } from 'react';
+import { useGoTo } from '@kernel/hooks';
+import { ROUTES, ThemeButton } from '@kernel/index';
+import { useAuth } from '@modules/auth';
+import { CartButton } from '@modules/cart';
 import { Box, Button, Flex, IconButton, Popover, Separator, Text } from '@radix-ui/themes';
-import { Menu } from 'lucide-react';
 import { Show } from '@shared/components';
 import { GithubButton } from '@shared/components/ui/github-button';
-import { useLocation } from 'react-router-dom';
-import { ROUTES, ThemeButton } from '@kernel/index';
-import { useGoTo } from '@kernel/hooks';
-import { useAuth } from '@modules/auth';
+import clsx from 'clsx';
+import { Menu } from 'lucide-react';
+import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { CartButton } from '@modules/cart';
-import styles from './header.module.scss';
+import { useLocation } from 'react-router-dom';
 import { HeaderNav } from './header-nav';
+import styles from './header.module.scss';
 
 interface Props {
   isFixed?: boolean;

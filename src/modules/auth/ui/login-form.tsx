@@ -1,10 +1,10 @@
-import { useForm } from 'react-hook-form';
-import { KeyRound, Mail } from 'lucide-react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { ErrorAlert, Image, InputPassword, InputText, Show } from '@shared/components';
-import { Button, Flex, Text } from '@radix-ui/themes';
-import { toast } from 'sonner';
 import type { LoginFormValues } from '@modules/auth/model/types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button, Flex, Text } from '@radix-ui/themes';
+import { ErrorAlert, Image, InputPassword, InputText, Show } from '@shared/components';
+import { KeyRound, Mail } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { useAuth } from './../hooks/use-auth';
 import { LoginSchema } from './../model/schema';
 

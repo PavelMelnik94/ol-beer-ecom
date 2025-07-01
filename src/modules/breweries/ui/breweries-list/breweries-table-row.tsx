@@ -1,5 +1,5 @@
-import { Link, Table } from '@radix-ui/themes'
 import type { BreweryPreview } from './../../types'
+import { Link, Table } from '@radix-ui/themes'
 
 export function BreweriesTableRow({ brewery }: { brewery: BreweryPreview }) {
   return (
@@ -9,8 +9,8 @@ export function BreweriesTableRow({ brewery }: { brewery: BreweryPreview }) {
       <Table.Cell align="center">
         <Link
           onClick={() => window.open(
-            brewery.website ?? 'https://website.com/'
-            , '_blank',
+            brewery.website ?? 'https://website.com/',
+            '_blank',
             'noopener noreferrer',
           )}
           underline="always"

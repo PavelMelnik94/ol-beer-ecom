@@ -56,7 +56,7 @@ export class ColorUtils {
    * @returns true если валидный HEX
    */
   static isValidHex(hex: string): boolean {
-    const hexRegex = /^#?([A-F0-9]{6}|[A-F0-9]{3})$/i;
+    const hexRegex = /^#?(?:[A-F0-9]{6}|[A-F0-9]{3})$/i;
     return hexRegex.test(hex);
   }
 

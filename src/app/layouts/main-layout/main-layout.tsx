@@ -1,10 +1,10 @@
-import { Outlet } from 'react-router-dom'
-import clsx from 'clsx'
-import { Box } from '@radix-ui/themes'
 import { useGlobalScroll } from '@kernel/hooks'
-import { Footer } from '@shared/components/layout'
 import { Header } from '@modules/layout'
+import { Box } from '@radix-ui/themes'
+import { Footer } from '@shared/components/layout'
+import clsx from 'clsx'
 import { useLayoutEffect } from 'react'
+import { Outlet } from 'react-router-dom'
 import styles from './main-layout.module.scss'
 
 export function MainLayout() {

@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useGlobalScroll } from '@kernel/hooks';
 import { animated, useSpring } from '@react-spring/web';
 import clsx from 'clsx';
-import { useGlobalScroll } from '@kernel/hooks';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './velocity-scroll.module.scss';
 
 type Direction = 'left' | 'right';

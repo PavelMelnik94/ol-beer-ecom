@@ -1,7 +1,9 @@
-import { API_ENDPOINTS, type ApiErrorResponse, type ApiSuccessResponse, apiClient, queryClient, queryKeys } from '@kernel/index';
+import type { ApiErrorResponse, ApiSuccessResponse } from '@kernel/index';
 import type { LikeResponse } from '@modules/articles/types';
+import type { ChangeEvent } from 'react';
+import { API_ENDPOINTS, apiClient, queryClient, queryKeys } from '@kernel/index';
 import { useMutation } from '@tanstack/react-query';
-import { type ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'sonner';
 
 type SuccessResponse = ApiSuccessResponse<LikeResponse>;

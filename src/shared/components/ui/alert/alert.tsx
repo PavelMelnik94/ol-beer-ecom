@@ -1,5 +1,5 @@
-import { Callout } from '@radix-ui/themes';
 import type { ReactNode } from 'react';
+import { Callout } from '@radix-ui/themes';
 
 export function Alert({ children, color, icon }: { children: ReactNode, color?: Callout.RootProps['color'], icon?: ReactNode }) {
   return (

@@ -1,4 +1,5 @@
-import { type UseMutationOptions, useMutation } from '@tanstack/react-query'
+import type { UseMutationOptions } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
 interface ToastOptions {
   success?: string
@@ -21,6 +22,7 @@ export function useMutationWithToast<TData, TError, TVariables, TContext>(
     onSuccess: (data, variables, context) => {
       if (toast?.success) {
         // TODO: Добавить toast notification
+        // eslint-disable-next-line no-console
         console.log('✅ Success:', toast.success)
       }
       options?.onSuccess?.(data, variables, context)

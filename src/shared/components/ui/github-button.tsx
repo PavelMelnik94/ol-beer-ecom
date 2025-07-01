@@ -1,6 +1,6 @@
+import type { CSSProperties } from 'react';
 import { Button } from '@radix-ui/themes';
 import { Github } from 'lucide-react';
-import type { CSSProperties } from 'react';
 
 export function GithubButton({ withTitle = false, style }: { withTitle?: boolean, style?: CSSProperties }) {
   return (
@@ -9,8 +9,8 @@ export function GithubButton({ withTitle = false, style }: { withTitle?: boolean
       variant="ghost"
       size="1"
       onClick={() => window.open(
-        'https://github.com/PavelMelnik94'
-        , '_blank',
+        'https://github.com/PavelMelnik94',
+        '_blank',
         'noopener noreferrer',
       )}
     >

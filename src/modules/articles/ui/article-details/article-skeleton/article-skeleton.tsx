@@ -1,5 +1,5 @@
-import React from 'react';
 import { Flex, Heading, Section, Skeleton, Text } from '@radix-ui/themes';
+import React from 'react';
 import styles from './article-skeleton.module.css';
 
 export const ArticleSkeleton: React.FC = () => (

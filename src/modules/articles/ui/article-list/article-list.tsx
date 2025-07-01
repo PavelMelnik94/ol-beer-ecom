@@ -1,9 +1,9 @@
-import { Container, Section, Text } from '@radix-ui/themes'
-import React, { useEffect, useRef } from 'react'
-import { ArticlePreviewSkeleton } from '@modules/articles/ui/article-list/article-preview/article-preview-skeleton'
-import { For, Show } from '@shared/components'
 import { VelocityScroll } from '@kernel/components'
+import { ArticlePreviewSkeleton } from '@modules/articles/ui/article-list/article-preview/article-preview-skeleton'
+import { Container, Section, Text } from '@radix-ui/themes'
+import { For, Show } from '@shared/components'
 import { getRandomFromArray } from '@shared/utils'
+import React, { useEffect, useRef } from 'react'
 import { useArticlesInfinite } from '../../hooks/use-articles-infinite'
 import { ArticlePreview } from './article-preview/article-preview'
 

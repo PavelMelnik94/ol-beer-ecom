@@ -1,6 +1,6 @@
 import { Box, Flex, Link, Text } from '@radix-ui/themes'
-import styles from './footer.module.scss'
 import * as pckg from './../../../../../package.json'
+import styles from './footer.module.scss'
 
 export function Footer() {
   return (

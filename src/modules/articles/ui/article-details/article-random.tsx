@@ -1,5 +1,5 @@
-import { Container } from '@radix-ui/themes';
 import { useArticlesRandom } from '@modules/articles/hooks/use-article-random';
+import { Container } from '@radix-ui/themes';
 import { ArticlePreview } from '../article-list/article-preview/article-preview';
 
 export function ArticleRandom({ id }: { id: string }) {

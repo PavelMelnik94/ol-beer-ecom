@@ -1,8 +1,8 @@
+import type { Comment, CommentsActions } from '../../../../types'
+import { CommentActions } from '@modules/articles/ui/article-details/article-comments/comment-actions'
+import { CommentAuthor } from '@modules/articles/ui/article-details/article-comments/comment-author'
 import { Blockquote, Box, Card, Flex } from '@radix-ui/themes'
 import { For } from '@shared/components'
-import { CommentAuthor } from '@modules/articles/ui/article-details/article-comments/comment-author'
-import { CommentActions } from '@modules/articles/ui/article-details/article-comments/comment-actions'
-import type { Comment, CommentsActions } from '../../../../types'
 import { LikesCounterWithAuthorizePopup } from '../../../likes-counter/likes-counter-with-auth-popup'
 import styles from './comment-list.module.css';
 

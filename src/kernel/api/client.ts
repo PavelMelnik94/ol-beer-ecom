@@ -1,5 +1,6 @@
+import type { AxiosError, AxiosResponse } from 'axios';
 import { tokenStorage } from '@kernel/storage';
-import axios, { type AxiosError, type AxiosResponse } from 'axios'
+import axios from 'axios';
 
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -19,6 +20,7 @@ apiClient.interceptors.request.use(
     }
 
     if (import.meta.env.MODE === 'development') {
+      // eslint-disable-next-line no-console
       console.log('🚀 API Request:', config.method?.toUpperCase(), config.url)
     }
 
@@ -33,6 +35,7 @@ apiClient.interceptors.request.use(
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => {
     if (import.meta.env.MODE === 'development') {
+      // eslint-disable-next-line no-console
       console.log('✅ API Response:', response.status, response.config.url)
     }
 

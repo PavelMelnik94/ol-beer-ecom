@@ -1,6 +1,6 @@
+import type { Article } from '../../../types';
 import { Avatar, Box, Flex, Text } from '@radix-ui/themes';
 import { TagList } from '../../tag-list/tag-list';
-import type { Article } from '../../../types';
 
 interface Props {
   author: Article['author']

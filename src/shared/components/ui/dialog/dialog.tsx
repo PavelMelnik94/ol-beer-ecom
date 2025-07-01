@@ -1,5 +1,5 @@
-import { Dialog as Modal, VisuallyHidden } from '@radix-ui/themes';
 import type { ReactNode } from 'react';
+import { Dialog as Modal, VisuallyHidden } from '@radix-ui/themes';
 
 interface DialogProps {
   trigger: ReactNode;

@@ -1,4 +1,5 @@
-import { type JSX, isValidElement } from 'react'
+import type { JSX } from 'react';
+import { isValidElement } from 'react'
 
 export interface ShowProps<T> {
   when: T | null | undefined

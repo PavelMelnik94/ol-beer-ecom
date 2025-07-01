@@ -1,8 +1,8 @@
+import type { User } from '@kernel/index';
+import type { AuthState } from '../model/types'
+import { tokenStorage } from '@kernel/index'
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
-import type { User } from '@kernel/index';
-import { tokenStorage } from '@kernel/index'
-import type { AuthState } from '../model/types'
 
 interface AuthStore extends AuthState {
   setUser: (user: User | null) => void
