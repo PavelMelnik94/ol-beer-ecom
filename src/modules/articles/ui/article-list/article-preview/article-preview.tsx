@@ -1,11 +1,11 @@
-import type { CSSProperties } from 'react';
-import type { Article as ArticleType } from '../../../types';
 import { dateFormat, useGoTo } from '@kernel/index';
 import { getIsLiked } from '@modules/articles/model';
 import { useAuth } from '@modules/auth';
 import { Flex, Heading, Section, Separator, Text, Tooltip } from '@radix-ui/themes';
 import { Image } from '@shared/components';
 import { CalendarDays, MessageCircleReply, Signature } from 'lucide-react';
+import type { CSSProperties } from 'react';
+import type { Article as ArticleType } from '../../../types';
 import { LikesCounter } from '../../likes-counter/likes-counter';
 import { TagList } from '../../tag-list/tag-list';
 import styles from './article-preview.module.scss';
@@ -52,7 +52,7 @@ export function ArticlePreview({ article, sectionStyles }: Props) {
               </Text>
             </Flex>
 
-            <Tooltip content="written by" minWidth="120px">
+            <Tooltip content="written by">
               <Flex direction="row" align="center" gap="1">
                 <Signature size={16} min={16} color="gray" />
                 <Text size="2" color="gray" wrap="nowrap">

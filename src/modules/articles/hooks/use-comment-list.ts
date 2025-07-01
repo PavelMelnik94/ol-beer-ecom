@@ -3,17 +3,19 @@ import { API_ENDPOINTS, apiClient, queryKeys } from '@kernel/index';
 import type { Comment } from '@modules/articles/types';
 import { useQuery } from '@tanstack/react-query';
 import { parseAsInteger, useQueryState } from 'nuqs';
+import { useArticleStore } from '../stores/article-store';
 
 type SuccessResponse = ApiSuccessResponsePaginated<Comment>;
 type ErrorResponse = ApiErrorResponse;
 
-export function useCommentList(id: string) {
+export function useCommentList() {
+  const articleId = useArticleStore(store => store.articleId)
   const [page = '1', setPage] = useQueryState('commentPage', parseAsInteger)
   const { data: response, error, isLoading } = useQuery<SuccessResponse, ErrorResponse>({
 
-    queryKey: queryKeys.articles.comments(id + page),
-    queryFn: () => apiClient.get(`${API_ENDPOINTS.articles.comments(id)}?page=${page ?? '1'}`),
-    enabled: !!id,
+    queryKey: queryKeys.articles.comments(articleId + page),
+    queryFn: () => apiClient.get(`${API_ENDPOINTS.articles.comments(articleId)}?page=${page ?? '1'}`),
+    enabled: !!articleId,
     refetchOnWindowFocus: true,
     refetchOnReconnect: true,
   });

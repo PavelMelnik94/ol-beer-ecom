@@ -1,10 +1,11 @@
 import type { ApiErrorResponse, ApiSuccessResponse } from '@kernel/index';
-import type { LikeResponse } from '@modules/articles/types';
-import type { ChangeEvent } from 'react';
 import { API_ENDPOINTS, apiClient, queryClient, queryKeys } from '@kernel/index';
+import type { LikeResponse } from '@modules/articles/types';
 import { useMutation } from '@tanstack/react-query';
+import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { useArticleStore } from '../stores/article-store';
 
 type SuccessResponse = ApiSuccessResponse<LikeResponse>;
 type ErrorResponse = ApiErrorResponse;
@@ -13,12 +14,13 @@ interface Comment {
   content: string;
 }
 
-export function useCreateComment(id: string) {
+export function useCreateComment() {
+  const articleId = useArticleStore(store => store.articleId)
   const [content, setContent] = useState<string>('')
 
   const { mutateAsync, isPending } = useMutation<SuccessResponse, ErrorResponse, Comment>({
-    mutationKey: queryKeys.articles.comment(id),
-    mutationFn: ({ content }) => apiClient.post(`${API_ENDPOINTS.articles.comment(id)}`, { content }),
+    mutationKey: queryKeys.articles.comment(articleId),
+    mutationFn: ({ content }) => apiClient.post(`${API_ENDPOINTS.articles.comment(articleId)}`, { content }),
   });
 
   const createComment = async (content: Comment) => {
@@ -26,7 +28,7 @@ export function useCreateComment(id: string) {
 
     if (res.success) {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.articles.detail(id),
+        queryKey: queryKeys.articles.detail(articleId),
       });
 
       queryClient.invalidateQueries({

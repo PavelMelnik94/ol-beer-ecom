@@ -12,8 +12,7 @@ import { ArticleSkeleton } from './article-skeleton/article-skeleton';
 export function ArticleDetails({ id }: { id: string }) {
   const { article } = useArticlesDetails(id)
   const { scrollToTop } = useGlobalScroll()
-
-  const { likePost } = useLikeArticle(id)
+  const { likeArticle } = useLikeArticle()
 
   useLayoutEffect(() => {
     scrollToTop()
@@ -29,18 +28,18 @@ export function ArticleDetails({ id }: { id: string }) {
 
   return (
     <Section pb="0">
-      <ArticleContent article={article} likePost={likePost} />
+      <ArticleContent article={article} likePost={likeArticle} />
 
       <LikeAndComment
         likesCount={article.likesCount}
         likes={article.likedByUserIds}
-        likePost={likePost}
+        likePost={likeArticle}
       />
 
-      <ArticleComments id={article.id} />
+      <ArticleComments />
 
       <Box mt="7">
-        <ArticleRandom id={id} />
+        <ArticleRandom />
       </Box>
 
     </Section>

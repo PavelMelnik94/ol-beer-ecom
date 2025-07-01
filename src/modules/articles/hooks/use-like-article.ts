@@ -3,22 +3,25 @@ import { API_ENDPOINTS, apiClient, queryClient, queryKeys } from '@kernel/index'
 import type { LikeResponse } from '@modules/articles/types';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
+import { useArticleStore } from '../stores/article-store';
 
 type SuccessResponse = ApiSuccessResponse<LikeResponse>;
 type ErrorResponse = ApiErrorResponse;
 
-export function useLikeArticle(id: string) {
+export function useLikeArticle() {
+  const articleId = useArticleStore(store => store.articleId)
+
   const { mutateAsync } = useMutation<SuccessResponse, ErrorResponse>({
-    mutationKey: queryKeys.articles.like(id),
-    mutationFn: () => apiClient.post(`${API_ENDPOINTS.articles.like(id)}`),
+    mutationKey: queryKeys.articles.like(articleId),
+    mutationFn: () => apiClient.post(`${API_ENDPOINTS.articles.like(articleId)}`),
   });
 
-  const likePost = async () => {
+  const likeArticle = async () => {
     const res = await mutateAsync()
 
     if (res.success) {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.articles.detail(id),
+        queryKey: queryKeys.articles.detail(articleId),
       });
 
       queryClient.invalidateQueries({
@@ -32,6 +35,6 @@ export function useLikeArticle(id: string) {
   };
 
   return {
-    likePost,
+    likeArticle,
   }
 }

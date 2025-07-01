@@ -7,25 +7,21 @@ import { Box, Container, Flex, Separator } from '@radix-ui/themes';
 import { Pagination, Show } from '@shared/components';
 import { useMemo } from 'react';
 
-interface Props {
-  id: string;
-}
-
-export function ArticleComments({ id }: Props) {
-  const { commentList, onChangePage, currentPage, totalPages } = useCommentList(id);
+export function ArticleComments() {
+  const { commentList, onChangePage, currentPage, totalPages } = useCommentList();
   const { user, isAuth } = useAuth()
 
   const commentsActions = useMemo(() => {
     return getCommentAtctions(user, commentList)
-  }, [id, user, commentList])
+  }, [user, commentList])
 
   return (
     <Container pr="5" pl="5">
       <Box mb="6">
-        {isAuth && !!user && <CommentCreate user={user} id={id} /> }
+        {isAuth && !!user && <CommentCreate user={user} /> }
       </Box>
 
-      <CommentList commentList={commentList} commentsActions={commentsActions} id={id} />
+      <CommentList commentList={commentList} commentsActions={commentsActions} />
       <Show when={totalPages && totalPages > 1}>
         <Flex justify="end" align="center">
           <Pagination page={Number(currentPage)} total={Number(totalPages)} onPageChange={p => onChangePage(p)} />

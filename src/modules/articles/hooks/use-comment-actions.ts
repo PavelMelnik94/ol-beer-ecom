@@ -3,12 +3,14 @@ import { useMutation } from '@tanstack/react-query';
 import { parseAsInteger, useQueryState } from 'nuqs';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { useArticleStore } from '../stores/article-store';
 import type { Comment } from '../types';
 
 type SuccessResponse = ApiSuccessResponse<Comment>;
 type ErrorResponse = ApiErrorResponse;
 
-export function useCommentActions(comment: Comment, id: string) {
+export function useCommentActions(comment: Comment) {
+    const articleId = useArticleStore(store => store.articleId)
     const [currentContent, setCurrentContent] = useState(comment.content || '');
     const [mode, setMode] = useState<'edit' | 'read'>('read');
     const [page] = useQueryState('commentPage', parseAsInteger)
@@ -29,7 +31,7 @@ export function useCommentActions(comment: Comment, id: string) {
         if (res.success) {
             toast.success(res.message)
             queryClient.invalidateQueries({
-                queryKey: queryKeys.articles.comments(id + page),
+                queryKey: queryKeys.articles.comments(articleId + page),
             });
             setMode('read')
         }
@@ -43,7 +45,7 @@ export function useCommentActions(comment: Comment, id: string) {
 
         toast.success('Comment deleted successfully')
         queryClient.invalidateQueries({
-            queryKey: queryKeys.articles.comments(id + page),
+            queryKey: queryKeys.articles.comments(articleId + page),
         });
         setMode('read')
     }

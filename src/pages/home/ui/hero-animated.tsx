@@ -3,7 +3,7 @@ import { Box, Button, Flex, Heading, Section } from '@radix-ui/themes';
 import { animated, config, useSpring } from '@react-spring/web';
 import { Image, Show } from '@shared/components';
 import { useConfetti } from '@shared/hooks/use-confetti';
-import JSConfetti from 'js-confetti'
+import JSConfetti from 'js-confetti';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import styles from './hero-animated.module.scss';

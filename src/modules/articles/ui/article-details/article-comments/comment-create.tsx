@@ -4,8 +4,8 @@ import { CommentAuthor } from '@modules/articles/ui/article-details/article-comm
 import { Button, Flex } from '@radix-ui/themes';
 import { TextArea } from '@radix-ui/themes/src/index.js';
 
-export function CommentCreate({ user, id }: { user: User, id: string }) {
-  const { value, handleChangeComment, handleSubmitComment, isValid, isLoading } = useCreateComment(id)
+export function CommentCreate({ user }: { user: User }) {
+  const { value, handleChangeComment, handleSubmitComment, isValid, isLoading } = useCreateComment()
 
   return (
     <Flex direction="column" width="100%">

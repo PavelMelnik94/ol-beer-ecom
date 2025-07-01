@@ -7,7 +7,7 @@ import { CommentActions } from '../comment-actions';
 import { CommentAuthor } from '../comment-author';
 import styles from './comment-list.module.scss';
 
-export function CommentItem({ comment, actions, id }: { comment: Comment, actions: CommentsActions[0], id: string }) {
+export function CommentItem({ comment, actions }: { comment: Comment, actions: CommentsActions[0] }) {
   const {
     updateComment,
     deleteComment,
@@ -20,7 +20,7 @@ export function CommentItem({ comment, actions, id }: { comment: Comment, action
 
     mode,
     toggleMode,
-  } = useCommentActions(comment, id);
+  } = useCommentActions(comment);
 
   return (
     <Card>

@@ -1,7 +1,7 @@
-import type { Article } from './../../types';
 import { Badge, Flex, Text } from '@radix-ui/themes';
 import { For } from '@shared/components';
 import { Hop } from 'lucide-react';
+import type { Article } from './../../types';
 
 export function TagList({ tags }: { tags: Article['tags'] }) {
   return (

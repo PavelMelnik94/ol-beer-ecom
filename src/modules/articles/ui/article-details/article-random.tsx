@@ -2,8 +2,8 @@ import { useArticlesRandom } from '@modules/articles/hooks/use-article-random';
 import { Container } from '@radix-ui/themes';
 import { ArticlePreview } from '../article-list/article-preview/article-preview';
 
-export function ArticleRandom({ id }: { id: string }) {
-  const { article } = useArticlesRandom({ id })
+export function ArticleRandom() {
+  const { article } = useArticlesRandom()
 
   if (!article) return null;
 
