@@ -1,4 +1,4 @@
-import { useUiStore } from '@kernel/index'
+import { useUiStore } from '@kernel/index';
 import { useEffect } from 'react';
 import { themeStorage } from './../storage/';
 
@@ -12,10 +12,8 @@ function updateMetaColor(): void {
 }
 
 export function useTheme() {
-  const { setTheme, theme } = useUiStore(store => ({
-    theme: store.theme,
-    setTheme: store.setTheme,
-  }));
+  const theme = useUiStore(store => store.theme);
+  const setTheme = useUiStore(store => store.setTheme);
 
   useEffect(() => {
     const themeInStorage = themeStorage.get();
