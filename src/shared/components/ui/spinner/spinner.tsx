@@ -1,6 +1,5 @@
 import { animated, useSpring } from '@react-spring/web';
 import React from 'react';
-import type { Callout } from '@radix-ui/themes';
 import styles from './spinner.module.scss';
 
 interface SpinnerProps {
