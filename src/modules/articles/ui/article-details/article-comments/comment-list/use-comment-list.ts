@@ -1,9 +1,9 @@
 import type { ApiErrorResponse, ApiSuccessResponsePaginated } from '@kernel/index';
 import { API_ENDPOINTS, apiClient, queryKeys } from '@kernel/index';
+import { useArticleStore } from '@modules/articles/stores/article-store';
 import type { Comment } from '@modules/articles/types';
 import { useQuery } from '@tanstack/react-query';
 import { parseAsInteger, useQueryState } from 'nuqs';
-import { useArticleStore } from '../stores/article-store';
 
 type SuccessResponse = ApiSuccessResponsePaginated<Comment>;
 type ErrorResponse = ApiErrorResponse;

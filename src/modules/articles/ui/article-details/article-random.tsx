@@ -1,4 +1,4 @@
-import { useArticlesRandom } from '@modules/articles/hooks/use-article-random';
+import { useArticlesRandom } from '@modules/articles/ui/article-details/hooks/use-article-random';
 import { Container } from '@radix-ui/themes';
 import { ArticlePreview } from '../article-list/article-preview/article-preview';
 

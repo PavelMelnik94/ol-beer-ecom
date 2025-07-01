@@ -3,7 +3,7 @@ import { API_ENDPOINTS, apiClient, queryClient, queryKeys } from '@kernel/index'
 import type { LikeResponse } from '@modules/articles/types';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { useArticleStore } from '../stores/article-store';
+import { useArticleStore } from '../../../stores/article-store';
 
 type SuccessResponse = ApiSuccessResponse<LikeResponse>;
 type ErrorResponse = ApiErrorResponse;

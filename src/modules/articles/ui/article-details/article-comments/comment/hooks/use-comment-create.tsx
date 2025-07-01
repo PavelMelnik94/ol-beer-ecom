@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import type { ChangeEvent } from 'react';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { useArticleStore } from '../stores/article-store';
+import { useArticleStore } from '../../../../../stores/article-store';
 
 type SuccessResponse = ApiSuccessResponse<LikeResponse>;
 type ErrorResponse = ApiErrorResponse;
@@ -14,7 +14,7 @@ interface Comment {
   content: string;
 }
 
-export function useCreateComment() {
+export function useCommentCreate() {
   const articleId = useArticleStore(store => store.articleId)
   const [content, setContent] = useState<string>('')
 

@@ -1,9 +1,18 @@
+import { getCommentAtctions } from '@modules/articles/model';
+import { useAuth } from '@modules/auth';
 import { Flex } from '@radix-ui/themes';
 import { For } from '@shared/components';
-import type { Comment, CommentsActions } from '../../../../types';
+import { useMemo } from 'react';
+import type { Comment } from '../../../../types';
 import { CommentItem } from '../comment/comment';
 
-export function CommentList({ commentList, commentsActions }: { commentList: Comment[] | [], commentsActions: CommentsActions }) {
+export function CommentList({ commentList }: { commentList: Comment[] | [] }) {
+  const { user } = useAuth()
+
+  const commentsActions = useMemo(() => {
+    return getCommentAtctions(user, commentList)
+  }, [user, commentList])
+
   return (
     <For each={commentList}>
       {(comment) => {

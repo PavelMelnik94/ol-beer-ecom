@@ -1,6 +1,6 @@
 import { getIsLiked } from '@modules/articles/model';
-import { LoginCTA } from '@modules/articles/ui/article-details/article-comments/login-cta';
 import { useAuth } from '@modules/auth';
+import { LoginCTA } from '@modules/auth/';
 import { Container, Flex, Text } from '@radix-ui/themes';
 import { LikesCounterWithAuthorizePopup } from '../likes-counter/likes-counter-with-auth-popup';
 

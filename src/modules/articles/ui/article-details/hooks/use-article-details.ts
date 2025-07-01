@@ -3,7 +3,7 @@ import { API_ENDPOINTS, apiClient, queryKeys } from '@kernel/index';
 import type { ArticleDetails } from '@modules/articles/types';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import { useArticleStore } from '../stores/article-store';
+import { useArticleStore } from '../../../stores/article-store';
 
 type SuccessResponse = ApiSuccessResponse<ArticleDetails>;
 type ErrorResponse = ApiErrorResponse;

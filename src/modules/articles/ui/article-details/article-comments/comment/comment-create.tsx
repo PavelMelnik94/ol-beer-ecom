@@ -1,11 +1,11 @@
 import type { User } from '@kernel/types';
-import { useCreateComment } from '@modules/articles/hooks/use-create-comment';
 import { CommentAuthor } from '@modules/articles/ui/article-details/article-comments/comment/comment-author';
 import { Button, Flex } from '@radix-ui/themes';
 import { TextArea } from '@radix-ui/themes/src/index.js';
+import { useCommentCreate } from './hooks/use-comment-create';
 
 export function CommentCreate({ user }: { user: User }) {
-  const { value, handleChangeComment, handleSubmitComment, isValid, isLoading } = useCreateComment()
+  const { value, handleChangeComment, handleSubmitComment, isValid, isLoading } = useCommentCreate()
 
   return (
     <Flex direction="column" width="100%">

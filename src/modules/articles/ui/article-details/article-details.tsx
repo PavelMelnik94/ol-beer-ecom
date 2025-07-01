@@ -1,13 +1,13 @@
 import { useGlobalScroll } from '@kernel/index';
-import { useLikeArticle } from '@modules/articles/hooks/use-like-article';
+import { useLikeArticle } from '@modules/articles/ui/article-details/hooks/use-like-article';
 import { Box, Container, Section } from '@radix-ui/themes';
 import { useLayoutEffect } from 'react';
-import { useArticlesDetails } from '../../hooks/use-article-details';
 import { LikeAndComment } from '../like-and-comment/like-and-comment';
-import { ArticleComments } from './article-comments/article-comments';
+import { ArticleComments } from './article-comments/article-comments-wrapper';
 import { ArticleContent } from './article-content/article-content';
 import { ArticleRandom } from './article-random';
 import { ArticleSkeleton } from './article-skeleton/article-skeleton';
+import { useArticlesDetails } from './hooks/use-article-details';
 
 export function ArticleDetails({ id }: { id: string }) {
   const { article } = useArticlesDetails(id)
