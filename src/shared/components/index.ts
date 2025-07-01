@@ -2,8 +2,9 @@ export { Show } from './utils/Show'
 export { For } from './utils/For'
 
 export { Dialog } from './ui/dialog/dialog'
-
 export { Image } from './ui/image/image'
+export { Pagination } from './ui/pagination/pagination'
+
 export { Pulse } from './ui/pulse/pulse'
 export { Spinner } from './ui/spinner/spinner'
 

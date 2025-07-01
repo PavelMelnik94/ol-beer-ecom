@@ -15,7 +15,7 @@ function getCommentAtctions(user: User | null, Comments: Comment[]): CommentsAct
       [comment.id]: {
         withDelete: isSelfComment,
         withEdit: isSelfComment,
-        withLike: true,
+        withLike: !isSelfComment,
       },
     } satisfies CommentsActions;
   }, {} as CommentsActions)

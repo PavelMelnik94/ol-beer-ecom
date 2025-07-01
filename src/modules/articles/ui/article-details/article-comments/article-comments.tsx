@@ -1,17 +1,18 @@
-import { Box, Container } from '@radix-ui/themes'
+import { Box, Container, Flex, Separator } from '@radix-ui/themes'
 import { useCommentList } from '@modules/articles/hooks/use-comment-list';
 import { useAuth } from '@modules/auth';
 import { CommentList } from '@modules/articles/ui/article-details/article-comments/comment-list/comment-list';
 import { useMemo } from 'react';
 import { getCommentAtctions } from '@modules/articles/model';
 import { CommentCreate } from '@modules/articles/ui/article-details/article-comments/comment-create';
+import { Pagination, Show } from '@shared/components';
 
 interface Props {
   id: string;
 }
 
 export function ArticleComments({ id }: Props) {
-  const { commentList } = useCommentList(id);
+  const { commentList, onChangePage, currentPage, totalPages } = useCommentList(id);
   const { user, isAuth } = useAuth()
 
   const commentsActions = useMemo(() => {
@@ -25,6 +26,13 @@ export function ArticleComments({ id }: Props) {
       </Box>
 
       <CommentList commentList={commentList} commentsActions={commentsActions} />
+      <Show when={totalPages && totalPages > 1}>
+        <Flex justify="end" align="center">
+          <Pagination page={Number(currentPage)} total={Number(totalPages)} onPageChange={p => onChangePage(p)} />
+        </Flex>
+      </Show>
+
+      <Separator size="4" mt="4" />
     </Container>
   )
 }

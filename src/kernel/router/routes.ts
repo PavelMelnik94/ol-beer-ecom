@@ -4,7 +4,7 @@ export const ROUTES = {
   },
   articles: {
     root: '/articles',
-    article: (id: string) => `/articles/${id}`,
+    article: (id: string) => `/articles/${id}?commentPage=1`,
   },
   breweries: {
     root: '/breweries',
