@@ -12,8 +12,8 @@ export function useLikeArticle() {
   const articleId = useArticleStore(store => store.articleId)
 
   const { mutateAsync } = useMutation<SuccessResponse, ErrorResponse>({
-    mutationKey: queryKeys.articles.like(articleId),
-    mutationFn: () => apiClient.post(`${API_ENDPOINTS.articles.likeArticle(articleId)}`),
+    mutationKey: queryKeys.articles.articleLike(articleId),
+    mutationFn: () => apiClient.post(`${API_ENDPOINTS.articles.articleLike(articleId)}`),
   });
 
   const likeArticle = async () => {

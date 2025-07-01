@@ -38,7 +38,7 @@ export interface LikeResponse {
 }
 
 export interface Comment {
-
+  likedByUserIds: string[] | []
   author: Author
   content: string;
   createdAt: string;

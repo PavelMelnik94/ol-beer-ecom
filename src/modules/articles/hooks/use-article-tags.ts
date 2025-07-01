@@ -13,7 +13,7 @@ export function useArticleTags() {
     isError,
     error,
   } = useQuery<SuccessResponse, ErrorResponse>({
-    queryKey: queryKeys.articles.tags(),
+    queryKey: queryKeys.articles.articleTags(),
     queryFn: () =>
       apiClient.get(`${API_ENDPOINTS.articles.tags}`),
 

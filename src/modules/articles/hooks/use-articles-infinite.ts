@@ -18,7 +18,7 @@ export function useArticlesInfinite() {
     isFetchingNextPage,
     refetch,
   } = useInfiniteQuery<SuccessResponse, ErrorResponse>({
-    queryKey: queryKeys.articles.lists(),
+    queryKey: queryKeys.articles.articleList(),
     initialPageParam: 1,
     queryFn: ({ pageParam = 1 }) =>
       apiClient.get(`${API_ENDPOINTS.articles.all}?limit=${limit}&page=${pageParam}`),

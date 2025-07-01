@@ -1,6 +1,5 @@
 import { dateFormat, useGoTo } from '@kernel/index';
 import { getIsLiked } from '@modules/articles/model';
-import { useAuth } from '@modules/auth';
 import { Flex, Heading, Section, Separator, Text, Tooltip } from '@radix-ui/themes';
 import { Image } from '@shared/components';
 import { CalendarDays, MessageCircleReply, Signature } from 'lucide-react';
@@ -17,9 +16,8 @@ interface Props {
 
 export function ArticlePreview({ article, sectionStyles }: Props) {
   const { navigateToArticle } = useGoTo()
-  const { user } = useAuth()
 
-  const isLiked = getIsLiked({ likes: article.likedByUserIds, userId: user?.id })
+  const isLiked = getIsLiked(article.likedByUserIds)
 
   return (
     <Section className={styles.section} style={sectionStyles} data-preview-section onClick={() => navigateToArticle(article.id)}>

@@ -15,7 +15,7 @@ export function useArticlesRandom() {
     isError,
     error,
   } = useQuery<SuccessResponse, ErrorResponse>({
-    queryKey: queryKeys.articles.random(articleId),
+    queryKey: queryKeys.articles.articleRandom(articleId),
     queryFn: () =>
       apiClient.get(`${API_ENDPOINTS.articles.randomArticle(articleId)}`),
   })

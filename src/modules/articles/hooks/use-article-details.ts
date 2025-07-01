@@ -11,7 +11,7 @@ type ErrorResponse = ApiErrorResponse;
 export function useArticlesDetails(id: string) {
   const { data: response, error, isLoading } = useQuery<SuccessResponse, ErrorResponse>({
     queryKey: queryKeys.articles.detail(id),
-    queryFn: () => apiClient.get(`${API_ENDPOINTS.articles.details(id)}`),
+    queryFn: () => apiClient.get(`${API_ENDPOINTS.articles.articleDetails(id)}`),
     enabled: !!id,
   });
 

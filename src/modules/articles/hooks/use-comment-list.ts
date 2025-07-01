@@ -13,7 +13,7 @@ export function useCommentList() {
   const [page = '1', setPage] = useQueryState('commentPage', parseAsInteger)
   const { data: response, error, isLoading } = useQuery<SuccessResponse, ErrorResponse>({
 
-    queryKey: queryKeys.articles.comments(articleId + page),
+    queryKey: queryKeys.articles.commentList(articleId + page),
     queryFn: () => apiClient.get(`${API_ENDPOINTS.articles.comments(articleId)}?page=${page ?? '1'}`),
     enabled: !!articleId,
     refetchOnWindowFocus: true,

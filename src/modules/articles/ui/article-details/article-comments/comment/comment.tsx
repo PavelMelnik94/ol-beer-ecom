@@ -1,16 +1,18 @@
-import { useCommentActions } from '@modules/articles/hooks/use-comment-actions';
+import { getIsLiked } from '@modules/articles/model';
 import type { Comment, CommentsActions } from '@modules/articles/types';
 import { LikesCounterWithAuthorizePopup } from '@modules/articles/ui/likes-counter/likes-counter-with-auth-popup';
 import { Blockquote, Box, Button, Card, Flex, TextArea } from '@radix-ui/themes';
 import { Show } from '@shared/components';
-import { CommentActions } from '../comment-actions';
-import { CommentAuthor } from '../comment-author';
+import { CommentActions } from './comment-actions';
+import { CommentAuthor } from './comment-author';
 import styles from './comment-list.module.scss';
+import { useCommentDelete } from './hooks/use-comment-delete';
+import { useCommentEdit } from './hooks/use-comment-edit';
+import { useCommentLike } from './hooks/use-comment-like';
 
 export function CommentItem({ comment, actions }: { comment: Comment, actions: CommentsActions[0] }) {
   const {
     updateComment,
-    deleteComment,
 
     setUpdatedValue,
     updatedValue,
@@ -20,7 +22,12 @@ export function CommentItem({ comment, actions }: { comment: Comment, actions: C
 
     mode,
     toggleMode,
-  } = useCommentActions(comment);
+  } = useCommentEdit(comment);
+
+  const { likeComment } = useCommentLike(comment)
+  const { deleteComment } = useCommentDelete(comment)
+
+  const isLiked = getIsLiked(comment.likedByUserIds)
 
   return (
     <Card>
@@ -45,7 +52,7 @@ export function CommentItem({ comment, actions }: { comment: Comment, actions: C
       </Show>
 
       <Box className={styles.likeBlock}>
-        {actions.withLike && <LikesCounterWithAuthorizePopup likesCount={comment.likesCount} />}
+        {actions.withLike && <LikesCounterWithAuthorizePopup isLiked={isLiked} likesCount={comment.likesCount} onClick={() => likeComment()} />}
       </Box>
 
       <CommentActions
@@ -55,7 +62,7 @@ export function CommentItem({ comment, actions }: { comment: Comment, actions: C
         onDelete={deleteComment}
 
         withEdit={actions.withEdit}
-        onEdit={toggleMode}
+        onEdit={() => toggleMode()}
       />
     </Card>
   )

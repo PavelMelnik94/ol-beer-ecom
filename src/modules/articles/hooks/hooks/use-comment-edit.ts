@@ -3,13 +3,13 @@ import { useMutation } from '@tanstack/react-query';
 import { parseAsInteger, useQueryState } from 'nuqs';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { useArticleStore } from '../stores/article-store';
-import type { Comment } from '../types';
+import { useArticleStore } from '../../../../../stores/article-store';
+import type { Comment } from '../../../../../types';
 
 type SuccessResponse = ApiSuccessResponse<Comment>;
 type ErrorResponse = ApiErrorResponse;
 
-export function useCommentActions(comment: Comment) {
+export function useCommentEdit(comment: Comment) {
     const articleId = useArticleStore(store => store.articleId)
     const [currentContent, setCurrentContent] = useState(comment.content || '');
     const [mode, setMode] = useState<'edit' | 'read'>('read');
@@ -20,34 +20,19 @@ export function useCommentActions(comment: Comment) {
         mutationFn: () => apiClient.put(`${API_ENDPOINTS.articles.commentEdit(comment.id)}`, { content: currentContent }),
     });
 
-    const { mutateAsync: deleteComment } = useMutation<SuccessResponse, ErrorResponse>({
-        mutationKey: queryKeys.articles.commentDelete(comment.id),
-        mutationFn: () => apiClient.delete(`${API_ENDPOINTS.articles.commentDelete(comment.id)}`),
-    });
-
     const handleUpdate = async () => {
         const res = await updateComment();
 
         if (res.success) {
             toast.success(res.message)
             queryClient.invalidateQueries({
-                queryKey: queryKeys.articles.comments(articleId + page),
+                queryKey: queryKeys.articles.commentList(articleId + page),
             });
             setMode('read')
         }
         else {
             toast.error(res.message)
         }
-    }
-
-    const handleDelete = async () => {
-        await deleteComment();
-
-        toast.success('Comment deleted successfully')
-        queryClient.invalidateQueries({
-            queryKey: queryKeys.articles.comments(articleId + page),
-        });
-        setMode('read')
     }
 
     const setContent = (content: string) => setCurrentContent(content)
@@ -59,7 +44,6 @@ export function useCommentActions(comment: Comment) {
 
     return {
         updateComment: handleUpdate,
-        deleteComment: handleDelete,
         isUpdating: isPending,
 
         isValidValue: currentContent.trim().length > 5,

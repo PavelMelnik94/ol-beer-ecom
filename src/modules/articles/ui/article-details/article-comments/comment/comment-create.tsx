@@ -1,6 +1,6 @@
 import type { User } from '@kernel/types';
 import { useCreateComment } from '@modules/articles/hooks/use-create-comment';
-import { CommentAuthor } from '@modules/articles/ui/article-details/article-comments/comment-author';
+import { CommentAuthor } from '@modules/articles/ui/article-details/article-comments/comment/comment-author';
 import { Button, Flex } from '@radix-ui/themes';
 import { TextArea } from '@radix-ui/themes/src/index.js';
 

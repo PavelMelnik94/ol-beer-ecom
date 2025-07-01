@@ -10,9 +10,9 @@ interface Props {
   likePost: () => void;
 }
 export function LikeAndComment({ likesCount, likes, likePost }: Props) {
-  const { isAuth, user } = useAuth()
+  const { isAuth } = useAuth()
 
-  const isLiked = getIsLiked({ likes, userId: user?.id as string })
+  const isLiked = getIsLiked(likes)
   return (
     <Container pr="5" pl="5">
       <Flex

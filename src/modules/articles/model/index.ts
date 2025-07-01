@@ -1,5 +1,6 @@
-import type { User } from '@kernel/types'
-import type { Comment, CommentsActions } from '@modules/articles/types'
+import type { User } from '@kernel/types';
+import type { Comment, CommentsActions } from '@modules/articles/types';
+import { useAuthStore } from '@modules/auth/index';
 import { z } from 'zod';
 
 function getUserIsAuthor(user: User, commentAuthor: Comment['author']): boolean {
@@ -21,13 +22,14 @@ function getCommentAtctions(user: User | null, Comments: Comment[]): CommentsAct
   }, {} as CommentsActions)
 }
 
-function getIsLiked({ likes, userId }: { likes: string[]; userId: string | null | undefined }): boolean {
-  if (z.string().safeParse(userId).success && z.array(z.string()).safeParse(likes).success) {
-    return typeof userId && likes.length > 0
-      ? likes.includes(userId as never)
+function getIsLiked(likeListForCheck: string[]): boolean {
+  const userId = useAuthStore.getState().user?.id
+  if (z.string().safeParse(userId).success && z.array(z.string()).safeParse(likeListForCheck).success) {
+    return typeof userId && likeListForCheck.length > 0
+      ? likeListForCheck.includes(userId as never)
       : false;
   }
   return false;
 }
 
-export { getCommentAtctions, getIsLiked }
+export { getCommentAtctions, getIsLiked };

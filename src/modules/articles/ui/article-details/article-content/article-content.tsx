@@ -1,20 +1,18 @@
-import type { ArticleDetails } from '@modules/articles/types';
 import { getIsLiked } from '@modules/articles/model';
-import { useAuth } from '@modules/auth';
+import type { ArticleDetails } from '@modules/articles/types';
 import { Container, Flex, Heading, Separator, Text } from '@radix-ui/themes';
 import { Image } from '@shared/components';
 import { useMediaQuery } from 'react-responsive';
 import { LikesCounterWithAuthorizePopup } from '../../likes-counter/likes-counter-with-auth-popup';
-import styles from './article-content.module.scss'
+import styles from './article-content.module.scss';
 import { ArticleMeta } from './article-meta';
 
 export function ArticleContent({ article, likePost }: { article: ArticleDetails, likePost: () => void }) {
   const isMobile = useMediaQuery({
     query: '(max-width: 576px)',
   });
-  const { user } = useAuth()
 
-  const isLiked = getIsLiked({ likes: article.likedByUserIds, userId: user?.id as string })
+  const isLiked = getIsLiked(article.likedByUserIds)
 
   return (
     <>
