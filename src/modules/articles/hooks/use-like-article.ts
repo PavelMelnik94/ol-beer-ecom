@@ -1,13 +1,13 @@
 import type { ApiErrorResponse, ApiSuccessResponse } from '@kernel/index';
-import type { LikeResponse } from '@modules/articles/types';
 import { API_ENDPOINTS, apiClient, queryClient, queryKeys } from '@kernel/index';
+import type { LikeResponse } from '@modules/articles/types';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 type SuccessResponse = ApiSuccessResponse<LikeResponse>;
 type ErrorResponse = ApiErrorResponse;
 
-export function useLikePost(id: string) {
+export function useLikeArticle(id: string) {
   const { mutateAsync } = useMutation<SuccessResponse, ErrorResponse>({
     mutationKey: queryKeys.articles.like(id),
     mutationFn: () => apiClient.post(`${API_ENDPOINTS.articles.like(id)}`),
@@ -26,7 +26,7 @@ export function useLikePost(id: string) {
       });
 
       if (res.data.liked) {
-        toast('Thank you, the author will be very pleased!')
+        toast('Thank you, the author will be very pleased! 🙏')
       }
     }
   };

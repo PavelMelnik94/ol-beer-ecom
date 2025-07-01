@@ -1,5 +1,5 @@
 import { useGlobalScroll } from '@kernel/index';
-import { useLikePost } from '@modules/articles/hooks/use-like-post';
+import { useLikeArticle } from '@modules/articles/hooks/use-like-article';
 import { Box, Container, Section } from '@radix-ui/themes';
 import { useLayoutEffect } from 'react';
 import { useArticlesDetails } from '../../hooks/use-article-details';
@@ -13,7 +13,7 @@ export function ArticleDetails({ id }: { id: string }) {
   const { article } = useArticlesDetails(id)
   const { scrollToTop } = useGlobalScroll()
 
-  const { likePost } = useLikePost(id)
+  const { likePost } = useLikeArticle(id)
 
   useLayoutEffect(() => {
     scrollToTop()
