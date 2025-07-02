@@ -167,7 +167,7 @@ export function AnimatedHero(): JSX.Element {
   useEffect(() => {
     const jsConfetti = new JSConfetti();
     if (scrollState.isComplete) {
-      if (window.innerWidth < 576) {
+      if (window.innerWidth < 576 && typeof window?.navigator?.vibrate === 'function') {
         window.navigator.vibrate([100, 50, 100])
       }
       jsConfetti.addConfetti({
