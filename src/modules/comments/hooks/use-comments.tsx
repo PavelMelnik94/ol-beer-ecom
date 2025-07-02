@@ -1,4 +1,11 @@
 import type { ApiErrorResponse, ApiSuccessResponse, ApiSuccessResponsePaginated } from '@kernel/index';
+
+import { queryClient, queryKeys, toast, useAuthStore } from '@kernel/index';
+import { useCommentStore } from '@modules/comments/stores/comment-store';
+import { useOptimistic } from '@shared/hooks';
+
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useCallback, useEffect } from 'react';
 import type {
   Comment,
   CommentCreateRequest,
@@ -7,13 +14,6 @@ import type {
   CommentUpdateRequest,
   OptimisticComment,
 } from '../types';
-import { queryClient, queryKeys, toast, useAuthStore } from '@kernel/index';
-
-import { useCommentStore } from '@modules/comments/stores/comment-store';
-import { useOptimistic } from '@shared/hooks';
-import { useMutation, useQuery } from '@tanstack/react-query';
-
-import { useCallback, useEffect } from 'react';
 import { commentsApi } from '../api';
 import { commentsModel } from '../model';
 

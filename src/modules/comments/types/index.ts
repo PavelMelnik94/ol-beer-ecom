@@ -50,4 +50,3 @@ export interface CommentsState {
   };
   isLoading: boolean;
 }
-

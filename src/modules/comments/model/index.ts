@@ -25,7 +25,7 @@ function optimisticUpdateComment(comments: OptimisticComment[], id: string, cont
   return comments.map(comment =>
     comment.id === id
       ? { ...comment, content: content.trim(), isPending: true }
-      : comment
+      : comment,
   );
 }
 
@@ -34,7 +34,7 @@ function optimisticDeleteComment(comments: OptimisticComment[], id: string) {
 }
 
 function optimisticLikeComment(comments: OptimisticComment[], id: string, userId: string) {
-  return comments.map(comment => {
+  return comments.map((comment) => {
     if (comment.id === id) {
       const isLiked = (comment.likedByUserIds as string[]).includes(userId);
       return {

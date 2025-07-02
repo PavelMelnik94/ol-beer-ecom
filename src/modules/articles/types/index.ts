@@ -22,5 +22,3 @@ export interface Article {
 export interface ArticleDetails extends Article {
   longDescription: string;
 }
-
-

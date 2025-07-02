@@ -1,6 +1,6 @@
-import type { ApiSuccessResponse, ApiSuccessResponsePaginated, ApiErrorResponse } from '@kernel/index';
-import type { Comment, CommentCreateRequest } from '../types';
+import type { ApiErrorResponse, ApiSuccessResponse, ApiSuccessResponsePaginated } from '@kernel/index';
 import { API_ENDPOINTS, apiClient } from '@kernel/index';
+import type { Comment, CommentCreateRequest } from '../types';
 
 export type CommentsResponse = ApiSuccessResponsePaginated<Comment>;
 export type CommentResponse = ApiSuccessResponse<Comment>;
@@ -33,4 +33,3 @@ export const commentsApi = {
   deleteComment: deleteCommentApi,
   likeComment: likeCommentApi,
 };
-
