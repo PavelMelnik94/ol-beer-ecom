@@ -1,4 +1,3 @@
-import { getIsLiked } from '@modules/articles/model';
 import { useAuth } from '@modules/auth';
 import { LoginCTA } from '@modules/auth/';
 import { Container, Flex, Text } from '@radix-ui/themes';

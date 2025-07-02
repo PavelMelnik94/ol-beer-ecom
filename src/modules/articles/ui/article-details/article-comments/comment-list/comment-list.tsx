@@ -1,9 +1,9 @@
+import type { Comment } from '../../../../types';
 import { getCommentAtctions } from '@modules/articles/model';
 import { useAuth } from '@modules/auth';
 import { Flex } from '@radix-ui/themes';
 import { For } from '@shared/components';
 import { useMemo } from 'react';
-import type { Comment } from '../../../../types';
 import { CommentItem } from '../comment/comment';
 
 export function CommentList({ commentList }: { commentList: Comment[] | [] }) {

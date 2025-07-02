@@ -2,17 +2,17 @@ import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 
 interface ArticleState {
-    articleId: string;
+  articleId: string;
 }
 
 interface ArticleActions {
-    setArticleId: (articleId: string) => void;
+  setArticleId: (articleId: string) => void;
 }
 
 export const useArticleStore = create<ArticleState & ArticleActions>()(
-    subscribeWithSelector(set => ({
-        articleId: '',
+  subscribeWithSelector(set => ({
+    articleId: '',
 
-        setArticleId: articleId => set({ articleId }),
-    })),
+    setArticleId: articleId => set({ articleId }),
+  })),
 );

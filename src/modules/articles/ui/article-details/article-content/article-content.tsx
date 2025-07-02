@@ -1,5 +1,4 @@
 import type { ArticleDetails } from '@modules/articles/types';
-import { getIsLiked } from '@modules/articles/model';
 import { Container, Flex, Heading, Separator, Text } from '@radix-ui/themes';
 import { Image } from '@shared/components';
 import { useMediaQuery } from 'react-responsive';

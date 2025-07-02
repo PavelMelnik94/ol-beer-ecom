@@ -1,5 +1,4 @@
 import type { Comment, CommentsActions } from '@modules/articles/types';
-import { getIsLiked } from '@modules/articles/model';
 import { LikesCounterWithAuthorizePopup } from '@modules/articles/ui/likes-counter/likes-counter-with-auth-popup';
 import { Blockquote, Box, Button, Card, Flex, TextArea } from '@radix-ui/themes';
 import { Show } from '@shared/components';

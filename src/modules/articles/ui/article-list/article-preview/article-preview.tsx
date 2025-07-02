@@ -1,10 +1,10 @@
+import type { CSSProperties } from 'react';
+import type { Article as ArticleType } from '../../../types';
 import { dateFormat, useGoTo } from '@kernel/index';
 import { getIsLiked } from '@modules/articles/model';
 import { Flex, Heading, Section, Separator, Text, Tooltip } from '@radix-ui/themes';
 import { Image } from '@shared/components';
 import { CalendarDays, MessageCircleReply, Signature } from 'lucide-react';
-import type { CSSProperties } from 'react';
-import type { Article as ArticleType } from '../../../types';
 import { LikesCounter } from '../../likes-counter/likes-counter';
 import { TagList } from '../../tag-list/tag-list';
 import styles from './article-preview.module.scss';
