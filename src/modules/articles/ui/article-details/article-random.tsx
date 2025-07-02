@@ -1,7 +1,7 @@
-import { useArticlesRandom } from '@modules/articles/ui/article-details/hooks/use-article-random';
+import { useArticlesRandom } from '@modules/articles/hooks/use-article-random';
 import { Container } from '@radix-ui/themes';
 import React from 'react';
-import { ArticlePreview } from '../article-list/article-preview/article-preview';
+import { ArticlePreview } from '../article-preview/article-preview';
 
 export const ArticleRandom = React.memo(({ excludeId }: { excludeId: string }) => {
   const { article } = useArticlesRandom(excludeId);

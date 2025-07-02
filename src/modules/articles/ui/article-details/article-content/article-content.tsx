@@ -1,8 +1,9 @@
 import type { ArticleDetails } from '@modules/articles/types';
+import { LikesCounterWithAuthorizePopup } from '@modules/common';
 import { Container, Flex, Heading, Separator, Text } from '@radix-ui/themes';
 import { Image } from '@shared/components';
+
 import { useMediaQuery } from 'react-responsive';
-import { LikesCounterWithAuthorizePopup } from '../../likes-counter/likes-counter-with-auth-popup';
 import styles from './article-content.module.scss';
 import { ArticleMeta } from './article-meta';
 

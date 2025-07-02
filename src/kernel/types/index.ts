@@ -24,3 +24,19 @@ export interface User {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface Author {
+  id: string,
+  firstName: string;
+  lastName: string;
+  avatar: string;
+}
+
+export interface LikeResponse {
+  liked: boolean;
+  like: {
+    id: string
+    userId: string
+    createdAt: string
+  }
+}
