@@ -1,5 +1,4 @@
-import { useGlobalScroll } from '@kernel/index';
-import { getIsLiked } from '@modules/articles/model';
+import { getIsLiked, useGlobalScroll } from '@kernel/index';
 import { useLikeArticle } from '@modules/articles/ui/article-details/hooks/use-like-article';
 import { Box, Container, Section } from '@radix-ui/themes';
 import { useLayoutEffect } from 'react';

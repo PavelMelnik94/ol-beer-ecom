@@ -27,9 +27,9 @@ export function CommentList({
 
   return (
     <For each={commentList}>
-      {(comment) => {
+      {(comment, index) => {
         return (
-          <Flex key={comment.id} direction="column" mb="2">
+          <Flex key={comment.id + index} direction="column" mb="2">
             <CommentItem
               comment={comment}
               actions={commentsActions[comment.id]}

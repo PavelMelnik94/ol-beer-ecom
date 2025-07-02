@@ -15,4 +15,4 @@ export { ROUTES } from './router/routes'
 export * from './storage'
 export * from './stores';
 export * from './types'
-export { dateFormat } from './utils/dateFormat'
+export * from './utils'

@@ -44,15 +44,15 @@ export function useComments({ page = 1 }: UseCommentsProps = {}) {
   } = useQuery<CommentsResponse, ErrorResponse>({
     queryKey: queryKeys.articles.commentList(articleId, page),
     queryFn: () => {
-      console.warn('🌐 Fetching comments:', { articleId, page });
       return apiClient.get(`${API_ENDPOINTS.articles.comments(articleId)}?page=${page}`);
     },
     enabled: !!articleId,
-    staleTime: 0, // Всегда считать данные устаревшими
-    gcTime: 1000 * 60 * 5, // Кэш на 5 минут
-    refetchOnMount: true, // Всегда перезапрашивать при монтировании
-    refetchOnWindowFocus: false, // Не перезапрашивать при фокусе
+    staleTime: 0,
+    gcTime: 0,
+    refetchOnMount: 'always',
+    refetchOnWindowFocus: false,
     refetchOnReconnect: true,
+    retry: false,
   });
 
   const {
@@ -77,6 +77,12 @@ export function useComments({ page = 1 }: UseCommentsProps = {}) {
       });
     }
   }, [commentsData, setComments, setPagination]);
+
+  useEffect(() => {
+    if (articleId) {
+      refetch();
+    }
+  }, [articleId, refetch]);
 
   useEffect(() => {
     setCommentsLoading(isQueryLoading);
@@ -197,11 +203,7 @@ export function useComments({ page = 1 }: UseCommentsProps = {}) {
   const deleteComment = useCallback(async (id: string) => {
     addOptimistic((comments) => {
       const filteredComments = comments.filter(comment => comment.id !== id);
-      console.warn('📊 Comments after optimistic delete:', {
-        before: comments.length,
-        after: filteredComments.length,
-        currentPage: page,
-      });
+
       return filteredComments;
     });
 
@@ -231,7 +233,6 @@ export function useComments({ page = 1 }: UseCommentsProps = {}) {
     await likeCommentMutation.mutateAsync({ id });
   }, [addOptimistic, likeCommentMutation, currentUser]);
 
-  console.warn('🔍 Comments state:', { optimisticComments, storeComments: commentsState.comments });
   return {
     // data
     comments: [...optimisticComments, ...commentsState.comments],

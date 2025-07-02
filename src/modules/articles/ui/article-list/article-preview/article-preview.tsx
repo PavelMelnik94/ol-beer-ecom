@@ -1,7 +1,6 @@
 import type { CSSProperties } from 'react';
 import type { Article as ArticleType } from '../../../types';
-import { dateFormat, useGoTo } from '@kernel/index';
-import { getIsLiked } from '@modules/articles/model';
+import { dateFormat, getIsLiked, useGoTo } from '@kernel/index';
 import { Flex, Heading, Section, Separator, Text, Tooltip } from '@radix-ui/themes';
 import { Image } from '@shared/components';
 import { CalendarDays, MessageCircleReply, Signature } from 'lucide-react';
