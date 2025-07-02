@@ -1,4 +1,4 @@
-import type { ApiErrorResponse, ApiSuccessResponse, ApiSuccessResponsePaginated } from '@kernel/index';
+import type { ApiSuccessResponse, ApiSuccessResponsePaginated, ApiErrorResponse } from '@kernel/index';
 import type {
   Comment,
   CommentCreateRequest,
@@ -7,7 +7,7 @@ import type {
   CommentUpdateRequest,
   OptimisticComment,
 } from '../types';
-import { API_ENDPOINTS, apiClient, queryClient, queryKeys, useAuthStore } from '@kernel/index';
+import { queryClient, queryKeys, useAuthStore } from '@kernel/index';
 
 import { useOptimistic } from '@shared/hooks';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -15,6 +15,8 @@ import { useCallback, useEffect } from 'react';
 import { toast } from 'sonner';
 
 import { useArticleStore } from '../stores/article-store';
+import { commentsModel } from '../model/comments-model';
+import { commentsApi } from '../api/comments-api';
 
 type CommentsResponse = ApiSuccessResponsePaginated<Comment>;
 type CommentResponse = ApiSuccessResponse<Comment>;
@@ -34,7 +36,6 @@ export function useComments({ page = 1 }: UseCommentsProps = {}) {
     setCommentsLoading,
   } = useArticleStore();
 
-  console.warn('🎯 useComments called:', { articleId, page });
 
   const {
     data: commentsData,
@@ -43,9 +44,7 @@ export function useComments({ page = 1 }: UseCommentsProps = {}) {
     refetch,
   } = useQuery<CommentsResponse, ErrorResponse>({
     queryKey: queryKeys.articles.commentList(articleId, page),
-    queryFn: () => {
-      return apiClient.get(`${API_ENDPOINTS.articles.comments(articleId)}?page=${page}`);
-    },
+    queryFn: () => commentsApi.getComments(articleId, page),
     enabled: !!articleId,
     staleTime: 0,
     gcTime: 0,
@@ -65,11 +64,7 @@ export function useComments({ page = 1 }: UseCommentsProps = {}) {
 
   useEffect(() => {
     if (commentsData?.data) {
-      const comments: OptimisticComment[] = commentsData.data.map(comment => ({
-        ...comment,
-        isOptimistic: false,
-      }));
-
+      const comments: OptimisticComment[] = commentsModel.mapServerCommentsToOptimistic(commentsData.data);
       setComments(comments);
       setPagination({
         page: commentsData.pagination.page,
@@ -100,7 +95,7 @@ export function useComments({ page = 1 }: UseCommentsProps = {}) {
   }, [articleId]);
 
   const createCommentMutation = useMutation<CommentResponse, ErrorResponse, CommentCreateRequest>({
-    mutationFn: data => apiClient.post(`${API_ENDPOINTS.articles.commentCreate(articleId)}`, data),
+    mutationFn: data => commentsApi.createComment(articleId, data),
     onSuccess: (response) => {
       if (response.success) {
         confirm();
@@ -115,8 +110,7 @@ export function useComments({ page = 1 }: UseCommentsProps = {}) {
   });
 
   const updateCommentMutation = useMutation<CommentResponse, ErrorResponse, CommentUpdateRequest>({
-    mutationFn: ({ id, content }) =>
-      apiClient.put(`${API_ENDPOINTS.articles.commentEdit(id)}`, { content }),
+    mutationFn: ({ id, content }) => commentsApi.updateComment(id, content),
     onSuccess: (response) => {
       if (response.success) {
         confirm();
@@ -131,13 +125,11 @@ export function useComments({ page = 1 }: UseCommentsProps = {}) {
   });
 
   const deleteCommentMutation = useMutation<CommentResponse, ErrorResponse, CommentDeleteRequest>({
-    mutationFn: ({ id }) => apiClient.delete(`${API_ENDPOINTS.articles.commentDelete(id)}`),
+    mutationFn: ({ id }) => commentsApi.deleteComment(id),
     onSuccess: async (response) => {
       confirm();
       toast.success(response.message || 'Comment deleted successfully');
-
       invalidateCommentsQueries();
-
       await refetch();
     },
     onError: (error) => {
@@ -147,7 +139,7 @@ export function useComments({ page = 1 }: UseCommentsProps = {}) {
   });
 
   const likeCommentMutation = useMutation<CommentResponse, ErrorResponse, CommentLikeRequest>({
-    mutationFn: ({ id }) => apiClient.post(`${API_ENDPOINTS.articles.commentLike(id)}`),
+    mutationFn: ({ id }) => commentsApi.likeComment(id),
     onSuccess: (response) => {
       if (response.success) {
         confirm();
@@ -162,74 +154,25 @@ export function useComments({ page = 1 }: UseCommentsProps = {}) {
 
   const createComment = useCallback(async (content: string) => {
     if (!content.trim() || !currentUser) return;
-
-    const optimisticId = `temp-${Date.now()}`;
-    const optimisticComment: OptimisticComment = {
-      id: optimisticId,
-      content: content.trim(),
-      author: {
-        id: currentUser.id,
-        firstName: currentUser.firstName,
-        lastName: currentUser.lastName,
-        avatar: currentUser.avatar || '',
-      },
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      likesCount: 0,
-      likedByUserIds: [],
-      isOptimistic: true,
-      isPending: false,
-    };
-
+    const optimisticComment = commentsModel.createOptimisticComment(content, currentUser);
     addOptimistic(comments => [optimisticComment, ...comments]);
-
     await createCommentMutation.mutateAsync({ content: content.trim() });
   }, [addOptimistic, createCommentMutation, currentUser]);
 
   const updateComment = useCallback(async (id: string, content: string) => {
     if (!content.trim()) return;
-
-    addOptimistic(comments =>
-      comments.map(comment =>
-        comment.id === id
-          ? { ...comment, content: content.trim(), isPending: true }
-          : comment,
-      ),
-    );
-
+    addOptimistic(comments => commentsModel.optimisticUpdateComment(comments, id, content));
     await updateCommentMutation.mutateAsync({ id, content });
   }, [addOptimistic, updateCommentMutation]);
 
   const deleteComment = useCallback(async (id: string) => {
-    addOptimistic((comments) => {
-      const filteredComments = comments.filter(comment => comment.id !== id);
-
-      return filteredComments;
-    });
-
+    addOptimistic(comments => commentsModel.optimisticDeleteComment(comments, id));
     await deleteCommentMutation.mutateAsync({ id });
   }, [addOptimistic, deleteCommentMutation, page]);
 
   const likeComment = useCallback(async (id: string) => {
     if (!currentUser) return;
-
-    addOptimistic(comments =>
-      comments.map((comment) => {
-        if (comment.id === id) {
-          const isLiked = (comment.likedByUserIds as string[]).includes(currentUser.id);
-          return {
-            ...comment,
-            likesCount: isLiked ? comment.likesCount - 1 : comment.likesCount + 1,
-            likedByUserIds: isLiked
-              ? (comment.likedByUserIds as string[]).filter(userId => userId !== currentUser.id)
-              : [...(comment.likedByUserIds as string[]), currentUser.id],
-            isPending: false,
-          };
-        }
-        return comment;
-      }),
-    );
-
+    addOptimistic(comments => commentsModel.optimisticLikeComment(comments, id, currentUser.id));
     await likeCommentMutation.mutateAsync({ id });
   }, [addOptimistic, likeCommentMutation, currentUser]);
 
@@ -249,16 +192,12 @@ export function useComments({ page = 1 }: UseCommentsProps = {}) {
     error: queryError,
 
     // pagination
-    shouldGoToPrevPage: (() => {
-      const currentData = commentsData?.data;
-      const optimisticCommentsCount = optimisticComments?.length || 0;
-
-      const shouldGo = (currentData?.length === 0 || optimisticCommentsCount === 0)
-        && page > 1
-        && !isQueryLoading;
-
-      return shouldGo;
-    })(),
+    shouldGoToPrevPage: commentsModel.shouldGoToPrevPage(
+      commentsData?.data,
+      optimisticComments?.length || 0,
+      page,
+      isQueryLoading
+    ),
 
     // actions
     createComment,

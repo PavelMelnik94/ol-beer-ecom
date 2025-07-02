@@ -1,14 +1,11 @@
-import type { ApiErrorResponse, ApiSuccessResponse } from '@kernel/index';
-import type { LikeResponse } from '@modules/articles/types';
-import { API_ENDPOINTS, apiClient, queryClient, queryKeys } from '@kernel/index';
+
+import {  queryClient, queryKeys } from '@kernel/index';
 import { useArticleStore } from '@modules/articles/stores/article-store';
 import { useOptimistic } from '@shared/hooks';
 import { useMutation } from '@tanstack/react-query';
 import { useCallback, useMemo } from 'react';
 import { toast } from 'sonner';
-
-type SuccessResponse = ApiSuccessResponse<LikeResponse>;
-type ErrorResponse = ApiErrorResponse;
+import { articleApi,  type ErrorResponse, type SuccessResponseArticleLike } from '@modules/articles/api/article-api';
 
 interface LikeState {
   isLiked: boolean;
@@ -30,9 +27,9 @@ export function useLikeArticle({ initialIsLiked, initialLikesCount }: UseLikeArt
 
   const { optimisticValue, addOptimistic, rollback, isPending } = useOptimistic(baseState);
 
-  const { mutateAsync } = useMutation<SuccessResponse, ErrorResponse>({
+  const { mutateAsync } = useMutation<SuccessResponseArticleLike, ErrorResponse>({
     mutationKey: queryKeys.articles.articleLike(articleId),
-    mutationFn: () => apiClient.post(`${API_ENDPOINTS.articles.articleLike(articleId)}`),
+    mutationFn: () => articleApi.likeArticle(articleId),
   });
 
   const likeArticle = useCallback(async () => {

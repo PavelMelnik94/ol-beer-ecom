@@ -1,10 +1,10 @@
 import type { Comment, OptimisticComment } from '../../../../types';
 import { useAuthStore } from '@kernel/stores';
-import { getCommentAllowActions } from '@modules/articles/model';
 import { Flex } from '@radix-ui/themes';
 import { For } from '@shared/components';
 import { useMemo } from 'react';
 import { CommentItem } from '../comment/comment';
+import { commentsModel } from '@modules/articles/model/comments-model';
 
 interface CommentListProps {
   commentList: Comment[] | OptimisticComment[];
@@ -22,7 +22,7 @@ export function CommentList({
   const user = useAuthStore(s => s.user)
 
   const commentsActions = useMemo(() => {
-    return getCommentAllowActions(user, commentList as Comment[]);
+    return commentsModel.getCommentAllowActions(user, commentList as Comment[]);
   }, [user, commentList]);
 
   return (

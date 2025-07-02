@@ -33,19 +33,9 @@ export const useArticleStore = create<ArticleState & ArticleActions>()(
     commentsState: initialCommentsState,
 
     setArticleId: (articleId: string) => {
-      console.warn('📄 Setting article ID:', articleId);
-
-      // Инвалидируем кэш комментариев для предыдущей статьи и новой
-      // queryClient.invalidateQueries({
-      //   predicate: (query) => {
-      //     const key = query.queryKey;
-      //     return Array.isArray(key) && key[0] === 'articles' && key[2] === 'comments';
-      //   },
-      // });
 
       set({
         articleId,
-        // Сбрасываем состояние комментариев при смене статьи
         commentsState: initialCommentsState,
       });
     },

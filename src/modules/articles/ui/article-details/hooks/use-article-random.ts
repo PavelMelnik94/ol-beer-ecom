@@ -1,10 +1,6 @@
-import type { ApiErrorResponse, ApiSuccessResponse } from '@kernel/index';
-import type { Article } from '../../../types';
-import { API_ENDPOINTS, apiClient, queryKeys } from '@kernel/index';
+import {  queryKeys } from '@kernel/index';
 import { useQuery } from '@tanstack/react-query';
-
-type SuccessResponse = ApiSuccessResponse<Article>;
-type ErrorResponse = ApiErrorResponse;
+import { articleApi, type ErrorResponse, type SuccessResponseRandomArticle } from '@modules/articles/api/article-api';
 
 export function useArticlesRandom(excludeId: string) {
   const {
@@ -12,10 +8,9 @@ export function useArticlesRandom(excludeId: string) {
     isLoading,
     isError,
     error,
-  } = useQuery<SuccessResponse, ErrorResponse>({
+  } = useQuery<SuccessResponseRandomArticle, ErrorResponse>({
     queryKey: queryKeys.articles.articleRandom(excludeId),
-    queryFn: () =>
-      apiClient.get(`${API_ENDPOINTS.articles.randomArticle(excludeId)}`),
+    queryFn:  () => articleApi.getRandomArticle(excludeId),
   })
 
   return {
