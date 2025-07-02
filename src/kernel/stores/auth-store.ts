@@ -1,9 +1,12 @@
 import type { User } from '@kernel/index';
-import type { AuthState } from '../model/types'
 import { tokenStorage } from '@kernel/index'
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
+interface AuthState {
+  user: User | null
+  isAuth: boolean
+}
 interface AuthStore extends AuthState {
   setUser: (user: User | null) => void
   login: (user: User) => void

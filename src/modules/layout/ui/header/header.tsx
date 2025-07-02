@@ -1,5 +1,5 @@
 import { useGoTo } from '@kernel/hooks';
-import { ROUTES, ThemeButton } from '@kernel/index';
+import { ROUTES, ThemeButton, useAuthStore } from '@kernel/index';
 import { useAuth } from '@modules/auth';
 import { CartButton } from '@modules/cart';
 import { Box, Button, Flex, IconButton, Popover, Separator, Text } from '@radix-ui/themes';
@@ -21,7 +21,8 @@ export function Header({ isFixed }: Props) {
   const { navigateToBlog, navigateToHome, navigateToBreweries, navigateToAbout, navigateToRegister, navigateToStore } = useGoTo();
   const { pathname } = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { isAuth, logout } = useAuth();
+  const { logout } = useAuth();
+  const isAuth = useAuthStore(s => s.isAuth)
   const isMobileLayout = useMediaQuery({
     query: '(max-width: 560px)',
   })

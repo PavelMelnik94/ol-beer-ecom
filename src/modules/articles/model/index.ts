@@ -1,13 +1,13 @@
 import type { User } from '@kernel/types';
 import type { Comment, CommentsActions } from '@modules/articles/types';
-import { useAuthStore } from '@modules/auth/index';
+import { useAuthStore } from '@kernel/index';
 import { z } from 'zod';
 
 function getUserIsAuthor(user: User, commentAuthor: Comment['author']): boolean {
   return user?.id === commentAuthor?.id
 }
 
-function getCommentAtctions(user: User | null, Comments: Comment[]): CommentsActions {
+function getCommentAllowActions(user: User | null, Comments: Comment[]): CommentsActions {
   return Comments?.reduce((acc, comment) => {
     const isSelfComment = user ? getUserIsAuthor(user, comment.author) : false;
 
@@ -35,4 +35,4 @@ function getIsLiked(likeListForCheck: string[] | [] | undefined): boolean {
   return false;
 }
 
-export { getCommentAtctions, getIsLiked };
+export { getCommentAllowActions, getIsLiked };

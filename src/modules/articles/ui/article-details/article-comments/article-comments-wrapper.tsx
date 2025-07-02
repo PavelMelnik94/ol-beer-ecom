@@ -1,16 +1,16 @@
-import { useAuth } from '@modules/auth';
-import { Box, Container, Flex, Separator } from '@radix-ui/themes';
+import { useAuthStore } from '@kernel/stores';
 
+import { Box, Container, Flex, Separator } from '@radix-ui/themes';
 import { ErrorAlert, Pagination, Show, SuccessAlert } from '@shared/components';
 import { parseAsInteger, useQueryState } from 'nuqs';
-import { useEffect, useState } from 'react';
 
+import { useEffect, useState } from 'react';
 import { useComments } from '../../../hooks/use-comments';
 import { CommentList } from './comment-list/comment-list';
 import { CommentCreate } from './comment/comment-create';
 
 export function ArticleComments() {
-  const { user } = useAuth();
+  const user = useAuthStore(s => s.user);
   const [page = 1, setPage] = useQueryState('commentPage', parseAsInteger);
   const [isPageChanging, setIsPageChanging] = useState(false);
 

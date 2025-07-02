@@ -7,9 +7,8 @@ import type {
   CommentUpdateRequest,
   OptimisticComment,
 } from '../types';
-import { API_ENDPOINTS, apiClient, queryClient, queryKeys } from '@kernel/index';
+import { API_ENDPOINTS, apiClient, queryClient, queryKeys, useAuthStore } from '@kernel/index';
 
-import { useAuthStore } from '@modules/auth';
 import { useOptimistic } from '@shared/hooks';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useCallback, useEffect } from 'react';
@@ -35,6 +34,8 @@ export function useComments({ page = 1 }: UseCommentsProps = {}) {
     setCommentsLoading,
   } = useArticleStore();
 
+  console.warn('🎯 useComments called:', { articleId, page });
+
   const {
     data: commentsData,
     isLoading: isQueryLoading,
@@ -42,9 +43,16 @@ export function useComments({ page = 1 }: UseCommentsProps = {}) {
     refetch,
   } = useQuery<CommentsResponse, ErrorResponse>({
     queryKey: queryKeys.articles.commentList(articleId, page),
-    queryFn: () => apiClient.get(`${API_ENDPOINTS.articles.comments(articleId)}?page=${page}`),
+    queryFn: () => {
+      console.warn('🌐 Fetching comments:', { articleId, page });
+      return apiClient.get(`${API_ENDPOINTS.articles.comments(articleId)}?page=${page}`);
+    },
     enabled: !!articleId,
-
+    staleTime: 0, // Всегда считать данные устаревшими
+    gcTime: 1000 * 60 * 5, // Кэш на 5 минут
+    refetchOnMount: true, // Всегда перезапрашивать при монтировании
+    refetchOnWindowFocus: false, // Не перезапрашивать при фокусе
+    refetchOnReconnect: true,
   });
 
   const {
@@ -223,7 +231,7 @@ export function useComments({ page = 1 }: UseCommentsProps = {}) {
     await likeCommentMutation.mutateAsync({ id });
   }, [addOptimistic, likeCommentMutation, currentUser]);
 
-  console.log(optimisticComments, commentsState.comments, '[...optimisticComments, ...commentsState.comments]')
+  console.warn('🔍 Comments state:', { optimisticComments, storeComments: commentsState.comments });
   return {
     // data
     comments: [...optimisticComments, ...commentsState.comments],

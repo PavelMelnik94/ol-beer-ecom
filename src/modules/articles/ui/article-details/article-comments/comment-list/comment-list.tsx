@@ -1,6 +1,6 @@
 import type { Comment, OptimisticComment } from '../../../../types';
-import { getCommentAtctions as getCommentAllowActions } from '@modules/articles/model';
-import { useAuth } from '@modules/auth';
+import { useAuthStore } from '@kernel/stores';
+import { getCommentAllowActions } from '@modules/articles/model';
 import { Flex } from '@radix-ui/themes';
 import { For } from '@shared/components';
 import { useMemo } from 'react';
@@ -19,7 +19,7 @@ export function CommentList({
   onDelete,
   onLike,
 }: CommentListProps) {
-  const { user } = useAuth();
+  const user = useAuthStore(s => s.user)
 
   const commentsActions = useMemo(() => {
     return getCommentAllowActions(user, commentList as Comment[]);

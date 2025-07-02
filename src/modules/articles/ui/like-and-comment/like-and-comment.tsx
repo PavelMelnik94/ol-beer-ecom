@@ -1,4 +1,4 @@
-import { useAuth } from '@modules/auth';
+import { useAuthStore } from '@kernel/stores';
 import { LoginCTA } from '@modules/auth/';
 import { Container, Flex, Text } from '@radix-ui/themes';
 import { LikesCounterWithAuthorizePopup } from '../likes-counter/likes-counter-with-auth-popup';
@@ -9,7 +9,7 @@ interface Props {
   likePost: () => void;
 }
 export function LikeAndComment({ likesCount, isLiked, likePost }: Props) {
-  const { isAuth } = useAuth()
+  const isAuth = useAuthStore(s => s.isAuth)
 
   return (
     <Container pr="5" pl="5">

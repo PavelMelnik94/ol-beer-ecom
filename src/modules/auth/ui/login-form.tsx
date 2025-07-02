@@ -5,7 +5,7 @@ import { ErrorAlert, Image, InputPassword, InputText, Show } from '@shared/compo
 import { KeyRound, Mail } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { useAuth } from './../hooks/use-auth';
+import { useAuth } from '../../../kernel/hooks/use-auth';
 import { LoginSchema } from './../model/schema';
 
 interface LoginFormProps {
