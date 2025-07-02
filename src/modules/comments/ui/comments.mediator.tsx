@@ -1,11 +1,11 @@
 import { useAuthStore } from '@kernel/stores';
 import { Box, Container, Flex, Separator } from '@radix-ui/themes';
 import { ErrorAlert, Pagination, Show, SuccessAlert } from '@shared/components';
-import { usePagination } from '@shared/hooks/use-pagination';
 import { useComments } from '../hooks/use-comments';
 import { CommentList } from './comment-list';
 import { CommentCreate } from './comment/comment-create';
 
+const { usePagination } = Pagination
 export function Comments({ parentId }: { parentId: string }) {
   const user = useAuthStore(s => s.user);
 
