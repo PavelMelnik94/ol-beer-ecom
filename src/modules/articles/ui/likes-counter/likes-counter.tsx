@@ -1,7 +1,7 @@
+import type { LikesCounterProps } from './types';
 import { Flex, Text, Tooltip } from '@radix-ui/themes';
 import { Show } from '@shared/components';
 import { Heart } from 'lucide-react';
-import type { LikesCounterProps } from './types';
 
 function LikedHeart({ heartSize }: { heartSize?: number }) {
   return <Heart size={heartSize} min={heartSize} color="red" stroke="red" fill="red" />

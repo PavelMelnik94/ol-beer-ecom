@@ -1,4 +1,5 @@
 import { useGlobalScroll } from '@kernel/index';
+import { getIsLiked } from '@modules/articles/model';
 import { useLikeArticle } from '@modules/articles/ui/article-details/hooks/use-like-article';
 import { Box, Container, Section } from '@radix-ui/themes';
 import { useLayoutEffect } from 'react';
@@ -12,7 +13,11 @@ import { useArticlesDetails } from './hooks/use-article-details';
 export function ArticleDetails({ id }: { id: string }) {
   const { article } = useArticlesDetails(id)
   const { scrollToTop } = useGlobalScroll()
-  const { likeArticle } = useLikeArticle()
+
+  const { likeArticle, isLiked, likeCounter } = useLikeArticle({
+    initialIsLiked: getIsLiked(article?.likedByUserIds),
+    initialLikesCount: article?.likesCount ?? 0,
+  })
 
   useLayoutEffect(() => {
     scrollToTop()
@@ -28,11 +33,11 @@ export function ArticleDetails({ id }: { id: string }) {
 
   return (
     <Section pb="0">
-      <ArticleContent article={article} likePost={likeArticle} />
+      <ArticleContent article={article} likePost={likeArticle} isLiked={isLiked} likeCounter={likeCounter} />
 
       <LikeAndComment
-        likesCount={article.likesCount}
-        likes={article.likedByUserIds}
+        likesCount={likeCounter}
+        isLiked={isLiked}
         likePost={likeArticle}
       />
 

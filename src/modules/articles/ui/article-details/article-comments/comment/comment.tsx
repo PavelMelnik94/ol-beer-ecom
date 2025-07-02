@@ -1,5 +1,5 @@
-import { getIsLiked } from '@modules/articles/model';
 import type { Comment, CommentsActions } from '@modules/articles/types';
+import { getIsLiked } from '@modules/articles/model';
 import { LikesCounterWithAuthorizePopup } from '@modules/articles/ui/likes-counter/likes-counter-with-auth-popup';
 import { Blockquote, Box, Button, Card, Flex, TextArea } from '@radix-ui/themes';
 import { Show } from '@shared/components';
@@ -24,10 +24,8 @@ export function CommentItem({ comment, actions }: { comment: Comment, actions: C
     toggleMode,
   } = useCommentEdit(comment);
 
-  const { likeComment } = useCommentLike(comment)
+  const { likeComment, isLiked, likeCounter } = useCommentLike(comment)
   const { deleteComment } = useCommentDelete(comment)
-
-  const isLiked = getIsLiked(comment.likedByUserIds)
 
   return (
     <Card>
@@ -52,7 +50,7 @@ export function CommentItem({ comment, actions }: { comment: Comment, actions: C
       </Show>
 
       <Box className={styles.likeBlock}>
-        {actions.withLike && <LikesCounterWithAuthorizePopup isLiked={isLiked} likesCount={comment.likesCount} onClick={() => likeComment()} />}
+        {actions.withLike && <LikesCounterWithAuthorizePopup isLiked={isLiked} likesCount={likeCounter} onClick={() => likeComment()} />}
       </Box>
 
       <CommentActions

@@ -1,5 +1,5 @@
-import { getIsLiked } from '@modules/articles/model';
 import type { ArticleDetails } from '@modules/articles/types';
+import { getIsLiked } from '@modules/articles/model';
 import { Container, Flex, Heading, Separator, Text } from '@radix-ui/themes';
 import { Image } from '@shared/components';
 import { useMediaQuery } from 'react-responsive';
@@ -7,12 +7,20 @@ import { LikesCounterWithAuthorizePopup } from '../../likes-counter/likes-counte
 import styles from './article-content.module.scss';
 import { ArticleMeta } from './article-meta';
 
-export function ArticleContent({ article, likePost }: { article: ArticleDetails, likePost: () => void }) {
+export function ArticleContent({
+  article,
+  likePost,
+  isLiked,
+  likeCounter,
+}: {
+  article: ArticleDetails,
+  likePost: () => void,
+  isLiked: boolean,
+  likeCounter: number;
+}) {
   const isMobile = useMediaQuery({
     query: '(max-width: 576px)',
   });
-
-  const isLiked = getIsLiked(article.likedByUserIds)
 
   return (
     <>
@@ -32,7 +40,7 @@ export function ArticleContent({ article, likePost }: { article: ArticleDetails,
             })}
           </Text>
 
-          <LikesCounterWithAuthorizePopup likesCount={article.likesCount} onClick={likePost} isLiked={isLiked} />
+          <LikesCounterWithAuthorizePopup likesCount={likeCounter} onClick={likePost} isLiked={isLiked} />
         </Flex>
 
         <Heading size={isMobile ? '4' : '5'} mb="6" wrap="pretty">

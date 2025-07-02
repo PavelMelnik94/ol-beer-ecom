@@ -1,8 +1,8 @@
 import type { ApiErrorResponse, ApiSuccessResponse } from '@kernel/index';
+import type { Article } from '../../../types';
 import { API_ENDPOINTS, apiClient, queryKeys } from '@kernel/index';
 import { useQuery } from '@tanstack/react-query';
 import { useArticleStore } from '../../../stores/article-store';
-import type { Article } from '../../../types';
 
 type SuccessResponse = ApiSuccessResponse<Article>;
 type ErrorResponse = ApiErrorResponse;
@@ -25,5 +25,5 @@ export function useArticlesRandom() {
     isLoading,
     isError,
     error,
-  }
+  } as const;
 }

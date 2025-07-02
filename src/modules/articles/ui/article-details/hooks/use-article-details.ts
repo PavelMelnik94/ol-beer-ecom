@@ -1,6 +1,6 @@
 import type { ApiErrorResponse, ApiSuccessResponse } from '@kernel/index';
-import { API_ENDPOINTS, apiClient, queryKeys } from '@kernel/index';
 import type { ArticleDetails } from '@modules/articles/types';
+import { API_ENDPOINTS, apiClient, queryKeys } from '@kernel/index';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useArticleStore } from '../../../stores/article-store';
@@ -23,5 +23,5 @@ export function useArticlesDetails(id: string) {
     article: response?.data,
     isLoading,
     error,
-  }
+  } as const;
 }

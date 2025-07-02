@@ -6,13 +6,12 @@ import { LikesCounterWithAuthorizePopup } from '../likes-counter/likes-counter-w
 
 interface Props {
   likesCount: number;
-  likes: string[] | []
+  isLiked: boolean;
   likePost: () => void;
 }
-export function LikeAndComment({ likesCount, likes, likePost }: Props) {
+export function LikeAndComment({ likesCount, isLiked, likePost }: Props) {
   const { isAuth } = useAuth()
 
-  const isLiked = getIsLiked(likes)
   return (
     <Container pr="5" pl="5">
       <Flex
