@@ -1,11 +1,10 @@
 import type { ErrorResponse, SuccessResponseArticleLike } from '@modules/articles/api/article-api';
-import { queryClient, queryKeys } from '@kernel/index';
+import { queryClient, queryKeys, toast } from '@kernel/index';
 import { articleApi } from '@modules/articles/api/article-api';
 import { useArticleStore } from '@modules/articles/stores/article-store';
 import { useOptimistic } from '@shared/hooks';
 import { useMutation } from '@tanstack/react-query';
 import { useCallback, useMemo } from 'react';
-import { toast } from 'sonner';
 import { articlesModel } from '../model';
 
 interface LikeState {
@@ -50,12 +49,12 @@ export function useLikeArticle({ initialIsLiked, initialLikesCount }: UseLikeArt
         ]);
 
         if (response.data.liked) {
-          toast('Thank you, the author will be very pleased! 🙏');
+          toast.success('Thank you, the author will be very pleased! 🙏');
         }
       }
       else {
         rollback();
-        toast.error(response.message);
+        toast.error(response.message || 'Error occurred while liking article');
       }
     }
     catch (error) {

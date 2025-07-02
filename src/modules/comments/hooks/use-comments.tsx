@@ -7,14 +7,13 @@ import type {
   CommentUpdateRequest,
   OptimisticComment,
 } from '../types';
-import { queryClient, queryKeys, useAuthStore } from '@kernel/index';
+import { queryClient, queryKeys, toast, useAuthStore } from '@kernel/index';
 
 import { useCommentStore } from '@modules/comments/stores/comment-store';
 import { useOptimistic } from '@shared/hooks';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { useCallback, useEffect } from 'react';
 
-import { toast } from 'sonner';
+import { useCallback, useEffect } from 'react';
 import { commentsApi } from '../api';
 import { commentsModel } from '../model';
 
@@ -180,7 +179,7 @@ export function useComments({
 
   return {
     // data
-    comments: [...optimisticComments, ...commentsState.comments],
+    comments: optimisticComments.length ? optimisticComments : commentsState.comments,
     pagination: commentsState.pagination,
 
     // states loading
