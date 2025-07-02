@@ -1,5 +1,5 @@
-import type { ApiErrorResponse, ApiSuccessResponse } from '@kernel/index';
-import type { Article, ArticleDetails, LikeResponse } from '@modules/articles/types';
+import type { ApiErrorResponse, ApiSuccessResponse, LikeResponse } from '@kernel/index';
+import type { Article, ArticleDetails } from '@modules/articles/types';
 import { API_ENDPOINTS, apiClient } from '@kernel/index';
 
 export type SuccessResponseArticleLike = ApiSuccessResponse<LikeResponse>;
@@ -19,11 +19,8 @@ async function getArticleDetails(id: string): Promise<SuccessResponseArticleDeta
   return apiClient.get(`${API_ENDPOINTS.articles.articleDetails(id)}`)
 }
 
-
-
-
 export const articleApi = {
-likeArticle,
-getRandomArticle,
-getArticleDetails
+  likeArticle,
+  getRandomArticle,
+  getArticleDetails,
 }
