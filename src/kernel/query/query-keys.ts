@@ -6,14 +6,21 @@ export const queryKeys = {
     articleTags: () => [...queryKeys.articles.all, 'tags'] as const,
     articleListFilters: (filters: Record<string, any>) => [...queryKeys.articles.articleList(), filters] as const,
     articleDetails: () => [...queryKeys.articles.all, 'detail'] as const,
-    detail: (id: number | string) => [...queryKeys.articles.articleList(), ...queryKeys.articles.articleDetails(), id] as const,
+    detail: (id: number | string) => [...queryKeys.articles.articleDetails(), id] as const,
     articleRandom: (id: string) => [...queryKeys.articles.all, 'random', id] as const,
     articleLike: (id: number | string) => [...queryKeys.articles.detail(id), 'like'] as const,
-    commentList: (id: number | string) => [...queryKeys.articles.detail(id), 'comments'] as const,
-    comment: (id: number | string) => [...queryKeys.articles.commentList(id), 'comment'] as const,
-    commentEdit: (id: number | string) => [...queryKeys.articles.commentList(id), 'edit'] as const,
-    commentDelete: (id: number | string) => [...queryKeys.articles.commentList(id), 'delete'] as const,
-    commentLike: (id: number | string) => [...queryKeys.articles.comment(id), 'like'] as const,
+    // Упрощенная структура для комментариев
+    commentList: (articleId: number | string, page: number = 1) => ['articles', articleId, 'comments', 'list', page] as const,
+    commentListAll: (articleId: number | string) => ['articles', articleId, 'comments'] as const,
+  },
+
+  // Отдельная секция для комментариев
+  comments: {
+    all: ['comments'] as const,
+    comment: (commentId: number | string) => [...queryKeys.comments.all, commentId] as const,
+    commentEdit: (commentId: number | string) => [...queryKeys.comments.comment(commentId), 'edit'] as const,
+    commentDelete: (commentId: number | string) => [...queryKeys.comments.comment(commentId), 'delete'] as const,
+    commentLike: (commentId: number | string) => [...queryKeys.comments.comment(commentId), 'like'] as const,
   },
 
   breweries: {

@@ -54,3 +54,42 @@ interface CommentAction {
 }
 
 export type CommentsActions = Record<string, CommentAction>
+
+// Типы для централизованного управления комментариями
+export interface CommentCreateRequest {
+  content: string;
+}
+
+export interface CommentUpdateRequest {
+  id: string;
+  content: string;
+}
+
+export interface CommentLikeRequest {
+  id: string;
+}
+
+export interface CommentDeleteRequest {
+  id: string;
+}
+
+// Типы для optimistic updates
+export interface OptimisticComment extends Comment {
+  isOptimistic?: boolean;
+  isPending?: boolean;
+}
+
+export interface CommentsState {
+  comments: OptimisticComment[];
+  pagination: {
+    page: number;
+    totalPages: number;
+  };
+  isLoading: boolean;
+}
+
+export interface CommentMutation {
+  type: 'CREATE' | 'UPDATE' | 'DELETE' | 'LIKE';
+  payload: any;
+  optimisticId?: string;
+}

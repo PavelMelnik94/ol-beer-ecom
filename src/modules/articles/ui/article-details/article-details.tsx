@@ -44,7 +44,7 @@ export function ArticleDetails({ id }: { id: string }) {
       <ArticleComments />
 
       <Box mt="7">
-        <ArticleRandom />
+        <ArticleRandom excludeId={article.id} />
       </Box>
 
     </Section>

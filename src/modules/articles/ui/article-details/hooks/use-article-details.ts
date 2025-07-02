@@ -1,6 +1,6 @@
 import type { ApiErrorResponse, ApiSuccessResponse } from '@kernel/index';
 import type { ArticleDetails } from '@modules/articles/types';
-import { API_ENDPOINTS, apiClient, queryKeys } from '@kernel/index';
+import { API_ENDPOINTS, apiClient, queryClient, queryKeys } from '@kernel/index';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { useArticleStore } from '../../../stores/article-store';
@@ -14,6 +14,14 @@ export function useArticlesDetails(id: string) {
     queryFn: () => apiClient.get(`${API_ENDPOINTS.articles.articleDetails(id)}`),
     enabled: !!id,
   });
+
+  useEffect(() => {
+    if (response?.data.id) {
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.articles.commentListAll(response?.data.id),
+      });
+    }
+  }, [response?.data.id]);
 
   useEffect(() => {
     useArticleStore.getState().setArticleId(id);
