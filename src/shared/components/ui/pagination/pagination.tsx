@@ -1,6 +1,8 @@
 import { Flex, IconButton, SegmentedControl } from '@radix-ui/themes';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import React from 'react';
+import { parseAsInteger, useQueryState } from 'nuqs';
+import React, { useCallback, useEffect, useState } from 'react';
+
 import styles from './pagination.module.scss';
 
 interface PaginationProps {
@@ -15,13 +17,50 @@ function range(start: number, end: number) {
   return Array.from({ length: end - start + 1 }, (_, i) => start + i)
 }
 
-export const Pagination: React.FC<PaginationProps> = ({
+interface UsePaginationOptions {
+  shouldGoToPrevPage?: boolean;
+  isLoading?: boolean;
+}
+
+function usePagination({ shouldGoToPrevPage = false, isLoading = false }: UsePaginationOptions = {}) {
+  const [page = 1, setPage] = useQueryState('commentPage', parseAsInteger);
+  const [isPageChanging, setIsPageChanging] = useState(false);
+
+  useEffect(() => {
+    if (shouldGoToPrevPage && (page || 1) > 1) {
+      setPage((page || 1) - 1);
+    }
+  }, [shouldGoToPrevPage, page, setPage]);
+
+  const handlePageChange = useCallback((newPage: number) => {
+    setIsPageChanging(true);
+    setPage(newPage);
+  }, [setPage]);
+
+  useEffect(() => {
+    if (!isLoading && isPageChanging) {
+      setIsPageChanging(false);
+    }
+  }, [isLoading, isPageChanging]);
+
+  return {
+    page: page || 1,
+    setPage,
+    isPageChanging,
+    handlePageChange,
+  };
+}
+
+interface PaginationComponent extends React.FC<PaginationProps> {
+  usePagination: typeof usePagination;
+}
+
+const Pagination: PaginationComponent = ({
   page,
   total,
   onPageChange,
   className,
 }) => {
-  // Для больших списков стоит показывать "..." — но для SegmentedControl лучше ограничить до 7-9 страниц
   const pages = total <= 9 ? range(1, total) : range(1, Math.min(total, 9));
 
   const handleChange = (value: string) => {
@@ -70,3 +109,8 @@ export const Pagination: React.FC<PaginationProps> = ({
     </Flex>
   );
 };
+
+Pagination.displayName = 'Pagination';
+Pagination.usePagination = usePagination;
+
+export { Pagination };

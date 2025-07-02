@@ -1,18 +1,15 @@
 import { useAuthStore } from '@kernel/stores';
-
 import { Box, Container, Flex, Separator } from '@radix-ui/themes';
 import { ErrorAlert, Pagination, Show, SuccessAlert } from '@shared/components';
-import { parseAsInteger, useQueryState } from 'nuqs';
-
-import { useEffect, useState } from 'react';
+import { usePagination } from '@shared/hooks/use-pagination';
 import { useComments } from '../hooks/use-comments';
 import { CommentList } from './comment-list';
 import { CommentCreate } from './comment/comment-create';
 
 export function Comments({ parentId }: { parentId: string }) {
   const user = useAuthStore(s => s.user);
-  const [page = 1, setPage] = useQueryState('commentPage', parseAsInteger);
-  const [isPageChanging, setIsPageChanging] = useState(false);
+
+  const { page, isPageChanging, handlePageChange } = usePagination();
 
   const {
     comments,
@@ -23,26 +20,8 @@ export function Comments({ parentId }: { parentId: string }) {
     updateComment,
     deleteComment,
     likeComment,
-    shouldGoToPrevPage,
     error,
-  } = useComments({ page: page || 1, parentId });
-
-  useEffect(() => {
-    if (shouldGoToPrevPage && (page || 1) > 1) {
-      setPage((page || 1) - 1);
-    }
-  }, [shouldGoToPrevPage, page, setPage]);
-
-  const handlePageChange = (newPage: number) => {
-    setIsPageChanging(true);
-    setPage(newPage);
-  };
-
-  useEffect(() => {
-    if (!isLoading && isPageChanging) {
-      setIsPageChanging(false);
-    }
-  }, [isLoading, isPageChanging]);
+  } = useComments({ page, parentId });
 
   const handleCreateComment = async (content: string) => {
     await createComment(content);
