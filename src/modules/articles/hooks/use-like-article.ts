@@ -6,6 +6,7 @@ import { useOptimistic } from '@shared/hooks';
 import { useMutation } from '@tanstack/react-query';
 import { useCallback, useMemo } from 'react';
 import { toast } from 'sonner';
+import { articlesModel } from '../model';
 
 interface LikeState {
   isLiked: boolean;
@@ -34,12 +35,7 @@ export function useLikeArticle({ initialIsLiked, initialLikesCount }: UseLikeArt
 
   const likeArticle = useCallback(async () => {
     try {
-      addOptimistic(prevState => ({
-        isLiked: !prevState.isLiked,
-        likeCounter: prevState.isLiked
-          ? prevState.likeCounter - 1
-          : prevState.likeCounter + 1,
-      }));
+      addOptimistic(articlesModel.toggleLikeState);
 
       const response = await mutateAsync();
 

@@ -2,6 +2,7 @@ import type { ApiErrorResponse, ApiSuccessResponsePaginated } from '@kernel/inde
 import type { Article } from '../types';
 import { API_ENDPOINTS, apiClient, queryKeys } from '@kernel/index';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { articlesModel } from '../model';
 
 type SuccessResponse = ApiSuccessResponsePaginated<Article>;
 type ErrorResponse = ApiErrorResponse;
@@ -22,13 +23,10 @@ export function useArticlesInfinite() {
     initialPageParam: 1,
     queryFn: ({ pageParam = 1 }) =>
       apiClient.get(`${API_ENDPOINTS.articles.all}?limit=${limit}&page=${pageParam}`),
-    getNextPageParam: (lastPage) => {
-      const { page, totalPages } = lastPage.pagination;
-      return page < totalPages ? page + 1 : undefined;
-    },
+    getNextPageParam: articlesModel.getNextPageParam,
   })
 
-  const articles = data?.pages.flatMap(page => page.data) ?? []
+  const articles = articlesModel.flattenArticlesPages(data?.pages)
 
   return {
     articles,
