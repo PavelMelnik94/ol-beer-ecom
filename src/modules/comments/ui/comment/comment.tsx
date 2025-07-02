@@ -1,5 +1,5 @@
 import type { Comment, CommentsActions, OptimisticComment } from '../../types';
-import { getIsLiked } from '@kernel/index';
+import { getIsLiked, getTheme } from '@kernel/index';
 import { LikesCounterWithAuthorizePopup } from '@modules/common';
 import { Blockquote, Box, Button, Card, Flex, TextArea } from '@radix-ui/themes';
 import { Show } from '@shared/components';
@@ -78,16 +78,21 @@ export function CommentItem({
     }
   };
 
-  const backgroundColor = (() => {
-    if ((isPending && !isOptimistic && mode === 'edit') || isOptimistic) {
-      return '#dcfce7';
-    }
+  const theme = getTheme();
 
+  const backgroundColor = (() => {
+    if (isPending && !isOptimistic && mode === 'edit') {
+      return theme === 'dark' ? '#a16207' : '#fef9c3';
+    }
+    if (isOptimistic) {
+      return theme === 'dark' ? '#14532d' : '#dcfce7';
+    }
     return undefined;
-  })()
+  })();
 
   return (
     <Card
+      className={styles.commentCard}
       style={{
         opacity: isPending ? 0.7 : 1,
         backgroundColor,
