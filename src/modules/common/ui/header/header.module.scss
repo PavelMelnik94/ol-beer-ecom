@@ -1,0 +1,43 @@
+.header {
+  height: 48px;
+  max-height: 48px;
+  background-color: transparent;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.logo {
+  cursor: pointer;
+  user-select: none;
+}
+
+.headerFixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 10px;
+  z-index: 1000;
+  height: 48px;
+  max-height: 48px;
+  background-color: var(--color-background);
+  box-shadow: 0 1px var(--gray-a4);
+}
+
+[data-active="true"].active {
+  background-color: var(--accent-a3);
+}
+
+.desktopNav,
+.desktopActions {
+  display: flex;
+  gap: 1rem;
+}
+
+.mobileNav,
+.mobileActions {
+  display: none;
+}
