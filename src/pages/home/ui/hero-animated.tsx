@@ -24,24 +24,6 @@ interface AnimationConfig {
   completionThreshold: number;
 }
 
-// const easingFunctions = {
-
-//   linear: (t: number): number => t,
-
-//   easeInQuad: (t: number): number => t * t,
-
-//   easeOutQuad: (t: number): number => t * (2 - t),
-
-//   easeInOutQuad: (t: number): number => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t),
-
-//   easeOutElastic: (t: number): number => {
-//     const p = 0.3;
-//     return 2 ** (-10 * t) * Math.sin((t - p / 4) * (2 * Math.PI) / p) + 1;
-//   },
-
-//   easeOutCubic: (t: number): number => --t * t * t + 1,
-// };
-
 function splitTitle(title: string, word: string): { before: string; highlight: string; after: string } {
   const wordIndex = title.indexOf(word);
 
@@ -185,6 +167,9 @@ export function AnimatedHero(): JSX.Element {
   useEffect(() => {
     const jsConfetti = new JSConfetti();
     if (scrollState.isComplete) {
+      if (window.innerWidth < 576) {
+        window.navigator.vibrate([100, 50, 100])
+      }
       jsConfetti.addConfetti({
         confettiNumber: 15,
         emojiSize: 55,
