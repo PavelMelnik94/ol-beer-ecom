@@ -20,9 +20,9 @@ export const InputPassword = forwardRef((
 
   const setRefs = (el: HTMLInputElement) => {
     if (typeof ref === 'function') ref(el);
-    else if (ref && 'current' in ref) (ref as { current: HTMLInputElement | null }).current = el;
+    else if (ref && 'current' in ref) (ref as { current: HTMLInputElement | null; }).current = el;
     // @ts-ignore
-    if (inputRef && 'current' in inputRef) (inputRef as { current: HTMLInputElement | null }).current = el;
+    if (inputRef && 'current' in inputRef) (inputRef as { current: HTMLInputElement | null; }).current = el;
   };
 
   const handleToggleVisible = () => {

@@ -13,9 +13,9 @@ export function ArticleContent({
   isLiked,
   likeCounter,
 }: {
-  article: ArticleDetails,
-  likePost: () => void,
-  isLiked: boolean,
+  article: ArticleDetails;
+  likePost: () => void;
+  isLiked: boolean;
   likeCounter: number;
 }) {
   const isMobile = useMediaQuery({

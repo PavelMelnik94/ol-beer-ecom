@@ -146,7 +146,19 @@ export default antfu({
     // overrides antfu
     'node/prefer-global/process': 'off',
     'style/semi': 'off',
-    'style/member-delimiter-style': 'off',
+    'style/member-delimiter-style': [
+      'error',
+      {
+        multiline: {
+          delimiter: 'semi',
+          requireLast: true,
+        },
+        singleline: {
+          delimiter: 'semi',
+          requireLast: true,
+        },
+      },
+    ],
     'antfu/if-newline': 'off',
     'react-refresh/only-export-components': 'error',
     'react-hooks-extra/no-direct-set-state-in-use-effect': 'off',

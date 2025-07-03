@@ -1,13 +1,13 @@
 import type { Author } from '@kernel/types';
 
 export interface Comment {
-  likedByUserIds: string[] | []
-  author: Author
+  likedByUserIds: string[] | [];
+  author: Author;
   content: string;
   createdAt: string;
-  id: string
+  id: string;
   likesCount: number;
-  updatedAt: string
+  updatedAt: string;
 }
 
 interface CommentAction {

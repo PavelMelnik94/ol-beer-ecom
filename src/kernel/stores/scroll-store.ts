@@ -6,7 +6,7 @@ interface ScrollState {
   scrollDirection: 'up' | 'down' | null;
   isScrolling: boolean;
   scrollProgress: number;
-  scrollVelocity: number
+  scrollVelocity: number;
 }
 
 interface ScrollActions {

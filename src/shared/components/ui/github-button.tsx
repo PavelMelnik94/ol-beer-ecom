@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react';
 import { Button } from '@radix-ui/themes';
 import { Github } from 'lucide-react';
 
-export function GithubButton({ withTitle = false, style }: { withTitle?: boolean, style?: CSSProperties }) {
+export function GithubButton({ withTitle = false, style }: { withTitle?: boolean; style?: CSSProperties; }) {
   return (
     <Button
       style={{ ...(!withTitle ? { padding: '6px' } : {}), ...style }}

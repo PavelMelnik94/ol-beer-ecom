@@ -8,7 +8,7 @@ import { ArticleContent } from './article-content/article-content';
 import { ArticleRandom } from './article-random';
 import { ArticleSkeleton } from './article-skeleton/article-skeleton';
 
-export function ArticleDetails({ id, commentSlot }: { id: string, commentSlot: React.ReactNode }) {
+export function ArticleDetails({ id, commentSlot }: { id: string; commentSlot: React.ReactNode; }) {
   const { article } = useArticlesDetails(id)
   const { scrollToTop } = useGlobalScroll()
 

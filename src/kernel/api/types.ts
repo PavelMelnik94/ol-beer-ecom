@@ -17,7 +17,7 @@ export interface ApiSuccessResponsePaginated<T> extends BaseApiResponse {
     total: number;
     totalPages: number;
 
-  }
+  };
 }
 
 export interface ApiErrorResponse extends BaseApiResponse {

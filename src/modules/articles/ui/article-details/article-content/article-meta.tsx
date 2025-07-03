@@ -3,8 +3,8 @@ import { Avatar, Box, Flex, Text } from '@radix-ui/themes';
 import { TagList } from '../../tag-list';
 
 interface Props {
-  author: Article['author']
-  tags: Article['tags']
+  author: Article['author'];
+  tags: Article['tags'];
 }
 export function ArticleMeta({ author, tags }: Props) {
   return (

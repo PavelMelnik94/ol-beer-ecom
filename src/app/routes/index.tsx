@@ -2,7 +2,7 @@ import { AuthLayout } from '@app/layouts/auth-layout/auth-layout'
 import { MainLayout } from '@app/layouts/main-layout/main-layout'
 import { ROUTES } from '@kernel/index';
 import { HomePage } from '@pages/index';
-import { Suspense, lazy } from 'react'
+import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 // const LazyHomePage = lazy(() => import('./../../pages').then(module => ({ default: module.HomePage })));

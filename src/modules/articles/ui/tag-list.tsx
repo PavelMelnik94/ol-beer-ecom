@@ -3,7 +3,7 @@ import { Badge, Flex, Text } from '@radix-ui/themes';
 import { For } from '@shared/components';
 import { Hop } from 'lucide-react';
 
-export function TagList({ tags }: { tags: Article['tags'] }) {
+export function TagList({ tags }: { tags: Article['tags']; }) {
   return (
     <Flex direction="row" wrap="wrap" gap="2">
 

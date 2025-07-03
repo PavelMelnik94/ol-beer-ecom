@@ -3,8 +3,8 @@ import { API_ENDPOINTS, apiClient, queryKeys, useAuthStore } from '@kernel/index
 import { useMutation } from '@tanstack/react-query';
 
 export interface LoginCredentials {
-  email: string
-  password: string
+  email: string;
+  password: string;
 }
 type SuccessResponse = ApiSuccessResponse<User>;
 type ErrorResponse = ApiErrorResponse;

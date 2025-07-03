@@ -5,7 +5,7 @@ import styles from './cart-button.module.scss';
 
 const FAKE_CART_COUNT = 2;
 
-export function CartButton({ fullWidth, onClick }: { fullWidth?: boolean; onClick?: () => void }) {
+export function CartButton({ fullWidth, onClick }: { fullWidth?: boolean; onClick?: () => void; }) {
   return (
     <Button
       variant="ghost"

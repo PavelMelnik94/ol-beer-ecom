@@ -6,8 +6,8 @@ export function CommentAuthor({
   author,
   createdAt,
 }: {
-  author: Comment['author'] | User,
-  createdAt: Date
+  author: Comment['author'] | User;
+  createdAt: Date;
 }) {
   const createdAtDate = (() => {
     return createdAt.toLocaleDateString('en-US', {

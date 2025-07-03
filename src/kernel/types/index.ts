@@ -5,7 +5,7 @@ export interface Address {
   streetName: string;
   zip: string;
   type: 'billing' | 'shipping';
-  isPrimaryAddress: boolean
+  isPrimaryAddress: boolean;
 }
 
 export interface User {
@@ -26,7 +26,7 @@ export interface User {
 }
 
 export interface Author {
-  id: string,
+  id: string;
   firstName: string;
   lastName: string;
   avatar: string;
@@ -35,8 +35,8 @@ export interface Author {
 export interface LikeResponse {
   liked: boolean;
   like: {
-    id: string
-    userId: string
-    createdAt: string
-  }
+    id: string;
+    userId: string;
+    createdAt: string;
+  };
 }

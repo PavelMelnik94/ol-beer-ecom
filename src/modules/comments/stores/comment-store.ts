@@ -9,7 +9,7 @@ interface CommentState {
 
 interface CommentActions {
   setComments: (comments: OptimisticComment[]) => void;
-  setPagination: (pagination: { page: number; totalPages: number }) => void;
+  setPagination: (pagination: { page: number; totalPages: number; }) => void;
   setCommentsLoading: (isLoading: boolean) => void;
   addOptimisticComment: (comment: OptimisticComment) => void;
   updateOptimisticComment: (id: string, updates: Partial<OptimisticComment>) => void;
@@ -35,7 +35,7 @@ export const useCommentStore = create<CommentState & CommentActions>()(
         },
       })),
 
-    setPagination: (pagination: { page: number; totalPages: number }) =>
+    setPagination: (pagination: { page: number; totalPages: number; }) =>
       set(state => ({
         commentsState: {
           ...state.commentsState,

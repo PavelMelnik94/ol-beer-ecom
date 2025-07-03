@@ -2,11 +2,11 @@ import JSConfetti from 'js-confetti';
 import { useEffect } from 'react';
 
 interface Config {
-  confettiRadius?: number,
-  confettiNumber?: number,
-  confettiColors?: string[],
-  emojis?: string[],
-  emojiSize?: number,
+  confettiRadius?: number;
+  confettiNumber?: number;
+  confettiColors?: string[];
+  emojis?: string[];
+  emojiSize?: number;
 }
 
 const DEFAULT_CONFIG = {
@@ -37,7 +37,7 @@ export function useConfetti({
 }: {
   playWhen: boolean;
   config?: Config;
-  depends?: unknown[]
+  depends?: unknown[];
 }) {
   useEffect(() => {
     const jsConfetti = new JSConfetti();

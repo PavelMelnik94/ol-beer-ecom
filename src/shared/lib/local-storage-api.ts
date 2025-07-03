@@ -1,4 +1,4 @@
-type JSONSerializable = string | number | boolean | null | JSONSerializable[] | { [key: string]: JSONSerializable }
+type JSONSerializable = string | number | boolean | null | JSONSerializable[] | { [key: string]: JSONSerializable; }
 
 export class LocalStorageApi<Key extends string = string, Value extends JSONSerializable = any> {
   private storageKey: string

@@ -24,7 +24,7 @@ interface AnimationConfig {
   completionThreshold: number;
 }
 
-function splitTitle(title: string, word: string): { before: string; highlight: string; after: string } {
+function splitTitle(title: string, word: string): { before: string; highlight: string; after: string; } {
   const wordIndex = title.indexOf(word);
 
   if (wordIndex !== -1) {

@@ -9,8 +9,8 @@ import { TagList } from '../tag-list';
 import styles from './article-preview.module.scss';
 
 interface Props {
-  article: ArticleType
-  sectionStyles?: CSSProperties
+  article: ArticleType;
+  sectionStyles?: CSSProperties;
 }
 
 export function ArticlePreview({ article, sectionStyles }: Props) {

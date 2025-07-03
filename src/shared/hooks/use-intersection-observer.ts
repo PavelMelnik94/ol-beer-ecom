@@ -1,17 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
 
 interface State {
-  isIntersecting: boolean
-  entry?: IntersectionObserverEntry
+  isIntersecting: boolean;
+  entry?: IntersectionObserverEntry;
 }
 
 interface UseIntersectionObserverOptions {
-  root?: Element | Document | null
-  rootMargin?: string
-  threshold?: number | number[]
-  freezeOnceVisible?: boolean
-  onChange?: (isIntersecting: boolean, entry: IntersectionObserverEntry) => void
-  initialIsIntersecting?: boolean
+  root?: Element | Document | null;
+  rootMargin?: string;
+  threshold?: number | number[];
+  freezeOnceVisible?: boolean;
+  onChange?: (isIntersecting: boolean, entry: IntersectionObserverEntry) => void;
+  initialIsIntersecting?: boolean;
 }
 
 type IntersectionReturn = [
@@ -19,9 +19,9 @@ type IntersectionReturn = [
   boolean,
     IntersectionObserverEntry | undefined,
 ] & {
-  ref: (node?: Element | null) => void
-  isIntersecting: boolean
-  entry?: IntersectionObserverEntry
+  ref: (node?: Element | null) => void;
+  isIntersecting: boolean;
+  entry?: IntersectionObserverEntry;
 }
 
 export function useIntersectionObserver({

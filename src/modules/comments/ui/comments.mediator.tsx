@@ -6,7 +6,7 @@ import { CommentList } from './comment-list';
 import { CommentCreate } from './comment/comment-create';
 
 const { usePagination } = Pagination
-export function Comments({ parentId }: { parentId: string }) {
+export function Comments({ parentId }: { parentId: string; }) {
   const user = useAuthStore(s => s.user);
 
   const { page, isPageChanging, handlePageChange } = usePagination();

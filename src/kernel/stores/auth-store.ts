@@ -4,13 +4,13 @@ import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
 interface AuthState {
-  user: User | null
-  isAuth: boolean
+  user: User | null;
+  isAuth: boolean;
 }
 interface AuthStore extends AuthState {
-  setUser: (user: User | null) => void
-  login: (user: User) => void
-  logout: () => void
+  setUser: (user: User | null) => void;
+  login: (user: User) => void;
+  logout: () => void;
 }
 
 export const useAuthStore = create<AuthStore>()(

@@ -5,49 +5,49 @@ import { devtools, subscribeWithSelector } from 'zustand/middleware'
 // UI Store для глобального состояния UI
 interface UiState {
   // Modals
-  isModalOpen: boolean
-  modalType: string | null
-  modalData: any
+  isModalOpen: boolean;
+  modalType: string | null;
+  modalData: any;
 
   // Loading states
-  isLoading: boolean
-  loadingText: string
+  isLoading: boolean;
+  loadingText: string;
 
   // Sidebar
-  isSidebarOpen: boolean
+  isSidebarOpen: boolean;
 
   // Theme
-  theme: 'light' | 'dark'
+  theme: 'light' | 'dark';
 
   // Notifications
   notifications: Array<{
-    id: string
-    type: 'success' | 'error' | 'warning' | 'info'
-    title: string
-    message?: string
-    duration?: number
-  }>
+    id: string;
+    type: 'success' | 'error' | 'warning' | 'info';
+    title: string;
+    message?: string;
+    duration?: number;
+  }>;
 }
 
 interface UiActions {
   // Modal actions
-  openModal: (type: string, data?: any) => void
-  closeModal: () => void
+  openModal: (type: string, data?: any) => void;
+  closeModal: () => void;
 
   // Loading actions
-  setLoading: (loading: boolean, text?: string) => void
+  setLoading: (loading: boolean, text?: string) => void;
 
   // Sidebar actions
-  toggleSidebar: () => void
-  setSidebar: (open: boolean) => void
+  toggleSidebar: () => void;
+  setSidebar: (open: boolean) => void;
 
   // Theme actions
-  setTheme: (theme: UiState['theme']) => void
+  setTheme: (theme: UiState['theme']) => void;
 
   // Notification actions
-  addNotification: (notification: Omit<UiState['notifications'][0], 'id'>) => void
-  removeNotification: (id: string) => void
-  clearNotifications: () => void
+  addNotification: (notification: Omit<UiState['notifications'][0], 'id'>) => void;
+  removeNotification: (id: string) => void;
+  clearNotifications: () => void;
 }
 
 export const useUiStore = create<UiState & UiActions>()(

@@ -9,7 +9,7 @@ export function HeaderNav({
   onClickHandlers,
   fullWidth = false,
 }: {
-  getActiveProps: (path: string) => { [key: string]: string };
+  getActiveProps: (path: string) => { [key: string]: string; };
   onClickHandlers: {
     onBlog: () => void;
     onBreweries: () => void;

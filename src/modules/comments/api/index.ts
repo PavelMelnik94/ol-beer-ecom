@@ -1,6 +1,6 @@
 import type { ApiErrorResponse, ApiSuccessResponse, ApiSuccessResponsePaginated } from '@kernel/index';
-import { API_ENDPOINTS, apiClient } from '@kernel/index';
 import type { Comment, CommentCreateRequest } from '../types';
+import { API_ENDPOINTS, apiClient } from '@kernel/index';
 
 export type CommentsResponse = ApiSuccessResponsePaginated<Comment>;
 export type CommentResponse = ApiSuccessResponse<Comment>;

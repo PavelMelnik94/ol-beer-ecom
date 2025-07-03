@@ -2,8 +2,8 @@ import type { UseMutationOptions } from '@tanstack/react-query';
 import { useMutation } from '@tanstack/react-query';
 
 interface ToastOptions {
-  success?: string
-  error?: string
+  success?: string;
+  error?: string;
 }
 
 /**
@@ -12,7 +12,7 @@ interface ToastOptions {
 export function useMutationWithToast<TData, TError, TVariables, TContext>(
   mutationFn: (variables: TVariables) => Promise<TData>,
   options?: UseMutationOptions<TData, TError, TVariables, TContext> & {
-    toast?: ToastOptions
+    toast?: ToastOptions;
   },
 ) {
   const { toast, ...mutationOptions } = options || {}

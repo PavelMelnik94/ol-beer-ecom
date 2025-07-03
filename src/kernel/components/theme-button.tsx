@@ -3,7 +3,7 @@ import { useTheme } from '@kernel/hooks';
 import { Button } from '@radix-ui/themes';
 import { Moon, Sun } from 'lucide-react';
 
-export function ThemeButton({ withTitle = false, style }: { withTitle?: boolean, style?: CSSProperties }) {
+export function ThemeButton({ withTitle = false, style }: { withTitle?: boolean; style?: CSSProperties; }) {
   const { theme, toggleTheme } = useTheme()
   return (
     <Button

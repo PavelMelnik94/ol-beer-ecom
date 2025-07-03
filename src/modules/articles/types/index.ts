@@ -10,13 +10,13 @@ export interface Article {
   title: string;
   shortDescription: string;
   image: string;
-  author: Author,
+  author: Author;
   likesCount: number;
   commentsCount: number;
   createdAt: string;
-  likedByUserIds: string[] | []
+  likedByUserIds: string[] | [];
 
-  tags: ArticleTag[]
+  tags: ArticleTag[];
 }
 
 export interface ArticleDetails extends Article {
