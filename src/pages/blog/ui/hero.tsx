@@ -5,10 +5,10 @@ import { useMediaQuery } from 'react-responsive';
 export function Hero() {
   const isColumnDirection = useMediaQuery({
     query: '(max-width: 1100px)',
-  })
+  });
   const isMobile = useMediaQuery({
     query: '(max-width: 576px)',
-  })
+  });
 
   return (
     <Section pb="0" pt={isMobile ? '7' : '9'}>
@@ -27,5 +27,5 @@ export function Hero() {
       </Flex>
 
     </Section>
-  )
+  );
 }

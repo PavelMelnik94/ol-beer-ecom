@@ -11,5 +11,5 @@ export function Alert({ children, color, icon }: { children: ReactNode; color?: 
         {children}
       </Callout.Text>
     </Callout.Root>
-  )
+  );
 }

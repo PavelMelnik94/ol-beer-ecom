@@ -1,6 +1,6 @@
-import { themeStorage } from '@kernel/storage'
-import { create } from 'zustand'
-import { devtools, subscribeWithSelector } from 'zustand/middleware'
+import { themeStorage } from '@kernel/storage';
+import { create } from 'zustand';
+import { devtools, subscribeWithSelector } from 'zustand/middleware';
 
 // UI Store для глобального состояния UI
 interface UiState {
@@ -94,16 +94,16 @@ export const useUiStore = create<UiState & UiActions>()(
 
       // Notification actions
       addNotification: (notification) => {
-        const id = Math.random().toString(36).substr(2, 9)
+        const id = Math.random().toString(36).substr(2, 9);
         set(state => ({
           notifications: [...state.notifications, { ...notification, id }],
-        }))
+        }));
 
         // Auto remove after duration
         if (notification.duration !== 0) {
           setTimeout(() => {
-            get().removeNotification(id)
-          }, notification.duration || 5000)
+            get().removeNotification(id);
+          }, notification.duration || 5000);
         }
       },
 
@@ -117,4 +117,4 @@ export const useUiStore = create<UiState & UiActions>()(
       name: 'ui-store',
     },
   ),
-)
+);

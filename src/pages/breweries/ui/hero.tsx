@@ -1,16 +1,16 @@
 import { Box, Flex, Heading, Section } from '@radix-ui/themes';
 import { Image } from '@shared/components';
 import clsx from 'clsx';
-import { useMediaQuery } from 'react-responsive'
+import { useMediaQuery } from 'react-responsive';
 import styles from './hero.module.scss';
 
 export function Hero() {
   const isColumnDirection = useMediaQuery({
     query: '(max-width: 1100px)',
-  })
+  });
   const isMobile = useMediaQuery({
     query: '(max-width: 576px)',
-  })
+  });
 
   return (
     <Section pt={isMobile ? '4' : '9'}>
@@ -27,5 +27,5 @@ export function Hero() {
       </Flex>
 
     </Section>
-  )
+  );
 }

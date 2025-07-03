@@ -16,11 +16,11 @@ async function getRandomArticle(excludeId: string): Promise<SuccessResponseRando
 }
 
 async function getArticleDetails(id: string): Promise<SuccessResponseArticleDetails> {
-  return apiClient.get(`${API_ENDPOINTS.articles.articleDetails(id)}`)
+  return apiClient.get(`${API_ENDPOINTS.articles.articleDetails(id)}`);
 }
 
 export const articleApi = {
   likeArticle,
   getRandomArticle,
   getArticleDetails,
-}
+};

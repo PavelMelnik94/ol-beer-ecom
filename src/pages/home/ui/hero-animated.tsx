@@ -115,7 +115,7 @@ export function AnimatedHero(): JSX.Element {
     query: '(max-width: 576px)',
   });
 
-  const { navigateToStore } = useGoTo()
+  const { navigateToStore } = useGoTo();
 
   const animationConfig = {
     initialScale: 1,
@@ -168,7 +168,7 @@ export function AnimatedHero(): JSX.Element {
     const jsConfetti = new JSConfetti();
     if (scrollState.isComplete) {
       if (window.innerWidth < 576 && typeof window?.navigator?.vibrate === 'function') {
-        window.navigator.vibrate([100, 50, 100])
+        window.navigator.vibrate([100, 50, 100]);
       }
       jsConfetti.addConfetti({
         confettiNumber: 15,
@@ -178,19 +178,19 @@ export function AnimatedHero(): JSX.Element {
       }).then(() => {
         jsConfetti.clearCanvas();
         jsConfetti.destroyCanvas();
-      })
+      });
     }
     return () => {
       jsConfetti.clearCanvas();
       jsConfetti.destroyCanvas();
-    }
+    };
   }, [scrollState.isComplete]);
 
   useConfetti({ playWhen: scrollState.isComplete, config: {
     confettiNumber: 15,
     emojiSize: 55,
     emojis: ['🍺'],
-  } })
+  } });
 
   return (
     <Section

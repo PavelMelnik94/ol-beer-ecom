@@ -1,13 +1,13 @@
-export * from './color-utils'
+export * from './color-utils';
 
 // Date/time utilities
-export * from './date-time-api'
+export * from './date-time-api';
 
 // Local storage utilities
-export * from './local-storage-api'
+export * from './local-storage-api';
 
 // Session storage utilities
-export * from './session-storage-api'
+export * from './session-storage-api';
 
 // General utilities (когда будет реализован)
 // export * from './utils'

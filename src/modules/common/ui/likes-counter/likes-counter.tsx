@@ -4,11 +4,11 @@ import { Show } from '@shared/components';
 import { Heart } from 'lucide-react';
 
 function LikedHeart({ heartSize }: { heartSize?: number; }) {
-  return <Heart size={heartSize} min={heartSize} color="red" stroke="red" fill="red" />
+  return <Heart size={heartSize} min={heartSize} color="red" stroke="red" fill="red" />;
 }
 
 function UnlikedHeart({ heartSize }: { heartSize?: number; }) {
-  return <Heart size={heartSize} min={heartSize} color="gray" />
+  return <Heart size={heartSize} min={heartSize} color="gray" />;
 }
 export function LikesCounter({
   likesCount,
@@ -36,5 +36,5 @@ export function LikesCounter({
         </Text>
       </Flex>
     </Tooltip>
-  )
+  );
 }

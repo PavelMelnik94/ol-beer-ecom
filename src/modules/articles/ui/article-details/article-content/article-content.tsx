@@ -64,5 +64,5 @@ export function ArticleContent({
       </Container>
       <Separator size="4" mb="4" />
     </>
-  )
+  );
 }

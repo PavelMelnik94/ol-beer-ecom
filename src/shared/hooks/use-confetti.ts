@@ -45,11 +45,11 @@ export function useConfetti({
       jsConfetti.addConfetti(config).then(() => {
         jsConfetti.clearCanvas();
         jsConfetti.destroyCanvas();
-      })
+      });
     }
     return () => {
       jsConfetti.clearCanvas();
       jsConfetti.destroyCanvas();
-    }
+    };
   }, [playWhen, ...depends]);
 }

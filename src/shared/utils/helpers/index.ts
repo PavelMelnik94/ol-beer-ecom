@@ -1,1 +1,1 @@
-export { getRandomFromArray } from './get-random-from-array'
+export { getRandomFromArray } from './get-random-from-array';

@@ -15,7 +15,7 @@ export function useMutationWithToast<TData, TError, TVariables, TContext>(
     toast?: ToastOptions;
   },
 ) {
-  const { toast, ...mutationOptions } = options || {}
+  const { toast, ...mutationOptions } = options || {};
 
   return useMutation({
     mutationFn,
@@ -23,17 +23,17 @@ export function useMutationWithToast<TData, TError, TVariables, TContext>(
       if (toast?.success) {
         // TODO: Добавить toast notification
         // eslint-disable-next-line no-console
-        console.log('✅ Success:', toast.success)
+        console.log('✅ Success:', toast.success);
       }
-      options?.onSuccess?.(data, variables, context)
+      options?.onSuccess?.(data, variables, context);
     },
     onError: (error, variables, context) => {
       if (toast?.error) {
         // TODO: Добавить toast notification
-        console.error('❌ Error:', toast.error)
+        console.error('❌ Error:', toast.error);
       }
-      options?.onError?.(error, variables, context)
+      options?.onError?.(error, variables, context);
     },
     ...mutationOptions,
-  })
+  });
 }

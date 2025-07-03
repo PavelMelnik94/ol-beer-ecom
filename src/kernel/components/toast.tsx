@@ -1,5 +1,5 @@
-import { Beer, CircleAlert, CircleOff, Smile } from 'lucide-react'
-import { toast as sonner } from 'sonner'
+import { Beer, CircleAlert, CircleOff, Smile } from 'lucide-react';
+import { toast as sonner } from 'sonner';
 
 export const toast = {
   success: (msg: string) => sonner.success(msg, {
@@ -15,4 +15,4 @@ export const toast = {
     icon: <CircleAlert />,
   }),
 
-}
+};

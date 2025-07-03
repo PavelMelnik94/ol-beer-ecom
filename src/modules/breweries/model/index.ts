@@ -10,7 +10,7 @@ export const breweriesModel = {
     if (!search) return breweries;
     return breweries.filter(brewery =>
       brewery.name.toLowerCase().includes(search.toLowerCase()),
-    )
+    );
   },
 
   filterByLocation(breweries: BreweryPreview[], search: string): BreweryPreview[] {

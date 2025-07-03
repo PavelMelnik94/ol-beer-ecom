@@ -24,5 +24,5 @@ export function CommentActions({
       {withEdit && <Text size="2" className="pointer" color="blue" onClick={onEdit}>{editLabel}</Text>}
       {withDelete && <Text size="2" className="pointer" color="ruby" onClick={onDelete}>{deleteLabel}</Text>}
     </Flex>
-  )
+  );
 }

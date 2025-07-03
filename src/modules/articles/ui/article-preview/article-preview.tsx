@@ -14,9 +14,9 @@ interface Props {
 }
 
 export function ArticlePreview({ article, sectionStyles }: Props) {
-  const { navigateToArticle } = useGoTo()
+  const { navigateToArticle } = useGoTo();
 
-  const isLiked = getIsLiked(article.likedByUserIds)
+  const isLiked = getIsLiked(article.likedByUserIds);
 
   return (
     <Section className={styles.section} style={sectionStyles} data-preview-section onClick={() => navigateToArticle(article.id)}>

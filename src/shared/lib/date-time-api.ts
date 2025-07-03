@@ -3,9 +3,9 @@ import {
   isValid,
   parse,
   parseISO,
-} from 'date-fns'
+} from 'date-fns';
 
-type DateInput = string | Date
+type DateInput = string | Date;
 
 export const dateParser = {
   toFormat: (
@@ -13,44 +13,44 @@ export const dateParser = {
     outputFormat: string,
     inputFormat?: string,
   ): string => {
-    let date: Date
+    let date: Date;
 
     if (input instanceof Date) {
-      date = input
+      date = input;
     }
     else {
       if (inputFormat) {
-        date = parse(input, inputFormat, new Date())
+        date = parse(input, inputFormat, new Date());
       }
       else {
-        date = parseISO(input)
+        date = parseISO(input);
       }
     }
 
     if (!isValid(date)) {
-      throw new Error(`Date is not valid: ${input}`)
+      throw new Error(`Date is not valid: ${input}`);
     }
 
-    return format(date, outputFormat)
+    return format(date, outputFormat);
   },
 
   isValidDate: (input: DateInput, inputFormat?: string): boolean => {
     try {
-      let date: Date
+      let date: Date;
 
       if (input instanceof Date) {
-        date = input
+        date = input;
       }
       else {
         date = inputFormat
           ? parse(input, inputFormat, new Date())
-          : parseISO(input)
+          : parseISO(input);
       }
 
-      return isValid(date)
+      return isValid(date);
     }
     catch {
-      return false
+      return false;
     }
   },
-}
+};

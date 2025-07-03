@@ -22,10 +22,10 @@ export function Header({ isFixed }: Props) {
   const { pathname } = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { logout } = useAuth();
-  const isAuth = useAuthStore(s => s.isAuth)
+  const isAuth = useAuthStore(s => s.isAuth);
   const isMobileLayout = useMediaQuery({
     query: '(max-width: 560px)',
-  })
+  });
 
   const getActiveProps = (path: string) => ({
     'data-active': path === pathname ? 'true' : 'false',

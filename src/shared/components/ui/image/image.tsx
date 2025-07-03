@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styles from './image.module.scss';
 
 type ImageLoadState = 'idle' | 'loading' | 'loaded' | 'error';
-type ImageSizeMode = 'cover' | 'contain' | 'responsive'
+type ImageSizeMode = 'cover' | 'contain' | 'responsive';
 
 interface ImageProps extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'src' | 'onLoad' | 'onError'> {
   src: string;
@@ -109,7 +109,7 @@ export const Image: React.FC<ImageProps> = ({
       [styles.loaded]: loadState === 'loaded',
       [styles.error]: loadState === 'error',
     },
-  )
+  );
 
   const containerClassses = clsx(
     styles.container,

@@ -1,5 +1,5 @@
-import type { BreweryPreview } from './../../types'
-import { Link, Table } from '@radix-ui/themes'
+import type { BreweryPreview } from './../../types';
+import { Link, Table } from '@radix-ui/themes';
 
 export function BreweriesTableRow({ brewery }: { brewery: BreweryPreview; }) {
   return (
@@ -20,5 +20,5 @@ export function BreweriesTableRow({ brewery }: { brewery: BreweryPreview; }) {
         </Link>
       </Table.Cell>
     </Table.Row>
-  )
+  );
 }

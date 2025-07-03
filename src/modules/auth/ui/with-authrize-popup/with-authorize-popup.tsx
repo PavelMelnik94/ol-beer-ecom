@@ -4,7 +4,7 @@ import { LoginDialog } from '../login-dialog.ts/login-dialog';
 
 export function withAuthorizePopup<P extends object>(WrappedComponent: ComponentType<P>) {
   return function WithAuthorizePopup(props: P) {
-    const isAuth = useAuthStore(s => s.isAuth)
+    const isAuth = useAuthStore(s => s.isAuth);
     if (isAuth) return <WrappedComponent {...props} />;
 
     return (

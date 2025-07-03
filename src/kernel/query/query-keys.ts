@@ -48,6 +48,6 @@ export const queryKeys = {
     profile: () => [...queryKeys.user.all, 'profile'] as const,
     addresses: () => [...queryKeys.user.all, 'addresses'] as const,
   },
-} as const
+} as const;
 
-export type QueryKeys = typeof queryKeys
+export type QueryKeys = typeof queryKeys;

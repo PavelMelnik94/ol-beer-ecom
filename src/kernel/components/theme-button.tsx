@@ -4,7 +4,7 @@ import { Button } from '@radix-ui/themes';
 import { Moon, Sun } from 'lucide-react';
 
 export function ThemeButton({ withTitle = false, style }: { withTitle?: boolean; style?: CSSProperties; }) {
-  const { theme, toggleTheme } = useTheme()
+  const { theme, toggleTheme } = useTheme();
   return (
     <Button
       style={{ ...(!withTitle ? { padding: '6px' } : {}), ...style }}
@@ -25,5 +25,5 @@ export function ThemeButton({ withTitle = false, style }: { withTitle?: boolean;
         </>
       )}
     </Button>
-  )
+  );
 }

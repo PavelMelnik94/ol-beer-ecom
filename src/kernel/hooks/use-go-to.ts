@@ -1,8 +1,8 @@
-import { useNavigate } from 'react-router-dom'
-import { ROUTES } from './../router'
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from './../router';
 
 export function useGoTo() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return {
     navigateTo: (path: string) => navigate(path),
@@ -18,5 +18,5 @@ export function useGoTo() {
     navigateToProfile: () => navigate(ROUTES.profile.root),
     navigateToBasket: () => navigate(ROUTES.basket.root),
     navigateToBlog: () => navigate(ROUTES.articles.root),
-  }
+  };
 }

@@ -75,5 +75,5 @@ export function BreweriesTableHead({ showBreweriesInput, isSearchLayout, showLoc
         </Table.ColumnHeaderCell>
       </Table.Row>
     </Table.Header>
-  )
+  );
 }

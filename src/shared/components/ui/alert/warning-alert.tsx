@@ -3,5 +3,5 @@ import { CircleAlert } from 'lucide-react';
 import { Alert } from './alert';
 
 export function WarningAlert({ children }: { children: ReactNode; }) {
-  return <Alert icon={<CircleAlert />} color="orange">{children}</Alert>
+  return <Alert icon={<CircleAlert />} color="orange">{children}</Alert>;
 }

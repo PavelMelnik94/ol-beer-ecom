@@ -62,7 +62,7 @@ function shouldGoToPrevPage(currentData: Comment[] | undefined, optimisticCount:
 }
 
 function getUserIsAuthor(user: User, commentAuthor: Comment['author']): boolean {
-  return user?.id === commentAuthor?.id
+  return user?.id === commentAuthor?.id;
 }
 
 function getCommentAllowActions(user: User | null, Comments: Comment[]): CommentsActions {
@@ -77,7 +77,7 @@ function getCommentAllowActions(user: User | null, Comments: Comment[]): Comment
         withLike: !isSelfComment,
       },
     } satisfies CommentsActions;
-  }, {} as CommentsActions)
+  }, {} as CommentsActions);
 }
 
 export const commentsModel = {

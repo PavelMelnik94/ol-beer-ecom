@@ -1,7 +1,7 @@
 import type { User } from '@kernel/index';
-import { tokenStorage } from '@kernel/index'
-import { create } from 'zustand'
-import { devtools, persist } from 'zustand/middleware'
+import { tokenStorage } from '@kernel/index';
+import { create } from 'zustand';
+import { devtools, persist } from 'zustand/middleware';
 
 interface AuthState {
   user: User | null;
@@ -24,19 +24,19 @@ export const useAuthStore = create<AuthStore>()(
           set({ user, isAuth: !!user }),
 
         login: (user) => {
-          tokenStorage.set(user.token)
+          tokenStorage.set(user.token);
           set({
             user,
             isAuth: true,
-          })
+          });
         },
 
         logout: () => {
-          tokenStorage.remove()
+          tokenStorage.remove();
           set({
             user: null,
             isAuth: false,
-          })
+          });
         },
 
       }),
@@ -49,4 +49,4 @@ export const useAuthStore = create<AuthStore>()(
       },
     ),
   ),
-)
+);

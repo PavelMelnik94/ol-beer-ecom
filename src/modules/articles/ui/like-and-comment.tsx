@@ -9,7 +9,7 @@ interface Props {
   likePost: () => void;
 }
 export function LikeAndComment({ likesCount, isLiked, likePost }: Props) {
-  const isAuth = useAuthStore(s => s.isAuth)
+  const isAuth = useAuthStore(s => s.isAuth);
 
   return (
     <Container pr="5" pl="5">
@@ -55,5 +55,5 @@ export function LikeAndComment({ likesCount, isLiked, likePost }: Props) {
       </Flex>
     </Container>
 
-  )
+  );
 }

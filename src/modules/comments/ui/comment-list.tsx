@@ -19,7 +19,7 @@ export function CommentList({
   onDelete,
   onLike,
 }: CommentListProps) {
-  const user = useAuthStore(s => s.user)
+  const user = useAuthStore(s => s.user);
 
   const commentsActions = useMemo(() => {
     return commentsModel.getCommentAllowActions(user, commentList as Comment[]);

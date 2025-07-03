@@ -9,7 +9,7 @@ import { Toaster } from 'sonner';
 import { AppRoutes } from './routes';
 
 function App() {
-  const { theme } = useTheme()
+  const { theme } = useTheme();
 
   return (
     // <ErrorBoundary>
@@ -28,7 +28,7 @@ function App() {
     </NuqsAdapter>
 
   // </ErrorBoundary>
-  )
+  );
 }
 
-export default App
+export default App;

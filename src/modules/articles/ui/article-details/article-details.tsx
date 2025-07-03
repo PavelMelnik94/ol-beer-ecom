@@ -9,17 +9,17 @@ import { ArticleRandom } from './article-random';
 import { ArticleSkeleton } from './article-skeleton/article-skeleton';
 
 export function ArticleDetails({ id, commentSlot }: { id: string; commentSlot: React.ReactNode; }) {
-  const { article } = useArticlesDetails(id)
-  const { scrollToTop } = useGlobalScroll()
+  const { article } = useArticlesDetails(id);
+  const { scrollToTop } = useGlobalScroll();
 
   const { likeArticle, isLiked, likeCounter } = useLikeArticle({
     initialIsLiked: getIsLiked(article?.likedByUserIds),
     initialLikesCount: article?.likesCount ?? 0,
-  })
+  });
 
   useLayoutEffect(() => {
-    scrollToTop()
-  }, [id])
+    scrollToTop();
+  }, [id]);
 
   if (!article?.title) {
     return (

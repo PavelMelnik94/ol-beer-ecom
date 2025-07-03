@@ -1,7 +1,7 @@
-import antfu from '@antfu/eslint-config'
-import boundaries from 'eslint-plugin-boundaries'
-import jsxA11y from 'eslint-plugin-jsx-a11y'
-import security from 'eslint-plugin-security'
+import antfu from '@antfu/eslint-config';
+import boundaries from 'eslint-plugin-boundaries';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
+import security from 'eslint-plugin-security';
 
 export default antfu({
   react: true,
@@ -145,7 +145,7 @@ export default antfu({
 
     // overrides antfu
     'node/prefer-global/process': 'off',
-    'style/semi': 'off',
+    'style/semi': ['error', 'always'],
     'style/member-delimiter-style': [
       'error',
       {
@@ -170,4 +170,4 @@ export default antfu({
     'prefer-const': 'off',
     'react/no-unstable-context-value': 'off',
   },
-})
+});

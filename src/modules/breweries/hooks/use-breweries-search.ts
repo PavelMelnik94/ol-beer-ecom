@@ -1,9 +1,9 @@
 import { queryKeys } from '@kernel/index';
-import { useOnClickOutside } from '@shared/hooks'
+import { useOnClickOutside } from '@shared/hooks';
 import { useQuery } from '@tanstack/react-query';
 
-import { useMemo, useRef, useState } from 'react'
-import { useMediaQuery } from 'react-responsive'
+import { useMemo, useRef, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { breweriesApi } from '../api';
 import { breweriesModel } from '../model';
 

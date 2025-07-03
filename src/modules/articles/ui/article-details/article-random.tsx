@@ -12,5 +12,5 @@ export const ArticleRandom = React.memo(({ excludeId }: { excludeId: string; }) 
     <Container pr="5" pl="5">
       <ArticlePreview article={article} sectionStyles={{ padding: 0 }} />
     </Container>
-  )
-})
+  );
+});

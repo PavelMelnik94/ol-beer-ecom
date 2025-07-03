@@ -1,9 +1,9 @@
-import { AuthLayout } from '@app/layouts/auth-layout/auth-layout'
-import { MainLayout } from '@app/layouts/main-layout/main-layout'
+import { AuthLayout } from '@app/layouts/auth-layout/auth-layout';
+import { MainLayout } from '@app/layouts/main-layout/main-layout';
 import { ROUTES } from '@kernel/index';
 import { HomePage } from '@pages/index';
-import { lazy, Suspense } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { lazy, Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
 
 // const LazyHomePage = lazy(() => import('./../../pages').then(module => ({ default: module.HomePage })));
 const LazyArticlePage = lazy(() => import('./../../pages').then(module => ({ default: module.ArticlePage })));
@@ -62,5 +62,5 @@ export function AppRoutes() {
         <Route path="*" element={<div> /404  </div>} />
       </Routes>
     </Suspense>
-  )
+  );
 }

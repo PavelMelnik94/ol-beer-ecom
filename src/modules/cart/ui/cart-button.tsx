@@ -22,5 +22,5 @@ export function CartButton({ fullWidth, onClick }: { fullWidth?: boolean; onClic
         <Badge size="1" color="bronze">{FAKE_CART_COUNT}</Badge>
       </Flex>
     </Button>
-  )
+  );
 }

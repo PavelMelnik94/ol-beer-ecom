@@ -18,7 +18,7 @@ export function GithubButton({ withTitle = false, style }: { withTitle?: boolean
       <Github height={16} width={16} />
       {withTitle && 'Github'}
     </Button>
-  )
+  );
 }
 
 GithubButton.displayName = 'GithubButton';

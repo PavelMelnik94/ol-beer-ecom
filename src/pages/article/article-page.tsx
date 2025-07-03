@@ -1,9 +1,9 @@
-import { ArticleDetails } from '@modules/articles'
-import { Comments } from '@modules/comments'
-import { useParams } from 'react-router-dom'
+import { ArticleDetails } from '@modules/articles';
+import { Comments } from '@modules/comments';
+import { useParams } from 'react-router-dom';
 
 export function ArticlePage() {
-  const { id } = useParams()
+  const { id } = useParams();
 
   return (
     <ArticleDetails
@@ -12,5 +12,5 @@ export function ArticlePage() {
         <Comments parentId={String(id)} />
       }
     />
-  )
+  );
 }

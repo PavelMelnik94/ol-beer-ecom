@@ -1,6 +1,6 @@
-import { BreweriesList } from '@modules/breweries/'
-import { Box, Container } from '@radix-ui/themes'
-import { Hero } from './ui/hero'
+import { BreweriesList } from '@modules/breweries/';
+import { Box, Container } from '@radix-ui/themes';
+import { Hero } from './ui/hero';
 
 export function BreweriesPage() {
   return (
@@ -12,5 +12,5 @@ export function BreweriesPage() {
         <BreweriesList />
       </Container>
     </Box>
-  )
+  );
 }

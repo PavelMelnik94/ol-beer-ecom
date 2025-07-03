@@ -1,5 +1,5 @@
-import { Outlet } from 'react-router-dom'
-import styles from './auth-layout.module.scss'
+import { Outlet } from 'react-router-dom';
+import styles from './auth-layout.module.scss';
 
 export function AuthLayout() {
   return (
@@ -8,5 +8,5 @@ export function AuthLayout() {
         <Outlet />
       </div>
     </div>
-  )
+  );
 }

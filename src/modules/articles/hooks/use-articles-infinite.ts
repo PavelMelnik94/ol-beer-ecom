@@ -24,9 +24,9 @@ export function useArticlesInfinite() {
     queryFn: ({ pageParam = 1 }) =>
       apiClient.get(`${API_ENDPOINTS.articles.all}?limit=${limit}&page=${pageParam}`),
     getNextPageParam: articlesModel.getNextPageParam,
-  })
+  });
 
-  const articles = articlesModel.flattenArticlesPages(data?.pages)
+  const articles = articlesModel.flattenArticlesPages(data?.pages);
 
   return {
     articles,
@@ -37,5 +37,5 @@ export function useArticlesInfinite() {
     hasNextPage,
     isFetchingNextPage,
     refetch,
-  }
+  };
 }

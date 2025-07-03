@@ -34,5 +34,5 @@ export function ArticleMeta({ author, tags }: Props) {
       </Flex>
 
     </Flex>
-  )
+  );
 }

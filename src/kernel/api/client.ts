@@ -10,39 +10,39 @@ export const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-})
+});
 
 apiClient.interceptors.request.use(
   (config) => {
-    const token = tokenStorage.get()
+    const token = tokenStorage.get();
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+      config.headers.Authorization = `Bearer ${token}`;
     }
 
     if (import.meta.env.MODE === 'development') {
       // eslint-disable-next-line no-console
-      console.log('🚀 API Request:', config.method?.toUpperCase(), config.url)
+      console.log('🚀 API Request:', config.method?.toUpperCase(), config.url);
     }
 
-    return config
+    return config;
   },
   (error) => {
-    console.error('❌ Request Error:', error)
-    return Promise.reject(error)
+    console.error('❌ Request Error:', error);
+    return Promise.reject(error);
   },
-)
+);
 
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => {
     if (import.meta.env.MODE === 'development') {
       // eslint-disable-next-line no-console
-      console.log('✅ API Response:', response.status, response.config.url)
+      console.log('✅ API Response:', response.status, response.config.url);
     }
 
-    return response.data
+    return response.data;
   },
   (error: AxiosError) => {
-    console.error('❌ Response Error:', error.response?.status, error.config?.url)
+    console.error('❌ Response Error:', error.response?.status, error.config?.url);
 
     // Handle unauthorized
     // if (error.response?.status === 401) {
@@ -50,8 +50,8 @@ apiClient.interceptors.response.use(
     //   window.location.href = '/login'
     // }
 
-    return Promise.reject(error)
+    return Promise.reject(error);
   },
-)
+);
 
-export default apiClient
+export default apiClient;

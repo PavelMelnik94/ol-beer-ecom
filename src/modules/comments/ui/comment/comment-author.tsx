@@ -14,8 +14,8 @@ export function CommentAuthor({
       month: 'long',
       day: 'numeric',
       year: 'numeric',
-    })
-  })()
+    });
+  })();
 
   return (
     <Flex gap="3" align="center">
@@ -36,5 +36,5 @@ export function CommentAuthor({
         </Text>
       </Box>
     </Flex>
-  )
+  );
 }

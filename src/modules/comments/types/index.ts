@@ -16,7 +16,7 @@ interface CommentAction {
   withLike: boolean;
 }
 
-export type CommentsActions = Record<string, CommentAction>
+export type CommentsActions = Record<string, CommentAction>;
 
 // Типы для централизованного управления комментариями
 export interface CommentCreateRequest {

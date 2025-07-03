@@ -37,8 +37,8 @@ export function LoginForm({ onSuccess, onCancel, onNavigateToRegister }: LoginFo
 
   const handleCancel = () => {
     resetForm();
-    onCancel?.()
-  }
+    onCancel?.();
+  };
 
   const isFormDisabled = isSubmitting || isLoading;
 

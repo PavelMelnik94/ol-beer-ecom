@@ -1,5 +1,5 @@
 import type { JSX } from 'react';
-import { isValidElement } from 'react'
+import { isValidElement } from 'react';
 
 export interface ShowProps<T> {
   when: T | null | undefined;
@@ -8,17 +8,17 @@ export interface ShowProps<T> {
 }
 
 export function Show<T>(props: ShowProps<T>): JSX.Element {
-  const { when, fallback, children } = props
-  let result: React.ReactNode
+  const { when, fallback, children } = props;
+  let result: React.ReactNode;
 
   if (!when) {
-    result = fallback
+    result = fallback;
   }
   else {
-    result = typeof children === 'function' ? children(when) : children
+    result = typeof children === 'function' ? children(when) : children;
   }
 
-  return isValidElement(result) ? result : <>{result}</>
+  return isValidElement(result) ? result : <>{result}</>;
 }
 
-Show.displayName = 'Show'
+Show.displayName = 'Show';

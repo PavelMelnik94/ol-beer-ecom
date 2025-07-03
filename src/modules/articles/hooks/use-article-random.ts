@@ -12,7 +12,7 @@ export function useArticlesRandom(excludeId: string) {
   } = useQuery<SuccessResponseRandomArticle, ErrorResponse>({
     queryKey: queryKeys.articles.articleRandom(excludeId),
     queryFn: () => articleApi.getRandomArticle(excludeId),
-  })
+  });
 
   return {
     article: data?.data,

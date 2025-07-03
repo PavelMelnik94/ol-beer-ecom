@@ -1,6 +1,6 @@
-import { Box, Flex, Link, Text } from '@radix-ui/themes'
-import * as pckg from './../../../../../package.json'
-import styles from './footer.module.scss'
+import { Box, Flex, Link, Text } from '@radix-ui/themes';
+import * as pckg from './../../../../../package.json';
+import styles from './footer.module.scss';
 
 export function Footer() {
   return (
@@ -50,7 +50,7 @@ export function Footer() {
       </Flex>
 
     </footer>
-  )
+  );
 }
 
-Footer.displayName = 'Footer'
+Footer.displayName = 'Footer';

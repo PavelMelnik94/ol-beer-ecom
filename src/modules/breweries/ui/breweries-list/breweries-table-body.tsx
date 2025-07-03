@@ -1,7 +1,7 @@
-import type { BreweryPreview } from '../../types'
-import { Table } from '@radix-ui/themes'
-import { For } from '@shared/components'
-import { BreweriesTableRow } from './breweries-table-row'
+import type { BreweryPreview } from '../../types';
+import { Table } from '@radix-ui/themes';
+import { For } from '@shared/components';
+import { BreweriesTableRow } from './breweries-table-row';
 
 export function BreweriesTableBody({ breweries }: { breweries: BreweryPreview[]; }) {
   return (
@@ -10,5 +10,5 @@ export function BreweriesTableBody({ breweries }: { breweries: BreweryPreview[];
         {brewery => <BreweriesTableRow key={brewery.id} brewery={brewery} />}
       </For>
     </Table.Body>
-  )
+  );
 }

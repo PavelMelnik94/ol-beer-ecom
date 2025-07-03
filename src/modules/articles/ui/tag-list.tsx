@@ -21,5 +21,5 @@ export function TagList({ tags }: { tags: Article['tags']; }) {
       </For>
 
     </Flex>
-  )
+  );
 }
