@@ -1,0 +1,8 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# 1. Инкремент patch-версии в package.json
+node scripts/bump-patch-version.cjs
+
+# 2. Добавить package.json в git
+git add package.json
