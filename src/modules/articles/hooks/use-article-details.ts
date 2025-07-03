@@ -1,6 +1,6 @@
 import type { SuccessResponseArticleDetails } from '@modules/articles/api/article-api';
 import type { ErrorResponse } from 'react-router-dom';
-import { queryKeys } from '@kernel/index';
+import { QUERY_KEYS } from '@kernel/index';
 import { articleApi } from '@modules/articles/api/article-api';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
@@ -8,7 +8,7 @@ import { useArticleStore } from '../stores/article-store';
 
 export function useArticlesDetails(id: string) {
   const { data: response, error, isLoading } = useQuery<SuccessResponseArticleDetails, ErrorResponse>({
-    queryKey: queryKeys.articles.detail(id),
+    queryKey: QUERY_KEYS.articles.detail(id),
     queryFn: () => articleApi.getArticleDetails(id),
     enabled: !!id,
   });

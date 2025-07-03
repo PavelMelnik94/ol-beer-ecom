@@ -8,7 +8,7 @@ import type {
   CommentUpdateRequest,
   OptimisticComment,
 } from '../types';
-import { queryClient, queryKeys, toast, useAuthStore } from '@kernel/index';
+import { queryClient, QUERY_KEYS, toast, useAuthStore } from '@kernel/index';
 import { useCommentStore } from '@modules/comments/stores/comment-store';
 
 import { useOptimistic } from '@shared/hooks';
@@ -44,7 +44,7 @@ export function useComments({
     error: queryError,
     refetch,
   } = useQuery<CommentsResponse, ErrorResponse>({
-    queryKey: queryKeys.articles.commentList(parentId, page),
+    queryKey: QUERY_KEYS.articles.commentList(parentId, page),
     queryFn: () => commentsApi.getComments(parentId, page),
     enabled: !!parentId,
     staleTime: 0,
@@ -86,12 +86,12 @@ export function useComments({
 
   const invalidateCommentsQueries = useCallback(() => {
     queryClient.invalidateQueries({
-      queryKey: queryKeys.articles.commentListAll(parentId),
+      queryKey: QUERY_KEYS.articles.commentListAll(parentId),
       exact: false,
     });
 
     queryClient.invalidateQueries({
-      queryKey: queryKeys.articles.detail(parentId),
+      queryKey: QUERY_KEYS.articles.detail(parentId),
     });
   }, [parentId]);
 

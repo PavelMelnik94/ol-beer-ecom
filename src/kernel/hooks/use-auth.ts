@@ -1,5 +1,5 @@
 import type { ApiErrorResponse, ApiSuccessResponse, User } from '@kernel/index';
-import { API_ENDPOINTS, apiClient, queryKeys, useAuthStore } from '@kernel/index';
+import { API_ENDPOINTS, apiClient, QUERY_KEYS, useAuthStore } from '@kernel/index';
 import { useMutation } from '@tanstack/react-query';
 
 export interface LoginCredentials {
@@ -14,7 +14,7 @@ export function useAuth() {
   const storeLogout = useAuthStore(state => state.logout);
 
   const mutation = useMutation<SuccessResponse, ErrorResponse, LoginCredentials>({
-    mutationKey: queryKeys.auth.login(),
+    mutationKey: QUERY_KEYS.auth.login(),
     mutationFn: ({ email, password }) =>
       apiClient.post(API_ENDPOINTS.auth.login, { email, password }),
   });

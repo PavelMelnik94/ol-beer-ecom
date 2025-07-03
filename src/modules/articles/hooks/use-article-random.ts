@@ -1,5 +1,5 @@
 import type { ErrorResponse, SuccessResponseRandomArticle } from '@modules/articles/api/article-api';
-import { queryKeys } from '@kernel/index';
+import { QUERY_KEYS } from '@kernel/index';
 import { articleApi } from '@modules/articles/api/article-api';
 import { useQuery } from '@tanstack/react-query';
 
@@ -10,7 +10,7 @@ export function useArticlesRandom(excludeId: string) {
     isError,
     error,
   } = useQuery<SuccessResponseRandomArticle, ErrorResponse>({
-    queryKey: queryKeys.articles.articleRandom(excludeId),
+    queryKey: QUERY_KEYS.articles.articleRandom(excludeId),
     queryFn: () => articleApi.getRandomArticle(excludeId),
   });
 

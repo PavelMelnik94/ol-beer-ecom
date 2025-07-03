@@ -1,6 +1,6 @@
 import type { ApiErrorResponse, ApiSuccessResponsePaginated } from '@kernel/index';
 import type { Article } from '../types';
-import { API_ENDPOINTS, apiClient, queryKeys } from '@kernel/index';
+import { API_ENDPOINTS, apiClient, QUERY_KEYS } from '@kernel/index';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { articlesModel } from '../model';
 
@@ -19,7 +19,7 @@ export function useArticlesInfinite() {
     isFetchingNextPage,
     refetch,
   } = useInfiniteQuery<SuccessResponse, ErrorResponse>({
-    queryKey: queryKeys.articles.articleList(),
+    queryKey: QUERY_KEYS.articles.articleList(),
     initialPageParam: 1,
     queryFn: ({ pageParam = 1 }) =>
       apiClient.get(`${API_ENDPOINTS.articles.all}?limit=${limit}&page=${pageParam}`),

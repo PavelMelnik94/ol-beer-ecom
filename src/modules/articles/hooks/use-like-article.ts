@@ -1,5 +1,5 @@
 import type { ErrorResponse, SuccessResponseArticleLike } from '@modules/articles/api/article-api';
-import { queryClient, queryKeys, toast } from '@kernel/index';
+import { queryClient, QUERY_KEYS, toast } from '@kernel/index';
 import { articleApi } from '@modules/articles/api/article-api';
 import { useArticleStore } from '@modules/articles/stores/article-store';
 import { useOptimistic } from '@shared/hooks';
@@ -28,7 +28,7 @@ export function useLikeArticle({ initialIsLiked, initialLikesCount }: UseLikeArt
   const { optimisticValue, addOptimistic, rollback, isPending } = useOptimistic(baseState);
 
   const { mutateAsync } = useMutation<SuccessResponseArticleLike, ErrorResponse>({
-    mutationKey: queryKeys.articles.articleLike(articleId),
+    mutationKey: QUERY_KEYS.articles.articleLike(articleId),
     mutationFn: () => articleApi.likeArticle(articleId),
   });
 
@@ -41,10 +41,10 @@ export function useLikeArticle({ initialIsLiked, initialLikesCount }: UseLikeArt
       if (response.success) {
         await Promise.all([
           queryClient.invalidateQueries({
-            queryKey: queryKeys.articles.detail(articleId),
+            queryKey: QUERY_KEYS.articles.detail(articleId),
           }),
           queryClient.invalidateQueries({
-            queryKey: queryKeys.articles.all,
+            queryKey: QUERY_KEYS.articles.all,
           }),
         ]);
 

@@ -1,4 +1,4 @@
-import { queryKeys } from '@kernel/index';
+import { QUERY_KEYS } from '@kernel/index';
 import { useOnClickOutside } from '@shared/hooks';
 import { useQuery } from '@tanstack/react-query';
 
@@ -20,7 +20,7 @@ export function useBreweriesSearch() {
   const [search, setSearch] = useState<string>('');
 
   const { data: response, isLoading, error } = useQuery({
-    queryKey: queryKeys.breweries.all,
+    queryKey: QUERY_KEYS.breweries.all,
     queryFn: breweriesApi.getBreweriesList,
     refetchOnWindowFocus: true,
     refetchOnReconnect: true,
