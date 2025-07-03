@@ -15,8 +15,8 @@ export const ROUTES = {
     login: '/auth/login',
     register: '/auth/register',
   },
-  store: {
-    root: '/store',
+  showcase: {
+    root: '/showcase',
   },
   profile: {
     root: '/profile',
