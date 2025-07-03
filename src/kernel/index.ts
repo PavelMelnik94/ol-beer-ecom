@@ -2,6 +2,7 @@
 export * from './api';
 export type * from './api/types';
 export * from './components';
+export * from './errors';
 export * from './hooks';
 export * from './notifications';
 export * from './query';

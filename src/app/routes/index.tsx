@@ -1,8 +1,9 @@
 import { AuthLayout } from '@app/layouts/auth-layout/auth-layout';
 import { MainLayout } from '@app/layouts/main-layout/main-layout';
-import { ROUTES } from '@kernel/index';
+import { RouteErrorBoundary, ROUTES } from '@kernel/index';
 import { HomePage } from '@pages/index';
 import { lazy, Suspense } from 'react';
+
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const LazyArticlePage = lazy(() => import('./../../pages').then(module => ({ default: module.ArticlePage })));
@@ -79,7 +80,9 @@ const router = createBrowserRouter([
     path: '*',
     element: <div> /404  </div>,
   },
-]);
+]
+  .map(route => ({ ...route, errorElement: <RouteErrorBoundary /> })),
+);
 
 export function AppRoutes() {
   return (

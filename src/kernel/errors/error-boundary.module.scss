@@ -1,0 +1,15 @@
+.errorCode {
+  display: block !important;
+  white-space: pre-wrap !important;
+  max-height: 200px !important;
+  overflow: auto !important;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+  font-size: 11px !important;
+  line-height: 1.4 !important;
+}
+
+.errorIllustration {
+  width: 120px;
+  height: 120px;
+  display: block;
+}
