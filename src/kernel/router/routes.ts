@@ -14,11 +14,11 @@ export const ROUTES = {
     root: '/auth',
     login: {
       full: '/auth/login',
-      short: '/login',
+      short: 'login',
     },
     register: {
       full: '/auth/register',
-      short: '/register',
+      short: 'register',
     },
   },
   showcase: {
@@ -28,7 +28,7 @@ export const ROUTES = {
     root: '/profile',
     orders: {
       full: '/profile/orders',
-      short: '/orders',
+      short: 'orders',
     },
   },
   about: {
