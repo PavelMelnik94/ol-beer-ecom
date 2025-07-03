@@ -2,6 +2,7 @@ import { AuthLayout } from '@app/layouts/auth-layout/auth-layout';
 import { MainLayout } from '@app/layouts/main-layout/main-layout';
 import { RouteErrorBoundary, ROUTES } from '@kernel/index';
 import { HomePage } from '@pages/index';
+import { PagePreloader } from '@shared/components';
 import { lazy, Suspense } from 'react';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -86,7 +87,7 @@ const router = createBrowserRouter([
 
 export function AppRoutes() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<PagePreloader />}>
       <RouterProvider router={router} />
     </Suspense>
   );
