@@ -11,8 +11,8 @@ export function useGoTo() {
     navigateToArticle: (id: string) => navigate(ROUTES.articles.article(id)),
 
     navigateToBreweries: () => navigate(ROUTES.breweries.root),
-    navigateToRegister: () => navigate(ROUTES.auth.register),
-    navigateToLogin: () => navigate(ROUTES.auth.login),
+    navigateToRegister: () => navigate(ROUTES.auth.register.full),
+    navigateToLogin: () => navigate(ROUTES.auth.login.full),
     navigateToStore: () => navigate(ROUTES.showcase.root),
     navigateToAbout: () => navigate(ROUTES.about.root),
     navigateToProfile: () => navigate(ROUTES.profile.root),

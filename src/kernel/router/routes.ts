@@ -12,15 +12,24 @@ export const ROUTES = {
   },
   auth: {
     root: '/auth',
-    login: '/auth/login',
-    register: '/auth/register',
+    login: {
+      full: '/auth/login',
+      short: '/login',
+    },
+    register: {
+      full: '/auth/register',
+      short: '/register',
+    },
   },
   showcase: {
     root: '/showcase',
   },
   profile: {
     root: '/profile',
-    orders: '/profile/orders',
+    orders: {
+      full: '/profile/orders',
+      short: '/orders',
+    },
   },
   about: {
     root: '/about',

@@ -3,64 +3,88 @@ import { MainLayout } from '@app/layouts/main-layout/main-layout';
 import { ROUTES } from '@kernel/index';
 import { HomePage } from '@pages/index';
 import { lazy, Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-// const LazyHomePage = lazy(() => import('./../../pages').then(module => ({ default: module.HomePage })));
 const LazyArticlePage = lazy(() => import('./../../pages').then(module => ({ default: module.ArticlePage })));
 const LazyBreweriesPage = lazy(() => import('./../../pages').then(module => ({ default: module.BreweriesPage })));
 const LazyBlogPage = lazy(() => import('./../../pages').then(module => ({ default: module.BlogPage })));
 
+const router = createBrowserRouter([
+  {
+    path: ROUTES.home.root,
+    element: <MainLayout />,
+    children: [
+      { index: true, element: <HomePage /> },
+    ],
+  },
+  {
+    path: ROUTES.articles.root,
+    element: <MainLayout />,
+    children: [
+      { index: true, element: <LazyBlogPage /> },
+    ],
+  },
+  {
+    path: ROUTES.breweries.root,
+    element: <MainLayout />,
+    children: [
+      { index: true, element: <LazyBreweriesPage /> },
+    ],
+  },
+  {
+    path: ROUTES.articles.root,
+    element: <MainLayout />,
+    children: [
+      { path: ':id', element: <LazyArticlePage /> },
+    ],
+  },
+  {
+    path: ROUTES.about.root,
+    element: <MainLayout />,
+    children: [
+      { index: true, element: <div>about</div> },
+    ],
+  },
+  {
+    path: ROUTES.showcase.root,
+    element: <MainLayout />,
+    children: [
+      { index: true, element: <div>showcase</div> },
+      { path: ':id', element: <div>showcase item</div> },
+    ],
+  },
+  {
+    path: ROUTES.profile.root,
+    element: <MainLayout />,
+    children: [
+      { index: true, element: <div>profile settings</div> },
+      { path: ROUTES.profile.orders.short, element: <div>orders</div> },
+    ],
+  },
+  {
+    path: ROUTES.basket.root,
+    element: <MainLayout />,
+    children: [
+      { index: true, element: <div>basket</div> },
+    ],
+  },
+  {
+    path: ROUTES.auth.root,
+    element: <AuthLayout />,
+    children: [
+      { path: ROUTES.auth.register.short, element: <div>register</div> },
+    ],
+  },
+  {
+    path: '*',
+    element: <div> /404  </div>,
+  },
+]);
+
 export function AppRoutes() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <Routes>
-        <Route path={ROUTES.home.root} element={<MainLayout />}>
-          <Route index element={<HomePage />} />
-        </Route>
-
-        <Route path={ROUTES.articles.root} element={<MainLayout />}>
-          <Route index element={<LazyBlogPage />} />
-        </Route>
-
-        <Route path={ROUTES.breweries.root} element={<MainLayout />}>
-          <Route index element={<LazyBreweriesPage />} />
-        </Route>
-
-        <Route path="/articles" element={<MainLayout />}>
-          <Route path=":id" element={<LazyArticlePage />} />
-        </Route>
-
-        <Route path={ROUTES.about.root} element={<MainLayout />}>
-          <Route index element={<div>about</div>} />
-        </Route>
-
-        <Route path={ROUTES.showcase.root} element={<MainLayout />}>
-          <Route index element={<div>showcase</div>} />
-          <Route path=":id" element={<div>showcase item</div>} />
-        </Route>
-
-        <Route
-          path={ROUTES.profile.root}
-          element={<MainLayout />}
-        >
-          <Route index element={<div>profile settings</div>} />
-          <Route path="orders" element={<div>orders</div>} />
-        </Route>
-
-        <Route
-          path={ROUTES.basket.root}
-          element={<MainLayout />}
-        >
-          <Route index element={<div>basket</div>} />
-        </Route>
-
-        <Route path="/auth" element={<AuthLayout />}>
-          <Route path="register" element={<div>register</div>} />
-        </Route>
-
-        {/* 404 */}
-        <Route path="*" element={<div> /404  </div>} />
-      </Routes>
+      <RouterProvider router={router} />
     </Suspense>
   );
 }
