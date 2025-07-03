@@ -13,7 +13,7 @@ export function useGoTo() {
     navigateToBreweries: () => navigate(ROUTES.breweries.root),
     navigateToRegister: () => navigate(ROUTES.auth.register),
     navigateToLogin: () => navigate(ROUTES.auth.login),
-    navigateToStore: () => navigate(ROUTES.store.root),
+    navigateToStore: () => navigate(ROUTES.showcase.root),
     navigateToAbout: () => navigate(ROUTES.about.root),
     navigateToProfile: () => navigate(ROUTES.profile.root),
     navigateToBasket: () => navigate(ROUTES.basket.root),

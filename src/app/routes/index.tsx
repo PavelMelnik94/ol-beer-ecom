@@ -2,7 +2,7 @@ import { AuthLayout } from '@app/layouts/auth-layout/auth-layout'
 import { MainLayout } from '@app/layouts/main-layout/main-layout'
 import { ROUTES } from '@kernel/index';
 import { HomePage } from '@pages/index';
-import { lazy, Suspense } from 'react'
+import { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 // const LazyHomePage = lazy(() => import('./../../pages').then(module => ({ default: module.HomePage })));
@@ -34,9 +34,9 @@ export function AppRoutes() {
           <Route index element={<div>about</div>} />
         </Route>
 
-        <Route path={ROUTES.store.root} element={<MainLayout />}>
-          <Route index element={<div>store</div>} />
-          <Route path=":id" element={<div>store item</div>} />
+        <Route path={ROUTES.showcase.root} element={<MainLayout />}>
+          <Route index element={<div>showcase</div>} />
+          <Route path=":id" element={<div>showcase item</div>} />
         </Route>
 
         <Route
@@ -55,7 +55,7 @@ export function AppRoutes() {
         </Route>
 
         <Route path="/auth" element={<AuthLayout />}>
-          <Route path="register" element={<div>store</div>} />
+          <Route path="register" element={<div>register</div>} />
         </Route>
 
         {/* 404 */}

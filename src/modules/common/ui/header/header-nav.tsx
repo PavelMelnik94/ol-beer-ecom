@@ -36,9 +36,9 @@ export function HeaderNav({
         onClick={onClickHandlers.onStore}
         className={clsx({ [styles.fullWidth]: fullWidth })}
         style={fullWidth ? { width: '100%' } : undefined}
-        {...getActiveProps(ROUTES.store.root)}
+        {...getActiveProps(ROUTES.showcase.root)}
       >
-        Store
+        Showcase
         <Pulse size={8} intensity={5} duration={1.5} />
       </Button>
       <Button
