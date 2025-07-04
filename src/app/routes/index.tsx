@@ -10,6 +10,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 const LazyArticlePage = lazy(() => import('./../../pages').then(module => ({ default: module.ArticlePage })));
 const LazyBreweriesPage = lazy(() => import('./../../pages').then(module => ({ default: module.BreweriesPage })));
 const LazyBlogPage = lazy(() => import('./../../pages').then(module => ({ default: module.BlogPage })));
+const LazyProductsPage = lazy(() => import('./../../pages').then(module => ({ default: module.ProductsPage })));
 
 const router = createBrowserRouter([
   {
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
     path: ROUTES.showcase.root,
     element: <MainLayout />,
     children: [
-      { index: true, element: <div>showcase</div> },
+      { index: true, element: <LazyProductsPage /> },
       { path: ':id', element: <div>showcase item</div> },
     ],
   },

@@ -1,7 +1,7 @@
-import type { BreweryPreview } from './../../types';
+import type { Brewery } from '@kernel/types';
 import { Link, Table } from '@radix-ui/themes';
 
-export function BreweriesTableRow({ brewery }: { brewery: BreweryPreview; }) {
+export function BreweriesTableRow({ brewery }: { brewery: Brewery; }) {
   return (
     <Table.Row key={brewery.id}>
       <Table.RowHeaderCell>{brewery.name}</Table.RowHeaderCell>

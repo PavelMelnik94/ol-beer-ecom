@@ -1,43 +1,43 @@
+import type { ApiErrorResponse } from '@kernel/api';
+import type { Comment, OptimisticComment } from '../types';
 import { useAuthStore } from '@kernel/stores';
 import { Box, Container, Flex, Separator } from '@radix-ui/themes';
 import { ErrorAlert, Pagination, Show, SuccessAlert } from '@shared/components';
-import { useComments } from '../hooks/use-comments';
 import { CommentList } from './comment-list';
 import { CommentCreate } from './comment/comment-create';
 
-const { usePagination } = Pagination;
-export function Comments({ parentId }: { parentId: string; }) {
+interface CommentsProps {
+  comments: Comment[] | OptimisticComment[];
+  error: ApiErrorResponse | null;
+  pagination: {
+    page: number;
+    totalPages: number;
+  };
+
+  onCreateComment: (content: string) => Promise<void>;
+  onUpdateComment: (id: string, content: string) => Promise<void>;
+  onDeleteComment: (id: string) => Promise<void>;
+  onLikeComment: (id: string) => Promise<void>;
+  onPageChange: (page: number) => void;
+
+  isLoading?: boolean;
+  isCreating?: boolean;
+  isPageChanging?: boolean;
+}
+export function Comments({
+  comments,
+  error,
+  isLoading,
+  isCreating,
+  isPageChanging,
+  pagination,
+  onCreateComment,
+  onUpdateComment,
+  onDeleteComment,
+  onLikeComment,
+  onPageChange,
+}: CommentsProps) {
   const user = useAuthStore(s => s.user);
-
-  const { page, isPageChanging, handlePageChange } = usePagination();
-
-  const {
-    comments,
-    pagination,
-    isLoading,
-    isCreating,
-    createComment,
-    updateComment,
-    deleteComment,
-    likeComment,
-    error,
-  } = useComments({ page, parentId });
-
-  const handleCreateComment = async (content: string) => {
-    await createComment(content);
-  };
-
-  const handleUpdateComment = async (id: string, content: string) => {
-    await updateComment(id, content);
-  };
-
-  const handleDeleteComment = async (id: string) => {
-    await deleteComment(id);
-  };
-
-  const handleLikeComment = async (id: string) => {
-    await likeComment(id);
-  };
 
   if (error) {
     return (
@@ -57,7 +57,7 @@ export function Comments({ parentId }: { parentId: string; }) {
         {!!user && (
           <CommentCreate
             user={user}
-            onCreateComment={handleCreateComment}
+            onCreateComment={onCreateComment}
             isLoading={isCreating}
           />
         )}
@@ -65,9 +65,9 @@ export function Comments({ parentId }: { parentId: string; }) {
 
       <CommentList
         commentList={comments}
-        onUpdate={handleUpdateComment}
-        onDelete={handleDeleteComment}
-        onLike={handleLikeComment}
+        onUpdate={onUpdateComment}
+        onDelete={onDeleteComment}
+        onLike={onLikeComment}
       />
 
       <Show when={pagination.totalPages > 1}>
@@ -82,7 +82,7 @@ export function Comments({ parentId }: { parentId: string; }) {
           <Pagination
             page={pagination.page}
             total={pagination.totalPages}
-            onPageChange={handlePageChange}
+            onPageChange={onPageChange}
           />
         </Flex>
       </Show>

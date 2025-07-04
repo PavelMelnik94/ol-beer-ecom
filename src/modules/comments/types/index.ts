@@ -1,3 +1,4 @@
+import type { ApiSuccessResponse, ApiSuccessResponsePaginated } from '@kernel/api';
 import type { Author } from '@kernel/types';
 
 export interface Comment {
@@ -49,4 +50,12 @@ export interface CommentsState {
     totalPages: number;
   };
   isLoading: boolean;
+}
+
+export interface CommentsApi {
+  getComments: (id: string, page: number) => Promise<ApiSuccessResponsePaginated<Comment>>;
+  createComment: (id: string, data: CommentCreateRequest) => Promise<ApiSuccessResponse<Comment>>;
+  updateComment: (id: string, content: string) => Promise<ApiSuccessResponse<Comment>>;
+  deleteComment: (id: string) => Promise<ApiSuccessResponse<Comment>>;
+  likeComment: (id: string) => Promise<ApiSuccessResponse<Comment>>;
 }

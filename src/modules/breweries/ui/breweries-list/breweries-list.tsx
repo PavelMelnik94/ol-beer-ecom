@@ -7,10 +7,12 @@ import { BreweriesTableHead } from './breweries-table-head';
 
 export function BreweriesList() {
   const { breweriesList, isLoading } = useBreweriesList();
-  const { breweries = [], ...theadProps } = useBreweriesSearch({ breweriesList: breweriesList ?? [] });
+  const { breweriesFiltered = [], ...theadProps } = useBreweriesSearch();
 
   if (isLoading) return <BreweriesListSkeleton />;
 
+  // user interaction
+  const breweries = breweriesFiltered.length > 0 ? breweriesFiltered : breweriesList;
   return (
     <Table.Root variant="surface">
       <BreweriesTableHead {...theadProps} />

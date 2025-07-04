@@ -1,8 +1,7 @@
-import type { ApiErrorResponse, ApiSuccessResponsePaginated } from '@kernel/index';
-import type { BreweryPreview } from '../types';
+import type { ApiErrorResponse, ApiSuccessResponsePaginated, Brewery } from '@kernel/index';
 import { API_ENDPOINTS, apiClient } from '@kernel/index';
 
-export type SuccessResponseBreweriesList = ApiSuccessResponsePaginated<BreweryPreview>;
+export type SuccessResponseBreweriesList = ApiSuccessResponsePaginated<Brewery>;
 export type ErrorResponse = ApiErrorResponse;
 
 async function getBreweriesList(): Promise<SuccessResponseBreweriesList> {

@@ -64,7 +64,7 @@ export function useBreweriesSearch() {
   };
 
   return {
-    breweries,
+    breweriesFiltered: breweries,
     showBreweriesInput: isActiveBrewerySearch && !isActiveLocationSearch,
     showLocationsInput: isActiveLocationSearch && !isActiveBrewerySearch,
     searchValue: search,

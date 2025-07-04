@@ -5,16 +5,16 @@ import type {
   CommentCreateRequest,
   CommentDeleteRequest,
   CommentLikeRequest,
+  CommentsApi,
   CommentUpdateRequest,
   OptimisticComment,
 } from '../types';
-import { queryClient, QUERY_KEYS, toast, useAuthStore } from '@kernel/index';
+import { QUERY_KEYS, queryClient, toast, useAuthStore } from '@kernel/index';
 import { useCommentStore } from '@modules/comments/stores/comment-store';
 
 import { useOptimistic } from '@shared/hooks';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useCallback, useEffect } from 'react';
-import { commentsApi } from '../api';
 import { commentsModel } from '../model';
 
 type CommentsResponse = ApiSuccessResponsePaginated<Comment>;
@@ -24,11 +24,15 @@ type ErrorResponse = ApiErrorResponse;
 interface UseCommentsProps {
   page?: number;
   parentId: string;
+
+  // dependency injection for API calls
+  api: CommentsApi;
 }
 
 export function useComments({
   page = 1,
   parentId,
+  api,
 }: UseCommentsProps) {
   const currentUser = useAuthStore(state => state.user);
   const {
@@ -45,7 +49,7 @@ export function useComments({
     refetch,
   } = useQuery<CommentsResponse, ErrorResponse>({
     queryKey: QUERY_KEYS.articles.commentList(parentId, page),
-    queryFn: () => commentsApi.getComments(parentId, page),
+    queryFn: () => api.getComments(parentId, page),
     enabled: !!parentId,
     staleTime: 0,
     gcTime: 0,
@@ -96,7 +100,7 @@ export function useComments({
   }, [parentId]);
 
   const createCommentMutation = useMutation<CommentResponse, ErrorResponse, CommentCreateRequest>({
-    mutationFn: data => commentsApi.createComment(parentId, data),
+    mutationFn: data => api.createComment(parentId, data),
     onSuccess: (response) => {
       if (response.success) {
         confirm();
@@ -111,7 +115,7 @@ export function useComments({
   });
 
   const updateCommentMutation = useMutation<CommentResponse, ErrorResponse, CommentUpdateRequest>({
-    mutationFn: ({ id, content }) => commentsApi.updateComment(id, content),
+    mutationFn: ({ id, content }) => api.updateComment(id, content),
     onSuccess: (response) => {
       if (response.success) {
         confirm();
@@ -126,7 +130,7 @@ export function useComments({
   });
 
   const deleteCommentMutation = useMutation<CommentResponse, ErrorResponse, CommentDeleteRequest>({
-    mutationFn: ({ id }) => commentsApi.deleteComment(id),
+    mutationFn: ({ id }) => api.deleteComment(id),
     onSuccess: async (response) => {
       confirm();
       toast.success(response.message || 'Comment deleted successfully');
@@ -140,7 +144,7 @@ export function useComments({
   });
 
   const likeCommentMutation = useMutation<CommentResponse, ErrorResponse, CommentLikeRequest>({
-    mutationFn: ({ id }) => commentsApi.likeComment(id),
+    mutationFn: ({ id }) => api.likeComment(id),
     onSuccess: (response) => {
       if (response.success) {
         confirm();

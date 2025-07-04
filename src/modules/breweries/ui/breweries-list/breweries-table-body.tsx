@@ -1,9 +1,9 @@
-import type { BreweryPreview } from '../../types';
+import type { Brewery } from '@kernel/types';
 import { Table } from '@radix-ui/themes';
 import { For } from '@shared/components';
 import { BreweriesTableRow } from './breweries-table-row';
 
-export function BreweriesTableBody({ breweries }: { breweries: BreweryPreview[]; }) {
+export function BreweriesTableBody({ breweries }: { breweries: Brewery[]; }) {
   return (
     <Table.Body>
       <For each={breweries}>

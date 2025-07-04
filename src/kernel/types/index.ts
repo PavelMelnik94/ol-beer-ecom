@@ -40,3 +40,41 @@ export interface LikeResponse {
     createdAt: string;
   };
 }
+
+export interface Brewery {
+  id: string;
+  name: string;
+  description: string;
+  shortDescription: string;
+  location: string;
+  website: string | null;
+  logo: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Category {
+  id: string;
+  name: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Product {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  discount: number;
+  ABV: number;
+  IBU: number;
+  country: string;
+  isDiscount: boolean;
+  images: string[];
+  categories: Category[];
+  brewery: Brewery;
+  averageRating: number;
+  createdAt: string;
+  updatedAt: string;
+}

@@ -1,3 +1,5 @@
+import { filter } from 'lodash-es';
+
 export const API_ENDPOINTS = {
   articles: {
     all: '/blog/posts',
@@ -24,5 +26,9 @@ export const API_ENDPOINTS = {
   auth: {
     login: 'auth/login',
     register: 'auth/register',
+  },
+
+  products: {
+    all: '/products',
   },
 } as const;
