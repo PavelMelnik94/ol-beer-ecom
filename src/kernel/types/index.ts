@@ -78,3 +78,10 @@ export interface Product {
   createdAt: string;
   updatedAt: string;
 }
+
+
+export interface PromoCode {
+  code: string;
+  discount: string;
+  description: string;
+}

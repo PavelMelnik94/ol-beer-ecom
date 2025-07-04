@@ -1,8 +1,7 @@
-import { VelocityScroll } from '@kernel/components';
+
 import { ArticlePreviewSkeleton } from '@modules/articles/ui/article-preview/article-preview-skeleton';
-import { Container, Section, Text } from '@radix-ui/themes';
+import { Container, Section } from '@radix-ui/themes';
 import { For, Show } from '@shared/components';
-import { getRandomFromArray } from '@shared/utils';
 import React, { useEffect, useRef } from 'react';
 import { useArticlesInfinite } from '../hooks/use-articles-infinite';
 import { ArticlePreview } from './article-preview/article-preview';
@@ -15,7 +14,14 @@ const Skeletons = (
   </div>
 );
 
-export function ArticleList() {
+interface ArticleListProps {
+  promoSlots?: {
+    every4: React.ReactNode;
+    every7: React.ReactNode;
+  }
+}
+
+export function ArticleList({promoSlots}: ArticleListProps) {
   const { isLoading, isError, articles, hasNextPage, isFetchingNextPage, fetchNextPage, refetch } = useArticlesInfinite();
 
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
@@ -45,29 +51,25 @@ export function ArticleList() {
 
       <For each={articles}>
         {(article, index) => {
-          if (index % 4 === 0 && index !== 0) {
+          if (index % 4 === 0 && index !== 0 && React.isValidElement(promoSlots?.every4)) {
             return (
-              <React.Fragment key={article.id}>
-                <VelocityScroll
-                  numRows={2}
-                  rotateDeg={getRandomFromArray([1, -1])}
-                  className="customMarquee"
-                  // TODO #3 - promocode
-                  // eslint-disable-next-line no-alert
-                  onClick={() => alert('promo activated')}
-                >
-                  <Text size="9" weight="bold" color="bronze">
-                    SUMMER2025 - 20% OFF
-                  </Text>
-                </VelocityScroll>
+              <React.Fragment key={article.id + '-promo'}>
+                {promoSlots.every4}
                 <Container pr="5" pl="5">
-                  <ArticlePreview article={article} key={article.id} />
-                </Container>
-
+                            <ArticlePreview article={article} key={article.id} />
+                          </Container>
               </React.Fragment>
             );
-          }
-          else {
+          } else if (index % 7 === 0 && index !== 0 && React.isValidElement(promoSlots?.every7)) {
+            return (
+              <React.Fragment key={article.id}>
+                {promoSlots.every7}
+                <Container pr="5" pl="5">
+                            <ArticlePreview article={article} key={article.id} />
+                          </Container>
+              </React.Fragment>
+            );
+          } else {
             return (
               <Container pr="5" pl="5" key={article.id}>
                 <ArticlePreview article={article} key={article.id} />
