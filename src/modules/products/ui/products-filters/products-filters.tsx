@@ -1,7 +1,7 @@
 import type { FiltersForm } from '@modules/products/model';
 import type { UseFormReturn } from 'react-hook-form';
 
-import { Badge, Box, Button, Select, Text, TextField } from '@radix-ui/themes';
+import { Badge, Box, Button, Flex, Select, Text, TextField } from '@radix-ui/themes';
 import { Show } from '@shared/components';
 
 import { RotateCcw, Search, X } from 'lucide-react';
@@ -158,25 +158,25 @@ export function ProductsFilters({
           </div>
         </div>
 
-        <div className={styles.filtersActions}>
+        <Flex className={styles.filtersActions} justify="end" align="center" gap="4">
           <Button
             type="button"
-            variant="outline"
-            size="2"
+            variant="ghost"
+            size="1"
             onClick={onReset}
             className={styles.resetButton}
             disabled={isLoading || isFiltersEmpty}
           >
-            <RotateCcw size={16} />
+            <RotateCcw size={14} />
             Reset Filters
           </Button>
-        </div>
+          <Show when={actionSlot}>
+            <Box asChild>
+              {actionSlot}
+            </Box>
+          </Show>
+        </Flex>
 
-        <Show when={actionSlot}>
-          <Box asChild>
-            {actionSlot}
-          </Box>
-        </Show>
       </div>
     </Box>
   );

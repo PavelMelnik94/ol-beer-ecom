@@ -6,8 +6,12 @@ import {
   useProductsPagination,
   useProductsPaginationState,
 } from '@modules/products';
-import { Box, Container } from '@radix-ui/themes';
+import { Box, Button, Container } from '@radix-ui/themes';
+import { Show } from '@shared/components';
+import { FunnelX } from 'lucide-react';
+import { useState } from 'react';
 import { Hero } from './ui/hero';
+import { ShowFiltersAction } from './ui/show-filters-action';
 
 export function ProductsPage() {
   const { page: productPage, isPageChanging, handlePageChange } = useProductsPaginationState();
@@ -20,7 +24,6 @@ export function ProductsPage() {
     isFiltersEmpty,
   } = useProductsFilters({
     onFiltersChange: () => {
-      // При изменении фильтров сбрасываем на первую страницу
       handlePageChange(1);
     },
   });
@@ -38,22 +41,44 @@ export function ProductsPage() {
     filterParams: getCurrentApiFilters(),
   });
 
+  const [visibleFiltersPanel, setVisibleFiltersPanel] = useState<boolean>(false);
+
   return (
     <>
       <Container>
         <Hero />
       </Container>
-      <Box pr="5" pl="5" pt="5">
-        <ProductsFilters
-          form={form}
-          setValue={setValue}
-          onReset={resetFilters}
-          isLoading={isLoading || isFiltersLoading}
-          isFiltersEmpty={isFiltersEmpty}
-          categories={categories}
-          breweries={breweries}
-        />
-      </Box>
+
+      <Show
+        when={visibleFiltersPanel}
+        fallback={<ShowFiltersAction toggleVisibility={() => setVisibleFiltersPanel(true)} />}
+      >
+        <Box pr="5" pl="5" pt="5">
+          <ProductsFilters
+            form={form}
+            setValue={setValue}
+            onReset={resetFilters}
+            isLoading={isLoading || isFiltersLoading}
+            isFiltersEmpty={isFiltersEmpty}
+            categories={categories}
+            breweries={breweries}
+            actionSlot={(
+              <Button
+                variant="ghost"
+                size="1"
+                onClick={() => {
+                  resetFilters();
+                  handlePageChange(1);
+                  setVisibleFiltersPanel(false);
+                }}
+              >
+                <FunnelX size={14} />
+                Hide filters
+              </Button>
+            )}
+          />
+        </Box>
+      </Show>
 
       <Box pr="5" pl="5">
         <Products
