@@ -2,8 +2,9 @@ import type { FiltersForm } from '@modules/products/model';
 import type { UseFormReturn } from 'react-hook-form';
 
 import { Badge, Box, Button, Select, Text, TextField } from '@radix-ui/themes';
-import { RotateCcw, Search, X } from 'lucide-react';
+import { Show } from '@shared/components';
 
+import { RotateCcw, Search, X } from 'lucide-react';
 import styles from './products-filters.module.scss';
 
 interface ProductsFiltersProps {
@@ -14,12 +15,14 @@ interface ProductsFiltersProps {
   breweries?: Array<{ id: string; name: string; }>;
   isLoading?: boolean;
   isFiltersEmpty?: boolean;
+  actionSlot?: React.ReactNode;
 }
 
 export function ProductsFilters({
   form,
   setValue,
   onReset,
+  actionSlot,
   categories = [],
   breweries = [],
   isLoading = false,
@@ -45,11 +48,10 @@ export function ProductsFilters({
   return (
     <Box className={styles.filtersContainer}>
       <div className={styles.filtersForm}>
-        {/* Секция фильтров */}
         <div className={styles.filtersSection}>
           <Text className={styles.sectionTitle}>Filters</Text>
           <div className={styles.filtersGrid}>
-            {/* Поиск */}
+
             <div className={styles.filterGroup}>
               <Text className={styles.filterLabel}>Search</Text>
               <TextField.Root
@@ -69,7 +71,6 @@ export function ProductsFilters({
               )}
             </div>
 
-            {/* Категории - множественный выбор */}
             <div className={styles.filterGroup}>
               <Text className={styles.filterLabel}>Categories</Text>
               <Select.Root
@@ -85,7 +86,6 @@ export function ProductsFilters({
                 </Select.Content>
               </Select.Root>
 
-              {/* Выбранные категории */}
               {watchedValues.categoryIds && watchedValues.categoryIds.length > 0 && (
                 <div className={styles.selectedCategories}>
                   {watchedValues.categoryIds.map((categoryId) => {
@@ -110,7 +110,6 @@ export function ProductsFilters({
               )}
             </div>
 
-            {/* Пивоварня */}
             <div className={styles.filterGroup}>
               <Text className={styles.filterLabel}>Brewery</Text>
               <Select.Root
@@ -130,7 +129,6 @@ export function ProductsFilters({
               </Select.Root>
             </div>
 
-            {/* Цена */}
             <div className={styles.filterGroup}>
               <Text className={styles.filterLabel}>Price range</Text>
               <div className={styles.priceGroup}>
@@ -160,7 +158,6 @@ export function ProductsFilters({
           </div>
         </div>
 
-        {/* Кнопка сброса */}
         <div className={styles.filtersActions}>
           <Button
             type="button"
@@ -174,6 +171,12 @@ export function ProductsFilters({
             Reset Filters
           </Button>
         </div>
+
+        <Show when={actionSlot}>
+          <Box asChild>
+            {actionSlot}
+          </Box>
+        </Show>
       </div>
     </Box>
   );

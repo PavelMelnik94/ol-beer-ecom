@@ -43,7 +43,7 @@ export function ProductsPage() {
       <Container>
         <Hero />
       </Container>
-      <Box pr="5" pl="5">
+      <Box pr="5" pl="5" pt="5">
         <ProductsFilters
           form={form}
           setValue={setValue}

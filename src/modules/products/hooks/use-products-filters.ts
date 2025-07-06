@@ -21,14 +21,12 @@ interface UseProductsFiltersProps {
 export function useProductsFilters({
   onFiltersChange,
 }: UseProductsFiltersProps = {}) {
-  // URL состояние фильтров
   const [searchQuery, setSearchQuery] = useQueryState('search');
   const [categoryIdsQuery, setCategoryIdsQuery] = useQueryState('categoryIds');
   const [breweryIdQuery, setBreweryIdQuery] = useQueryState('breweryId');
   const [minPriceQuery, setMinPriceQuery] = useQueryState('minPrice');
   const [maxPriceQuery, setMaxPriceQuery] = useQueryState('maxPrice');
 
-  // Собираем URL параметры
   const urlParams: FiltersUrl = useMemo(() => ({
     search: searchQuery || undefined,
     categoryIds: categoryIdsQuery ? categoryIdsQuery.split(',') : undefined,
@@ -37,10 +35,8 @@ export function useProductsFilters({
     maxPrice: maxPriceQuery || undefined,
   }), [searchQuery, categoryIdsQuery, breweryIdQuery, minPriceQuery, maxPriceQuery]);
 
-  // Конвертируем URL параметры в данные формы
   const formData = useMemo(() => productsModel.urlToForm(urlParams), [urlParams]);
 
-  // Настройка react-hook-form
   const form = useForm<FiltersForm>({
     resolver: zodResolver(filtersFormSchema),
     defaultValues: formData,
@@ -49,7 +45,6 @@ export function useProductsFilters({
 
   const { reset, watch, setValue } = form;
 
-  // Throttled функция для обновления URL (только для поиска)
   const throttledUpdateUrl = useMemo(
     () => throttle(async (data: FiltersForm) => {
       const urlData = productsModel.formToUrl(data);
@@ -75,7 +70,6 @@ export function useProductsFilters({
     ],
   );
 
-  // Мгновенная функция для обновления URL (для всех полей кроме поиска)
   const instantUpdateUrl = useCallback(async (data: FiltersForm) => {
     const urlData = productsModel.formToUrl(data);
 
@@ -98,13 +92,11 @@ export function useProductsFilters({
     setMaxPriceQuery,
   ]);
 
-  // Стабильная функция для вызова onFiltersChange
   const notifyFiltersChange = useCallback((data: FiltersForm) => {
     const apiParams = productsModel.formToApi(data);
     onFiltersChange?.(apiParams);
   }, [onFiltersChange]);
 
-  // Сброс фильтров
   const resetFilters = useCallback(async () => {
     const emptyData: FiltersForm = {
       search: '',
@@ -119,25 +111,21 @@ export function useProductsFilters({
     notifyFiltersChange(emptyData);
   }, [reset, instantUpdateUrl, notifyFiltersChange]);
 
-  // Получение текущих значений фильтров для API
   const getCurrentApiFilters = useCallback(() => {
     return productsModel.formToApi(watch());
   }, [watch]);
 
-  // Вызываем onFiltersChange только один раз при инициализации
   useEffect(() => {
     notifyFiltersChange(formData);
-  }, []); // Пустой массив зависимостей - вызывается только один раз
+  }, []);
 
   return {
     form,
     setValue: (name: keyof FiltersForm, value: any) => {
       setValue(name, value);
 
-      // Получаем текущие данные формы
       const currentData = { ...watch(), [name]: value };
 
-      // Применяем фильтры
       if (name === 'search') {
         throttledUpdateUrl(currentData);
       }
@@ -145,7 +133,6 @@ export function useProductsFilters({
         instantUpdateUrl(currentData);
       }
 
-      // Вызываем callback для API
       notifyFiltersChange(currentData);
     },
     resetFilters,
