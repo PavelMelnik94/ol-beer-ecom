@@ -31,12 +31,25 @@ export default defineConfig({
     sourcemap: true,
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          router: ['react-router-dom'],
-          query: ['@tanstack/react-query'],
-          forms: ['react-hook-form', '@hookform/resolvers'],
-          utils: ['lodash-es', 'clsx', 'zod'],
+        manualChunks(id) {
+          if (id.includes('src/kernel/')) {
+            return 'kernel';
+          }
+          if (id.includes('node_modules/react')
+            || id.includes('node_modules/react-dom')
+            || id.includes('node_modules/@tanstack/react-query')
+            || id.includes('node_modules/@radix-ui')) {
+            return 'vendor';
+          }
+          if (id.includes('node_modules/react-router-dom')) {
+            return 'router';
+          }
+          if (id.includes('node_modules/react-hook-form') || id.includes('node_modules/@hookform/resolvers')) {
+            return 'forms';
+          }
+          if (id.includes('node_modules/lodash-es') || id.includes('node_modules/clsx') || id.includes('node_modules/zod')) {
+            return 'utils';
+          }
         },
       },
     },
