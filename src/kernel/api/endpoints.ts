@@ -28,5 +28,19 @@ export const API_ENDPOINTS = {
 
   products: {
     all: '/products',
+    detail: (id: string) => `/products/${id}`,
+    create: '/products',
+    update: (id: string) => `/products/${id}`,
+    delete: (id: string) => `/products/${id}`,
+    related: (id: string) => `/products/${id}/related`,
+    breweries: '/products/breweries',
+    byBrewery: (breweryId: string) => `/products/by-brewery/${breweryId}`,
+    byPriceRange: '/products/by-price-range',
+    categories: '/products/categories',
+    discounted: '/products/discounted',
+    featured: '/products/featured',
+    rate: '/products/rate',
+    search: '/products/search',
+    stats: '/products/stats',
   },
 } as const;
