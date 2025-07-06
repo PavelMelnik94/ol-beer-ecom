@@ -14,7 +14,6 @@ export default defineConfig({
       '@app': path.resolve(__dirname, './src/app'),
       '@': path.resolve(__dirname, './src'),
     },
-    extensions: ['.js', '.ts', '.jsx', '.tsx', '.json'],
   },
   css: {
     modules: {
@@ -23,37 +22,21 @@ export default defineConfig({
     },
     preprocessorOptions: {
       scss: {
-        silenceDeprecations: ['legacy-js-api'],
+        api: 'modern-compiler',
       },
     },
-  },
-  optimizeDeps: {
-    include: ['react', 'react-dom', '@tanstack/react-query'],
   },
   build: {
     outDir: 'dist',
     sourcemap: true,
     rollupOptions: {
-      external: (_id) => {
-        return false;
-      },
       output: {
-        manualChunks(id) {
-          if (id.includes('src/kernel/')) {
-            return 'kernel';
-          }
-          if (id.includes('node_modules/react')
-            || id.includes('node_modules/react-dom')
-            || id.includes('node_modules/@tanstack/react-query')
-            || id.includes('node_modules/react-router-dom')) {
-            return 'vendor';
-          }
-          if (id.includes('node_modules/react-hook-form') || id.includes('node_modules/@hookform/resolvers')) {
-            return 'forms';
-          }
-          if (id.includes('node_modules/lodash-es') || id.includes('node_modules/clsx') || id.includes('node_modules/zod')) {
-            return 'utils';
-          }
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+          query: ['@tanstack/react-query'],
+          forms: ['react-hook-form', '@hookform/resolvers'],
+          utils: ['lodash-es', 'clsx', 'zod'],
         },
       },
     },
