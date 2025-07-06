@@ -89,6 +89,15 @@ export function ProductsPage() {
           pagination={pagination}
           onPageChange={handlePageChange}
           isPageChanging={isPageChanging}
+
+          onClickCart={() => {
+            // Handle click on cart icon
+            console.log('Cart icon clicked');
+          }}
+          onAddToBasket={(product) => {
+            // Handle adding product to basket
+            console.log('Add to basket:', product);
+          }}
         />
       </Box>
 

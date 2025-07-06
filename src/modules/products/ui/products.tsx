@@ -3,8 +3,8 @@ import type { Product } from '@kernel/types';
 import { useGlobalScroll } from '@kernel/hooks';
 import { ProductCardSkeleton } from '@modules/products/ui/product-card/product-card-skeleton';
 import { ProductCard } from '@modules/products/ui/product-card/products-card';
-import { Flex, Grid } from '@radix-ui/themes';
-import { For, Pagination, Show } from '@shared/components';
+import { Button, Flex, Grid } from '@radix-ui/themes';
+import { For, Pagination, Pulse, Show } from '@shared/components';
 import { useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
@@ -20,10 +20,14 @@ interface ProductsProps {
   };
   onPageChange: (page: number) => void;
   isPageChanging?: boolean;
+
+  onClickCart: () => void;
+  onAddToBasket: (product: Product) => void;
+
 }
 
 export function Products(props: ProductsProps) {
-  const { products, isError, refetch, pagination, onPageChange, isPageChanging, isLoading } = props;
+  const { products, isError, refetch, pagination, onPageChange, isPageChanging, isLoading, onClickCart, onAddToBasket } = props;
   const { scrollToTop } = useGlobalScroll();
 
   const largeScreen = useMediaQuery({
@@ -65,7 +69,24 @@ export function Products(props: ProductsProps) {
         <Show when={!isPageChanging && !isLoading}>
           <For each={products}>
             {product => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard
+                key={product.id}
+                product={product}
+                onClickCart={onClickCart}
+                cardActionSlot={(
+                  <Button
+                    size="1"
+                    variant="outline"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onAddToBasket?.(product);
+                    }}
+                  >
+                    Add to Cart
+                    {product.isDiscount && <Pulse size={8} />}
+                  </Button>
+                )}
+              />
             )}
           </For>
         </Show>

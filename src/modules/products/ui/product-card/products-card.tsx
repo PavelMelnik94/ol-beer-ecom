@@ -1,13 +1,13 @@
 import type { Product } from '@kernel/types';
 import { getOffPercent } from '@kernel/utils';
-import { Badge, Button, Card, Flex, Inset, Strong, Text } from '@radix-ui/themes';
-import { Image, Pulse } from '@shared/components';
+import { Badge, Card, Flex, Inset, Strong, Text } from '@radix-ui/themes';
+import { Image } from '@shared/components';
 import { HopBadge } from '@shared/components/ui/hop-badge';
 import styles from './product-card.module.scss';
 
-export function ProductCard({ product }: { product: Product; }) {
+export function ProductCard({ product, onClickCart, cardActionSlot }: { product: Product; onClickCart: () => void; cardActionSlot?: React.ReactNode; }) {
   return (
-    <Card key={product.id} size="2" className="pointer">
+    <Card key={product.id} size="2" className="pointer" onClick={onClickCart}>
       <Inset clip="padding-box" side="top" pb="current">
         <Image
           src={product.images[0]}
@@ -60,10 +60,8 @@ export function ProductCard({ product }: { product: Product; }) {
           </Flex>
         </Text>
         <Flex>
-          <Button size="1" variant="outline">
-            Add to Cart
-            {product.isDiscount && <Pulse size={8} />}
-          </Button>
+          {cardActionSlot}
+
         </Flex>
       </Flex>
     </Card>
