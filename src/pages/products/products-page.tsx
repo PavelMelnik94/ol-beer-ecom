@@ -68,7 +68,6 @@ export function ProductsPage() {
                 size="1"
                 onClick={() => {
                   resetFilters();
-                  handlePageChange(1);
                   setVisibleFiltersPanel(false);
                 }}
               >

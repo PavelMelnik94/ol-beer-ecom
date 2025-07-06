@@ -104,6 +104,8 @@ export function useProductsFilters({
       breweryId: '',
       minPrice: undefined,
       maxPrice: undefined,
+      sortBy: undefined,
+      order: undefined,
     };
 
     reset(emptyData);
@@ -116,7 +118,10 @@ export function useProductsFilters({
   }, [watch]);
 
   useEffect(() => {
-    notifyFiltersChange(formData);
+    const initialApiParams = productsModel.formToApi(formData);
+    if (Object.keys(initialApiParams).length > 0) {
+      notifyFiltersChange(formData);
+    }
   }, []);
 
   return {
