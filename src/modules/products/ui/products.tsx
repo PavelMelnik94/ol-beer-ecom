@@ -21,13 +21,13 @@ interface ProductsProps {
   onPageChange: (page: number) => void;
   isPageChanging?: boolean;
 
-  onClickCart: () => void;
+  onClickCard: (product: Product) => void;
   onAddToBasket: (product: Product) => void;
 
 }
 
 export function Products(props: ProductsProps) {
-  const { products, isError, refetch, pagination, onPageChange, isPageChanging, isLoading, onClickCart, onAddToBasket } = props;
+  const { products, isError, refetch, pagination, onPageChange, isPageChanging, isLoading, onClickCard, onAddToBasket } = props;
   const { scrollToTop } = useGlobalScroll();
 
   const largeScreen = useMediaQuery({
@@ -72,7 +72,7 @@ export function Products(props: ProductsProps) {
               <ProductCard
                 key={product.id}
                 product={product}
-                onClickCart={onClickCart}
+                onClickCart={() => onClickCard(product)}
                 cardActionSlot={(
                   <Button
                     size="1"

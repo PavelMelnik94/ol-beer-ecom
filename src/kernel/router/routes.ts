@@ -23,6 +23,7 @@ export const ROUTES = {
   },
   showcase: {
     root: '/showcase',
+    item: (id: string) => `/showcase/${id}`,
   },
   profile: {
     root: '/profile',

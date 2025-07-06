@@ -18,7 +18,7 @@ interface Props {
 }
 
 export function Header({ isFixed }: Props) {
-  const { navigateToBlog, navigateToHome, navigateToBreweries, navigateToAbout, navigateToRegister, navigateToStore } = useGoTo();
+  const { navigateToBlog, navigateToHome, navigateToBreweries, navigateToAbout, navigateToRegister, navigateToShowcase } = useGoTo();
   const { pathname } = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { logout } = useAuth();
@@ -46,7 +46,7 @@ export function Header({ isFixed }: Props) {
       setMobileMenuOpen(false);
     },
     onStore: () => {
-      navigateToStore();
+      navigateToShowcase();
       setMobileMenuOpen(false);
     },
   };

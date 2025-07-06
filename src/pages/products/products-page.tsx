@@ -1,3 +1,5 @@
+import type { Product } from '@kernel/types';
+import { useGoTo } from '@kernel/hooks';
 import {
   Products,
   ProductsFilters,
@@ -41,7 +43,22 @@ export function ProductsPage() {
     filterParams: getCurrentApiFilters(),
   });
 
+  const { navigateToProductItem } = useGoTo();
+
   const [visibleFiltersPanel, setVisibleFiltersPanel] = useState<boolean>(false);
+
+  const handleClickShowFilters = () => {
+    setVisibleFiltersPanel(prev => !prev);
+  };
+
+  const handleClickHideFilters = () => {
+    resetFilters();
+    setVisibleFiltersPanel(false);
+  };
+
+  const handleClickOnCard = (product: Product) => {
+    navigateToProductItem(product.id);
+  };
 
   return (
     <>
@@ -51,7 +68,7 @@ export function ProductsPage() {
 
       <Show
         when={visibleFiltersPanel}
-        fallback={<ShowFiltersAction toggleVisibility={() => setVisibleFiltersPanel(true)} />}
+        fallback={<ShowFiltersAction toggleVisibility={handleClickShowFilters} />}
       >
         <Box pr="5" pl="5" pt="5">
           <ProductsFilters
@@ -66,10 +83,7 @@ export function ProductsPage() {
               <Button
                 variant="ghost"
                 size="1"
-                onClick={() => {
-                  resetFilters();
-                  setVisibleFiltersPanel(false);
-                }}
+                onClick={handleClickHideFilters}
               >
                 <FunnelX size={14} />
                 Hide filters
@@ -90,10 +104,7 @@ export function ProductsPage() {
           onPageChange={handlePageChange}
           isPageChanging={isPageChanging}
 
-          onClickCart={() => {
-            // Handle click on cart icon
-            console.log('Cart icon clicked');
-          }}
+          onClickCard={handleClickOnCard}
           onAddToBasket={(product) => {
             // Handle adding product to basket
             console.log('Add to basket:', product);

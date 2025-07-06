@@ -115,7 +115,7 @@ export function AnimatedHero(): JSX.Element {
     query: '(max-width: 576px)',
   });
 
-  const { navigateToStore } = useGoTo();
+  const { navigateToShowcase } = useGoTo();
 
   const animationConfig = {
     initialScale: 1,
@@ -236,7 +236,7 @@ export function AnimatedHero(): JSX.Element {
         </Flex>
         <Flex justify="center" align="center" className={styles.buttonContainer}>
           <animated.div style={buttonSpring}>
-            <Button size="2" onClick={navigateToStore}>Explore Now</Button>
+            <Button size="2" onClick={navigateToShowcase}>Explore Now</Button>
           </animated.div>
         </Flex>
 
