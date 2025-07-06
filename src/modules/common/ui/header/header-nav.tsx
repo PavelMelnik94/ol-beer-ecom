@@ -18,6 +18,7 @@ export function HeaderNav({
   };
   fullWidth?: boolean;
 }) {
+  const location = window.location.pathname;
   return (
     <>
       <Button
@@ -39,7 +40,7 @@ export function HeaderNav({
         {...getActiveProps(ROUTES.showcase.root)}
       >
         Showcase
-        <Pulse size={8} intensity={5} duration={1.5} />
+        { !location.includes(ROUTES.showcase.root) && <Pulse size={8} intensity={5} duration={1.5} />}
       </Button>
       <Button
         variant="ghost"
