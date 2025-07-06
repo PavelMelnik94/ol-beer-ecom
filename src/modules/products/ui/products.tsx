@@ -3,7 +3,7 @@ import type { Product } from '@kernel/types';
 import { useGlobalScroll } from '@kernel/hooks';
 import { ProductCardSkeleton } from '@modules/products/ui/product-card/product-card-skeleton';
 import { ProductCard } from '@modules/products/ui/product-card/products-card';
-import { Container, Flex, Grid, Section } from '@radix-ui/themes';
+import { Flex, Grid } from '@radix-ui/themes';
 import { For, Pagination, Show } from '@shared/components';
 import { useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
@@ -60,7 +60,7 @@ export function Products(props: ProductsProps) {
   ));
 
   return (
-    <Section pb="0" pr="5" pl="5">
+    <>
       <Grid columns={columns} gap="3" width="auto">
         <Show when={!isPageChanging && !isLoading}>
           <For each={products}>
@@ -86,6 +86,6 @@ export function Products(props: ProductsProps) {
           />
         </Flex>
       </Show>
-    </Section>
+    </>
   );
 }

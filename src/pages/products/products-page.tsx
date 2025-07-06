@@ -6,7 +6,8 @@ import {
   useProductsPagination,
   useProductsPaginationState,
 } from '@modules/products';
-import { Container } from '@radix-ui/themes';
+import { Box, Container } from '@radix-ui/themes';
+import { Hero } from './ui/hero';
 
 export function ProductsPage() {
   const { page: productPage, isPageChanging, handlePageChange } = useProductsPaginationState();
@@ -39,26 +40,34 @@ export function ProductsPage() {
 
   return (
     <>
-      <ProductsFilters
-        form={form}
-        setValue={setValue}
-        onReset={resetFilters}
-        isLoading={isLoading || isFiltersLoading}
-        isFiltersEmpty={isFiltersEmpty}
-        categories={categories}
-        breweries={breweries}
-      />
+      <Container>
+        <Hero />
+      </Container>
+      <Box pr="5" pl="5">
+        <ProductsFilters
+          form={form}
+          setValue={setValue}
+          onReset={resetFilters}
+          isLoading={isLoading || isFiltersLoading}
+          isFiltersEmpty={isFiltersEmpty}
+          categories={categories}
+          breweries={breweries}
+        />
+      </Box>
 
-      <Products
-        products={products}
-        error={error}
-        isLoading={isLoading}
-        isError={!!error}
-        refetch={refetch}
-        pagination={pagination}
-        onPageChange={handlePageChange}
-        isPageChanging={isPageChanging}
-      />
+      <Box pr="5" pl="5">
+        <Products
+          products={products}
+          error={error}
+          isLoading={isLoading}
+          isError={!!error}
+          refetch={refetch}
+          pagination={pagination}
+          onPageChange={handlePageChange}
+          isPageChanging={isPageChanging}
+        />
+      </Box>
+
     </>
   );
 }

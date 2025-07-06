@@ -27,8 +27,6 @@ export function useProductsFilters({
   const [breweryIdQuery, setBreweryIdQuery] = useQueryState('breweryId');
   const [minPriceQuery, setMinPriceQuery] = useQueryState('minPrice');
   const [maxPriceQuery, setMaxPriceQuery] = useQueryState('maxPrice');
-  const [sortByQuery, setSortByQuery] = useQueryState('sortBy');
-  const [orderQuery, setOrderQuery] = useQueryState('order');
 
   // Собираем URL параметры
   const urlParams: FiltersUrl = useMemo(() => ({
@@ -37,9 +35,7 @@ export function useProductsFilters({
     breweryId: breweryIdQuery || undefined,
     minPrice: minPriceQuery || undefined,
     maxPrice: maxPriceQuery || undefined,
-    sortBy: sortByQuery || undefined,
-    order: orderQuery || undefined,
-  }), [searchQuery, categoryIdsQuery, breweryIdQuery, minPriceQuery, maxPriceQuery, sortByQuery, orderQuery]);
+  }), [searchQuery, categoryIdsQuery, breweryIdQuery, minPriceQuery, maxPriceQuery]);
 
   // Конвертируем URL параметры в данные формы
   const formData = useMemo(() => productsModel.urlToForm(urlParams), [urlParams]);
@@ -68,8 +64,6 @@ export function useProductsFilters({
         setBreweryIdQuery(urlData.breweryId || null),
         setMinPriceQuery(urlData.minPrice || null),
         setMaxPriceQuery(urlData.maxPrice || null),
-        setSortByQuery(urlData.sortBy || null),
-        setOrderQuery(urlData.order || null),
       ]);
     }, 500),
     [
@@ -78,8 +72,6 @@ export function useProductsFilters({
       setBreweryIdQuery,
       setMinPriceQuery,
       setMaxPriceQuery,
-      setSortByQuery,
-      setOrderQuery,
     ],
   );
 
@@ -97,8 +89,6 @@ export function useProductsFilters({
       setBreweryIdQuery(urlData.breweryId || null),
       setMinPriceQuery(urlData.minPrice || null),
       setMaxPriceQuery(urlData.maxPrice || null),
-      setSortByQuery(urlData.sortBy || null),
-      setOrderQuery(urlData.order || null),
     ]);
   }, [
     setSearchQuery,
@@ -106,8 +96,6 @@ export function useProductsFilters({
     setBreweryIdQuery,
     setMinPriceQuery,
     setMaxPriceQuery,
-    setSortByQuery,
-    setOrderQuery,
   ]);
 
   // Стабильная функция для вызова onFiltersChange
@@ -124,8 +112,6 @@ export function useProductsFilters({
       breweryId: '',
       minPrice: undefined,
       maxPrice: undefined,
-      sortBy: undefined,
-      order: undefined,
     };
 
     reset(emptyData);

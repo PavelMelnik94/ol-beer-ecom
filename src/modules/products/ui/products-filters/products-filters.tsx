@@ -160,48 +160,6 @@ export function ProductsFilters({
           </div>
         </div>
 
-        {/* Секция сортировки */}
-        <div className={styles.sortingSection}>
-          <Text className={styles.sectionTitle}>Sorting</Text>
-          <div className={styles.sortingGrid}>
-            {/* Сортировка */}
-            <div className={styles.filterGroup}>
-              <Text className={styles.filterLabel}>Sort by</Text>
-              <Select.Root
-                value={watchedValues.sortBy || undefined}
-                onValueChange={(value) => {
-                  setValue('sortBy', value as FiltersForm['sortBy']);
-                }}
-              >
-                <Select.Trigger placeholder="Default" />
-                <Select.Content>
-                  <Select.Item value="name">Name</Select.Item>
-                  <Select.Item value="price">Price</Select.Item>
-                  <Select.Item value="rating">Rating</Select.Item>
-                  <Select.Item value="created_at">Date</Select.Item>
-                </Select.Content>
-              </Select.Root>
-            </div>
-
-            {/* Порядок сортировки */}
-            <div className={styles.filterGroup}>
-              <Text className={styles.filterLabel}>Sort order</Text>
-              <Select.Root
-                value={watchedValues.order || undefined}
-                onValueChange={(value) => {
-                  setValue('order', value as FiltersForm['order']);
-                }}
-              >
-                <Select.Trigger placeholder="Default" />
-                <Select.Content>
-                  <Select.Item value="asc">Ascending</Select.Item>
-                  <Select.Item value="desc">Descending</Select.Item>
-                </Select.Content>
-              </Select.Root>
-            </div>
-          </div>
-        </div>
-
         {/* Кнопка сброса */}
         <div className={styles.filtersActions}>
           <Button

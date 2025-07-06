@@ -14,9 +14,6 @@
   margin-bottom: var(--space-6);
 }
 
-.sortingSection {
-  margin-bottom: var(--space-4);
-}
 
 .sectionTitle {
   font-size: var(--font-size-3);
@@ -29,12 +26,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: var(--space-4);
-}
-
-.sortingGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: var(--space-3);
 }
 
 .filterGroup {
@@ -94,15 +85,13 @@
   margin-top: var(--space-1);
 }
 
-// Мобильная версия
 @media (max-width: 768px) {
   .filtersContainer {
     padding: var(--space-3);
     margin-bottom: var(--space-4);
   }
 
-  .filtersGrid,
-  .sortingGrid {
+  .filtersGrid {
     grid-template-columns: 1fr;
     gap: var(--space-3);
   }

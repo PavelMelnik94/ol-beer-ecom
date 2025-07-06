@@ -8,8 +8,6 @@ export const filtersSchema = z.object({
   minPrice: z.number().optional(),
   maxPrice: z.number().optional(),
   search: z.string().optional(),
-  sortBy: z.string().optional(),
-  order: z.string().optional(),
   limit: z.number().default(25).optional(),
   page: z.number().default(1).optional(),
 });
@@ -22,8 +20,6 @@ export const filtersFormSchema = z.object({
   breweryId: z.string().optional(),
   minPrice: z.number().min(0).optional(),
   maxPrice: z.number().min(0).optional(),
-  sortBy: z.enum(['name', 'price', 'rating', 'created_at']).optional(),
-  order: z.enum(['asc', 'desc']).optional(),
 });
 
 export type FiltersForm = z.infer<typeof filtersFormSchema>;
@@ -51,8 +47,6 @@ function urlToForm(urlParams: FiltersUrl): FiltersForm {
     breweryId: urlParams.breweryId || '',
     minPrice: urlParams.minPrice ? Number(urlParams.minPrice) : undefined,
     maxPrice: urlParams.maxPrice ? Number(urlParams.maxPrice) : undefined,
-    sortBy: urlParams.sortBy as FiltersForm['sortBy'],
-    order: urlParams.order as FiltersForm['order'],
   };
 }
 
@@ -77,14 +71,6 @@ function formToUrl(formData: FiltersForm): FiltersUrl {
 
   if (formData.maxPrice !== undefined) {
     result.maxPrice = String(formData.maxPrice);
-  }
-
-  if (formData.sortBy) {
-    result.sortBy = formData.sortBy;
-  }
-
-  if (formData.order) {
-    result.order = formData.order;
   }
 
   return result;
@@ -113,14 +99,6 @@ function formToApi(formData: FiltersForm): Record<string, any> {
     result.maxPrice = formData.maxPrice;
   }
 
-  if (formData.sortBy) {
-    result.sortBy = formData.sortBy;
-  }
-
-  if (formData.order) {
-    result.order = formData.order;
-  }
-
   return result;
 }
 
@@ -143,8 +121,6 @@ function getFilterParams(filterParams: Filters): string {
   if (params.minPrice !== undefined) searchParams.append('minPrice', params.minPrice.toString());
   if (params.maxPrice !== undefined) searchParams.append('maxPrice', params.maxPrice.toString());
   if (params.search) searchParams.append('search', params.search);
-  if (params.sortBy) searchParams.append('sortBy', params.sortBy);
-  if (params.order) searchParams.append('order', params.order);
 
   return searchParams.toString();
 }
