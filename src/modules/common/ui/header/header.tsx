@@ -71,7 +71,7 @@ export function Header({ isFixed }: Props) {
               navigateToRegister();
               setMobileMenuOpen(false);
             }}
-            {...getActiveProps(ROUTES.auth.register)}
+            {...getActiveProps(ROUTES.auth.register.short)}
             style={{ width: '100%' }}
           >
             Register
@@ -99,7 +99,7 @@ export function Header({ isFixed }: Props) {
             variant="ghost"
             size="1"
             onClick={navigateToRegister}
-            {...getActiveProps(ROUTES.auth.register)}
+            {...getActiveProps(ROUTES.auth.register.short)}
           >
             Register
           </Button>

@@ -51,5 +51,14 @@
   ],
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "coverage",
+    "cypress",
+    "e2e",
+    "playwright"
   ]
 }

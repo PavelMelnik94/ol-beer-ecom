@@ -1,10 +1,10 @@
 import { ArticlePreviewSkeleton } from '@modules/articles/ui/article-preview/article-preview-skeleton';
 import { Container, Section } from '@radix-ui/themes';
 import { For, Show } from '@shared/components';
-import React, { useEffect, useRef } from 'react';
+import { useLoadMore } from '@shared/hooks';
+import React from 'react';
 import { useArticlesInfinite } from '../hooks/use-articles-infinite';
 import { ArticlePreview } from './article-preview/article-preview';
-import { useLoadMore } from '@shared/hooks';
 
 const Skeletons = (
   <div>

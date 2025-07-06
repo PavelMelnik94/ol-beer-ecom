@@ -1,5 +1,3 @@
-import { filter } from 'lodash-es';
-
 export const API_ENDPOINTS = {
   articles: {
     all: '/blog/posts',

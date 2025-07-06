@@ -1,8 +1,11 @@
 import type { ApiErrorResponse } from '@kernel/api';
 import type { Product } from '@kernel/types';
-import { Separator } from '@radix-ui/themes';
+import { ProductCard } from '@modules/products/ui/product-card/products-card';
+import { Grid, Section } from '@radix-ui/themes';
+import { For } from '@shared/components';
 import { useLoadMore } from '@shared/hooks';
-import {  useEffect } from 'react';
+import { useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
 
 interface ProductsProps {
   products?: Product[];
@@ -16,72 +19,44 @@ interface ProductsProps {
 }
 
 export function Products(props: ProductsProps) {
-  const { products, isError, isLoading, refetch, hasNextPage, isFetching, fetchNextPage } = props;
+  const { products, isError, refetch, hasNextPage, isFetching, fetchNextPage } = props;
 
   const loadMoreRef = useLoadMore(hasNextPage, isFetching, fetchNextPage);
+
+  const largeScreen = useMediaQuery({
+    query: '(min-width: 1000px) and (max-width: 1400px)',
+  });
+
+  const mediumScreen = useMediaQuery({
+    query: '(min-width: 600px) and (max-width: 999px)',
+  });
+
+  const smallScreen = useMediaQuery({
+    query: '(max-width: 599px)',
+  });
+
+  const columns = (() => {
+    if (largeScreen) return '3';
+    if (mediumScreen) return '2';
+    if (smallScreen) return '1';
+    return '4';
+  })();
 
   useEffect(() => {
     if (isError) refetch();
   }, [isError, refetch]);
 
-  if (isLoading) {
-    return (
-      <div>
-        <p>Загрузка продуктов...</p>
-      </div>
-    );
-  }
-
   return (
-    <div>
-      <div>
-        {products?.map(product => (
-          <div key={product.id} className="product-item">
-            <h2>{product.title}</h2>
-            <p>{product.description}</p>
-            <p>
-              Price: $
-              {product.price}
-            </p>
-            <p>
-              ABV:
-              {product.ABV}
-            </p>
-            <p>
-              Discount:
-              {product.discount}
-              %
-            </p>
-            <p>
-              IBU:
-              {product.IBU}
-            </p>
-            <p>
-              Average Rating:
-              {product.averageRating}
-            </p>
-            <p>
-              Country:
-              {product.country}
-            </p>
-            <p>
-              Is Discount:
-              {product.isDiscount ? 'Yes' : 'No'}
-            </p>
-            <p>
-              Brewery:
-              {product.brewery.name}
-            </p>
-            <p>
-              Categories:
-              {product.categories.map(cat => cat.name).join(', ')}
-            </p>
-            <Separator mb="4" />
-          </div>
-        ))}
-      </div>
+    <Section pb="0" pr="5" pl="5">
+      <Grid columns={columns} gap="3" width="auto">
+        <For each={products}>
+          {product => (
+            <ProductCard key={product.id} product={product} />
+          )}
+        </For>
+      </Grid>
 
       <div ref={loadMoreRef} style={{ height: '50px' }} />
-    </div>
+    </Section>
   );
 }
