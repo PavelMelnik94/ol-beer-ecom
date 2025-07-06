@@ -1,8 +1,10 @@
 import type { ApiErrorResponse } from '@kernel/api';
 import type { Product } from '@kernel/types';
+import { useGlobalScroll } from '@kernel/hooks';
+import { ProductCardSkeleton } from '@modules/products/ui/product-card/product-card-skeleton';
 import { ProductCard } from '@modules/products/ui/product-card/products-card';
-import { Box, Container, Flex, Grid, Section } from '@radix-ui/themes';
-import { For, Pagination, Show, SuccessAlert } from '@shared/components';
+import { Container, Flex, Grid, Section } from '@radix-ui/themes';
+import { For, Pagination, Show } from '@shared/components';
 import { useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
@@ -22,6 +24,7 @@ interface ProductsProps {
 
 export function Products(props: ProductsProps) {
   const { products, isError, refetch, pagination, onPageChange, isPageChanging, isLoading } = props;
+  const { scrollToTop } = useGlobalScroll();
 
   const largeScreen = useMediaQuery({
     query: '(min-width: 1000px) and (max-width: 1400px)',
@@ -46,24 +49,35 @@ export function Products(props: ProductsProps) {
     if (isError) refetch();
   }, [isError, refetch]);
 
+  useEffect(() => {
+    if (!isPageChanging && !isLoading) {
+      scrollToTop();
+    }
+  }, [pagination.page, isPageChanging]);
+
+  const skeletons = Array.from({ length: Number.parseInt(columns, 10) * 2 }, (_, index) => (
+    <ProductCardSkeleton key={`skeleton-${index}`} />
+  ));
+
   return (
     <Section pb="0" pr="5" pl="5">
       <Grid columns={columns} gap="3" width="auto">
-        <For each={products}>
-          {product => (
-            <ProductCard key={product.id} product={product} />
-          )}
-        </For>
+        <Show when={!isPageChanging && !isLoading}>
+          <For each={products}>
+            {product => (
+              <ProductCard key={product.id} product={product} />
+            )}
+          </For>
+        </Show>
+
+        <Show when={isPageChanging || isLoading}>
+          <For each={skeletons}>
+            {skeleton => skeleton}
+          </For>
+        </Show>
       </Grid>
 
       <Show when={pagination.totalPages > 1}>
-        {(isPageChanging || isLoading) && (
-          <Box mb="4" style={{ textAlign: 'center' }}>
-            <SuccessAlert>
-              Loading page
-            </SuccessAlert>
-          </Box>
-        )}
         <Flex justify="end" align="center" mt="4">
           <Pagination
             page={pagination.page}
