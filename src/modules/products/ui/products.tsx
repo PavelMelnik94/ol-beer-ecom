@@ -78,7 +78,7 @@ export function Products(props: ProductsProps) {
       </Grid>
 
       <Show when={pagination.totalPages > 1}>
-        <Flex justify="end" align="center" mt="4">
+        <Flex justify="center" align="center" mt="4">
           <Pagination
             page={pagination.page}
             total={pagination.totalPages}

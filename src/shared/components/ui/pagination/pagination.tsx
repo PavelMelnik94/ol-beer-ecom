@@ -2,6 +2,7 @@ import { Flex, IconButton, SegmentedControl } from '@radix-ui/themes';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { parseAsInteger, useQueryState } from 'nuqs';
 import React, { useCallback, useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 
 import styles from './pagination.module.scss';
 
@@ -11,10 +12,6 @@ interface PaginationProps {
   onPageChange: (p: number) => void;
   siblingCount?: number;
   className?: string;
-}
-
-function range(start: number, end: number) {
-  return Array.from({ length: end - start + 1 }, (_, i) => start + i);
 }
 
 interface UsePaginationOptions {
@@ -61,7 +58,44 @@ const Pagination: PaginationComponent = ({
   onPageChange,
   className,
 }) => {
-  const pages = total <= 9 ? range(1, total) : range(1, Math.min(total, 9));
+  const isMobile = useMediaQuery({
+    query: '(max-width: 599px)',
+  });
+
+  const generatePageNumbers = (): number[] => {
+    if (isMobile) {
+      if (total <= 5) {
+        return Array.from({ length: total }, (_, i) => i + 1);
+      }
+
+      if (page <= 3) {
+        return [1, 2, 3, total];
+      }
+
+      if (page >= total - 2) {
+        return [1, total - 2, total - 1, total];
+      }
+
+      return [1, page - 1, page, page + 1, total];
+    }
+    else {
+      if (total <= 9) {
+        return Array.from({ length: total }, (_, i) => i + 1);
+      }
+
+      if (page <= 5) {
+        return [1, 2, 3, 4, 5, 6, total];
+      }
+
+      if (page >= total - 4) {
+        return [1, total - 5, total - 4, total - 3, total - 2, total - 1, total];
+      }
+
+      return [1, page - 2, page - 1, page, page + 1, page + 2, total];
+    }
+  };
+
+  const pageNumbers = generatePageNumbers();
 
   const handleChange = (value: string) => {
     const pageNum = Number(value);
@@ -83,13 +117,14 @@ const Pagination: PaginationComponent = ({
       >
         <ChevronLeft size={16} />
       </IconButton>
+
       <SegmentedControl.Root
         value={String(page)}
         onValueChange={handleChange}
         radius="full"
         className={styles.segmented}
       >
-        {pages.map(num => (
+        {pageNumbers.map(num => (
           <SegmentedControl.Item key={num} value={String(num)}>
             {num}
           </SegmentedControl.Item>
