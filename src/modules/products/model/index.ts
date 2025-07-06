@@ -8,6 +8,8 @@ export const filtersSchema = z.object({
   minPrice: z.number().optional(),
   maxPrice: z.number().optional(),
   discount: z.boolean().optional(),
+  limit: z.number().default(25).optional(),
+  page: z.number().default(1).optional(),
 });
 
 export type Filters = z.infer<typeof filtersSchema>;
@@ -17,8 +19,10 @@ export const productsModel = {
   },
 
   getNextPageParam(lastPage: ApiSuccessResponsePaginated<Product>) {
-    const { page, totalPages } = lastPage.pagination;
-    return page < totalPages ? page + 1 : undefined;
+    const { pagination } = lastPage;
+    if (!pagination) return undefined;
+    if (pagination.page < pagination.totalPages) return pagination.page + 1;
+    return undefined;
   },
 
   getFilterParams(filterParams: Filters): string {
@@ -40,6 +44,8 @@ export const productsModel = {
     if (params.minPrice !== undefined) searchParams.append('minPrice', params.minPrice.toString());
     if (params.maxPrice !== undefined) searchParams.append('maxPrice', params.maxPrice.toString());
     if (params.discount !== undefined) searchParams.append('discount', params.discount ? 'true' : 'false');
+    // if (params.limit) searchParams.append('limit', params.limit.toString());
+    // if (params.page) searchParams.append('page', params.page.toString());
 
     return searchParams.toString();
   },

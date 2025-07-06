@@ -4,3 +4,4 @@ export { useEventListener } from './use-event-listener';
 export { useIntersectionObserver } from './use-intersection-observer';
 export { useIsomorphicLayoutEffect } from './use-isomorphic-event';
 export { useOptimistic } from './use-optimistic';
+export { useLoadMore  } from './use-load-more';

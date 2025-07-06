@@ -26,13 +26,25 @@ export const QUERY_KEYS = {
     lists: () => [...QUERY_KEYS.breweries.all, 'list'] as const,
   },
 
-  beers: {
-    all: ['beers'] as const,
-    lists: () => [...QUERY_KEYS.beers.all, 'list'] as const,
-    list: (filters: Record<string, any>) => [...QUERY_KEYS.beers.lists(), filters] as const,
-    details: () => [...QUERY_KEYS.beers.all, 'detail'] as const,
-    detail: (id: number) => [...QUERY_KEYS.beers.details(), id] as const,
-    random: () => [...QUERY_KEYS.beers.all, 'random'] as const,
+  products: {
+    all: ['products'] as const, // все продукты (базовый ключ)
+    list: (filters: Record<string, any> = {}) => [...QUERY_KEYS.products.all, 'list', filters] as const, // GET /api/products c фильтрами/пагинацией
+    listBase: () => [...QUERY_KEYS.products.all, 'list'] as const,
+    detail: (id: number | string) => [...QUERY_KEYS.products.all, 'detail', id] as const, // GET /api/products/{id}
+    create: () => [...QUERY_KEYS.products.all, 'create'] as const, // POST /api/products
+    update: (id: number | string) => [...QUERY_KEYS.products.detail(id), 'update'] as const, // PATCH /api/products/{id}
+    delete: (id: number | string) => [...QUERY_KEYS.products.detail(id), 'delete'] as const, // DELETE /api/products/{id}
+    related: (id: number | string) => [...QUERY_KEYS.products.detail(id), 'related'] as const, // GET /api/products/{id}/related
+    breweries: () => [...QUERY_KEYS.products.all, 'breweries'] as const, // GET /api/products/breweries
+    byBrewery: (breweryId: number | string) => [...QUERY_KEYS.products.all, 'by-brewery', breweryId] as const, // GET /api/products/by-brewery/{breweryId}
+    byPriceRange: (range: { min: number; max: number; }) =>
+      [...QUERY_KEYS.products.all, 'by-price-range', range] as const, // GET /api/products/by-price-range
+    categories: () => [...QUERY_KEYS.products.all, 'categories'] as const, // GET /api/products/categories
+    discounted: () => [...QUERY_KEYS.products.all, 'discounted'] as const, // GET /api/products/discounted
+    featured: () => [...QUERY_KEYS.products.all, 'featured'] as const, // GET /api/products/featured
+    rate: (id: number | string) => [...QUERY_KEYS.products.detail(id), 'rate'] as const, // POST /api/products/rate
+    search: (query: string) => [...QUERY_KEYS.products.all, 'search', query] as const, // GET /api/products/search
+    stats: () => [...QUERY_KEYS.products.all, 'stats'] as const, // GET /api/products/stats
   },
 
   auth: {
