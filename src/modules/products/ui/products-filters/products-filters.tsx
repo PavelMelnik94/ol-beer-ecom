@@ -4,6 +4,7 @@ import type { UseFormReturn } from 'react-hook-form';
 import { Badge, Box, Button, Flex, Select, Text, TextField } from '@radix-ui/themes';
 import { Show } from '@shared/components';
 
+import clsx from 'clsx';
 import { RotateCcw, Search, X } from 'lucide-react';
 import styles from './products-filters.module.scss';
 
@@ -92,16 +93,11 @@ export function ProductsFilters({
                     const category = categories.find(c => c.id === categoryId);
                     return category
                       ? (
-                          <Badge key={categoryId} variant="soft" className={styles.categoryBadge}>
-                            {category.name}
-                            <Button
-                              size="1"
-                              variant="ghost"
-                              onClick={() => handleCategoryRemove(categoryId)}
-                              className={styles.removeBadgeButton}
-                            >
+                          <Badge key={categoryId} variant="soft" className={clsx(styles.categoryBadge, 'pointer')} onClick={() => handleCategoryRemove(categoryId)}>
+                            <Flex justify="between" align="center" gap="2" width="100%">
+                              {category.name}
                               <X size={12} />
-                            </Button>
+                            </Flex>
                           </Badge>
                         )
                       : null;
