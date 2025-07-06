@@ -27,23 +27,26 @@ export default defineConfig({
       },
     },
   },
+  optimizeDeps: {
+    include: ['react', 'react-dom', '@tanstack/react-query'],
+  },
   build: {
     outDir: 'dist',
     sourcemap: true,
     rollupOptions: {
+      external: (_id) => {
+        return false;
+      },
       output: {
         manualChunks(id) {
           if (id.includes('src/kernel/')) {
             return 'kernel';
           }
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
+          if (id.includes('node_modules/react')
+            || id.includes('node_modules/react-dom')
+            || id.includes('node_modules/@tanstack/react-query')
+            || id.includes('node_modules/react-router-dom')) {
             return 'vendor';
-          }
-          if (id.includes('node_modules/react-router-dom')) {
-            return 'router';
-          }
-          if (id.includes('node_modules/@tanstack/react-query')) {
-            return 'query';
           }
           if (id.includes('node_modules/react-hook-form') || id.includes('node_modules/@hookform/resolvers')) {
             return 'forms';
