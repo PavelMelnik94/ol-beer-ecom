@@ -16,6 +16,7 @@ export function ProductCard({ product }: { product: Product; }) {
           height="auto"
           containerClassName={styles.imgContainer}
           sizeMode="responsive"
+          skeletonStyle={{ width: '100%', height: '100%' }}
         />
       </Inset>
       <Text as="div" size="4" mb="1" mt="-2">
