@@ -1,9 +1,8 @@
 import type { ApiErrorResponse } from '@kernel/api';
 import type { Product } from '@kernel/types';
 import { ProductCard } from '@modules/products/ui/product-card/products-card';
-import { Grid, Section } from '@radix-ui/themes';
-import { For } from '@shared/components';
-import { useLoadMore } from '@shared/hooks';
+import { Box, Container, Flex, Grid, Section } from '@radix-ui/themes';
+import { For, Pagination, Show, SuccessAlert } from '@shared/components';
 import { useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
@@ -12,16 +11,17 @@ interface ProductsProps {
   error: ApiErrorResponse | null;
   isLoading: boolean;
   isError: boolean;
-  fetchNextPage: () => void;
-  hasNextPage: boolean;
-  isFetching: boolean;
   refetch: () => void;
+  pagination: {
+    page: number;
+    totalPages: number;
+  };
+  onPageChange: (page: number) => void;
+  isPageChanging?: boolean;
 }
 
 export function Products(props: ProductsProps) {
-  const { products, isError, refetch, hasNextPage, isFetching, fetchNextPage } = props;
-
-  const loadMoreRef = useLoadMore(hasNextPage, isFetching, fetchNextPage);
+  const { products, isError, refetch, pagination, onPageChange, isPageChanging, isLoading } = props;
 
   const largeScreen = useMediaQuery({
     query: '(min-width: 1000px) and (max-width: 1400px)',
@@ -56,7 +56,22 @@ export function Products(props: ProductsProps) {
         </For>
       </Grid>
 
-      <div ref={loadMoreRef} style={{ height: '50px' }} />
+      <Show when={pagination.totalPages > 1}>
+        {(isPageChanging || isLoading) && (
+          <Box mb="4" style={{ textAlign: 'center' }}>
+            <SuccessAlert>
+              Loading page
+            </SuccessAlert>
+          </Box>
+        )}
+        <Flex justify="end" align="center" mt="4">
+          <Pagination
+            page={pagination.page}
+            total={pagination.totalPages}
+            onPageChange={onPageChange}
+          />
+        </Flex>
+      </Show>
     </Section>
   );
 }

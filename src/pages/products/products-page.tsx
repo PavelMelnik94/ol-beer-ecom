@@ -1,21 +1,29 @@
-import { Products, useProductsInfinite } from '@modules/products';
-import { useQueryState } from 'nuqs';
+import { Products, useProductsPagination, useProductsPaginationState } from '@modules/products';
 
 export function ProductsPage() {
-  const [page = 1, setPage] = useQueryState('page', {
-    history: 'push',
-    parse: Number,
-    serialize: String,
+  const { page: productPage, isPageChanging, handlePageChange } = useProductsPaginationState();
+
+  const {
+    products,
+    pagination,
+    isLoading,
+    error,
+    refetch,
+  } = useProductsPagination({
+    page: productPage,
+    filterParams: {},
   });
-  const initialPage = page && page > 0 ? page : 1;
 
-  const productsProps = useProductsInfinite({ filterParams: { page: initialPage } });
-
-  const fetchNextPage = () => {
-    setPage(initialPage + 1);
-    if (productsProps.fetchNextPage) {
-      productsProps.fetchNextPage();
-    }
-  };
-  return <Products {...productsProps} fetchNextPage={fetchNextPage} />;
+  return (
+    <Products
+      products={products}
+      error={error}
+      isLoading={isLoading}
+      isError={!!error}
+      refetch={refetch}
+      pagination={pagination}
+      onPageChange={handlePageChange}
+      isPageChanging={isPageChanging}
+    />
+  );
 }
