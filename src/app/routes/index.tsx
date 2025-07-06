@@ -11,6 +11,7 @@ const LazyArticlePage = lazy(() => import('./../../pages').then(module => ({ def
 const LazyBreweriesPage = lazy(() => import('./../../pages').then(module => ({ default: module.BreweriesPage })));
 const LazyBlogPage = lazy(() => import('./../../pages').then(module => ({ default: module.BlogPage })));
 const LazyProductsPage = lazy(() => import('./../../pages').then(module => ({ default: module.ProductsPage })));
+const LazyProductDetailsPage = lazy(() => import('./../../pages').then(module => ({ default: module.ProductDetailsPage })));
 
 const router = createBrowserRouter([
   {
@@ -53,7 +54,7 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { index: true, element: <LazyProductsPage /> },
-      { path: ':id', element: <div>showcase item</div> },
+      { path: ':id', element: <LazyProductDetailsPage /> },
     ],
   },
   {
