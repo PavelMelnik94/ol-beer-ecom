@@ -14,6 +14,7 @@ export default defineConfig({
       '@app': path.resolve(__dirname, './src/app'),
       '@': path.resolve(__dirname, './src'),
     },
+    extensions: ['.js', '.ts', '.jsx', '.tsx', '.json'],
   },
   css: {
     modules: {
@@ -22,7 +23,7 @@ export default defineConfig({
     },
     preprocessorOptions: {
       scss: {
-        api: 'modern-compiler',
+        silenceDeprecations: ['legacy-js-api'],
       },
     },
   },

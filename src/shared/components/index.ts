@@ -1,5 +1,5 @@
-export { Footer } from './layout/footer';
-export { PagePreloader } from './layout/page-preloader';
+export { Footer } from './layout/footer/footer';
+export { PagePreloader } from './layout/page-preloader/page-preloader';
 
 export { ErrorAlert } from './ui/alert/error-alert';
 export { InfoAlert } from './ui/alert/info-alert';
