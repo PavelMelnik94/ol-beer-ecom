@@ -1,7 +1,7 @@
 import { useGlobalScroll } from '@kernel/hooks';
 import { Header } from '@modules/common';
 import { Box } from '@radix-ui/themes';
-import { Footer } from '@shared/components/layout';
+import { Footer } from '@shared/components';
 import clsx from 'clsx';
 import { useLayoutEffect } from 'react';
 import { Outlet } from 'react-router-dom';
