@@ -62,9 +62,9 @@ export function Header({ isFixed }: Props) {
     : (
         <>
           <Separator my="1" size="4" />
-          <Button variant="ghost" size="1" style={{ width: '100%' }}>
+          <ButtonWithAuthPopup variant="ghost" size="1" style={{ width: '100%' }}>
             Log in
-          </Button>
+          </ButtonWithAuthPopup>
           <Button
             variant="ghost"
             size="1"
