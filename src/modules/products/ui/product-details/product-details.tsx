@@ -1,12 +1,12 @@
 import type { Product } from '@kernel/types';
-import { Price } from '@kernel/components';
 import { ButtonWithAuthPopup } from '@modules/common';
-import { Box, DataList, Flex, ScrollArea, Separator, Text, Tooltip } from '@radix-ui/themes';
-import { Image, Pulse, Show, StarRating } from '@shared/components';
-import { HopBadge } from '@shared/components/ui/hop-badge';
-import { Heart } from 'lucide-react';
+import { ProductDetailsActionBlock } from './product-details-action-block/product-details-action-block';
+import { Box, Flex, ScrollArea, Separator, Text } from '@radix-ui/themes';
+import { Image, Pulse } from '@shared/components';
 import { useEffect, useRef, useState } from 'react';
 import styles from './product-details.module.scss';
+import { BreweryDescription } from './brewery-description/brewery-description';
+import { ProductDatalist } from './product-datalist/product-datalist';
 
 interface ProductDetailsProps {
   product: Product;
@@ -66,93 +66,28 @@ export function ProductDetails({ product, onClickRating, onClickAddToWishlist }:
           {product.description}
         </Text>
 
-        <DataList.Root mt="5">
-          <DataList.Item align="center">
-            <DataList.Label minWidth="88px">Category</DataList.Label>
-            <DataList.Value>
-              {product.categories.map(c =>
-                <HopBadge key={c.id} text={c.name} size="small" />)}
-            </DataList.Value>
-          </DataList.Item>
-          <DataList.Item>
-            <DataList.Label minWidth="88px">Rating</DataList.Label>
-            <DataList.Value>
-              <StarRating
-                currentRating={product.averageRating}
-                readonly={true}
-                showTooltip={false}
-                showRatingText={true}
-                size={14}
-              />
-            </DataList.Value>
-          </DataList.Item>
-          <DataList.Item>
-            <DataList.Label minWidth="88px">ABV</DataList.Label>
-            <DataList.Value>
-              {product.ABV}
-              %
-            </DataList.Value>
-          </DataList.Item>
-          <DataList.Item>
-            <DataList.Label minWidth="88px">IBU</DataList.Label>
-            <DataList.Value>
-              {product.IBU}
-            </DataList.Value>
-          </DataList.Item>
-
-          <DataList.Item>
-            <DataList.Label minWidth="88px">Price</DataList.Label>
-            <DataList.Value>
-              <Price price={product.price} discount={product.discount} />
-            </DataList.Value>
-          </DataList.Item>
-
-        </DataList.Root>
+        <ProductDatalist product={product} />
 
         <Separator mt="5" mb="2" size="4" />
 
-        <Flex justify="between" direction="row" gap="2" mb="5">
-          <Show when={typeof onClickAddToWishlist === 'function'}>
-            <ButtonWithAuthPopup
-              size="1"
-              variant="soft"
-              style={{ padding: '6px' }}
-              onClick={(e) => {
-                e.stopPropagation();
-                onClickAddToWishlist?.(product);
-              }}
-            >
-              <Tooltip content="Add to Wishlist" side="top">
-                <Heart size={12} color="gray" />
-              </Tooltip>
-            </ButtonWithAuthPopup>
-          </Show>
+        <ProductDetailsActionBlock
+          onClickAddToWishlist={() => onClickAddToWishlist?.(product)}
+          onClickRating={rating => onClickRating?.(rating, product.id)}
+        />
 
-          <Show when={typeof onClickRating === 'function'}>
-            <StarRating
-              currentRating={0}
-              onRatingClick={rating => onClickRating?.(rating, product.id)}
-              size={16}
-              showTooltip={true}
-            />
-          </Show>
-        </Flex>
-
-        <Text size="3" as="div">
-          {product.brewery.name}
-        </Text>
-        <Text size="2" color="gray">
-          {product.brewery.description}
-        </Text>
+        <BreweryDescription
+          brewerytitle={product.brewery.name}
+          brewerydescription={product.brewery.description}
+        />
 
         <Flex justify="center" mt="5">
-
           <ButtonWithAuthPopup size="2" variant="outline">
             Add to Cart
             {' '}
             <Pulse size={10} />
           </ButtonWithAuthPopup>
         </Flex>
+
       </Box>
     </Flex>
   );
