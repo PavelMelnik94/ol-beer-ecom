@@ -84,13 +84,31 @@ export function Header({ isFixed }: Props) {
     ? (
         <>
           <Separator my="1" size="4" />
-          <Button variant="ghost" size="1" style={{ width: '100%' }} onClick={onClickHandlers.onProfile}>
+          <Button
+            variant="ghost"
+            size="1"
+            style={{ width: '100%' }}
+            onClick={onClickHandlers.onProfile}
+            {...getActiveProps(ROUTES.profile.root)}
+          >
             Profile
           </Button>
-          <Button variant="ghost" size="1" style={{ width: '100%' }} onClick={onClickHandlers.onFavorites}>
+          <Button
+            variant="ghost"
+            size="1"
+            style={{ width: '100%' }}
+            onClick={onClickHandlers.onFavorites}
+            {...getActiveProps(ROUTES.profile.favorites.full)}
+          >
             Favorites
           </Button>
-          <Button variant="ghost" size="1" style={{ width: '100%' }} onClick={onClickHandlers.onOrders}>
+          <Button
+            variant="ghost"
+            size="1"
+            style={{ width: '100%' }}
+            onClick={onClickHandlers.onOrders}
+            {...getActiveProps(ROUTES.profile.orders.full)}
+          >
             Orders
           </Button>
         </>
@@ -155,13 +173,31 @@ export function Header({ isFixed }: Props) {
               <Popover.Content align="end" sideOffset={8}>
                 <Flex direction="column" gap="3" align="start" style={{ minWidth: 100 }}>
                   <>
-                    <Button variant="ghost" size="1" style={{ width: '100%' }} onClick={onClickHandlers.onProfile}>
+                    <Button
+                      variant="ghost"
+                      size="1"
+                      style={{ width: '100%' }}
+                      onClick={onClickHandlers.onProfile}
+                      {...getActiveProps(ROUTES.profile.root)}
+                    >
                       Profile
                     </Button>
-                    <Button variant="ghost" size="1" style={{ width: '100%' }} onClick={onClickHandlers.onOrders}>
+                    <Button
+                      variant="ghost"
+                      size="1"
+                      style={{ width: '100%' }}
+                      onClick={onClickHandlers.onOrders}
+                      {...getActiveProps(ROUTES.profile.orders.full)}
+                    >
                       Orders
                     </Button>
-                    <Button variant="ghost" size="1" style={{ width: '100%' }} onClick={onClickHandlers.onFavorites}>
+                    <Button
+                      variant="ghost"
+                      size="1"
+                      style={{ width: '100%' }}
+                      onClick={onClickHandlers.onFavorites}
+                      {...getActiveProps(ROUTES.profile.favorites.full)}
+                    >
                       Favorites
                     </Button>
                   </>
