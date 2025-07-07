@@ -1,6 +1,5 @@
-import { PromoCodeVelocity } from '@modules/cart';
 import { ProductDetails, useProductDetails } from '@modules/products';
-import { Box, Container } from '@radix-ui/themes';
+import {  Container } from '@radix-ui/themes';
 import { useParams } from 'react-router-dom';
 
 export function ProductDetailsPage() {
