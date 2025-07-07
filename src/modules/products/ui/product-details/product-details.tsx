@@ -1,4 +1,5 @@
 import type { Product } from '@kernel/types';
+import { getMarginByPercent } from '@kernel/utils';
 import { Box, Button, DataList, Flex, ScrollArea, Separator, Strong, Text } from '@radix-ui/themes';
 import { Image } from '@shared/components';
 import { HopBadge } from '@shared/components/ui/hop-badge';
@@ -10,7 +11,9 @@ interface ProductDetailsProps {
 }
 export function ProductDetails({ product }: ProductDetailsProps) {
   const [imageScrollAreaHeight, setImageScrollAreaHeight] = useState<number | undefined>(700);
+
   const detailRef = useRef<HTMLDivElement | null>(null);
+  const imageContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const computeHeight = () => setImageScrollAreaHeight(detailRef.current?.clientHeight);
@@ -21,9 +24,11 @@ export function ProductDetails({ product }: ProductDetailsProps) {
     };
   }, [detailRef.current?.clientHeight]);
 
+  const marginTop = imageContainerRef.current?.clientHeight ? getMarginByPercent(imageContainerRef.current?.clientHeight ?? 0, 70) : '400px';
+
   return (
     <Flex className={styles.container}>
-      <Box className={styles.productImagesContainer}>
+      <Box ref={imageContainerRef} className={styles.productImagesContainer}>
         <ScrollArea
           size="1"
           type="scroll"
@@ -44,7 +49,13 @@ export function ProductDetails({ product }: ProductDetailsProps) {
         </ScrollArea>
       </Box>
 
-      <Box ref={detailRef} className={styles.productDetails}>
+      <Box
+        ref={detailRef}
+        className={styles.productDetails}
+        style={{
+          marginTop,
+        }}
+      >
         <Text as="div" size="7" weight="bold" align="center" className={styles.productTitle} mt="4" mb="5">
           {product.title}
         </Text>
