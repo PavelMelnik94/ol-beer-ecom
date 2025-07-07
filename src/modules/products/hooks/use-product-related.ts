@@ -3,15 +3,16 @@ import { QUERY_KEYS } from '@kernel/index';
 import { useQuery } from '@tanstack/react-query';
 import { productsApi } from '../../products/api';
 
-export function useProductsRelated(categoryId: string) {
+export function useProductsRelated(productId: string) {
   const {
     data,
     isLoading,
     isError,
     error,
   } = useQuery<SuccessResponseProducts, ErrorResponse>({
-    queryKey: QUERY_KEYS.products.related(categoryId),
-    queryFn: () => productsApi.getRelatedProducts(categoryId),
+    queryKey: QUERY_KEYS.products.related(productId),
+    queryFn: () => productsApi.getRelatedProducts(productId),
+    enabled: !!productId,
   });
 
   return {

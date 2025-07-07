@@ -2,6 +2,7 @@ import { useGoTo } from '@kernel/hooks';
 import { ROUTES, ThemeButton, useAuthStore } from '@kernel/index';
 import { useAuth } from '@modules/auth';
 import { CartButton } from '@modules/cart';
+import { ButtonWithAuthPopup } from '@modules/common/ui/button-with-auth-popup';
 import { Box, Button, Flex, IconButton, Popover, Separator, Text } from '@radix-ui/themes';
 import { Show } from '@shared/components';
 import { GithubButton } from '@shared/components/ui/github-button';
@@ -92,9 +93,9 @@ export function Header({ isFixed }: Props) {
       )
     : (
         <>
-          <Button variant="ghost" size="1">
+          <ButtonWithAuthPopup variant="ghost" size="1">
             Log in
-          </Button>
+          </ButtonWithAuthPopup>
           <Button
             variant="ghost"
             size="1"

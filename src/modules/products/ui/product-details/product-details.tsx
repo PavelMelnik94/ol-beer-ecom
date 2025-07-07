@@ -1,5 +1,6 @@
 import type { Product } from '@kernel/types';
 import { Price } from '@kernel/components';
+import { ButtonWithAuthPopup } from '@modules/common';
 import { Box, Button, DataList, Flex, ScrollArea, Separator, Strong, Text } from '@radix-ui/themes';
 import { Image, Pulse } from '@shared/components';
 import { HopBadge } from '@shared/components/ui/hop-badge';
@@ -111,11 +112,11 @@ export function ProductDetails({ product }: ProductDetailsProps) {
         </Text>
 
         <Flex justify="center" mt="5">
-          <Button size="2" variant="outline">
+          <ButtonWithAuthPopup size="2" variant="outline">
             Add to Cart
             {' '}
             <Pulse size={10} />
-          </Button>
+          </ButtonWithAuthPopup>
         </Flex>
       </Box>
     </Flex>

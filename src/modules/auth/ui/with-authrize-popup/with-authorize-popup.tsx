@@ -2,34 +2,62 @@ import type { ComponentType } from 'react';
 import { useAuthStore } from '@kernel/stores';
 import { LoginDialog } from '../login-dialog.ts/login-dialog';
 
+interface EventHandlers {
+  onClick?: (...args: any[]) => void;
+  onMouseDown?: (...args: any[]) => void;
+  onMouseUp?: (...args: any[]) => void;
+  onKeyDown?: (...args: any[]) => void;
+  onKeyUp?: (...args: any[]) => void;
+  onPointerDown?: (...args: any[]) => void;
+  onPointerUp?: (...args: any[]) => void;
+}
+
 export function withAuthorizePopup<P extends object>(WrappedComponent: ComponentType<P>) {
   return function WithAuthorizePopup(props: P) {
     const isAuth = useAuthStore(s => s.isAuth);
+
     if (isAuth) return <WrappedComponent {...props} />;
 
-    return (
-      <LoginDialog
-        trigger={(
-          <button
-            type="button"
-            style={{
-              display: 'inline-block',
-              background: 'none',
-              border: 'none',
-              padding: 0,
-              margin: 0,
-              cursor: 'pointer',
-            }}
-            tabIndex={0}
-            aria-label="Открыть попап авторизации"
-          >
-            <div style={{ pointerEvents: 'none' }}>
-              <WrappedComponent {...props} />
-            </div>
-          </button>
-        )}
-      />
+    const {
+      onClick,
+      onMouseDown,
+      onMouseUp,
+      onKeyDown,
+      onKeyUp,
+      onPointerDown,
+      onPointerUp,
+      ...restProps
+    } = props as P & EventHandlers;
 
+    return (
+      <div
+        onClick={e => e.stopPropagation()}
+        onMouseDown={e => e.stopPropagation()}
+        onMouseUp={e => e.stopPropagation()}
+        style={{
+          display: 'inline-flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <LoginDialog
+          trigger={(
+            <div
+              style={{
+                display: 'inline-flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                cursor: 'pointer',
+              }}
+              tabIndex={0}
+              role="button"
+              aria-label="Открыть попап авторизации"
+            >
+              <WrappedComponent {...restProps as P} />
+            </div>
+          )}
+        />
+      </div>
     );
   };
 }

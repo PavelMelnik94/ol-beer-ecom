@@ -14,13 +14,21 @@ export function LoginDialog({ trigger }: LoginDialogProps) {
 
   const handleSuccess = () => setOpen(false);
 
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+    if (!newOpen) {
+      setTimeout(() => {
+      }, 0);
+    }
+  };
+
   return (
     <Dialog
       title="Sign in"
       description="We are sure it will take you half a minute."
       trigger={trigger}
       open={open}
-      onOpenChange={setOpen}
+      onOpenChange={handleOpenChange}
     >
       <LoginForm
         onSuccess={handleSuccess}
