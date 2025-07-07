@@ -14,7 +14,7 @@ export function HeaderNav({
     onBlog: () => void;
     onBreweries: () => void;
     onAbout: () => void;
-    onStore: () => void;
+    onShowcase: () => void;
   };
   fullWidth?: boolean;
 }) {
@@ -34,7 +34,7 @@ export function HeaderNav({
       <Button
         variant="ghost"
         size="1"
-        onClick={onClickHandlers.onStore}
+        onClick={onClickHandlers.onShowcase}
         className={clsx({ [styles.fullWidth]: fullWidth })}
         style={fullWidth ? { width: '100%' } : undefined}
         {...getActiveProps(ROUTES.showcase.root)}

@@ -6,10 +6,8 @@ export function useGoTo() {
 
   return {
     navigateTo: (path: string) => navigate(path),
-
     navigateToHome: () => navigate(ROUTES.home.root),
     navigateToArticle: (id: string) => navigate(ROUTES.articles.article(id)),
-
     navigateToBreweries: () => navigate(ROUTES.breweries.root),
     navigateToRegister: () => navigate(ROUTES.auth.register.full),
     navigateToLogin: () => navigate(ROUTES.auth.login.full),
@@ -19,5 +17,6 @@ export function useGoTo() {
     navigateToProfile: () => navigate(ROUTES.profile.root),
     navigateToBasket: () => navigate(ROUTES.basket.root),
     navigateToBlog: () => navigate(ROUTES.articles.root),
+    navigateToOrders: () => navigate(ROUTES.profile.orders.full),
   };
 }

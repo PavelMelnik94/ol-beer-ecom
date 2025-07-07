@@ -3,7 +3,7 @@ import { ROUTES, ThemeButton, useAuthStore } from '@kernel/index';
 import { useAuth } from '@modules/auth';
 import { CartButton } from '@modules/cart';
 import { ButtonWithAuthPopup } from '@modules/common/ui/button-with-auth-popup';
-import { Box, Button, Flex, IconButton, Popover, Separator, Text } from '@radix-ui/themes';
+import { Avatar, Box, Button, Flex, IconButton, Popover, Separator, Text } from '@radix-ui/themes';
 import { Show } from '@shared/components';
 import { GithubButton } from '@shared/components/ui/github-button';
 import clsx from 'clsx';
@@ -19,10 +19,21 @@ interface Props {
 }
 
 export function Header({ isFixed }: Props) {
-  const { navigateToBlog, navigateToHome, navigateToBreweries, navigateToAbout, navigateToRegister, navigateToShowcase } = useGoTo();
+  const {
+    navigateToBlog,
+    navigateToHome,
+    navigateToBreweries,
+    navigateToAbout,
+    navigateToRegister,
+    navigateToShowcase,
+    navigateToProfile,
+    navigateToBasket,
+    navigateToOrders,
+  } = useGoTo();
   const { pathname } = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { logout } = useAuth();
+  const user = useAuthStore(s => s.user);
   const isAuth = useAuthStore(s => s.isAuth);
   const isMobileLayout = useMediaQuery({
     query: '(max-width: 560px)',
@@ -46,8 +57,20 @@ export function Header({ isFixed }: Props) {
       navigateToAbout();
       setMobileMenuOpen(false);
     },
-    onStore: () => {
+    onShowcase: () => {
       navigateToShowcase();
+      setMobileMenuOpen(false);
+    },
+    onProfile: () => {
+      navigateToProfile();
+      setMobileMenuOpen(false);
+    },
+    onBasket: () => {
+      navigateToBasket();
+      setMobileMenuOpen(false);
+    },
+    onOrders: () => {
+      navigateToOrders();
       setMobileMenuOpen(false);
     },
   };
@@ -56,7 +79,12 @@ export function Header({ isFixed }: Props) {
     ? (
         <>
           <Separator my="1" size="4" />
-          <CartButton fullWidth />
+          <Button variant="ghost" size="1" style={{ width: '100%' }} onClick={onClickHandlers.onProfile}>
+            Profile
+          </Button>
+          <Button variant="ghost" size="1" style={{ width: '100%' }} onClick={onClickHandlers.onOrders}>
+            Orders
+          </Button>
         </>
       )
     : (
@@ -74,33 +102,6 @@ export function Header({ isFixed }: Props) {
             }}
             {...getActiveProps(ROUTES.auth.register.short)}
             style={{ width: '100%' }}
-          >
-            Register
-          </Button>
-        </>
-      );
-
-  const AuthSectionDesktop = isAuth
-    ? (
-        <Button
-          variant="ghost"
-          size="1"
-          color="red"
-          onClick={logout}
-        >
-          Log out
-        </Button>
-      )
-    : (
-        <>
-          <ButtonWithAuthPopup variant="ghost" size="1">
-            Log in
-          </ButtonWithAuthPopup>
-          <Button
-            variant="ghost"
-            size="1"
-            onClick={navigateToRegister}
-            {...getActiveProps(ROUTES.auth.register.short)}
           >
             Register
           </Button>
@@ -125,14 +126,80 @@ export function Header({ isFixed }: Props) {
         </Flex>
         <Flex align="center" gap="5" className={styles.desktopActions}>
           {isAuth && <CartButton />}
-          {AuthSectionDesktop}
-          <ThemeButton />
-          <GithubButton />
+
+          {isAuth && (
+            <Popover.Root open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <Popover.Trigger>
+                <IconButton
+                  variant="ghost"
+                  size="1"
+                  aria-label="Open menu"
+                  className={styles.menuButton}
+                >
+                  <Avatar
+                    src={user?.avatar || ''}
+                    radius="full"
+                    fallback="ØL"
+                    size="1"
+                  />
+                </IconButton>
+              </Popover.Trigger>
+              <Popover.Content align="end" sideOffset={8}>
+                <Flex direction="column" gap="3" align="start" style={{ minWidth: 100 }}>
+                  <>
+                    <Button variant="ghost" size="1" style={{ width: '100%' }} onClick={onClickHandlers.onProfile}>
+                      Profile
+                    </Button>
+                    <Button variant="ghost" size="1" style={{ width: '100%' }} onClick={onClickHandlers.onOrders}>
+                      Orders
+                    </Button>
+                  </>
+                  <Separator my="1" size="4" />
+                  <ThemeButton withTitle style={{ width: '100%' }} />
+                  <GithubButton withTitle style={{ width: '100%' }} />
+                  {isAuth && (
+                    <>
+                      <Separator my="1" size="4" />
+                      <Button
+                        variant="ghost"
+                        size="1"
+                        color="red"
+                        onClick={() => {
+                          logout();
+                          setMobileMenuOpen(false);
+                        }}
+                        style={{ width: '100%' }}
+                      >
+                        Log out
+                      </Button>
+                    </>
+                  )}
+                </Flex>
+              </Popover.Content>
+            </Popover.Root>
+          )}
+          {!isAuth && (
+            <>
+              <ButtonWithAuthPopup variant="ghost" size="1">
+                Log in
+              </ButtonWithAuthPopup>
+              <Button
+                variant="ghost"
+                size="1"
+                onClick={navigateToRegister}
+                {...getActiveProps(ROUTES.auth.register.short)}
+              >
+                Register
+              </Button>
+            </>
+          )}
         </Flex>
       </Show>
 
       <Show when={isMobileLayout}>
-        <Flex direction="row" wrap="nowrap" gap="2">
+
+        <Flex direction="row" align="center" wrap="nowrap" gap="4">
+          <CartButton />
           <Popover.Root open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <Popover.Trigger>
               <IconButton
