@@ -1,13 +1,17 @@
+import type { Product } from '@kernel/types';
+import { useGoTo } from '@kernel/hooks';
 import { PromoCodeVelocity } from '@modules/cart';
-import { ProductDetails, ProductDetailsSkeleton, useProductDetails } from '@modules/products';
-import { Box, Container } from '@radix-ui/themes';
+import { ProductDetails, ProductDetailsSkeleton, ProductsGrid, useProductDetails, useProductsRelated } from '@modules/products';
+import { Box, Container, Text } from '@radix-ui/themes';
 import { Breadcrumbs } from '@shared/components';
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
 export function ProductDetailsPage() {
+  const { navigateToProductItem } = useGoTo();
   const { id } = useParams<{ id: string; }>();
   const { product, isLoading } = useProductDetails(id!);
+  const { products: relatedProducts } = useProductsRelated(product?.id ?? '');
   const isMobile = window.innerWidth < 768;
 
   const breadcrumbs = useMemo(() => {
@@ -26,6 +30,10 @@ export function ProductDetailsPage() {
   if (isLoading || !product) {
     return <Container pr="5" pl="5" pt="5" pb="5"><ProductDetailsSkeleton /></Container>;
   }
+
+  const handleClickOnCard = (product: Product) => {
+    navigateToProductItem(product.id);
+  };
 
   return (
     <div>
@@ -47,6 +55,17 @@ export function ProductDetailsPage() {
 
       <Box mt="5">
         <PromoCodeVelocity />
+      </Box>
+
+      <Box pr="5" pl="5" mt="9">
+        <Text as="div" size="7" weight="bold" align="center" mb="3">
+          Related Products
+        </Text>
+        <ProductsGrid
+          products={relatedProducts}
+          onClickCard={handleClickOnCard}
+          isShow={relatedProducts && relatedProducts?.length > 0}
+        />
       </Box>
     </div>
   );
