@@ -6,6 +6,7 @@ import { HopBadge } from '@shared/components/ui/hop-badge';
 import { useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import styles from './product-details.module.scss';
+import { PromoCodeVelocity } from '@modules/cart';
 
 interface ProductDetailsProps {
   product: Product;
@@ -139,6 +140,10 @@ export function ProductDetails({ product }: ProductDetailsProps) {
             Add to Cart
           </Button>
         </Flex>
+
+      <Box mt="5">
+          <PromoCodeVelocity  />
+      </Box>
 
       </Box>
     </Flex>

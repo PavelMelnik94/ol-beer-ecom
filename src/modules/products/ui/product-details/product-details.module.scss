@@ -11,13 +11,11 @@
 
 .productImage {
   border-radius: unset;
-
 }
 
 
 .productImagesContainer {
-
-  width: 50%;
+  max-width: 700px;
 
   @media (max-width: 768px) {
     width: 100%;
