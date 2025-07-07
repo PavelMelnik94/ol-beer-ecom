@@ -57,6 +57,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <div>profile settings</div> },
       { path: ROUTES.profile.orders.short, element: <div>orders</div> },
+      { path: ROUTES.profile.favorites.short, element: <div>favorites</div> },
     ],
   },
   {
