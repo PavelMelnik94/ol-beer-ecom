@@ -1,0 +1,41 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  height: auto;
+    @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+
+.productImage {
+  border-radius: unset;
+
+}
+
+
+.productImagesContainer {
+
+  width: 50%;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    position: fixed;
+  }
+}
+
+.productDetails {
+  width: 50%;
+  padding: 1rem;
+  background-color: var(--color-background);
+
+  @media (max-width: 768px) {
+    margin-top: 700px;
+    position: relative;
+    width: 100%;
+    min-width: 100%;
+    // min-height: 700px;
+  }
+}

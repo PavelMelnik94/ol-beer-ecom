@@ -3,6 +3,8 @@ import type { Brewery, Category, Product } from '@kernel/types';
 import { API_ENDPOINTS, apiClient } from '@kernel/api';
 
 export type SuccessResponseFilterProducts = ApiSuccessResponsePaginated<Product>;
+export type SuccessResponseProductDetails = ApiSuccessResponse<Product>;
+export type SuccessResponseProducts = ApiSuccessResponse<Product[]>;
 export type SuccessResponseBreweries = ApiSuccessResponse<Brewery[]>;
 export type SuccessResponseCategories = ApiSuccessResponse<Category[]>;
 export type ErrorResponse = ApiErrorResponse;
@@ -26,23 +28,23 @@ async function getCategories(): Promise<SuccessResponseCategories> {
   return apiClient.get(API_ENDPOINTS.products.categories);
 }
 
-async function getProductById(id: string): Promise<ApiSuccessResponse<Product>> {
+async function getProductById(id: string): Promise<SuccessResponseProductDetails> {
   return apiClient.get(API_ENDPOINTS.products.detail(id));
 }
 
-async function getRelatedProducts(id: string): Promise<ApiSuccessResponse<Product[]>> {
+async function getRelatedProducts(id: string): Promise<SuccessResponseProducts> {
   return apiClient.get(API_ENDPOINTS.products.related(id));
 }
 
-async function searchProducts(query: string): Promise<ApiSuccessResponse<Product[]>> {
+async function searchProducts(query: string): Promise<SuccessResponseProducts> {
   return apiClient.get(`${API_ENDPOINTS.products.search}?q=${encodeURIComponent(query)}`);
 }
 
-async function getDiscountedProducts(): Promise<ApiSuccessResponse<Product[]>> {
+async function getDiscountedProducts(): Promise<SuccessResponseProducts> {
   return apiClient.get(API_ENDPOINTS.products.discounted);
 }
 
-async function getFeaturedProducts(): Promise<ApiSuccessResponse<Product[]>> {
+async function getFeaturedProducts(): Promise<SuccessResponseProducts> {
   return apiClient.get(API_ENDPOINTS.products.featured);
 }
 
