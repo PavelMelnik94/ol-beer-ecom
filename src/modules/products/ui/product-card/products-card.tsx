@@ -4,6 +4,7 @@ import { getOffPercent } from '@kernel/utils';
 import { Badge, Card, Flex, Inset, Strong, Text } from '@radix-ui/themes';
 import { Image } from '@shared/components';
 import { HopBadge } from '@shared/components/ui/hop-badge';
+import { CircleDollarSign, Coins, DollarSign, HandCoins, PiggyBank } from 'lucide-react';
 import styles from './product-card.module.scss';
 
 export function ProductCard({ product, onClickCart, cardActionSlot }: { product: Product; onClickCart: () => void; cardActionSlot?: React.ReactNode; }) {
@@ -29,6 +30,7 @@ export function ProductCard({ product, onClickCart, cardActionSlot }: { product:
         ))}
         {product.isDiscount && (
           <Badge color="green" radius="full">
+            <Coins size={14} />
             {getOffPercent(product.price, product.discount)}
             % off
           </Badge>
