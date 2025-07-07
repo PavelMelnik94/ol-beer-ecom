@@ -13,10 +13,7 @@ export function ProductDetailsPage() {
 
   return (
     <div>
-      Product Details for ID:
-      {id}
-
-      <Container pr="5" pl="5">
+      <Container pr="5" pl="5" pt="5" pb="5">
         <ProductDetails product={product} />
       </Container>
     </div>

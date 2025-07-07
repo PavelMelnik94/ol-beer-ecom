@@ -1,7 +1,7 @@
 import type { Product } from '@kernel/types';
 import { getMarginByPercent } from '@kernel/utils';
 import { Box, Button, DataList, Flex, ScrollArea, Separator, Strong, Text } from '@radix-ui/themes';
-import { Image } from '@shared/components';
+import { Image, Pulse } from '@shared/components';
 import { HopBadge } from '@shared/components/ui/hop-badge';
 import { useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
@@ -61,6 +61,8 @@ export function ProductDetails({ product }: ProductDetailsProps) {
           marginTop: isMobile ? mobileDetailsMarginTop : '0px',
         }}
       >
+
+        <div className={styles.scrollThumb}/>
         <Text as="div" size="7" weight="bold" align="center" className={styles.productTitle} mt="4" mb="5">
           {product.title}
         </Text>
@@ -137,7 +139,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
 
         <Flex justify="center" mt="5">
           <Button size="2" variant="outline">
-            Add to Cart
+            Add to Cart <Pulse size={'10'} />
           </Button>
         </Flex>
 
