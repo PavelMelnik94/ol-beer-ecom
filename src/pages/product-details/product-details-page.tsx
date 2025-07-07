@@ -65,6 +65,7 @@ export function ProductDetailsPage() {
           products={relatedProducts}
           onClickCard={handleClickOnCard}
           isShow={relatedProducts && relatedProducts?.length > 0}
+          imageAsSlider
         />
       </Box>
     </div>

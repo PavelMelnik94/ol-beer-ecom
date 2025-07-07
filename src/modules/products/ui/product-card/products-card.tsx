@@ -2,24 +2,40 @@ import type { Product } from '@kernel/types';
 import { Price } from '@kernel/components';
 import { getOffPercent } from '@kernel/utils';
 import { Badge, Card, Flex, Inset, Strong, Text } from '@radix-ui/themes';
-import { Image } from '@shared/components';
+import { Carousel, Image } from '@shared/components';
 import { HopBadge } from '@shared/components/ui/hop-badge';
-import { CircleDollarSign, Coins, DollarSign, HandCoins, PiggyBank } from 'lucide-react';
+import { Coins } from 'lucide-react';
 import styles from './product-card.module.scss';
 
-export function ProductCard({ product, onClickCart, cardActionSlot }: { product: Product; onClickCart: () => void; cardActionSlot?: React.ReactNode; }) {
+interface Props {
+  product: Product;
+  onClickCart: () => void;
+  cardActionSlot?: React.ReactNode;
+  imageAsSlider?: boolean;
+}
+export function ProductCard({ product, onClickCart, cardActionSlot, imageAsSlider = false }: Props) {
   return (
     <Card key={product.id} size="2" className="pointer" onClick={onClickCart}>
       <Inset clip="padding-box" side="top" pb="current">
-        <Image
-          src={product.images[0]}
-          alt={product.title}
-          width="100%"
-          height="auto"
-          containerClassName={styles.imgContainer}
-          sizeMode="responsive"
-          skeletonStyle={{ width: '100%', height: '100%' }}
-        />
+        {imageAsSlider
+          ? (
+              <Carousel
+                images={product.images}
+                imgContainerClassName={styles.imgContainer}
+              />
+            )
+          : (
+              <Image
+                src={product.images[0]}
+                alt={product.title}
+                width="100%"
+                height="auto"
+                containerClassName={styles.imgContainer}
+                sizeMode="background"
+                skeletonStyle={{ width: '100%', height: '100%' }}
+              />
+            )}
+
       </Inset>
       <Text as="div" size="4" mb="1" mt="-2">
         <Strong>{product.title}</Strong>

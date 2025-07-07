@@ -64,14 +64,14 @@
 }
 
 .responsive {
-  .image {
+  img {
     width: 100%;
     height: auto;
   }
 }
 
 .cover {
-  .image {
+  img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -79,9 +79,18 @@
 }
 
 .contain {
-  .image {
+  img {
     width: 100%;
     height: 100%;
     object-fit: contain;
   }
+}
+
+.background {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 200px; /* минимальная высота, можно настроить через props */
+  width: 100%;
+  height: 100%;
 }

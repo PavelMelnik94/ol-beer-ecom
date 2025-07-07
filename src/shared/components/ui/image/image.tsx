@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styles from './image.module.scss';
 
 type ImageLoadState = 'idle' | 'loading' | 'loaded' | 'error';
-type ImageSizeMode = 'cover' | 'contain' | 'responsive';
+type ImageSizeMode = 'cover' | 'contain' | 'responsive' | 'background';
 
 interface ImageProps extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'src' | 'onLoad' | 'onError'> {
   src: string;
@@ -108,6 +108,7 @@ export const Image: React.FC<ImageProps> = ({
       [styles.blurred]: loadState === 'loading' && blurOnLoad,
       [styles.loaded]: loadState === 'loaded',
       [styles.error]: loadState === 'error',
+
     },
   );
 
@@ -117,12 +118,20 @@ export const Image: React.FC<ImageProps> = ({
       [styles.cover]: sizeMode === 'cover',
       [styles.contain]: sizeMode === 'contain',
       [styles.responsive]: sizeMode === 'responsive',
+      [styles.background]: sizeMode === 'background',
     },
     containerClassName,
   );
 
   return (
-    <div className={containerClassses}>
+    <div
+      className={containerClassses}
+      style={{
+        backgroundImage: sizeMode === 'background' ? `url(${src})` : undefined,
+        width,
+        height,
+      }}
+    >
       {placeholder && loadState !== 'loaded' && (
         <img
           src={placeholder}
@@ -132,17 +141,19 @@ export const Image: React.FC<ImageProps> = ({
         />
       )}
 
-      <img
-        ref={imgRef}
-        src={loadState === 'loading' || loadState === 'loaded' ? src : undefined}
-        alt={alt}
-        onLoad={handleLoad}
-        onError={handleError}
-        className={imageClasses}
-        loading={lazy ? 'lazy' : 'eager'}
+      {sizeMode !== 'background' && (
+        <img
+          ref={imgRef}
+          src={loadState === 'loading' || loadState === 'loaded' ? src : undefined}
+          alt={alt}
+          onLoad={handleLoad}
+          onError={handleError}
+          className={imageClasses}
+          loading={lazy ? 'lazy' : 'eager'}
 
-        {...restProps}
-      />
+          {...restProps}
+        />
+      )}
 
       <Show when={loadState === 'loading' && showLoader}>
         <Skeleton style={skeletonStyle} />

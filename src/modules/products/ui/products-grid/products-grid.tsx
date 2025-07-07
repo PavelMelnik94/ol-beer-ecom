@@ -9,6 +9,7 @@ import { useMediaQuery } from 'react-responsive';
 interface Props {
   products?: Product[];
   isShow?: boolean;
+  imageAsSlider?: boolean;
 
   onClickCard: (product: Product) => void;
   onAddToWishlist?: (product: Product) => void;
@@ -17,6 +18,7 @@ interface Props {
 export function ProductsGrid({
   products,
   isShow,
+  imageAsSlider,
 
   onAddToBasket,
   onAddToWishlist,
@@ -51,6 +53,7 @@ export function ProductsGrid({
         <For each={products}>
           {product => (
             <ProductCard
+              imageAsSlider={imageAsSlider}
               key={product.id}
               product={product}
               onClickCart={() => onClickCard(product)}
