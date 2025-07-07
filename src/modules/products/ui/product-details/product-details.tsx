@@ -4,12 +4,16 @@ import { Box, Button, DataList, Flex, ScrollArea, Separator, Strong, Text } from
 import { Image } from '@shared/components';
 import { HopBadge } from '@shared/components/ui/hop-badge';
 import { useEffect, useRef, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import styles from './product-details.module.scss';
 
 interface ProductDetailsProps {
   product: Product;
 }
 export function ProductDetails({ product }: ProductDetailsProps) {
+  const isMobile = useMediaQuery({
+    query: '(max-width: 768px)',
+  });
   const [imageScrollAreaHeight, setImageScrollAreaHeight] = useState<number | undefined>(700);
 
   const detailRef = useRef<HTMLDivElement | null>(null);
@@ -24,7 +28,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
     };
   }, [detailRef.current?.clientHeight]);
 
-  const marginTop = imageContainerRef.current?.clientHeight ? getMarginByPercent(imageContainerRef.current?.clientHeight ?? 0, 70) : '400px';
+  const mobileDetailsMarginTop = imageContainerRef.current?.clientHeight ? getMarginByPercent(imageContainerRef.current?.clientHeight ?? 0, 70) : '400px';
 
   return (
     <Flex className={styles.container}>
@@ -53,7 +57,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
         ref={detailRef}
         className={styles.productDetails}
         style={{
-          marginTop,
+          marginTop: isMobile ? mobileDetailsMarginTop : '0px',
         }}
       >
         <Text as="div" size="7" weight="bold" align="center" className={styles.productTitle} mt="4" mb="5">
