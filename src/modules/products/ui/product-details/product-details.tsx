@@ -139,7 +139,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
 
         <Flex justify="center" mt="5">
           <Button size="2" variant="outline">
-            Add to Cart <Pulse size={'10'} />
+            Add to Cart <Pulse size={10} />
           </Button>
         </Flex>
 
