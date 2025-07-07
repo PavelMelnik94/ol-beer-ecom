@@ -1,4 +1,5 @@
 import type { Product } from '@kernel/types';
+import { Price } from '@kernel/components';
 import { getOffPercent } from '@kernel/utils';
 import { Badge, Card, Flex, Inset, Strong, Text } from '@radix-ui/themes';
 import { Image } from '@shared/components';
@@ -38,25 +39,7 @@ export function ProductCard({ product, onClickCart, cardActionSlot }: { product:
           <Flex direction="row" gap="1">
             Price:
             {' '}
-            {product.isDiscount
-              ? (
-                  <Flex direction="row" gap="2" align="center">
-                    <Strong>
-                      $
-                      {product.discount}
-                    </Strong>
-                    <Text as="span" style={{ textDecoration: 'line-through' }}>
-                      $
-                      {product.price}
-                    </Text>
-                  </Flex>
-                )
-              : (
-                  <Strong>
-                    $
-                    {product.price}
-                  </Strong>
-                )}
+            <Price price={product.price} discount={product.discount} />
           </Flex>
         </Text>
         <Flex>

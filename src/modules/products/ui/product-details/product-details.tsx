@@ -1,4 +1,5 @@
 import type { Product } from '@kernel/types';
+import { Price } from '@kernel/components';
 import { Box, Button, DataList, Flex, ScrollArea, Separator, Strong, Text } from '@radix-ui/themes';
 import { Image, Pulse } from '@shared/components';
 import { HopBadge } from '@shared/components/ui/hop-badge';
@@ -94,25 +95,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
           <DataList.Item>
             <DataList.Label minWidth="88px">Price</DataList.Label>
             <DataList.Value>
-              {product.isDiscount
-                ? (
-                    <Flex direction="row" gap="2" align="center">
-                      <Strong>
-                        $
-                        {product.discount}
-                      </Strong>
-                      <Text as="span" style={{ textDecoration: 'line-through' }}>
-                        $
-                        {product.price}
-                      </Text>
-                    </Flex>
-                  )
-                : (
-                    <>
-                      $
-                      {product.price}
-                    </>
-                  )}
+              <Price price={product.price} discount={product.discount} />
             </DataList.Value>
           </DataList.Item>
 
