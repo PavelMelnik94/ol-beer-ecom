@@ -3,8 +3,8 @@ import { CartButton } from '@modules/cart';
 import { Button, Flex, IconButton, Popover, Separator } from '@radix-ui/themes';
 import { GithubButton } from '@shared/components/ui/github-button';
 import { Menu } from 'lucide-react';
-import { HeaderNav } from '../header-nav';
-import styles from '../header.module.scss';
+import { HeaderNav } from './header-nav';
+import styles from './header.module.scss';
 import { AuthSection } from './auth-section';
 
 interface MobileSectionProps {
@@ -69,7 +69,7 @@ export function MobileMenu({
 }: MobileMenuProps) {
   return (
     <Flex direction="row" align="center" wrap="nowrap" gap="4">
-      <CartButton />
+      <CartButton onClick={navigationHandlers.onBasket} />
       <Popover.Root open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
         <Popover.Trigger>
           <IconButton

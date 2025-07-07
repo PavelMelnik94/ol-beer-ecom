@@ -2,8 +2,8 @@ import { Flex } from '@radix-ui/themes';
 import { Show } from '@shared/components';
 import clsx from 'clsx';
 import { DesktopActions, Logo, MobileMenu } from './components';
-import { HeaderNav } from './header-nav';
-import styles from './header.module.scss';
+import { HeaderNav } from './components/header-nav';
+import styles from './components/header.module.scss';
 import { useHeader } from './hooks/use-header';
 
 interface Props {

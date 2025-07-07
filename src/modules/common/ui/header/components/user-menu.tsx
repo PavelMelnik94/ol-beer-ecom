@@ -1,7 +1,7 @@
 import { ThemeButton } from '@kernel/index';
 import { Avatar, Button, Flex, IconButton, Popover, Separator } from '@radix-ui/themes';
 import { GithubButton } from '@shared/components/ui/github-button';
-import styles from '../header.module.scss';
+import styles from './header.module.scss';
 import { AuthSection } from './auth-section';
 
 interface UserMenuProps {

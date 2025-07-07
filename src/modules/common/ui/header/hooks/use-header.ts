@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation } from 'react-router-dom';
-import styles from '../header.module.scss';
+import styles from '../components/header.module.scss';
 
 export function useHeader() {
   const navigation = useGoTo();

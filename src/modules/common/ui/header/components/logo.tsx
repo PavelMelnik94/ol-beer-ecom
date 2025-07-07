@@ -1,5 +1,5 @@
 import { Box, Text } from '@radix-ui/themes';
-import styles from '../header.module.scss';
+import styles from './header.module.scss';
 
 interface LogoProps {
   onClick: () => void;
