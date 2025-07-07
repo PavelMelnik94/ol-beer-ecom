@@ -34,6 +34,19 @@
     flex-direction: column;
     align-self: center;
     width: 95%;
-    margin-top: -100px;
+    margin-top: -50px;
   }
+}
+
+.scrollThumb {
+  margin: 0 auto;
+  cursor: grab;
+  width: 50px;
+  height: 4px;
+  right: 0;
+  top: 0;
+  position: relative;
+    background-color: var(--gray-a8);
+    border-radius: var(--radius-5);
+    transition: background-color .1s;
 }
