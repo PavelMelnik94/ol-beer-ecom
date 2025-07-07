@@ -1,11 +1,14 @@
 export { useBreweriesForFilters, useCategoriesForFilters } from './hooks/use-filter-options';
 export { useFiltersData } from './hooks/use-filters-data';
+export { useProductDetails } from './hooks/use-product-details';
+export { useProductsRelated } from './hooks/use-product-related';
 export { useProductsFilters } from './hooks/use-products-filters';
 export { useProductsPagination } from './hooks/use-products-pagination';
 export { useProductsPaginationState } from './hooks/use-products-pagination-state';
 export { useProductsStore } from './stores/products-store';
-export { useProductDetails } from './hooks/use-product-details';
-export { Products } from './ui/products';
-export { ProductsFilters } from './ui/products-filters/products-filters';
+
 export { ProductDetails } from './ui/product-details/product-details';
 export { ProductDetailsSkeleton } from './ui/product-details/product-details-skeleton';
+export { Products } from './ui/products';
+export { ProductsFilters } from './ui/products-filters/products-filters';
+export { ProductsGrid } from './ui/products-grid/products-grid';
