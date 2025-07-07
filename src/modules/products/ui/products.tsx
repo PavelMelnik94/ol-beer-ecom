@@ -26,7 +26,19 @@ interface ProductsProps {
 }
 
 export function Products(props: ProductsProps) {
-  const { products, isError, refetch, pagination, onPageChange, isPageChanging, isLoading, onClickCard, onAddToBasket, onAddToWishlist } = props;
+  const {
+    products,
+    isError,
+    refetch,
+    pagination,
+    onPageChange,
+    isPageChanging,
+    isLoading,
+
+    onClickCard,
+    onAddToBasket,
+    onAddToWishlist,
+  } = props;
   const { scrollToTop } = useGlobalScroll();
 
   useEffect(() => {

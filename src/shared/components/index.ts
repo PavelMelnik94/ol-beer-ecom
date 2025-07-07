@@ -18,5 +18,6 @@ export { Pagination } from './ui/pagination/pagination';
 export { Pulse } from './ui/pulse/pulse';
 
 export { Spinner } from './ui/spinner/spinner';
+export { StarRating } from './ui/star-rating/star-rating';
 export { For } from './utils/For';
 export { Show } from './utils/Show';

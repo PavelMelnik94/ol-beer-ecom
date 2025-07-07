@@ -113,6 +113,7 @@ export function ProductsPage() {
             // Handle adding product to basket
             console.log('Add to basket:', product);
           }}
+
         />
       </Box>
 

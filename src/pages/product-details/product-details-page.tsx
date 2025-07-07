@@ -35,6 +35,16 @@ export function ProductDetailsPage() {
     navigateToProductItem(product.id);
   };
 
+  const handleOnClickRating = (rating: number, productId: string) => {
+    // Handle product rating click
+    console.log('Product rating clicked:', rating, 'Product ID:', productId);
+  };
+
+  const handleOnClickAddToWishlist = (product: Product) => {
+    // Handle adding product to wishlist
+    console.log('Add to wishlist:', product);
+  };
+
   return (
     <div>
       {isMobile
@@ -43,13 +53,21 @@ export function ProductDetailsPage() {
               <Box pr="1" pl="1" pt="1">
                 <Breadcrumbs items={breadcrumbs} />
               </Box>
-              <ProductDetails product={product} />
+              <ProductDetails
+                product={product}
+                onClickRating={handleOnClickRating}
+                onClickAddToWishlist={handleOnClickAddToWishlist}
+              />
             </>
           )
         : (
             <Container pr="5" pl="5" pt="5" pb="5">
               <Breadcrumbs items={breadcrumbs} />
-              <ProductDetails product={product} />
+              <ProductDetails
+                product={product}
+                onClickRating={handleOnClickRating}
+                onClickAddToWishlist={handleOnClickAddToWishlist}
+              />
             </Container>
           )}
 
