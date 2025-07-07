@@ -31,6 +31,10 @@ export const ROUTES = {
       full: '/profile/orders',
       short: 'orders',
     },
+    favorites: {
+      full: '/profile/favorites',
+      short: 'favorites',
+    },
   },
   about: {
     root: '/about',

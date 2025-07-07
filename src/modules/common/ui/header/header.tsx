@@ -29,6 +29,7 @@ export function Header({ isFixed }: Props) {
     navigateToProfile,
     navigateToBasket,
     navigateToOrders,
+    navigateToFavorites,
   } = useGoTo();
   const { pathname } = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -73,6 +74,10 @@ export function Header({ isFixed }: Props) {
       navigateToOrders();
       setMobileMenuOpen(false);
     },
+    onFavorites: () => {
+      navigateToFavorites();
+      setMobileMenuOpen(false);
+    },
   };
 
   const AuthSectionMobile = isAuth
@@ -81,6 +86,9 @@ export function Header({ isFixed }: Props) {
           <Separator my="1" size="4" />
           <Button variant="ghost" size="1" style={{ width: '100%' }} onClick={onClickHandlers.onProfile}>
             Profile
+          </Button>
+          <Button variant="ghost" size="1" style={{ width: '100%' }} onClick={onClickHandlers.onFavorites}>
+            Favorites
           </Button>
           <Button variant="ghost" size="1" style={{ width: '100%' }} onClick={onClickHandlers.onOrders}>
             Orders
@@ -152,6 +160,9 @@ export function Header({ isFixed }: Props) {
                     </Button>
                     <Button variant="ghost" size="1" style={{ width: '100%' }} onClick={onClickHandlers.onOrders}>
                       Orders
+                    </Button>
+                    <Button variant="ghost" size="1" style={{ width: '100%' }} onClick={onClickHandlers.onFavorites}>
+                      Favorites
                     </Button>
                   </>
                   <Separator my="1" size="4" />

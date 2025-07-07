@@ -18,5 +18,6 @@ export function useGoTo() {
     navigateToBasket: () => navigate(ROUTES.basket.root),
     navigateToBlog: () => navigate(ROUTES.articles.root),
     navigateToOrders: () => navigate(ROUTES.profile.orders.full),
+    navigateToFavorites: () => navigate(ROUTES.profile.favorites.full),
   };
 }
