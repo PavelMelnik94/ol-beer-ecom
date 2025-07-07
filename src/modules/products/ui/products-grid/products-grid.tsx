@@ -1,4 +1,5 @@
 import type { Product } from '@kernel/types';
+import { ButtonWithRegisterPopup } from '@modules/common';
 import { ProductCardSkeleton } from '@modules/products/ui/product-card/product-card-skeleton';
 import { ProductCard } from '@modules/products/ui/product-card/products-card';
 import { Button, Flex, Grid, Tooltip } from '@radix-ui/themes';
@@ -60,7 +61,7 @@ export function ProductsGrid({
               cardActionSlot={(
                 <Flex align="center" gap="2">
                   <Show when={typeof onAddToWishlist === 'function'}>
-                    <Button
+                    <ButtonWithRegisterPopup
                       size="1"
                       variant="soft"
                       style={{ padding: '6px' }}
@@ -72,11 +73,11 @@ export function ProductsGrid({
                       <Tooltip content="Add to Wishlist" side="top">
                         <Heart size={12} color="gray" />
                       </Tooltip>
-                    </Button>
+                    </ButtonWithRegisterPopup>
                   </Show>
 
                   <Show when={typeof onAddToBasket === 'function'}>
-                    <Button
+                    <ButtonWithRegisterPopup
                       size="1"
                       variant="outline"
                       onClick={(e) => {
@@ -86,7 +87,7 @@ export function ProductsGrid({
                     >
                       Add to Cart
                       {product.isDiscount && <Pulse size={8} />}
-                    </Button>
+                    </ButtonWithRegisterPopup>
                   </Show>
                 </Flex>
               )}
