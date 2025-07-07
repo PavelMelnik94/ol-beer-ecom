@@ -32,8 +32,8 @@ async function getProductById(id: string): Promise<SuccessResponseProductDetails
   return apiClient.get(API_ENDPOINTS.products.detail(id));
 }
 
-async function getRelatedProducts(id: string): Promise<SuccessResponseProducts> {
-  return apiClient.get(API_ENDPOINTS.products.related(id));
+async function getRelatedProducts(id: string, limit?: number): Promise<SuccessResponseProducts> {
+  return apiClient.get(API_ENDPOINTS.products.related(id, limit));
 }
 
 async function searchProducts(query: string): Promise<SuccessResponseProducts> {

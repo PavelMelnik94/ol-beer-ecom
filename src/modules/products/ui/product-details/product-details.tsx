@@ -1,7 +1,7 @@
 import type { Product } from '@kernel/types';
 import { Price } from '@kernel/components';
 import { ButtonWithAuthPopup } from '@modules/common';
-import { Box, Button, DataList, Flex, ScrollArea, Separator, Strong, Text } from '@radix-ui/themes';
+import { Box, DataList, Flex, ScrollArea, Separator, Text } from '@radix-ui/themes';
 import { Image, Pulse } from '@shared/components';
 import { HopBadge } from '@shared/components/ui/hop-badge';
 import { useEffect, useRef, useState } from 'react';

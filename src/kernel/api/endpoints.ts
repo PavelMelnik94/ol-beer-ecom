@@ -32,7 +32,7 @@ export const API_ENDPOINTS = {
     create: '/products',
     update: (id: string) => `/products/${id}`,
     delete: (id: string) => `/products/${id}`,
-    related: (id: string) => `/products/${id}/related`,
+    related: (id: string, limit?: number) => `/products/${id}/related${limit ? `?limit=${limit}` : ''}`,
     breweries: '/products/breweries',
     byBrewery: (breweryId: string) => `/products/by-brewery/${breweryId}`,
     byPriceRange: '/products/by-price-range',

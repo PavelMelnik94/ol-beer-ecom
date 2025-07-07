@@ -3,6 +3,7 @@ import { QUERY_KEYS } from '@kernel/index';
 import { useQuery } from '@tanstack/react-query';
 import { productsApi } from '../../products/api';
 
+const limit = 4;
 export function useProductsRelated(productId: string) {
   const {
     data,
@@ -11,7 +12,7 @@ export function useProductsRelated(productId: string) {
     error,
   } = useQuery<SuccessResponseProducts, ErrorResponse>({
     queryKey: QUERY_KEYS.products.related(productId),
-    queryFn: () => productsApi.getRelatedProducts(productId),
+    queryFn: () => productsApi.getRelatedProducts(productId, limit),
     enabled: !!productId,
   });
 
