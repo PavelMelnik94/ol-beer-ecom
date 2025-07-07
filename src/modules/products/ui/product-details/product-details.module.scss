@@ -11,6 +11,9 @@
 
 .productImage {
   border-radius: unset;
+  &:last-child{
+      padding-bottom: 200px;
+  }
 }
 
 
@@ -34,7 +37,7 @@
     flex-direction: column;
     align-self: center;
     width: 95%;
-    margin-top: -50px;
+    // margin-top: -50px;
   }
 }
 
