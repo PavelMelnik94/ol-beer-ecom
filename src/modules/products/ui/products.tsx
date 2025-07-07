@@ -3,8 +3,9 @@ import type { Product } from '@kernel/types';
 import { useGlobalScroll } from '@kernel/hooks';
 import { ProductCardSkeleton } from '@modules/products/ui/product-card/product-card-skeleton';
 import { ProductCard } from '@modules/products/ui/product-card/products-card';
-import { Button, Flex, Grid } from '@radix-ui/themes';
+import { Button, Flex, Grid, Tooltip } from '@radix-ui/themes';
 import { For, Pagination, Pulse, Show } from '@shared/components';
+import { BookMarked, Heart, Pin } from 'lucide-react';
 import { useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
@@ -23,11 +24,12 @@ interface ProductsProps {
 
   onClickCard: (product: Product) => void;
   onAddToBasket: (product: Product) => void;
+  onAddToWishlist?: (product: Product) => void;
 
 }
 
 export function Products(props: ProductsProps) {
-  const { products, isError, refetch, pagination, onPageChange, isPageChanging, isLoading, onClickCard, onAddToBasket } = props;
+  const { products, isError, refetch, pagination, onPageChange, isPageChanging, isLoading, onClickCard, onAddToBasket, onAddToWishlist } = props;
   const { scrollToTop } = useGlobalScroll();
 
   const largeScreen = useMediaQuery({
@@ -74,17 +76,32 @@ export function Products(props: ProductsProps) {
                 product={product}
                 onClickCart={() => onClickCard(product)}
                 cardActionSlot={(
-                  <Button
-                    size="1"
-                    variant="outline"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onAddToBasket?.(product);
-                    }}
-                  >
-                    Add to Cart
-                    {product.isDiscount && <Pulse size={8} />}
-                  </Button>
+                  <Flex align="center" gap="2">
+                    <Button
+                      size="1"
+                      variant="soft"
+                      style={{ padding: '6px' }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onAddToWishlist?.(product);
+                      }}
+                    >
+                      <Tooltip content="Add to Wishlist" side="top">
+                        <Heart size={12} color="gray" />
+                      </Tooltip>
+                    </Button>
+                    <Button
+                      size="1"
+                      variant="outline"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onAddToBasket?.(product);
+                      }}
+                    >
+                      Add to Cart
+                      {product.isDiscount && <Pulse size={8} />}
+                    </Button>
+                  </Flex>
                 )}
               />
             )}

@@ -105,6 +105,10 @@ export function ProductsPage() {
           isPageChanging={isPageChanging}
 
           onClickCard={handleClickOnCard}
+          onAddToWishlist={(product) => {
+            // Handle adding product to wishlist
+            console.log('Add to wishlist:', product);
+          }}
           onAddToBasket={(product) => {
             // Handle adding product to basket
             console.log('Add to basket:', product);
