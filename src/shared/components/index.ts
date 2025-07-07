@@ -18,3 +18,4 @@ export { Spinner } from './ui/spinner/spinner';
 export { For } from './utils/For';
 
 export { Show } from './utils/Show';
+export { Breadcrumbs } from './ui/breadcrumbs';
