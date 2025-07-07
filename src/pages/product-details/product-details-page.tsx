@@ -66,6 +66,14 @@ export function ProductDetailsPage() {
           onClickCard={handleClickOnCard}
           isShow={relatedProducts && relatedProducts?.length > 0}
           imageAsSlider
+          onAddToWishlist={(product) => {
+            // Handle adding product to wishlist
+            console.log('Add to wishlist:', product);
+          }}
+          onAddToBasket={(product) => {
+            // Handle adding product to basket
+            console.log('Add to basket:', product);
+          }}
         />
       </Box>
     </div>
