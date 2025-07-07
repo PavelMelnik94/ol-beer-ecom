@@ -7,10 +7,8 @@ import styles from './product-details.module.scss';
 
 interface ProductDetailsProps {
   product: Product;
-  onImageLoad?: (image: string) => void;
 }
-export function ProductDetails({ product, onImageLoad }: ProductDetailsProps) {
-
+export function ProductDetails({ product }: ProductDetailsProps) {
   const [imageScrollAreaHeight, setImageScrollAreaHeight] = useState<number | undefined>(700);
 
   const detailRef = useRef<HTMLDivElement | null>(null);
@@ -25,7 +23,6 @@ export function ProductDetails({ product, onImageLoad }: ProductDetailsProps) {
     };
   }, [detailRef.current?.clientHeight]);
 
-
   return (
     <Flex className={styles.container}>
       <Box ref={imageContainerRef} className={styles.productImagesContainer}>
@@ -39,7 +36,6 @@ export function ProductDetails({ product, onImageLoad }: ProductDetailsProps) {
           {product.images.map((image, index) => {
             return (
               <Image
-              onLoad={onImageLoad}
                 key={index}
                 src={image}
                 alt={image || `Product image ${index + 1}`}
@@ -58,7 +54,7 @@ export function ProductDetails({ product, onImageLoad }: ProductDetailsProps) {
         }}
       >
 
-        <div className={styles.scrollThumb}/>
+        <div className={styles.scrollThumb} />
         <Text as="div" size="7" weight="bold" align="center" className={styles.productTitle} mt="4" mb="5">
           {product.title}
         </Text>
@@ -135,7 +131,9 @@ export function ProductDetails({ product, onImageLoad }: ProductDetailsProps) {
 
         <Flex justify="center" mt="5">
           <Button size="2" variant="outline">
-            Add to Cart <Pulse size={10} />
+            Add to Cart
+            {' '}
+            <Pulse size={10} />
           </Button>
         </Flex>
       </Box>

@@ -1,13 +1,14 @@
 import { PromoCodeVelocity } from '@modules/cart';
 import { ProductDetails, ProductDetailsSkeleton, useProductDetails } from '@modules/products';
-import {  Box, Container } from '@radix-ui/themes';
+import { Box, Container } from '@radix-ui/themes';
 import { Breadcrumbs } from '@shared/components';
-import { useParams } from 'react-router-dom';
 import { useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 
 export function ProductDetailsPage() {
   const { id } = useParams<{ id: string; }>();
   const { product, isLoading } = useProductDetails(id!);
+  const isMobile = window.innerWidth < 768;
 
   const breadcrumbs = useMemo(() => {
     const items = [
@@ -19,7 +20,7 @@ export function ProductDetailsPage() {
         ? { label: product.title, to: `/products/${product.id}` }
         : null,
     ];
-    return items.filter((item): item is { label: string; to: string } => Boolean(item && item.label));
+    return items.filter((item): item is { label: string; to: string; } => Boolean(item && item.label));
   }, [product]);
 
   if (isLoading || !product) {
@@ -28,11 +29,22 @@ export function ProductDetailsPage() {
 
   return (
     <div>
+      {isMobile
+        ? (
+            <>
+              <Box pr="1" pl="1" pt="1">
+                <Breadcrumbs items={breadcrumbs} />
+              </Box>
+              <ProductDetails product={product} />
+            </>
+          )
+        : (
+            <Container pr="5" pl="5" pt="5" pb="5">
+              <Breadcrumbs items={breadcrumbs} />
+              <ProductDetails product={product} />
+            </Container>
+          )}
 
-      <Container pr="5" pl="5" pt="5" pb="5">
-        <Breadcrumbs items={breadcrumbs} />
-        <ProductDetails product={product} />
-      </Container>
       <Box mt="5">
         <PromoCodeVelocity />
       </Box>
