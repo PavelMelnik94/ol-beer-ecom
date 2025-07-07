@@ -1,20 +1,16 @@
 import type { Product } from '@kernel/types';
-import { getMarginByPercent } from '@kernel/utils';
 import { Box, Button, DataList, Flex, ScrollArea, Separator, Strong, Text } from '@radix-ui/themes';
 import { Image, Pulse } from '@shared/components';
 import { HopBadge } from '@shared/components/ui/hop-badge';
 import { useEffect, useRef, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import styles from './product-details.module.scss';
-import { PromoCodeVelocity } from '@modules/cart';
 
 interface ProductDetailsProps {
   product: Product;
+  onImageLoad?: (image: string) => void;
 }
-export function ProductDetails({ product }: ProductDetailsProps) {
-  const isMobile = useMediaQuery({
-    query: '(max-width: 768px)',
-  });
+export function ProductDetails({ product, onImageLoad }: ProductDetailsProps) {
+
   const [imageScrollAreaHeight, setImageScrollAreaHeight] = useState<number | undefined>(700);
 
   const detailRef = useRef<HTMLDivElement | null>(null);
@@ -29,7 +25,6 @@ export function ProductDetails({ product }: ProductDetailsProps) {
     };
   }, [detailRef.current?.clientHeight]);
 
-  const mobileDetailsMarginTop = imageContainerRef.current?.clientHeight ? getMarginByPercent(imageContainerRef.current?.clientHeight ?? 0, 70) : '400px';
 
   return (
     <Flex className={styles.container}>
@@ -44,6 +39,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
           {product.images.map((image, index) => {
             return (
               <Image
+              onLoad={onImageLoad}
                 key={index}
                 src={image}
                 alt={image || `Product image ${index + 1}`}
@@ -58,7 +54,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
         ref={detailRef}
         className={styles.productDetails}
         style={{
-          marginTop: isMobile ? mobileDetailsMarginTop : '0px',
+          // marginTop: isMobile ? '-300px' : '0px',
         }}
       >
 
@@ -142,11 +138,6 @@ export function ProductDetails({ product }: ProductDetailsProps) {
             Add to Cart <Pulse size={10} />
           </Button>
         </Flex>
-
-      <Box mt="5">
-          <PromoCodeVelocity  />
-      </Box>
-
       </Box>
     </Flex>
   );

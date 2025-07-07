@@ -8,3 +8,4 @@ export { useProductDetails } from './hooks/use-product-details';
 export { Products } from './ui/products';
 export { ProductsFilters } from './ui/products-filters/products-filters';
 export { ProductDetails } from './ui/product-details/product-details';
+export { ProductDetailsSkeleton } from './ui/product-details/product-details-skeleton';
