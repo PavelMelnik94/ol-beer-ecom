@@ -23,66 +23,10 @@ export function ProductDetails({ product }: ProductDetailsProps) {
     };
   }, [detailRef.current?.clientHeight]);
 
-  // --- Добавлено для блокировки скролла страницы при свайпе по ScrollArea на мобильных ---
-  const scrollAreaRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const el = scrollAreaRef.current;
-    if (!el) return;
-
-    let startY = 0;
-    let startScroll = 0;
-
-    function onTouchStart(e: TouchEvent) {
-      if (!el) return;
-      if (e.touches.length !== 1) return;
-      startY = e.touches[0].clientY;
-      startScroll = el.scrollTop;
-    }
-
-    function onTouchMove(e: TouchEvent) {
-      if (!el) return;
-      if (e.touches.length !== 1) return;
-      const y = e.touches[0].clientY;
-      const dy = startY - y;
-
-      // Проверяем, можно ли скроллить дальше
-      const atTop = el.scrollTop === 0;
-      const atBottom = el.scrollTop + el.offsetHeight >= el.scrollHeight - 1;
-
-      if (
-        (atTop && dy < 0) // тянем вниз на самом верху
-        || (atBottom && dy > 0) // тянем вверх на самом низу
-      ) {
-        // Разрешаем скролл страницы
-        return;
-      }
-
-      // Блокируем скролл страницы, если скроллим внутри контейнера
-      e.preventDefault();
-    }
-
-    // Только для мобильных
-    const isMobile = window.matchMedia('(pointer: coarse)').matches;
-    if (isMobile) {
-      el.addEventListener('touchstart', onTouchStart, { passive: false });
-      el.addEventListener('touchmove', onTouchMove, { passive: false });
-    }
-
-    return () => {
-      if (isMobile) {
-        el.removeEventListener('touchstart', onTouchStart);
-        el.removeEventListener('touchmove', onTouchMove);
-      }
-    };
-  }, [imageScrollAreaHeight]);
-  // --- конец добавления ---
-
   return (
     <Flex className={styles.container}>
       <Box ref={imageContainerRef} className={styles.productImagesContainer}>
         <ScrollArea
-          ref={scrollAreaRef}
           size="1"
           type="scroll"
           style={{
@@ -105,8 +49,7 @@ export function ProductDetails({ product }: ProductDetailsProps) {
       <Box
         ref={detailRef}
         className={styles.productDetails}
-        style={{
-        }}
+
       >
 
         <div className={styles.scrollThumb} />
