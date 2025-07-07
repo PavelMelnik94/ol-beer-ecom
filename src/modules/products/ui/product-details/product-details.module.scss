@@ -11,8 +11,10 @@
 
 .productImage {
   border-radius: unset;
-  &:last-child{
+  @media (max-width: 768px) {
+    &:last-child{
       padding-bottom: 200px;
+  }
   }
 }
 
