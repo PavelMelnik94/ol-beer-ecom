@@ -190,7 +190,6 @@ export function useComments({
     await likeCommentMutation.mutateAsync({ id });
   }, [addOptimistic, likeCommentMutation, currentUser]);
 
-  console.log(commentsState, 'commentsState');
   return {
     // data
     comments: optimisticComments.length ? optimisticComments : commentsState.comments,
