@@ -1,10 +1,9 @@
 import type { ApiErrorResponse, ApiSuccessResponse, ApiSuccessResponsePaginated } from '@kernel/api';
-import type { Brewery, Category, Product } from '@kernel/types';
-import type { RateResponse } from '@modules/products/types';
+import type { Brewery, Category, Product, Rating } from '@kernel/types';
 import { API_ENDPOINTS, apiClient } from '@kernel/api';
 
 export type SuccessResponse<T> = ApiSuccessResponse<T>;
-export type SuccessResponseRate = ApiSuccessResponse<RateResponse>;
+export type SuccessResponseRate = ApiSuccessResponse<Rating>;
 export type SuccessResponseFilterProducts = ApiSuccessResponsePaginated<Product>;
 export type SuccessResponseProductDetails = ApiSuccessResponse<Product>;
 export type SuccessResponseProducts = ApiSuccessResponse<Product[]>;
