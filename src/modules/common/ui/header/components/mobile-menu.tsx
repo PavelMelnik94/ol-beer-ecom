@@ -3,9 +3,9 @@ import { CartButton } from '@modules/cart';
 import { Button, Flex, IconButton, Popover, Separator } from '@radix-ui/themes';
 import { GithubButton } from '@shared/components/ui/github-button';
 import { Menu } from 'lucide-react';
+import { AuthSection } from './auth-section';
 import { HeaderNav } from './header-nav';
 import styles from './header.module.scss';
-import { AuthSection } from './auth-section';
 
 interface MobileSectionProps {
   isAuth: boolean;

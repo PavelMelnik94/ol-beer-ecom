@@ -1,5 +1,5 @@
 import { ButtonWithAuthPopup } from '@modules/common/ui/button-with-auth-popup';
-import { Button } from '@radix-ui/themes';
+import { Button, Flex } from '@radix-ui/themes';
 
 interface AuthSectionProps {
   isAuth: boolean;
@@ -65,9 +65,16 @@ export function AuthSection({
 
   return (
     <>
-      <ButtonWithAuthPopup variant="ghost" size="1" style={buttonStyle}>
-        Log in
-      </ButtonWithAuthPopup>
+      <Flex justify="center" width={fullWidth ? '100%' : undefined}>
+        <ButtonWithAuthPopup
+          variant="ghost"
+          size="1"
+          style={buttonStyle}
+        >
+          Log in
+        </ButtonWithAuthPopup>
+
+      </Flex>
       <Button
         variant="ghost"
         size="1"
