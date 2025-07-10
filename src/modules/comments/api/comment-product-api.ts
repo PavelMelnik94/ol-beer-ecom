@@ -15,7 +15,7 @@ export function createComment(articleId: string, data: CommentCreateRequest): Pr
 }
 
 export function updateComment(id: string, content: string): Promise<ApiSuccessResponse<Comment>> {
-  return apiClient.put(`${API_ENDPOINTS.products.commentEdit(id)}`, { content });
+  return apiClient.patch(`${API_ENDPOINTS.products.commentEdit(id)}`, { content });
 }
 
 export function deleteComment(id: string): Promise<ApiSuccessResponse<Comment>> {
