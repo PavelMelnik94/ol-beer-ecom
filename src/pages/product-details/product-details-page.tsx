@@ -3,7 +3,7 @@ import { useGoTo } from '@kernel/hooks';
 import { QUERY_KEYS } from '@kernel/query';
 import { PromoCodeVelocity } from '@modules/cart';
 import { Comments, commentsProductsApi, useComments } from '@modules/comments';
-import { ProductDetails, ProductDetailsSkeleton, ProductsGrid, useProductDetails, useProductsRelated } from '@modules/products';
+import { ProductDetails, ProductsGrid, useProductDetails, useProductsRelated } from '@modules/products';
 import { Box, Container, Text } from '@radix-ui/themes';
 import { Breadcrumbs, Pagination } from '@shared/components';
 import { useMemo } from 'react';
@@ -48,10 +48,6 @@ export function ProductDetailsPage() {
     api: commentsProductsApi,
     queryKey: QUERY_KEYS.products.commentList(String(id), commentPage),
   });
-
-  if (isLoading || !product) {
-    return <Container pr="5" pl="5" pt="5" pb="5"><ProductDetailsSkeleton /></Container>;
-  }
 
   const handleClickOnCard = (product: Product) => {
     navigateToProductItem(product.id);

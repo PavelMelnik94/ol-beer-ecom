@@ -1,15 +1,16 @@
 import type { Product } from '@kernel/types';
 import { ButtonWithAuthPopup } from '@modules/common';
-import { ProductDetailsActionBlock } from './product-details-action-block/product-details-action-block';
-import { Box, Flex, ScrollArea, Separator, Text } from '@radix-ui/themes';
+import { ProductDetailsSkeleton } from '@modules/products/ui/product-details/product-details-skeleton';
+import { Box, Container, Flex, ScrollArea, Separator, Text } from '@radix-ui/themes';
 import { Image, Pulse } from '@shared/components';
 import { useEffect, useRef, useState } from 'react';
-import styles from './product-details.module.scss';
 import { BreweryDescription } from './brewery-description/brewery-description';
 import { ProductDatalist } from './product-datalist/product-datalist';
+import { ProductDetailsActionBlock } from './product-details-action-block/product-details-action-block';
+import styles from './product-details.module.scss';
 
 interface ProductDetailsProps {
-  product: Product;
+  product?: Product;
   onClickRating?: (rating: number, productId: string) => void;
   onClickAddToWishlist?: (product: Product) => void;
 }
@@ -27,6 +28,10 @@ export function ProductDetails({ product, onClickRating, onClickAddToWishlist }:
       document.removeEventListener('resize', computeHeight);
     };
   }, [detailRef.current?.clientHeight]);
+
+  if (!product) {
+    return <Container pr="5" pl="5" pt="5" pb="5"><ProductDetailsSkeleton /></Container>;
+  }
 
   return (
     <Flex className={styles.container}>
