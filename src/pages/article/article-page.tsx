@@ -1,3 +1,4 @@
+import { QUERY_KEYS } from '@kernel/query';
 import { ArticleDetails } from '@modules/articles';
 import { Comments, commentsArticleApi, useComments } from '@modules/comments';
 import { Pagination } from '@shared/components';
@@ -20,7 +21,12 @@ export function ArticlePage() {
     deleteComment,
     likeComment,
     error,
-  } = useComments({ page: commentPage, parentId: String(id), api: commentsArticleApi });
+  } = useComments({
+    page: commentPage,
+    parentId: String(id),
+    api: commentsArticleApi,
+    queryKey: QUERY_KEYS.articles.commentList(String(id), commentPage),
+  });
 
   const handleCreateComment = async (content: string) => {
     await createComment(content);

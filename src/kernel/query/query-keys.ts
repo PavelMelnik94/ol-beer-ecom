@@ -9,7 +9,7 @@ export const QUERY_KEYS = {
     detail: (id: number | string) => [...QUERY_KEYS.articles.articleDetails(), id] as const,
     articleRandom: (id: string) => [...QUERY_KEYS.articles.all, 'random', id] as const,
     articleLike: (id: number | string) => [...QUERY_KEYS.articles.detail(id), 'like'] as const,
-    commentList: (articleId: number | string, page: number = 1) => ['articles', articleId, 'comments', 'list', page] as const,
+    commentList: (articleId: number | string, page: number = 1) => ['articles', articleId, 'comments', 'list', page],
     commentListAll: (articleId: number | string) => ['articles', articleId, 'comments'] as const,
   },
 
@@ -37,6 +37,8 @@ export const QUERY_KEYS = {
     // Данные для фильтров
     breweries: () => [...QUERY_KEYS.products.all, 'breweries'] as const,
     categories: () => [...QUERY_KEYS.products.all, 'categories'] as const,
+    commentList: (productId: number | string, page: number = 1) => ['products', productId, 'comments', 'list', page],
+    commentListAll: (productId: number | string) => ['products', productId, 'comments'] as const,
   },
 
   auth: {

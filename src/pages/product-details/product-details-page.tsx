@@ -1,16 +1,19 @@
 import type { Product } from '@kernel/types';
 import { useGoTo } from '@kernel/hooks';
+import { QUERY_KEYS } from '@kernel/query';
 import { PromoCodeVelocity } from '@modules/cart';
+import { Comments, commentsProductsApi, useComments } from '@modules/comments';
 import { ProductDetails, ProductDetailsSkeleton, ProductsGrid, useProductDetails, useProductsRelated } from '@modules/products';
 import { Box, Container, Text } from '@radix-ui/themes';
-import { Breadcrumbs } from '@shared/components';
+import { Breadcrumbs, Pagination } from '@shared/components';
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
+const { usePagination: useCommentPagination } = Pagination;
 export function ProductDetailsPage() {
   const { navigateToProductItem } = useGoTo();
   const { id } = useParams<{ id: string; }>();
-  const { product, isLoading } = useProductDetails(id!);
+  const { product } = useProductDetails(id!);
   const { products: relatedProducts } = useProductsRelated(product?.id ?? '');
   const isMobile = window.innerWidth < 768;
 
@@ -26,6 +29,25 @@ export function ProductDetailsPage() {
     ];
     return items.filter((item): item is { label: string; to: string; } => Boolean(item && item.label));
   }, [product]);
+
+  const { page: commentPage, isPageChanging, handlePageChange } = useCommentPagination();
+
+  const {
+    comments,
+    pagination,
+    isLoading,
+    isCreating,
+    createComment,
+    updateComment,
+    deleteComment,
+    likeComment,
+    error,
+  } = useComments({
+    page: commentPage,
+    parentId: String(id),
+    api: commentsProductsApi,
+    queryKey: QUERY_KEYS.products.commentList(String(id), commentPage),
+  });
 
   if (isLoading || !product) {
     return <Container pr="5" pl="5" pt="5" pb="5"><ProductDetailsSkeleton /></Container>;
@@ -45,6 +67,22 @@ export function ProductDetailsPage() {
     console.log('Add to wishlist:', product);
   };
 
+  const handleCreateComment = async (content: string) => {
+    await createComment(content);
+  };
+
+  const handleUpdateComment = async (id: string, content: string) => {
+    await updateComment(id, content);
+  };
+
+  const handleDeleteComment = async (id: string) => {
+    await deleteComment(id);
+  };
+
+  const handleLikeComment = async (id: string) => {
+    await likeComment(id);
+  };
+
   return (
     <div>
       {isMobile
@@ -58,6 +96,22 @@ export function ProductDetailsPage() {
                 onClickRating={handleOnClickRating}
                 onClickAddToWishlist={handleOnClickAddToWishlist}
               />
+              <Comments
+                comments={comments}
+                error={error}
+
+                pagination={pagination}
+                onPageChange={handlePageChange}
+
+                onCreateComment={handleCreateComment}
+                onUpdateComment={handleUpdateComment}
+                onDeleteComment={handleDeleteComment}
+                onLikeComment={handleLikeComment}
+
+                isLoading={isLoading}
+                isCreating={isCreating}
+                isPageChanging={isPageChanging}
+              />
             </>
           )
         : (
@@ -67,6 +121,22 @@ export function ProductDetailsPage() {
                 product={product}
                 onClickRating={handleOnClickRating}
                 onClickAddToWishlist={handleOnClickAddToWishlist}
+              />
+              <Comments
+                comments={comments}
+                error={error}
+
+                pagination={pagination}
+                onPageChange={handlePageChange}
+
+                onCreateComment={handleCreateComment}
+                onUpdateComment={handleUpdateComment}
+                onDeleteComment={handleDeleteComment}
+                onLikeComment={handleLikeComment}
+
+                isLoading={isLoading}
+                isCreating={isCreating}
+                isPageChanging={isPageChanging}
               />
             </Container>
           )}

@@ -42,5 +42,12 @@ export const API_ENDPOINTS = {
     rate: '/products/rate',
     search: '/products/search',
     stats: '/products/stats',
+
+    comments: (postId: string) => `/products/${postId}/comments`,
+    commentCreate: (postId: string) => `/products/${postId}/comments`,
+
+    commentEdit: (commentId: string) => `/blog/comments/${commentId}`,
+    commentLike: (commentId: string) => `/blog/comments/${commentId}/like`,
+    commentDelete: (commentId: string) => `/blog/comments/${commentId}`,
   },
 } as const;

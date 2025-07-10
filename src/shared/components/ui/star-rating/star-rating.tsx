@@ -1,5 +1,5 @@
 import { Flex, Text, Tooltip } from '@radix-ui/themes';
-import { Beer, Flame, Star } from 'lucide-react';
+import { Flame } from 'lucide-react';
 import { useState } from 'react';
 
 interface StarRatingProps {

@@ -24,6 +24,7 @@ type ErrorResponse = ApiErrorResponse;
 interface UseCommentsProps {
   page?: number;
   parentId: string;
+  queryKey: (string | number)[]; // optional query key for the query
 
   // dependency injection for API calls
   api: CommentsApi;
@@ -33,6 +34,7 @@ export function useComments({
   page = 1,
   parentId,
   api,
+  queryKey,
 }: UseCommentsProps) {
   const currentUser = useAuthStore(state => state.user);
   const {
@@ -48,7 +50,7 @@ export function useComments({
     error: queryError,
     refetch,
   } = useQuery<CommentsResponse, ErrorResponse>({
-    queryKey: QUERY_KEYS.articles.commentList(parentId, page),
+    queryKey,
     queryFn: () => api.getComments(parentId, page),
     enabled: !!parentId,
     staleTime: 0,
@@ -68,6 +70,7 @@ export function useComments({
   } = useOptimistic<OptimisticComment[]>(commentsState.comments);
 
   useEffect(() => {
+    console.log(commentsData, 'commentsData');
     if (commentsData?.data) {
       const comments: OptimisticComment[] = commentsModel.mapServerCommentsToOptimistic(commentsData.data);
       setComments(comments);
@@ -90,12 +93,18 @@ export function useComments({
 
   const invalidateCommentsQueries = useCallback(() => {
     queryClient.invalidateQueries({
-      queryKey: QUERY_KEYS.articles.commentListAll(parentId),
+      queryKey: [
+        ...QUERY_KEYS.articles.commentListAll(parentId),
+        ...QUERY_KEYS.products.commentListAll(parentId),
+      ],
       exact: false,
     });
 
     queryClient.invalidateQueries({
-      queryKey: QUERY_KEYS.articles.detail(parentId),
+      queryKey: [
+        ...QUERY_KEYS.articles.detail(parentId),
+        ...QUERY_KEYS.products.detail(parentId),
+      ],
     });
   }, [parentId]);
 
@@ -181,6 +190,7 @@ export function useComments({
     await likeCommentMutation.mutateAsync({ id });
   }, [addOptimistic, likeCommentMutation, currentUser]);
 
+  console.log(commentsState, 'commentsState');
   return {
     // data
     comments: optimisticComments.length ? optimisticComments : commentsState.comments,
