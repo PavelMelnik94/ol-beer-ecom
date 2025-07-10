@@ -70,7 +70,6 @@ export function useComments({
   } = useOptimistic<OptimisticComment[]>(commentsState.comments);
 
   useEffect(() => {
-    console.log(commentsData, 'commentsData');
     if (commentsData?.data) {
       const comments: OptimisticComment[] = commentsModel.mapServerCommentsToOptimistic(commentsData.data);
       setComments(comments);
@@ -92,24 +91,20 @@ export function useComments({
   }, [isQueryLoading, setCommentsLoading]);
 
   const invalidateCommentsQueries = useCallback(() => {
-    // Invalidate article comment queries
     queryClient.invalidateQueries({
       queryKey: QUERY_KEYS.articles.commentListAll(parentId),
       exact: false,
     });
 
-    // Invalidate product comment queries
     queryClient.invalidateQueries({
       queryKey: QUERY_KEYS.products.commentListAll(parentId),
       exact: false,
     });
 
-    // Invalidate article detail queries
     queryClient.invalidateQueries({
       queryKey: QUERY_KEYS.articles.detail(parentId),
     });
 
-    // Invalidate product detail queries
     queryClient.invalidateQueries({
       queryKey: QUERY_KEYS.products.detail(parentId),
     });
