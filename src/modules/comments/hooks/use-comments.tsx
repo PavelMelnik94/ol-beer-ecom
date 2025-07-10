@@ -92,19 +92,26 @@ export function useComments({
   }, [isQueryLoading, setCommentsLoading]);
 
   const invalidateCommentsQueries = useCallback(() => {
+    // Invalidate article comment queries
     queryClient.invalidateQueries({
-      queryKey: [
-        ...QUERY_KEYS.articles.commentListAll(parentId),
-        ...QUERY_KEYS.products.commentListAll(parentId),
-      ],
+      queryKey: QUERY_KEYS.articles.commentListAll(parentId),
       exact: false,
     });
 
+    // Invalidate product comment queries
     queryClient.invalidateQueries({
-      queryKey: [
-        ...QUERY_KEYS.articles.detail(parentId),
-        ...QUERY_KEYS.products.detail(parentId),
-      ],
+      queryKey: QUERY_KEYS.products.commentListAll(parentId),
+      exact: false,
+    });
+
+    // Invalidate article detail queries
+    queryClient.invalidateQueries({
+      queryKey: QUERY_KEYS.articles.detail(parentId),
+    });
+
+    // Invalidate product detail queries
+    queryClient.invalidateQueries({
+      queryKey: QUERY_KEYS.products.detail(parentId),
     });
   }, [parentId]);
 

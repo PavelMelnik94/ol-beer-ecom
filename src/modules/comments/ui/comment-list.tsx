@@ -22,7 +22,8 @@ export function CommentList({
   const user = useAuthStore(s => s.user);
 
   const commentsActions = useMemo(() => {
-    return commentsModel.getCommentAllowActions(user, commentList as Comment[]);
+    const actions = commentsModel.getCommentAllowActions(user, commentList as Comment[]);
+    return actions;
   }, [user, commentList]);
 
   return (
