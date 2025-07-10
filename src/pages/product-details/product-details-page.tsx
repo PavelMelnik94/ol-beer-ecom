@@ -3,7 +3,7 @@ import { useGoTo } from '@kernel/hooks';
 import { QUERY_KEYS } from '@kernel/query';
 import { PromoCodeVelocity } from '@modules/cart';
 import { Comments, commentsProductsApi, useComments } from '@modules/comments';
-import { ProductDetails, ProductsGrid, useProductDetails, useProductsRelated } from '@modules/products';
+import { ProductDetails, ProductsGrid, useProductDetails, useProductRate, useProductsRelated } from '@modules/products';
 import { Box, Container, Text } from '@radix-ui/themes';
 import { Breadcrumbs, Pagination } from '@shared/components';
 import { useMemo } from 'react';
@@ -15,6 +15,8 @@ export function ProductDetailsPage() {
   const { id } = useParams<{ id: string; }>();
   const { product } = useProductDetails(id!);
   const { products: relatedProducts } = useProductsRelated(product?.id ?? '');
+  const { rateProduct } = useProductRate();
+
   const isMobile = window.innerWidth < 768;
 
   const breadcrumbs = useMemo(() => {
@@ -53,9 +55,8 @@ export function ProductDetailsPage() {
     navigateToProductItem(product.id);
   };
 
-  const handleOnClickRating = (rating: number, productId: string) => {
-    // Handle product rating click
-    console.log('Product rating clicked:', rating, 'Product ID:', productId);
+  const handleOnClickRating = async (rating: number, productId: string) => {
+    await rateProduct({ productId, rate: rating });
   };
 
   const handleOnClickAddToWishlist = (product: Product) => {
@@ -89,6 +90,7 @@ export function ProductDetailsPage() {
               </Box>
               <ProductDetails
                 product={product}
+                // todo: вытянуть из юзера рейтинги и прокинуть сюда
                 onClickRating={handleOnClickRating}
                 onClickAddToWishlist={handleOnClickAddToWishlist}
               />

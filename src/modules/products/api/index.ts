@@ -1,7 +1,10 @@
 import type { ApiErrorResponse, ApiSuccessResponse, ApiSuccessResponsePaginated } from '@kernel/api';
 import type { Brewery, Category, Product } from '@kernel/types';
+import type { RateResponse } from '@modules/products/types';
 import { API_ENDPOINTS, apiClient } from '@kernel/api';
 
+export type SuccessResponse<T> = ApiSuccessResponse<T>;
+export type SuccessResponseRate = ApiSuccessResponse<RateResponse>;
 export type SuccessResponseFilterProducts = ApiSuccessResponsePaginated<Product>;
 export type SuccessResponseProductDetails = ApiSuccessResponse<Product>;
 export type SuccessResponseProducts = ApiSuccessResponse<Product[]>;
@@ -48,6 +51,10 @@ async function getFeaturedProducts(): Promise<SuccessResponseProducts> {
   return apiClient.get(API_ENDPOINTS.products.featured);
 }
 
+async function rateProduct(productId: string, rating: number): Promise<SuccessResponseRate> {
+  return apiClient.post(API_ENDPOINTS.products.rate, { productId, rating });
+}
+
 export const productsApi = {
   getProductsFiltered,
   getBreweries,
@@ -57,4 +64,5 @@ export const productsApi = {
   searchProducts,
   getDiscountedProducts,
   getFeaturedProducts,
+  rateProduct,
 } as const;

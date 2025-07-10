@@ -1,6 +1,7 @@
 export { useBreweriesForFilters, useCategoriesForFilters } from './hooks/use-filter-options';
 export { useFiltersData } from './hooks/use-filters-data';
 export { useProductDetails } from './hooks/use-product-details';
+export { useProductRate } from './hooks/use-product-rate';
 export { useProductsRelated } from './hooks/use-product-related';
 export { useProductsFilters } from './hooks/use-products-filters';
 export { useProductsPagination } from './hooks/use-products-pagination';
