@@ -57,39 +57,3 @@ export const userStore = create<State & Actions>()(
   })),
 );
 export type UserStore = typeof userStore extends (infer T) ? T : never;
-
-export function useUserStore() {
-  return userStore(state => ({
-    ratings: state.ratings,
-    favorites: state.favorites,
-    addresses: state.addresses,
-    setRatings: state.setRatings,
-    setFavorites: state.setFavorites,
-    setAddresses: state.setAddresses,
-    hasRating: state.hasRating,
-    hasFavorite: state.hasFavorite,
-  }));
-}
-
-export function useUserRatings() {
-  return userStore(state => ({
-    ratings: state.ratings,
-    setRatings: state.setRatings,
-    hasRating: state.hasRating,
-  }));
-}
-
-export function useUserFavorites() {
-  return userStore(state => ({
-    favorites: state.favorites,
-    setFavorites: state.setFavorites,
-    hasFavorite: state.hasFavorite,
-  }));
-}
-
-export function useUserAddresses() {
-  return userStore(state => ({
-    addresses: state.addresses,
-    setAddresses: state.setAddresses,
-  }));
-}
