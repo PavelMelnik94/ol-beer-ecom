@@ -2,7 +2,7 @@ import type { Product } from '@kernel/types';
 import { Price } from '@kernel/components';
 import { getOffPercent } from '@kernel/utils';
 import { Badge, Box, Card, Flex, Inset, Strong, Text } from '@radix-ui/themes';
-import { Carousel, Image } from '@shared/components';
+import { Carousel, For, Image } from '@shared/components';
 import { HopBadge } from '@shared/components/ui/hop-badge';
 import clsx from 'clsx';
 import { Coins } from 'lucide-react';
@@ -46,9 +46,12 @@ export function ProductCard({ product, onClickCart, cardActionSlot, imageAsSlide
             <Strong>{product.title}</Strong>
           </Text>
           <Flex mt="2" gap="1">
-            {product.categories.map(category => (
-              <HopBadge key={category.name} text={category.name} size="small" />
-            ))}
+            <For each={product.categories}>
+              {category => (
+                <HopBadge key={category.name} text={category.name} size="small" />
+              )}
+            </For>
+
             {product.isDiscount && (
               <Badge color="green" radius="full">
                 <Coins size={14} />

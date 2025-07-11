@@ -1,7 +1,7 @@
 import type { Product } from '@kernel/types';
 import { Price } from '@kernel/components';
 import { DataList } from '@radix-ui/themes';
-import { StarRating } from '@shared/components';
+import { For, StarRating } from '@shared/components';
 import { HopBadge } from '@shared/components/ui/hop-badge';
 
 export function ProductDatalist({ product }: { product: Product; }) {
@@ -10,8 +10,12 @@ export function ProductDatalist({ product }: { product: Product; }) {
       <DataList.Item align="center">
         <DataList.Label minWidth="88px">Category</DataList.Label>
         <DataList.Value>
-          {product.categories.map(c =>
-            <HopBadge key={c.id} text={c.name} size="small" />)}
+          <For each={product.categories}>
+            {category => (
+              <HopBadge key={category.name} text={category.name} size="small" />
+            )}
+          </For>
+
         </DataList.Value>
       </DataList.Item>
       <DataList.Item>
