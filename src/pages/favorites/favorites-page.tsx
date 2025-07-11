@@ -1,16 +1,18 @@
 import type { FavoriteProduct, Product, ProductWithFavorites } from '@kernel/types';
 import { NoData } from '@kernel/components';
 import { useGoTo } from '@kernel/hooks';
-import {
-  ProductsGrid,
-} from '@modules/products';
+import { ButtonWithAuthPopup } from '@modules/common';
+
+import { ProductCard, ProductCardSkeleton } from '@modules/products';
 import { useToggleFavorite, useUserFavorites, useUserStore } from '@modules/user';
-import { Box, Button, Container, Flex } from '@radix-ui/themes';
-import { Show } from '@shared/components';
+import { Button, Container, Flex, Tooltip } from '@radix-ui/themes';
+import { For, Pulse, Show } from '@shared/components';
+import { Heart } from 'lucide-react';
+import styles from './favorites-page.module.scss';
 import { Hero } from './ui/hero';
 
 export function FavoritesPage() {
-  useUserFavorites({ enabled: true });
+  const { isLoading } = useUserFavorites({ enabled: true });
   const { mutateAsync: toggleFavorite } = useToggleFavorite();
 
   const favoritesProducts = useUserStore(state => state.favorites);
@@ -32,37 +34,92 @@ export function FavoritesPage() {
     await toggleFavorite({ productId: product.id });
   };
 
-  return (
-    <Flex direction="column" align="center" justify="center" flexGrow="1">
-      <Show when={products?.length > 0}>
-        <Container pr="5" pl="5" mb="8">
-          <Hero />
-        </Container>
-      </Show>
+  const skeletons = Array.from({ length: Number.parseInt('2', 10) * 2 }, (_, index) => (
+    <ProductCardSkeleton key={`skeleton-${index}`} />
+  ));
 
-      <Box pr="5" pl="5">
-        <Show
-          when={products?.length > 0}
-          fallback={(
-            <NoData
-              mt="9"
-              actionSlot={
-                <Button size="2" onClick={navigateToShowcase}>Go store</Button>
-              }
-            />
-          )}
-        >
-          <ProductsGrid
-            products={products}
-            onClickCard={handleClickOnCard}
-            onAddToBasket={() => {
-              throw new Error('not implemented');
-            }}
-            onAddToWishlist={handleToggleWishlist}
+  if (products?.length === 0 && !isLoading) {
+    return (
+      <Flex direction="column" align="center" justify="center" flexGrow="1">
+        <Container pr="5" pl="5">
+          <NoData
+            mt="9"
+            actionSlot={
+              <Button size="2" onClick={navigateToShowcase}>Go store</Button>
+            }
           />
-        </Show>
-      </Box>
+        </Container>
+      </Flex>
 
-    </Flex>
+    );
+  }
+  return (
+    <>
+
+      <Container pr="5" pl="5" mb="8">
+        <Hero />
+      </Container>
+
+      <Container pr="5" pl="5">
+        <Flex direction="row" wrap="wrap" gap="4" justify="center">
+
+          <Show when={isLoading}>
+            <For each={skeletons}>
+              {skeleton => skeleton}
+            </For>
+          </Show>
+
+          <For each={products}>
+            {(product) => {
+              return (
+                <ProductCard
+                  className={styles.cardItem}
+                  imageAsSlider={true}
+                  key={product.id}
+                  product={product}
+                  onClickCart={() => handleClickOnCard(product)}
+                  cardActionSlot={(
+                    <Flex align="center" gap="2">
+                      <ButtonWithAuthPopup
+                        size="1"
+                        variant="soft"
+                        color={product.isFavorite ? 'red' : 'gray'}
+                        style={{ padding: '6px' }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleToggleWishlist?.(product);
+                        }}
+                      >
+                        <Tooltip content={product.isFavorite ? 'Remove from Wishlist' : 'Add to Wishlist'} side="top">
+                          <Heart
+                            size={12}
+                            fill={product.isFavorite ? 'red' : 'transparent'}
+                            color={product.isFavorite ? 'red' : 'gray'}
+                          />
+                        </Tooltip>
+                      </ButtonWithAuthPopup>
+
+                      <ButtonWithAuthPopup
+                        size="1"
+                        variant="outline"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          throw new Error('not implemented');
+                        }}
+                      >
+                        Add to Cart
+                        {product.isDiscount && <Pulse size={8} />}
+                      </ButtonWithAuthPopup>
+                    </Flex>
+                  )}
+                />
+              );
+            }}
+          </For>
+
+        </Flex>
+      </Container>
+
+    </>
   );
 }

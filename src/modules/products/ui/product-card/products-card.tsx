@@ -13,10 +13,11 @@ interface Props {
   onClickCart: () => void;
   cardActionSlot?: React.ReactNode;
   imageAsSlider?: boolean;
+  className?: string;
 }
-export function ProductCard({ product, onClickCart, cardActionSlot, imageAsSlider = false }: Props) {
+export function ProductCard({ product, onClickCart, cardActionSlot, imageAsSlider = false, className }: Props) {
   return (
-    <Card key={product.id} size="2" className={clsx('pointer', styles.cardContainer)} onClick={onClickCart}>
+    <Card key={product.id} size="2" className={clsx('pointer', styles.cardContainer, className)} onClick={onClickCart}>
       <Inset clip="padding-box" side="top" pb="current">
         {imageAsSlider
           ? (

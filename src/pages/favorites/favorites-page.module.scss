@@ -1,0 +1,15 @@
+.cardItem {
+  width: 360px;
+
+  @media (max-width: 800px) {
+    max-width: 300px;
+  }
+
+  @media (max-width: 679.98px) {
+    max-width: 240px;
+  }
+
+  @media (max-width: 560px) {
+    max-width: 100%;
+  }
+}
