@@ -1,5 +1,3 @@
-import { random } from 'lodash-es';
-
 export const QUERY_KEYS = {
 
   articles: {
@@ -54,6 +52,12 @@ export const QUERY_KEYS = {
     all: ['user'] as const,
     profile: () => [...QUERY_KEYS.user.all, 'profile'] as const,
     addresses: () => [...QUERY_KEYS.user.all, 'addresses'] as const,
+    address: (id: string) => [...QUERY_KEYS.user.addresses(), id] as const,
+    billingAddresses: () => [...QUERY_KEYS.user.all, 'billing-addresses'] as const,
+    shippingAddresses: () => [...QUERY_KEYS.user.all, 'shipping-addresses'] as const,
+    avatar: () => [...QUERY_KEYS.user.all, 'avatar'] as const,
+    favorites: () => [...QUERY_KEYS.user.all, 'favorites'] as const,
+    ratings: () => [...QUERY_KEYS.user.all, 'ratings'] as const,
   },
 } as const;
 
