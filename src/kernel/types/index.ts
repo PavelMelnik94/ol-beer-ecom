@@ -108,4 +108,5 @@ export interface FavoriteProduct {
   userId: string;
   productId: string;
   createdAt: string;
+  product: Product;
 }

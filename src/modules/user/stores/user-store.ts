@@ -103,7 +103,11 @@ export const useUserStore = create<State & Actions>()(
           userId: get().user?.id || '',
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
-        } as FavoriteProduct;
+          product: {
+            id: `temp-${Date.now()}`,
+            title: `temp-${Date.now()}`,
+          },
+        } as unknown as FavoriteProduct;
         set({ favorites: [...currentFavorites, newFavorite] });
       }
     },
