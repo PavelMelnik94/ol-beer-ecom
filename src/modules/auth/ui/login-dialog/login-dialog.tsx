@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { useGoTo } from '@kernel/index';
 import { Dialog } from '@shared/components';
 import { useState } from 'react';
-import { LoginForm } from './../login-form';
+import { LoginForm } from '../login-form';
 
 interface LoginDialogProps {
   trigger: ReactNode;
