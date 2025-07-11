@@ -1,5 +1,5 @@
 import type { z } from 'zod';
-import type { LoginSchema } from '../schema';
+import type { AddressSchema, LoginSchema, RegisterSchema } from '../schema';
 
 export interface LoginCredentials {
   email: string;
@@ -7,3 +7,5 @@ export interface LoginCredentials {
 }
 
 export type LoginFormValues = z.infer<typeof LoginSchema>;
+export type RegisterFormValues = z.infer<typeof RegisterSchema>;
+export type AddressFormValues = z.infer<typeof AddressSchema>;
