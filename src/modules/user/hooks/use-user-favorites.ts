@@ -6,10 +6,11 @@ import { userApi } from '@modules/user/api';
 import { userStore } from '@modules/user/stores/user-store';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-export function useUserFavorites() {
+export function useUserFavorites({ enabled = true }: { enabled?: boolean; }) {
   const { data: response, error, isLoading } = useQuery<SuccessResponseFavorites, ErrorResponse>({
     queryKey: QUERY_KEYS.user.favorites(),
     queryFn: () => userApi.getFavorites(),
+    enabled,
   });
 
   return {

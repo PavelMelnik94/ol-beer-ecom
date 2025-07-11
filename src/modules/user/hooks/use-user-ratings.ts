@@ -5,10 +5,11 @@ import { userApi } from '@modules/user/api';
 import { userStore } from '@modules/user/stores/user-store';
 import { useQuery } from '@tanstack/react-query';
 
-export function useUserRatings() {
+export function useUserRatings({ enabled = true }: { enabled?: boolean; }) {
   const { data: response, error, isLoading } = useQuery<SuccessResponseRatings, ErrorResponse>({
     queryKey: QUERY_KEYS.user.ratings(),
     queryFn: () => userApi.getRatings(),
+    enabled,
   });
 
   return {
