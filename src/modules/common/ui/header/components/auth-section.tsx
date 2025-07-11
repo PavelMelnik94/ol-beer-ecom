@@ -1,5 +1,8 @@
+import { ThemeButton } from '@kernel/components';
 import { ButtonWithAuthPopup } from '@modules/common/ui/button-with-auth-popup';
+import { useHeader } from '@modules/common/ui/header/hooks/use-header';
 import { Button, Flex } from '@radix-ui/themes';
+import { GithubButton } from '@shared/components/ui/github-button';
 
 interface AuthSectionProps {
   isAuth: boolean;
@@ -27,6 +30,7 @@ export function AuthSection({
   routes,
   fullWidth = false,
 }: AuthSectionProps) {
+  const { isMobileLayout } = useHeader();
   const buttonStyle = fullWidth ? { width: '100%' } : {};
 
   if (isAuth) {
@@ -84,6 +88,13 @@ export function AuthSection({
       >
         Register
       </Button>
+
+      {!isMobileLayout && (
+        <>
+          <ThemeButton />
+          <GithubButton />
+        </>
+      )}
     </>
   );
 }

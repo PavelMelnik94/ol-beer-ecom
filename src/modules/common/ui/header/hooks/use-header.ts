@@ -15,7 +15,7 @@ export function useHeader() {
   const user = useAuthStore(s => s.user);
   const isAuth = useAuthStore(s => s.isAuth);
   const isMobileLayout = useMediaQuery({
-    query: '(max-width: 560px)',
+    query: '(max-width: 670px)',
   });
 
   const getActiveProps = (path: string) => ({
