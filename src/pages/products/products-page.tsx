@@ -1,5 +1,5 @@
 import type { Product, ProductWithFavorites } from '@kernel/types';
-import { useAuth, useGoTo } from '@kernel/hooks';
+import { useGoTo } from '@kernel/hooks';
 import {
   Products,
   ProductsFilters,
@@ -8,7 +8,7 @@ import {
   useProductsPagination,
   useProductsPaginationState,
 } from '@modules/products';
-import { useToggleFavorite, useUserFavorites, useUserRatings, useUserStore } from '@modules/user';
+import { useToggleFavorite, useUserStore } from '@modules/user';
 import { Box, Button, Container } from '@radix-ui/themes';
 import { Show } from '@shared/components';
 import { FunnelX } from 'lucide-react';
@@ -120,8 +120,7 @@ export function ProductsPage() {
           onClickCard={handleClickOnCard}
           onAddToWishlist={product => handleAddToWishlist(product)}
           onAddToBasket={(product) => {
-            // Handle adding product to basket
-            console.log('Add to basket:', product);
+            throw new Error(`Not implemented: ${product}`);
           }}
 
         />

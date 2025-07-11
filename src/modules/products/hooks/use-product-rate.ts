@@ -1,7 +1,7 @@
 import type { SuccessResponseRate } from '@modules/products/api';
 import { toast } from '@kernel/notifications';
 import { productsApi } from '@modules/products/api';
-import { useUserStore } from '@modules/user/stores/user-store';
+import { useUserStore } from '@modules/user';
 import { useMutation } from '@tanstack/react-query';
 
 export function useProductRate() {
@@ -17,7 +17,8 @@ export function useProductRate() {
 
       if (hasExistingRating) {
         optimisticUpdateRating(productId, rate);
-      } else {
+      }
+      else {
         optimisticAddRating(productId, rate);
       }
     },

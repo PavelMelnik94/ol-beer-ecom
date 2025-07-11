@@ -11,8 +11,7 @@ export function BlogPage() {
   const { navigateToProductItem } = useGoTo();
 
   const handleClickPromocode = () => {
-    // todo: not implemented
-    console.log('Promo code clicked!');
+    throw new Error('Not implemented');
   };
 
   const handleClickProductCard = (id: string) => {
@@ -20,12 +19,10 @@ export function BlogPage() {
   };
 
   const onAddToBasket = (product: Product) => {
-    // TODO: Not implemented
-    console.log('Add to basket:', product);
+    throw new Error(`Not implemented, ${product.id}`);
   };
   const onAddToWishlist = (product: Product) => {
-    // TODO: Not implemented
-    console.log('Add to wishlist:', product);
+    throw new Error(`Not implemented, ${product.id}`);
   };
   return (
     <Box>

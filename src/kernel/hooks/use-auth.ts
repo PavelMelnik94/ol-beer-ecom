@@ -1,6 +1,5 @@
 import type { ApiErrorResponse, ApiSuccessResponse, User } from '@kernel/index';
 import { API_ENDPOINTS, apiClient, QUERY_KEYS, useAuthStore } from '@kernel/index';
-import { useUserFavorites, useUserRatings } from '@modules/user';
 import { useMutation } from '@tanstack/react-query';
 
 export interface LoginCredentials {

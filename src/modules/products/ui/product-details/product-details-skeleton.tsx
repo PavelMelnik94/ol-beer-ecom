@@ -5,30 +5,32 @@ export function ProductDetailsSkeleton() {
   const isMobile = window.innerWidth < 768;
   return (
     <Flex className={styles.container}>
-      {isMobile && <Box
-        className={styles.productImagesContainer}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Skeleton
-          width="100%"
-          height="100%"
+      {isMobile && (
+        <Box
+          className={styles.productImagesContainer}
           style={{
-            width: '100%',
-            height: '400px',
-            maxWidth: '100%',
-            maxHeight: '60vw',
-            minWidth: '160px',
-            minHeight: '220px',
-            borderRadius: 'unset',
-            objectFit: 'cover',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
-        />
-      </Box>}
-      <Box className={styles.productDetails} style={{width: isMobile ? '95%' : '100%'}}>
+        >
+          <Skeleton
+            width="100%"
+            height="100%"
+            style={{
+              width: '100%',
+              height: '400px',
+              maxWidth: '100%',
+              maxHeight: '60vw',
+              minWidth: '160px',
+              minHeight: '220px',
+              borderRadius: 'unset',
+              objectFit: 'cover',
+            }}
+          />
+        </Box>
+      )}
+      <Box className={styles.productDetails} style={{ width: isMobile ? '95%' : '100%' }}>
         <div className={styles.scrollThumb} />
         <Text as="div" size="7" weight="bold" align="center" className={styles.productTitle} mt="4" mb="5">
           <Skeleton width="60%" height="2.2em" mx="auto" />
@@ -37,7 +39,7 @@ export function ProductDetailsSkeleton() {
           <Skeleton width="100%" height="3em" />
         </Text>
         <DataList.Root mt="5">
-          {[...Array(5)].map((_, i) => (
+          {[...Array.from({ length: 5 })].map((_, i) => (
             <DataList.Item key={i} align="center">
               <DataList.Label minWidth="88px">
                 <Skeleton width="60px" height="1em" />

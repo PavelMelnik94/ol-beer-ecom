@@ -1,7 +1,8 @@
 @import './normalizer.css';
 @import '@radix-ui/themes/styles.css';
 @import './fonts.css';
-@import './carousel.css'
+@import './carousel.css';
+
 html {
   color: #222;
 }

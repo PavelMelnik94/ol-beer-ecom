@@ -1,7 +1,7 @@
 import { CartButton } from '@modules/cart';
 import { Flex } from '@radix-ui/themes';
-import styles from './header.module.scss';
 import { AuthSection } from './auth-section';
+import styles from './header.module.scss';
 import { UserMenu } from './user-menu';
 
 interface DesktopActionsProps {

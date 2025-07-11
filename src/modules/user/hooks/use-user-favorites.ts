@@ -1,12 +1,12 @@
 import type { SuccessResponseFavorites } from '@modules/user/api';
 import type { ToggleFavoriteData } from '@modules/user/model';
 import type { ErrorResponse } from 'react-router-dom';
+import { toast } from '@kernel/notifications';
 import { QUERY_KEYS } from '@kernel/query';
 import { userApi } from '@modules/user/api';
 import { useUserStore } from '@modules/user/stores/user-store';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import { toast } from '@kernel/notifications';
 
 export function useUserFavorites({ enabled = true }: { enabled?: boolean; }) {
   const { data: response, error, isLoading, refetch } = useQuery<SuccessResponseFavorites, ErrorResponse>({
@@ -27,7 +27,7 @@ export function useUserFavorites({ enabled = true }: { enabled?: boolean; }) {
     favorites: response?.data || [],
     isLoading,
     error,
-    refetchFavorites:refetch,
+    refetchFavorites: refetch,
   } as const;
 }
 
@@ -43,10 +43,9 @@ export function useToggleFavorite() {
     },
     onSuccess: (res) => {
       if (res.message) {
-        toast.success(res.message)
+        toast.success(res.message);
       }
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.favorites() });
-
     },
     onError: (error, variables) => {
       optimisticToggleFavorite(variables.productId);

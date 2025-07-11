@@ -4,8 +4,8 @@ import { QUERY_KEYS } from '@kernel/query';
 import { userApi } from '@modules/user/api';
 import { useUserStore } from '@modules/user/stores/user-store';
 import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
 import { clone } from 'lodash-es';
+import { useEffect } from 'react';
 
 export function useUserRatings({ enabled = true }: { enabled?: boolean; }) {
   const { data: response, error, isLoading, refetch } = useQuery<SuccessResponseRatings, ErrorResponse>({
@@ -15,7 +15,6 @@ export function useUserRatings({ enabled = true }: { enabled?: boolean; }) {
   });
 
   const { setRatings } = useUserStore();
-
 
   useEffect(() => {
     if (response?.data) {

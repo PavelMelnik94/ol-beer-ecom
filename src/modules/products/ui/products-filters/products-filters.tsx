@@ -2,7 +2,7 @@ import type { FiltersForm } from '@modules/products/model';
 import type { UseFormReturn } from 'react-hook-form';
 
 import { Badge, Box, Button, Flex, Select, Text, TextField } from '@radix-ui/themes';
-import { Show } from '@shared/components';
+import { For, Show } from '@shared/components';
 
 import clsx from 'clsx';
 import { RotateCcw, Search, X } from 'lucide-react';
@@ -24,8 +24,8 @@ export function ProductsFilters({
   setValue,
   onReset,
   actionSlot,
-  categories = [],
-  breweries = [],
+  categories,
+  breweries,
   isLoading = false,
   isFiltersEmpty = true,
 }: ProductsFiltersProps) {
@@ -79,18 +79,20 @@ export function ProductsFilters({
               >
                 <Select.Trigger placeholder="Select categories" />
                 <Select.Content>
-                  {categories.map(category => (
-                    <Select.Item key={category.id} value={category.id}>
-                      {category.name}
-                    </Select.Item>
-                  ))}
+                  <For each={categories}>
+                    {category => (
+                      <Select.Item key={category.id} value={category.id}>
+                        {category.name}
+                      </Select.Item>
+                    )}
+                  </For>
                 </Select.Content>
               </Select.Root>
 
               {watchedValues.categoryIds && watchedValues.categoryIds.length > 0 && (
                 <div className={styles.selectedCategories}>
                   {watchedValues.categoryIds.map((categoryId) => {
-                    const category = categories.find(c => c.id === categoryId);
+                    const category = categories?.find(c => c.id === categoryId);
                     return category
                       ? (
                           <Badge key={categoryId} variant="soft" className={clsx(styles.categoryBadge, 'pointer')} onClick={() => handleCategoryRemove(categoryId)}>
@@ -116,11 +118,14 @@ export function ProductsFilters({
               >
                 <Select.Trigger placeholder="All breweries" />
                 <Select.Content>
-                  {breweries.map(brewery => (
-                    <Select.Item key={brewery.id} value={brewery.id}>
-                      {brewery.name}
-                    </Select.Item>
-                  ))}
+                  <For each={breweries}>
+                    {brewery => (
+                      <Select.Item key={brewery.id} value={brewery.id}>
+                        {brewery.name}
+                      </Select.Item>
+                    )}
+                  </For>
+
                 </Select.Content>
               </Select.Root>
             </div>

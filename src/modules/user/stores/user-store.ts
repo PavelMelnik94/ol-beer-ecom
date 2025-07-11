@@ -18,7 +18,6 @@ interface Actions {
   hasRating: (productId: string) => Rating | undefined;
   hasFavorite: (productId: string) => boolean;
 
-
   optimisticAddRating: (productId: string, rating: number) => void;
   optimisticUpdateRating: (productId: string, rating: number) => void;
   optimisticRemoveRating: (productId: string) => void;
@@ -54,7 +53,6 @@ export const useUserStore = create<State & Actions>()(
     },
 
     hasRating: (productId: string) => {
-      console.log(get().ratings, 'ratings')
       return get().ratings.find(rating => rating.productId === productId);
     },
     hasFavorite: (productId: string) => {
@@ -79,7 +77,7 @@ export const useUserStore = create<State & Actions>()(
       const updatedRatings = currentRatings.map(r =>
         r.productId === productId
           ? { ...r, rating, updatedAt: new Date().toISOString() }
-          : r
+          : r,
       );
       set({ ratings: updatedRatings });
     },
@@ -97,7 +95,8 @@ export const useUserStore = create<State & Actions>()(
       if (isFavorite) {
         const filteredFavorites = currentFavorites.filter(f => f.productId !== productId);
         set({ favorites: filteredFavorites });
-      } else {
+      }
+      else {
         const newFavorite = {
           id: `temp-${Date.now()}`,
           productId,

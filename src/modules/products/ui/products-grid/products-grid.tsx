@@ -7,8 +7,12 @@ import { For, Pulse, Show } from '@shared/components';
 import { Heart } from 'lucide-react';
 import { useMediaQuery } from 'react-responsive';
 
+function isProductWithFavorites(product: Product | ProductWithFavorites): product is ProductWithFavorites {
+  return 'isFavorite' in product;
+}
+
 interface Props {
-  products?: ProductWithFavorites[];
+  products?: ProductWithFavorites[] | Product[] | [];
   isShow?: boolean;
   imageAsSlider?: boolean;
   columnsCount?: string;
@@ -54,48 +58,57 @@ export function ProductsGrid({
     <Grid columns={columnsCount ?? columns} gap="3" width="auto">
       <Show when={isShow}>
         <For each={products}>
-          {(product: ProductWithFavorites) => (
-            <ProductCard
-              imageAsSlider={imageAsSlider}
-              key={product.id}
-              product={product}
-              onClickCart={() => onClickCard(product)}
-              cardActionSlot={(
-                <Flex align="center" gap="2">
-                  <Show when={typeof onAddToWishlist === 'function'}>
-                    <ButtonWithAuthPopup
-                      size="1"
-                      variant="soft"
-                      color={product?.isFavorite ? 'red' : 'gray'}
-                      style={{ padding: '6px' }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onAddToWishlist?.(product);
-                      }}
-                    >
-                      <Tooltip content={product?.isFavorite ? 'Remove from Wishlist' : 'Add to Wishlist'} side="top">
-                        <Heart size={12} fill={product?.isFavorite ? 'red' : 'transparent'} color={product?.isFavorite ? 'red' : 'gray'} />
-                      </Tooltip>
-                    </ButtonWithAuthPopup>
-                  </Show>
+          {(product) => {
+            const hasWishlistData = isProductWithFavorites(product);
+            const isFavorite = hasWishlistData && product.isFavorite;
 
-                  <Show when={typeof onAddToBasket === 'function'}>
-                    <ButtonWithAuthPopup
-                      size="1"
-                      variant="outline"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onAddToBasket?.(product);
-                      }}
-                    >
-                      Add to Cart
-                      {product.isDiscount && <Pulse size={8} />}
-                    </ButtonWithAuthPopup>
-                  </Show>
-                </Flex>
-              )}
-            />
-          )}
+            return (
+              <ProductCard
+                imageAsSlider={imageAsSlider}
+                key={product.id}
+                product={product}
+                onClickCart={() => onClickCard(product)}
+                cardActionSlot={(
+                  <Flex align="center" gap="2">
+                    <Show when={typeof onAddToWishlist === 'function'}>
+                      <ButtonWithAuthPopup
+                        size="1"
+                        variant="soft"
+                        color={isFavorite ? 'red' : 'gray'}
+                        style={{ padding: '6px' }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onAddToWishlist?.(product);
+                        }}
+                      >
+                        <Tooltip content={isFavorite ? 'Remove from Wishlist' : 'Add to Wishlist'} side="top">
+                          <Heart
+                            size={12}
+                            fill={isFavorite ? 'red' : 'transparent'}
+                            color={isFavorite ? 'red' : 'gray'}
+                          />
+                        </Tooltip>
+                      </ButtonWithAuthPopup>
+                    </Show>
+
+                    <Show when={typeof onAddToBasket === 'function'}>
+                      <ButtonWithAuthPopup
+                        size="1"
+                        variant="outline"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onAddToBasket?.(product);
+                        }}
+                      >
+                        Add to Cart
+                        {product.isDiscount && <Pulse size={8} />}
+                      </ButtonWithAuthPopup>
+                    </Show>
+                  </Flex>
+                )}
+              />
+            );
+          }}
         </For>
       </Show>
 

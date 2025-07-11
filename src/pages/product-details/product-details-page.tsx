@@ -26,13 +26,11 @@ export function ProductDetailsPage() {
 
   const { page: commentPage, isPageChanging, handlePageChange } = useCommentPagination();
 
-
   const { rateProduct } = useProductRate();
   const favorites = useUserStore(state => state.favorites);
   const ratings = useUserStore(state => state.ratings);
   const { hasFavorite, hasRating } = useUserStore();
   const { mutateAsync: toggleFavorite } = useToggleFavorite();
-
 
   const {
     comments,
@@ -68,7 +66,8 @@ export function ProductDetailsPage() {
           queryKey: QUERY_KEYS.products.detail(productId),
         }),
       ]);
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Failed to rate product:', error);
     }
   };
@@ -78,7 +77,8 @@ export function ProductDetailsPage() {
       await toggleFavorite({ productId: product.id });
       // Optimistic update уже сработал в onMutate
       // Инвалидация кэша происходит в onSuccess хука
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Failed to toggle favorite:', error);
     }
   };
@@ -99,7 +99,6 @@ export function ProductDetailsPage() {
     await likeComment(id);
   };
 
-
   const breadcrumbs = useMemo(() => {
     const items = [
       { label: 'Showcase', to: '/showcase' },
@@ -113,8 +112,6 @@ export function ProductDetailsPage() {
     return items.filter((item): item is { label: string; to: string; } => Boolean(item && item.label));
   }, [product]);
 
-
-
   const productWithFavoritesAndRatings: ProductWithFavoritesAndRatings | null = useMemo(() => {
     if (!product) return null;
     return {
@@ -125,7 +122,7 @@ export function ProductDetailsPage() {
   }, [product, favorites, ratings, hasFavorite, hasRating]);
 
   const relatedProductsWithFavoritesAndRatings = useMemo(() => {
-    return relatedProducts?.map((product) => ({
+    return relatedProducts?.map(product => ({
       ...product,
       isFavorite: hasFavorite(product.id),
       userRating: hasRating(product.id)?.rating || 0,
@@ -205,8 +202,7 @@ export function ProductDetailsPage() {
           imageAsSlider
           onAddToWishlist={handleOnClickAddToWishlist}
           onAddToBasket={(product) => {
-            // Handle adding product to basket
-            console.log('Add to basket:', product);
+            throw new Error(`Not implemented: ${product}`);
           }}
         />
       </Box>
