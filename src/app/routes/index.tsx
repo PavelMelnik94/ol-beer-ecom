@@ -1,7 +1,7 @@
 import { AuthLayout } from '@app/layouts/auth-layout/auth-layout';
 import { MainLayout } from '@app/layouts/main-layout/main-layout';
 import { RouteErrorBoundary, ROUTES } from '@kernel/index';
-import { ArticlePage, FavoritesPage, HomePage, LazyBlogPage, LazyBreweriesPage, LazyProductsPage, ProductDetailsPage } from '@pages/index';
+import { ArticlePage, FavoritesPage, HomePage, LazyBlogPage, LazyBreweriesPage, LazyProductsPage, LazyRegisterPage, ProductDetailsPage } from '@pages/index';
 import { PagePreloader } from '@shared/components';
 import { Suspense } from 'react';
 
@@ -71,7 +71,7 @@ const router = createBrowserRouter([
     path: ROUTES.auth.root,
     element: <AuthLayout />,
     children: [
-      { path: ROUTES.auth.register.short, element: <div>register</div> },
+      { path: ROUTES.auth.register.short, element: <LazyRegisterPage /> },
     ],
   },
   {
