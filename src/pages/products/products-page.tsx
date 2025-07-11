@@ -9,15 +9,17 @@ import {
   useProductsPaginationState,
 } from '@modules/products';
 import { useToggleFavorite, useUserStore } from '@modules/user';
-import { Box, Button, Container } from '@radix-ui/themes';
+import { Box, Button, Container, Flex } from '@radix-ui/themes';
 import { Show } from '@shared/components';
-import { FunnelX } from 'lucide-react';
+import { FunnelX, MoveLeft } from 'lucide-react';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Hero } from './ui/hero';
 import { ShowFiltersAction } from './ui/show-filters-action';
 
 export function ProductsPage() {
   const { mutateAsync: toggleFavorite } = useToggleFavorite();
+  const { search } = useLocation();
 
   const { page: productPage, isPageChanging, handlePageChange } = useProductsPaginationState();
 
@@ -47,7 +49,7 @@ export function ProductsPage() {
     filterParams: getCurrentApiFilters(),
   });
 
-  const { navigateToProductItem } = useGoTo();
+  const { navigateToProductItem, navigateToShowcase } = useGoTo();
 
   const [visibleFiltersPanel, setVisibleFiltersPanel] = useState<boolean>(false);
 
@@ -81,7 +83,25 @@ export function ProductsPage() {
 
       <Show
         when={visibleFiltersPanel}
-        fallback={<ShowFiltersAction toggleVisibility={handleClickShowFilters} />}
+        fallback={(
+          <>
+            <Flex justify={search.includes('breweryId') ? 'between' : 'end'} align="center" gap="4" mt="5" mb="2" mr="5" ml="5">
+              <Show when={search.includes('breweryId')}>
+                <Button
+                  variant="ghost"
+                  size="1"
+                  onClick={navigateToShowcase}
+                >
+                  <MoveLeft size={14} />
+                  Store
+                </Button>
+
+              </Show>
+              <ShowFiltersAction toggleVisibility={handleClickShowFilters} />
+            </Flex>
+
+          </>
+        )}
       >
         <Box pr="5" pl="5" pt="5">
           <ProductsFilters
