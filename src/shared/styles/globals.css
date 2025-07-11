@@ -37,4 +37,6 @@ fieldset[disabled]  {
 
 :root {
   --color-form-error: #e5484d;
+  --header-height: 48px;
+  --footer-height: 80px;
 }

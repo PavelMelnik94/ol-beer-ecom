@@ -1,6 +1,6 @@
 .header {
-  height: 48px;
-  max-height: 48px;
+  height: var(--header-height);
+  max-height: var(--header-height);
   background-color: transparent;
   width: 100%;
   padding: 1rem;
@@ -23,8 +23,8 @@
   left: 0;
   right: 10px;
   z-index: 1000;
-  height: 48px;
-  max-height: 48px;
+  height: var(--header-height);
+  max-height: var(--header-height);
   background-color: var(--color-background);
   box-shadow: 0 1px var(--gray-a4);
 }

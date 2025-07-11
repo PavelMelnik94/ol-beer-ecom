@@ -14,7 +14,7 @@ function App() {
     <ErrorBoundary>
       <NuqsAdapter>
         <QueryClientProvider client={queryClient}>
-          <Theme accentColor="bronze" radius="full" appearance={theme}>
+          <Theme accentColor="bronze" radius="full" appearance={theme} panelBackground="translucent">
             <AppRoutes />
             <Toaster richColors theme={theme} />
           </Theme>
