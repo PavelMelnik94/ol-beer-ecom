@@ -50,4 +50,24 @@ export const API_ENDPOINTS = {
     commentLike: (commentId: string) => `/products/comments/${commentId}/like`,
     commentDelete: (commentId: string) => `/products/comments/${commentId}`,
   },
+
+  users: {
+    // Addresses
+    addresses: '/api/users/addresses',
+    address: (id: string) => `/api/users/addresses/${id}`,
+    setAddressPrimary: (id: string) => `/api/users/addresses/${id}/set-primary`,
+
+    // Avatar
+    avatar: '/api/users/avatar',
+
+    // Billing and shipping addresses
+    billingAddresses: '/api/users/billing-addresses',
+    shippingAddresses: '/api/users/shipping-addresses',
+
+    // Favorites
+    favorites: '/api/users/favorites',
+
+    // Ratings
+    ratings: '/api/users/ratings',
+  },
 } as const;
