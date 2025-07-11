@@ -9,7 +9,6 @@ export { useProductsPaginationState } from './hooks/use-products-pagination-stat
 export { useProductsRandom } from './hooks/use-products-random';
 export { useProductsStore } from './stores/products-store';
 
-export { ProductCardPromo } from './ui/product-card-promo/products-card-promo';
 export { ProductDetails } from './ui/product-details/product-details';
 export { ProductDetailsSkeleton } from './ui/product-details/product-details-skeleton';
 export { Products } from './ui/products';
