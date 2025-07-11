@@ -2,13 +2,27 @@
   min-height: 100vh;
   min-height: 100dvh;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  flex-direction: column;
 }
 
-.container {
-  width: 100%;
-  max-width: 400px;
-  padding: 2rem;
+.layoutWithScrollActive {
+    margin-top: 48px;
+}
+
+.decorativeBg {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    height: 480px;
+    opacity: 0.6;
+    background: linear-gradient(to bottom, var(--accent-4), transparent);
+
+    z-index: -1;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
