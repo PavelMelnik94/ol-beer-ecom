@@ -1,5 +1,5 @@
-import type { Product } from '@kernel/types';
-import { useGoTo } from '@kernel/hooks';
+import type { Product, ProductWithFavorites } from '@kernel/types';
+import { useAuth, useGoTo } from '@kernel/hooks';
 import {
   Products,
   ProductsFilters,
@@ -8,6 +8,7 @@ import {
   useProductsPagination,
   useProductsPaginationState,
 } from '@modules/products';
+import { useToggleFavorite, useUserFavorites, useUserRatings, useUserStore } from '@modules/user';
 import { Box, Button, Container } from '@radix-ui/themes';
 import { Show } from '@shared/components';
 import { FunnelX } from 'lucide-react';
@@ -16,6 +17,8 @@ import { Hero } from './ui/hero';
 import { ShowFiltersAction } from './ui/show-filters-action';
 
 export function ProductsPage() {
+  const { mutateAsync: toggleFavorite } = useToggleFavorite();
+
   const { page: productPage, isPageChanging, handlePageChange } = useProductsPaginationState();
 
   const {
@@ -31,6 +34,7 @@ export function ProductsPage() {
   });
 
   const { categories, breweries, isLoading: isFiltersLoading } = useFiltersData();
+  const { hasFavorite } = useUserStore();
 
   const {
     products,
@@ -59,6 +63,15 @@ export function ProductsPage() {
   const handleClickOnCard = (product: Product) => {
     navigateToProductItem(product.id);
   };
+
+  const handleAddToWishlist = async (product: Product) => {
+    await toggleFavorite({ productId: product.id });
+  };
+
+  const productsWithFavorites: ProductWithFavorites[] = products.map(product => ({
+    ...product,
+    isFavorite: hasFavorite(product.id) || false,
+  }));
 
   return (
     <>
@@ -95,7 +108,7 @@ export function ProductsPage() {
 
       <Box pr="5" pl="5">
         <Products
-          products={products}
+          products={productsWithFavorites}
           error={error}
           isLoading={isLoading}
           isError={!!error}
@@ -105,10 +118,7 @@ export function ProductsPage() {
           isPageChanging={isPageChanging}
 
           onClickCard={handleClickOnCard}
-          onAddToWishlist={(product) => {
-            // Handle adding product to wishlist
-            console.log('Add to wishlist:', product);
-          }}
+          onAddToWishlist={product => handleAddToWishlist(product)}
           onAddToBasket={(product) => {
             // Handle adding product to basket
             console.log('Add to basket:', product);

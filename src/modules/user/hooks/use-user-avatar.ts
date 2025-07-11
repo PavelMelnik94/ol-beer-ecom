@@ -3,7 +3,7 @@ import type { UploadAvatarData } from '@modules/user/model';
 import type { ErrorResponse } from 'react-router-dom';
 import { QUERY_KEYS } from '@kernel/query';
 import { userApi } from '@modules/user/api';
-import { userStore } from '@modules/user/stores/user-store';
+import { useUserStore } from '@modules/user/stores/user-store';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useUserAvatar() {
@@ -21,14 +21,14 @@ export function useUserAvatar() {
 
 export function useUploadAvatar() {
   const queryClient = useQueryClient();
-  const { setUser } = userStore();
+  const { setUser } = useUserStore();
 
   return useMutation({
     mutationFn: (data: UploadAvatarData) => userApi.uploadAvatar(data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.avatar() });
 
-      const currentUser = userStore.getState().user;
+      const currentUser = useUserStore.getState().user;
       if (currentUser) {
         setUser({
           ...currentUser,
@@ -41,14 +41,14 @@ export function useUploadAvatar() {
 
 export function useDeleteAvatar() {
   const queryClient = useQueryClient();
-  const { setUser } = userStore();
+  const { setUser } = useUserStore();
 
   return useMutation({
     mutationFn: () => userApi.deleteAvatar(),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.avatar() });
 
-      const currentUser = userStore.getState().user;
+      const currentUser = useUserStore.getState().user;
       if (currentUser) {
         setUser({
           ...currentUser,

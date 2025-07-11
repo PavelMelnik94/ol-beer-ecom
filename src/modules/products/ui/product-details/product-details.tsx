@@ -1,4 +1,4 @@
-import type { Product } from '@kernel/types';
+import type { Product, ProductWithFavoritesAndRatings } from '@kernel/types';
 import { ButtonWithAuthPopup } from '@modules/common';
 import { ProductDetailsSkeleton } from '@modules/products/ui/product-details/product-details-skeleton';
 import { Box, Container, Flex, ScrollArea, Separator, Text } from '@radix-ui/themes';
@@ -10,7 +10,7 @@ import { ProductDetailsActionBlock } from './product-details-action-block/produc
 import styles from './product-details.module.scss';
 
 interface ProductDetailsProps {
-  product?: Product;
+  product?: ProductWithFavoritesAndRatings | null;
   onClickRating?: (rating: number, productId: string) => void;
   onClickAddToWishlist?: (product: Product) => void;
 }
@@ -76,6 +76,8 @@ export function ProductDetails({ product, onClickRating, onClickAddToWishlist }:
         <Separator mt="5" mb="2" size="4" />
 
         <ProductDetailsActionBlock
+          isFavorite={product.isFavorite}
+          userRating={product.userRating}
           onClickAddToWishlist={() => onClickAddToWishlist?.(product)}
           onClickRating={rating => onClickRating?.(rating, product.id)}
         />

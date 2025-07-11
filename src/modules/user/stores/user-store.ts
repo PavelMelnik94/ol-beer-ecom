@@ -17,9 +17,15 @@ interface Actions {
 
   hasRating: (productId: string) => Rating | undefined;
   hasFavorite: (productId: string) => boolean;
+
+
+  optimisticAddRating: (productId: string, rating: number) => void;
+  optimisticUpdateRating: (productId: string, rating: number) => void;
+  optimisticRemoveRating: (productId: string) => void;
+  optimisticToggleFavorite: (productId: string) => void;
 }
 
-export const userStore = create<State & Actions>()(
+export const useUserStore = create<State & Actions>()(
   subscribeWithSelector((set, get) => ({
     user: null,
     ratings: [],
@@ -48,12 +54,60 @@ export const userStore = create<State & Actions>()(
     },
 
     hasRating: (productId: string) => {
+      console.log(get().ratings, 'ratings')
       return get().ratings.find(rating => rating.productId === productId);
     },
     hasFavorite: (productId: string) => {
       return get().favorites.some(favorite => favorite.productId === productId);
     },
 
+    optimisticAddRating: (productId: string, rating: number) => {
+      const currentRatings = get().ratings;
+      const newRating = {
+        id: `temp-${Date.now()}`,
+        productId,
+        rating,
+        userId: get().user?.id || '',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      } as Rating;
+      set({ ratings: [...currentRatings, newRating] });
+    },
+
+    optimisticUpdateRating: (productId: string, rating: number) => {
+      const currentRatings = get().ratings;
+      const updatedRatings = currentRatings.map(r =>
+        r.productId === productId
+          ? { ...r, rating, updatedAt: new Date().toISOString() }
+          : r
+      );
+      set({ ratings: updatedRatings });
+    },
+
+    optimisticRemoveRating: (productId: string) => {
+      const currentRatings = get().ratings;
+      const filteredRatings = currentRatings.filter(r => r.productId !== productId);
+      set({ ratings: filteredRatings });
+    },
+
+    optimisticToggleFavorite: (productId: string) => {
+      const currentFavorites = get().favorites;
+      const isFavorite = currentFavorites.some(f => f.productId === productId);
+
+      if (isFavorite) {
+        const filteredFavorites = currentFavorites.filter(f => f.productId !== productId);
+        set({ favorites: filteredFavorites });
+      } else {
+        const newFavorite = {
+          id: `temp-${Date.now()}`,
+          productId,
+          userId: get().user?.id || '',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        } as FavoriteProduct;
+        set({ favorites: [...currentFavorites, newFavorite] });
+      }
+    },
+
   })),
 );
-export type UserStore = typeof userStore extends (infer T) ? T : never;

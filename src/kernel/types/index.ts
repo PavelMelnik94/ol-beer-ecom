@@ -79,6 +79,14 @@ export interface Product {
   updatedAt: string;
 }
 
+export interface ProductWithFavorites extends Product {
+  isFavorite: boolean;
+}
+
+export interface ProductWithFavoritesAndRatings extends ProductWithFavorites {
+  userRating: number;
+}
+
 export interface PromoCode {
   code: string;
   discount: string;
@@ -96,8 +104,8 @@ export interface Rating {
 }
 
 export interface FavoriteProduct {
-  id: '9e496926-b6f0-489c-81ba-ee64fca93aa3';
-  userId: '8cb880bd-23fc-41a8-aaaf-074efe02e7bd';
-  productId: '90296caf-668a-4f47-8d42-a47a87fd4978';
-  createdAt: '2025-07-10T18:43:44.421Z';
+  id: string;
+  userId: string;
+  productId: string;
+  createdAt: string;
 }

@@ -5,4 +5,4 @@ export * from './hooks';
 export * from './model';
 
 // Store
-export { userStore } from './stores/user-store';
+export { useUserStore } from './stores/user-store';

@@ -1,9 +1,10 @@
-import type { Product } from '@kernel/types';
-import { useGoTo } from '@kernel/hooks';
-import { QUERY_KEYS } from '@kernel/query';
+import type { Product, ProductWithFavoritesAndRatings } from '@kernel/types';
+import { useAuth, useGoTo } from '@kernel/hooks';
+import { QUERY_KEYS, queryClient } from '@kernel/query';
 import { PromoCodeVelocity } from '@modules/cart';
 import { Comments, commentsProductsApi, useComments } from '@modules/comments';
 import { ProductDetails, ProductsGrid, useProductDetails, useProductRate, useProductsRelated } from '@modules/products';
+import { useToggleFavorite, useUserFavorites, useUserRatings, useUserStore } from '@modules/user';
 import { Box, Container, Text } from '@radix-ui/themes';
 import { Breadcrumbs, Pagination } from '@shared/components';
 import { useMemo } from 'react';
@@ -15,24 +16,23 @@ export function ProductDetailsPage() {
   const { id } = useParams<{ id: string; }>();
   const { product } = useProductDetails(id!);
   const { products: relatedProducts } = useProductsRelated(product?.id ?? '');
-  const { rateProduct } = useProductRate();
+
+  const { isAuth } = useAuth();
+
+  useUserFavorites({ enabled: isAuth });
+  useUserRatings({ enabled: isAuth });
 
   const isMobile = window.innerWidth < 768;
 
-  const breadcrumbs = useMemo(() => {
-    const items = [
-      { label: 'Showcase', to: '/showcase' },
-      product?.brewery?.name && product?.brewery?.id
-        ? { label: product.brewery.name, to: `/showcase?breweryId=${product.brewery.id}` }
-        : null,
-      product
-        ? { label: product.title, to: `/products/${product.id}` }
-        : null,
-    ];
-    return items.filter((item): item is { label: string; to: string; } => Boolean(item && item.label));
-  }, [product]);
-
   const { page: commentPage, isPageChanging, handlePageChange } = useCommentPagination();
+
+
+  const { rateProduct } = useProductRate();
+  const favorites = useUserStore(state => state.favorites);
+  const ratings = useUserStore(state => state.ratings);
+  const { hasFavorite, hasRating } = useUserStore();
+  const { mutateAsync: toggleFavorite } = useToggleFavorite();
+
 
   const {
     comments,
@@ -56,12 +56,31 @@ export function ProductDetailsPage() {
   };
 
   const handleOnClickRating = async (rating: number, productId: string) => {
-    await rateProduct({ productId, rate: rating });
+    try {
+      await rateProduct({ productId, rate: rating });
+      // Optimistic update уже сработал в onMutate
+      // Инвалидация кэша для свежих данных с сервера
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: QUERY_KEYS.user.ratings(),
+        }),
+        queryClient.invalidateQueries({
+          queryKey: QUERY_KEYS.products.detail(productId),
+        }),
+      ]);
+    } catch (error) {
+      console.error('Failed to rate product:', error);
+    }
   };
 
-  const handleOnClickAddToWishlist = (product: Product) => {
-    // Handle adding product to wishlist
-    console.log('Add to wishlist:', product);
+  const handleOnClickAddToWishlist = async (product: Product) => {
+    try {
+      await toggleFavorite({ productId: product.id });
+      // Optimistic update уже сработал в onMutate
+      // Инвалидация кэша происходит в onSuccess хука
+    } catch (error) {
+      console.error('Failed to toggle favorite:', error);
+    }
   };
 
   const handleCreateComment = async (content: string) => {
@@ -80,6 +99,39 @@ export function ProductDetailsPage() {
     await likeComment(id);
   };
 
+
+  const breadcrumbs = useMemo(() => {
+    const items = [
+      { label: 'Showcase', to: '/showcase' },
+      product?.brewery?.name && product?.brewery?.id
+        ? { label: product.brewery.name, to: `/showcase?breweryId=${product.brewery.id}` }
+        : null,
+      product
+        ? { label: product.title, to: `/products/${product.id}` }
+        : null,
+    ];
+    return items.filter((item): item is { label: string; to: string; } => Boolean(item && item.label));
+  }, [product]);
+
+
+
+  const productWithFavoritesAndRatings: ProductWithFavoritesAndRatings | null = useMemo(() => {
+    if (!product) return null;
+    return {
+      ...product,
+      isFavorite: hasFavorite(product.id),
+      userRating: hasRating(product.id)?.rating || 0,
+    };
+  }, [product, favorites, ratings, hasFavorite, hasRating]);
+
+  const relatedProductsWithFavoritesAndRatings = useMemo(() => {
+    return relatedProducts?.map((product) => ({
+      ...product,
+      isFavorite: hasFavorite(product.id),
+      userRating: hasRating(product.id)?.rating || 0,
+    })) || [];
+  }, [relatedProducts, favorites, ratings, hasFavorite, hasRating]);
+
   return (
     <div>
       {isMobile
@@ -89,8 +141,7 @@ export function ProductDetailsPage() {
                 <Breadcrumbs items={breadcrumbs} />
               </Box>
               <ProductDetails
-                product={product}
-                // todo: вытянуть из юзера рейтинги и прокинуть сюда
+                product={productWithFavoritesAndRatings}
                 onClickRating={handleOnClickRating}
                 onClickAddToWishlist={handleOnClickAddToWishlist}
               />
@@ -116,7 +167,7 @@ export function ProductDetailsPage() {
             <Container pr="5" pl="5" pt="5" pb="5">
               <Breadcrumbs items={breadcrumbs} />
               <ProductDetails
-                product={product}
+                product={productWithFavoritesAndRatings}
                 onClickRating={handleOnClickRating}
                 onClickAddToWishlist={handleOnClickAddToWishlist}
               />
@@ -148,14 +199,11 @@ export function ProductDetailsPage() {
           Related Products
         </Text>
         <ProductsGrid
-          products={relatedProducts}
+          products={relatedProductsWithFavoritesAndRatings}
           onClickCard={handleClickOnCard}
-          isShow={relatedProducts && relatedProducts?.length > 0}
+          isShow={relatedProductsWithFavoritesAndRatings && relatedProductsWithFavoritesAndRatings?.length > 0}
           imageAsSlider
-          onAddToWishlist={(product) => {
-            // Handle adding product to wishlist
-            console.log('Add to wishlist:', product);
-          }}
+          onAddToWishlist={handleOnClickAddToWishlist}
           onAddToBasket={(product) => {
             // Handle adding product to basket
             console.log('Add to basket:', product);

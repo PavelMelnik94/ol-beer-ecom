@@ -1,4 +1,4 @@
-import type { Product } from '@kernel/types';
+import type { Product, ProductWithFavorites } from '@kernel/types';
 import { ButtonWithAuthPopup } from '@modules/common';
 import { ProductCardSkeleton } from '@modules/products/ui/product-card/product-card-skeleton';
 import { ProductCard } from '@modules/products/ui/product-card/products-card';
@@ -8,14 +8,14 @@ import { Heart } from 'lucide-react';
 import { useMediaQuery } from 'react-responsive';
 
 interface Props {
-  products?: Product[];
+  products?: ProductWithFavorites[];
   isShow?: boolean;
   imageAsSlider?: boolean;
   columnsCount?: string;
 
-  onClickCard: (product: Product) => void;
-  onAddToWishlist?: (product: Product) => void;
-  onAddToBasket?: (product: Product) => void;
+  onClickCard: (product: ProductWithFavorites | Product) => void;
+  onAddToWishlist?: (product: ProductWithFavorites | Product) => void;
+  onAddToBasket?: (product: ProductWithFavorites | Product) => void;
 }
 export function ProductsGrid({
   products,
@@ -54,7 +54,7 @@ export function ProductsGrid({
     <Grid columns={columnsCount ?? columns} gap="3" width="auto">
       <Show when={isShow}>
         <For each={products}>
-          {product => (
+          {(product: ProductWithFavorites) => (
             <ProductCard
               imageAsSlider={imageAsSlider}
               key={product.id}
@@ -66,14 +66,15 @@ export function ProductsGrid({
                     <ButtonWithAuthPopup
                       size="1"
                       variant="soft"
+                      color={product?.isFavorite ? 'red' : 'gray'}
                       style={{ padding: '6px' }}
                       onClick={(e) => {
                         e.stopPropagation();
                         onAddToWishlist?.(product);
                       }}
                     >
-                      <Tooltip content="Add to Wishlist" side="top">
-                        <Heart size={12} color="gray" />
+                      <Tooltip content={product?.isFavorite ? 'Remove from Wishlist' : 'Add to Wishlist'} side="top">
+                        <Heart size={12} fill={product?.isFavorite ? 'red' : 'transparent'} color={product?.isFavorite ? 'red' : 'gray'} />
                       </Tooltip>
                     </ButtonWithAuthPopup>
                   </Show>

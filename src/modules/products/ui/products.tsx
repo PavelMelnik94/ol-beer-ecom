@@ -1,5 +1,5 @@
 import type { ApiErrorResponse } from '@kernel/api';
-import type { Product } from '@kernel/types';
+import type { Product, ProductWithFavorites } from '@kernel/types';
 import { useGlobalScroll } from '@kernel/hooks';
 import { ProductsGrid } from '@modules/products/ui/products-grid/products-grid';
 import { Flex } from '@radix-ui/themes';
@@ -7,7 +7,7 @@ import { Pagination, Show } from '@shared/components';
 import { useEffect } from 'react';
 
 interface ProductsProps {
-  products?: Product[];
+  products?: ProductWithFavorites[];
   error: ApiErrorResponse | null;
   isLoading: boolean;
   isError: boolean;

@@ -4,9 +4,13 @@ import { StarRating } from '@shared/components';
 import { Heart } from 'lucide-react';
 
 export function ProductDetailsActionBlock({
+  isFavorite,
+  userRating = 0,
   onClickAddToWishlist,
   onClickRating,
 }: {
+  isFavorite: boolean;
+  userRating: number;
   onClickAddToWishlist: () => void;
   onClickRating: (rating: number) => void;
 }) {
@@ -21,13 +25,13 @@ export function ProductDetailsActionBlock({
           onClickAddToWishlist?.();
         }}
       >
-        <Tooltip content="Add to Wishlist" side="top">
-          <Heart size={12} color="gray" />
+        <Tooltip content={isFavorite ? 'Remove from Wishlist' : 'Add to Wishlist'} side="top">
+          <Heart size={12} fill={isFavorite ? 'red' : 'transparent'} color={isFavorite ? 'red' : 'gray'} />
         </Tooltip>
       </ButtonWithAuthPopup>
 
       <StarRating
-        currentRating={0}
+        currentRating={userRating}
         onRatingClick={rating => onClickRating?.(rating)}
         size={16}
         showTooltip={true}
