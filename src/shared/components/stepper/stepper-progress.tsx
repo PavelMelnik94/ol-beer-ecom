@@ -20,7 +20,7 @@ export const StepperProgress: React.FC<StepperProgressProps> = memo(({ withLabel
           </Text>
         </Flex>
       )}
-      <Progress value={progress} duration="30s" variant="soft" />
+      <Progress value={progress} variant="soft" />
     </Box>
   );
 });

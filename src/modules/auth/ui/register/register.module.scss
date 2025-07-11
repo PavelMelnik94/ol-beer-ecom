@@ -4,15 +4,18 @@
   align-items: center;
   position: relative;
   height: calc(100vh - var(--header-height) - var(--footer-height));
-  height: calc(100vh - var(--header-height) - var(--footer-height));
+  height: calc(100dvh - var(--header-height) - var(--footer-height));
+
+  @media (max-width:1000px) {
+    height: calc(100vh  - var(--footer-height));
+    height: calc(100dvh  - var(--footer-height));
+  }
 }
 
 .flexContainer {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-  // width: 100%;
   align-self: center;
   height: 100%;
 }
@@ -20,12 +23,16 @@
 .leftPart,
 .rightPart {
   width: 560px;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 }
 
 
 .rightPart {
-  margin-left: 56px;
-  margin-right: 56px;
-  background-color: darkcyan;
-  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
