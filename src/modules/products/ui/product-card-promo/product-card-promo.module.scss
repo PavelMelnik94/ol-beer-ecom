@@ -1,0 +1,22 @@
+.imgContainer {
+
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+
+  min-height: 423px;
+  max-height: 423px;
+
+  @media  (max-width: 1200px) {
+    min-height: 320px;
+    max-height: 320px;
+
+  }
+
+    @media  (min-width: 1200px) {
+  min-height: 390px;
+    max-height: 390px;
+
+  }
+}

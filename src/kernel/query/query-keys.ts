@@ -1,3 +1,5 @@
+import { random } from 'lodash-es';
+
 export const QUERY_KEYS = {
 
   articles: {
@@ -31,6 +33,7 @@ export const QUERY_KEYS = {
     list: (filters: Record<string, any> = {}) => [...QUERY_KEYS.products.all, 'list', filters] as const,
     detail: (id: number | string) => [...QUERY_KEYS.products.all, 'detail', id] as const,
     related: (id: number | string) => [...QUERY_KEYS.products.detail(id), 'related'] as const,
+    random: () => [...QUERY_KEYS.products.all, 'random'] as const,
     search: (query: string) => [...QUERY_KEYS.products.all, 'search', query] as const,
     discounted: () => [...QUERY_KEYS.products.all, 'discounted'] as const,
     featured: () => [...QUERY_KEYS.products.all, 'featured'] as const,

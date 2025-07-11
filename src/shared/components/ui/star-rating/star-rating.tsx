@@ -83,7 +83,7 @@ export function StarRating({
 
       {showRatingText && (
         <Text size="2" color="gray">
-          {currentRating > 0 ? `${currentRating}/${maxRating}` : 'No rating'}
+          {currentRating > 0 ? `${currentRating.toFixed(1)}/${maxRating}` : 'No rating'}
         </Text>
       )}
     </Flex>

@@ -11,6 +11,7 @@ interface Props {
   products?: Product[];
   isShow?: boolean;
   imageAsSlider?: boolean;
+  columnsCount?: string;
 
   onClickCard: (product: Product) => void;
   onAddToWishlist?: (product: Product) => void;
@@ -18,9 +19,10 @@ interface Props {
 }
 export function ProductsGrid({
   products,
-  isShow,
+  isShow = true,
   imageAsSlider,
 
+  columnsCount,
   onAddToBasket,
   onAddToWishlist,
   onClickCard,
@@ -49,7 +51,7 @@ export function ProductsGrid({
   ));
 
   return (
-    <Grid columns={columns} gap="3" width="auto">
+    <Grid columns={columnsCount ?? columns} gap="3" width="auto">
       <Show when={isShow}>
         <For each={products}>
           {product => (

@@ -46,8 +46,8 @@ async function getDiscountedProducts(): Promise<SuccessResponseProducts> {
   return apiClient.get(API_ENDPOINTS.products.discounted);
 }
 
-async function getFeaturedProducts(): Promise<SuccessResponseProducts> {
-  return apiClient.get(API_ENDPOINTS.products.featured);
+async function getFeaturedProducts(limit?: number): Promise<SuccessResponseProducts> {
+  return apiClient.get(`${API_ENDPOINTS.products.featured}?limit=${limit}`);
 }
 
 async function rateProduct(productId: string, rating: number): Promise<SuccessResponseRate> {
