@@ -5,7 +5,7 @@ import { Button, Flex, Text } from '@radix-ui/themes';
 import { ErrorAlert, Image, InputPassword, InputText, Show } from '@shared/components';
 import { KeyRound, Mail } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { LoginSchema } from './../model/schema';
+import { LoginSchema } from '../../model/schema';
 
 interface LoginFormProps {
   onSuccess?: () => void;

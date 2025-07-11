@@ -1,4 +1,4 @@
-import { Box, Button, Container, Flex, Text } from '@radix-ui/themes';
+import { Box, Container, Flex, Text } from '@radix-ui/themes';
 import { Stepper } from '@shared/components/stepper';
 import { LockIcon, SettingsIcon, UserIcon } from 'lucide-react';
 import styles from './register.module.scss';
