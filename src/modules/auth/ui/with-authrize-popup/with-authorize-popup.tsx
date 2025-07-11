@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react';
 import { useAuthStore } from '@kernel/stores';
-import { LoginDialog } from '../login-dialog.ts/login-dialog';
+import { LoginDialog } from '../login-dialog/login-dialog';
 
 interface EventHandlers {
   onClick?: (...args: any[]) => void;
