@@ -36,6 +36,19 @@ export const addressesSchema = z.object({
       addresses => addresses.some(addr => addr.type === 'shipping'),
       { message: 'You must provide at least one shipping address' },
     )
+    .refine(
+      addresses => {
+        const billing = addresses.find(addr => addr.type === 'billing');
+        // Если billing не заполнен, не валидируем
+        if (!billing) return true;
+        const hasValue = billing.city || billing.country || billing.streetName || billing.zip;
+        // Если billing не заполнен, не валидируем
+        if (!hasValue) return true;
+        // Если заполнен — должен быть валиден (валидируется AddressSchema)
+        return true;
+      },
+      { message: 'Billing address is invalid', path: ['addresses', 1] }
+    )
 });
 
 export const LoginSchema = z.object({

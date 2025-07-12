@@ -17,6 +17,8 @@ interface AddressesStepProps {
 }
 
 export const AddressesStep = memo(({ addresses, setAddresses, onSubmit, step, totalSteps, onClickBack }: AddressesStepProps) => {
+
+
   const [activeTab, setActiveTab] = useState<'shipping' | 'billing'>('shipping');
   const [useShippingAsBilling, setUseShippingAsBilling] = useState(false);
 
@@ -35,18 +37,20 @@ export const AddressesStep = memo(({ addresses, setAddresses, onSubmit, step, to
     register,
     handleSubmit,
     formState: { errors },
+
   } = useForm<{ addresses: Address[] }>({
     resolver: zodResolver(addressesSchema),
     defaultValues: { addresses: defaultAddresses },
-    mode: 'onChange',
+    mode: 'onSubmit',
   });
+
+
 
   const handleFormSubmit = (data: { addresses: Address[] }) => {
     let result: Address[] = [];
     const shipping = data.addresses[0];
     const billing = data.addresses[1];
     result.push({ ...shipping, type: 'shipping' });
-    // billing валидация: если таб открыт или есть значения, либо не выбран useShippingAsBilling
     const billingTabActive = activeTab === 'billing';
     const billingHasValue = billing && (billing.city || billing.country || billing.streetName || billing.zip);
     if (!useShippingAsBilling && (billingTabActive || billingHasValue)) {
@@ -55,7 +59,11 @@ export const AddressesStep = memo(({ addresses, setAddresses, onSubmit, step, to
       result.push({ ...shipping, type: 'billing' });
     }
     setAddresses(result);
-    if (onSubmit) onSubmit();
+    console.log('Form submit, valid:', data, 'errors:', errors);
+    if (onSubmit) {
+      console.log('Calling onSubmit');
+      onSubmit();
+    }
   };
 
 

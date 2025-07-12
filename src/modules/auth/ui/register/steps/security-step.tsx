@@ -38,7 +38,6 @@ export const SecurityStep = memo(({ security, setSecurity, onSubmit, step, total
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
-      <Text mb="2">Create a password</Text>
       <Flex direction="column" gap="2">
         <InputText {...register('password')} placeholder="Password" type="password" error={passwordError} />
         <InputText {...register('confirmPassword')} placeholder="Confirm Password" type="password" error={confirmPasswordError} />

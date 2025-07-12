@@ -10,7 +10,7 @@ interface RegisterFooterProps {
 export const RegisterFooter: React.FC<RegisterFooterProps> = ({ step, totalSteps, onClickBack }) => (
   <>
     <div className={styles.separator} />
-    <Flex justify="between" align="center" p="5" className={styles.footer}>
+    <Flex justify="between" align="center" pt={'5'} pb={'5'} className={styles.footer}>
       <Button variant="soft" disabled={step === 1} onClick={onClickBack}>Back</Button>
       <Button
         variant="soft"

@@ -17,7 +17,7 @@ export function RegisterContainer({
   children,
 }: Props) {
   return (
-    <Card className={styles.container}>
+    <Card className={styles.container} data-step={step} data-total-steps={totalSteps} data-container>
 
       {/*  HEADER */}
       <Flex className={styles.header} direction="column" p="5">
