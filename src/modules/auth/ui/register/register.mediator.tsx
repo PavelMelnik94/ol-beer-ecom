@@ -36,7 +36,7 @@ function getStepProperties(step: number) {
 }
 
 export function RegisterMediator() {
-  const isColumn = useMediaQuery({ query: '(max-width: 1000px)' });
+  const isColumn = useMediaQuery({ query: '(max-width: 1100px)' });
   const {
     step,
     personalInfo,
