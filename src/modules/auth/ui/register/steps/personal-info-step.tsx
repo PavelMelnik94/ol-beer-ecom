@@ -13,11 +13,10 @@ interface PersonalInfoStepProps {
   step: number;
   totalSteps: number;
   onClickBack: () => void;
-  onClickNext: () => void;
 }
 
 export const PersonalInfoStep = memo(
-  ({ personalInfo, setPersonalInfo, onSubmit, step, totalSteps, onClickBack, onClickNext }: PersonalInfoStepProps) => {
+  ({ personalInfo, setPersonalInfo, onSubmit, step, totalSteps, onClickBack }: PersonalInfoStepProps) => {
     const {
       register,
       handleSubmit,
@@ -33,16 +32,19 @@ export const PersonalInfoStep = memo(
       if (onSubmit) onSubmit();
     };
 
+    const firstNameError = errors.firstName?.message;
+    const lastNameError = errors.lastName?.message;
+    const emailError = errors.email?.message;
+
     return (
       <form onSubmit={handleSubmit(handleFormSubmit)}>
-        <InputText {...register('firstName')} placeholder="First Name" error={errors.firstName?.message} />
-        <InputText {...register('lastName')} placeholder="Last Name" error={errors.lastName?.message} />
-        <InputText {...register('email')} placeholder="Email" type="email" error={errors.email?.message} />
+        <InputText {...register('firstName')} placeholder="First Name" error={firstNameError} />
+        <InputText {...register('lastName')} placeholder="Last Name" error={lastNameError} />
+        <InputText {...register('email')} placeholder="Email" type="email" error={emailError} />
         <RegisterFooter
           step={step}
           totalSteps={totalSteps}
           onClickBack={onClickBack}
-          onClickNext={onClickNext}
         />
       </form>
     );

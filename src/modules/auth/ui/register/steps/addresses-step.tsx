@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import  { memo, useState } from 'react';
 import type { Address } from '@modules/auth/stores/register-store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { addressesSchema } from '@modules/auth/model/schema';
@@ -28,6 +28,8 @@ export const AddressesStep = memo(({ addresses, setAddresses, onSubmit, step, to
 
   // billing для условий отображения ошибок
   const billing = defaultAddresses[1];
+  const billingHasValue = billing && (billing.city || billing.country || billing.streetName || billing.zip);
+  const shouldShowBillingErrors = activeTab === 'billing' && !useShippingAsBilling && billingHasValue;
 
   const {
     register,
@@ -39,7 +41,6 @@ export const AddressesStep = memo(({ addresses, setAddresses, onSubmit, step, to
     mode: 'onChange',
   });
 
-  // Обработка сабмита
   const handleFormSubmit = (data: { addresses: Address[] }) => {
     let result: Address[] = [];
     const shipping = data.addresses[0];
@@ -88,10 +89,10 @@ export const AddressesStep = memo(({ addresses, setAddresses, onSubmit, step, to
         </Tabs.Content>
         <Tabs.Content value="billing">
           <Flex direction="column" gap="2" mt="4">
-            <InputText {...register('addresses.1.city')} placeholder="City" error={activeTab === 'billing' && !useShippingAsBilling && (billing.city || billing.country || billing.streetName || billing.zip) ? errors.addresses?.[1]?.city?.message : undefined} disabled={useShippingAsBilling} />
-            <InputText {...register('addresses.1.country')} placeholder="Country" error={activeTab === 'billing' && !useShippingAsBilling && (billing.city || billing.country || billing.streetName || billing.zip) ? errors.addresses?.[1]?.country?.message : undefined} disabled={useShippingAsBilling} />
-            <InputText {...register('addresses.1.streetName')} placeholder="Street Name" error={activeTab === 'billing' && !useShippingAsBilling && (billing.city || billing.country || billing.streetName || billing.zip) ? errors.addresses?.[1]?.streetName?.message : undefined} disabled={useShippingAsBilling} />
-            <InputText {...register('addresses.1.zip')} placeholder="ZIP" error={activeTab === 'billing' && !useShippingAsBilling && (billing.city || billing.country || billing.streetName || billing.zip) ? errors.addresses?.[1]?.zip?.message : undefined} disabled={useShippingAsBilling} />
+            <InputText {...register('addresses.1.city')} placeholder="City" error={shouldShowBillingErrors ? errors.addresses?.[1]?.city?.message : undefined} disabled={useShippingAsBilling} />
+            <InputText {...register('addresses.1.country')} placeholder="Country" error={shouldShowBillingErrors ? errors.addresses?.[1]?.country?.message : undefined} disabled={useShippingAsBilling} />
+            <InputText {...register('addresses.1.streetName')} placeholder="Street Name" error={shouldShowBillingErrors ? errors.addresses?.[1]?.streetName?.message : undefined} disabled={useShippingAsBilling} />
+            <InputText {...register('addresses.1.zip')} placeholder="ZIP" error={shouldShowBillingErrors ? errors.addresses?.[1]?.zip?.message : undefined} disabled={useShippingAsBilling} />
           </Flex>
         </Tabs.Content>
       </Tabs.Root>

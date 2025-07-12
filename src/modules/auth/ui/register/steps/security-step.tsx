@@ -14,10 +14,9 @@ interface SecurityStepProps {
   step: number;
   totalSteps: number;
   onClickBack: () => void;
-  onClickNext: () => void;
 }
 
-export const SecurityStep = memo(({ security, setSecurity, onSubmit, step, totalSteps, onClickBack, onClickNext }: SecurityStepProps) => {
+export const SecurityStep = memo(({ security, setSecurity, onSubmit, step, totalSteps, onClickBack }: SecurityStepProps) => {
   const {
     register,
     handleSubmit,
@@ -28,6 +27,8 @@ export const SecurityStep = memo(({ security, setSecurity, onSubmit, step, total
     mode: 'onChange',
   });
 
+  const passwordError = errors.password?.message;
+  const confirmPasswordError = errors.confirmPassword?.message;
 
   const handleFormSubmit = (data: SecurityInfo) => {
     setSecurity(data);
@@ -39,14 +40,13 @@ export const SecurityStep = memo(({ security, setSecurity, onSubmit, step, total
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <Text mb="2">Create a password</Text>
       <Flex direction="column" gap="2">
-        <InputText {...register('password')} placeholder="Password" type="password" error={errors.password?.message} />
-        <InputText {...register('confirmPassword')} placeholder="Confirm Password" type="password" error={errors.confirmPassword?.message} />
+        <InputText {...register('password')} placeholder="Password" type="password" error={passwordError} />
+        <InputText {...register('confirmPassword')} placeholder="Confirm Password" type="password" error={confirmPasswordError} />
       </Flex>
       <RegisterFooter
         step={step}
         totalSteps={totalSteps}
         onClickBack={onClickBack}
-        onClickNext={onClickNext}
       />
     </form>
   );
