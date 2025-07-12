@@ -9,6 +9,31 @@ import { AddressesStep } from './steps/addresses-step';
 import { PersonalInfoStep } from './steps/personal-info-step';
 import { SecurityStep } from './steps/security-step';
 
+const STEPS_STATIC = [
+  {
+    label: 'Personal Information',
+    description: 'Tell us about yourself',
+    icon: <UserIcon />,
+  },
+  {
+    label: 'Shipping Details',
+    description: 'Provide your shipping address',
+    icon: <Truck />,
+  },
+  {
+    label: 'Account Security',
+    description: 'Protect your account with a strong password',
+    icon: <LockIcon />,
+  },
+] as const;
+
+function getStepProperties(step: number) {
+  if (step < 0 || step > STEPS_STATIC.length) {
+    throw new Error(`Invalid step: ${step}`);
+  }
+  return STEPS_STATIC[step];
+}
+
 export function RegisterMediator() {
   const isColumn = useMediaQuery({ query: '(max-width: 1000px)' });
   const {
@@ -33,39 +58,22 @@ export function RegisterMediator() {
             <Text size="4" mb="4" color="gray">Create your account in just a few simple steps and unlock access to exclusive features.</Text>
 
             <Stepper.Root activeStep={step - 1} completedSteps={Array.from({ length: step - 1 }, (_, i) => i)} direction="column">
-
-              <Stepper.Step
-                index={0}
-                label="Personal Information"
-                description="Tell us about yourself"
-                icon={<UserIcon />}
-              />
-
-              <Stepper.Step
-                index={1}
-                label="Shipping Details"
-                description="Provide your shipping address"
-                icon={<Truck />}
-              />
-
-              <Stepper.Step
-                index={2}
-                label="Account Security"
-                description="Protect your account with a strong password"
-                icon={<LockIcon />}
-              />
-
+              <Stepper.Step index={0} {...getStepProperties(0)} />
+              <Stepper.Step index={1} {...getStepProperties(1)} />
+              <Stepper.Step index={2} {...getStepProperties(2)} />
               <Stepper.Progress />
             </Stepper.Root>
+
           </Flex>
           <Flex className={styles.rightPart} mb={isColumn ? '9' : '0'}>
-            {step === 1 && (
-              <RegisterContainer
-                step={step}
-                totalSteps={3}
-                stepTitle="Personal Information"
-                stepDescription="Tell us about yourself"
-              >
+
+            <RegisterContainer
+              step={step}
+              totalSteps={STEPS_STATIC.length}
+              stepTitle={STEPS_STATIC[step - 1].label}
+              stepDescription={STEPS_STATIC[step - 1].description}
+            >
+              {step === 1 && (
                 <PersonalInfoStep
                   personalInfo={personalInfo}
                   setPersonalInfo={setPersonalInfo}
@@ -74,16 +82,9 @@ export function RegisterMediator() {
                   totalSteps={3}
                   onClickBack={prevStep}
                 />
-              </RegisterContainer>
-            )}
-            {step === 2 && (
-              <RegisterContainer
-                step={step}
-                totalSteps={3}
-                stepTitle="Shipping Details"
-                stepDescription="Provide your shipping address"
-              >
+              )}
 
+              {step === 2 && (
                 <AddressesStep
                   addresses={addresses}
                   setAddresses={setAddresses}
@@ -92,15 +93,9 @@ export function RegisterMediator() {
                   totalSteps={3}
                   onClickBack={prevStep}
                 />
-              </RegisterContainer>
-            )}
-            {step === 3 && (
-              <RegisterContainer
-                step={step}
-                totalSteps={3}
-                stepTitle="Account Security"
-                stepDescription="Protect your account with a strong password"
-              >
+              )}
+
+              {step === 3 && (
                 <SecurityStep
                   security={security}
                   setSecurity={setSecurity}
@@ -109,8 +104,9 @@ export function RegisterMediator() {
                   totalSteps={3}
                   onClickBack={prevStep}
                 />
-              </RegisterContainer>
-            )}
+              )}
+
+            </RegisterContainer>
           </Flex>
         </Flex>
       </Box>
