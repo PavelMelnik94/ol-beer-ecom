@@ -5,7 +5,7 @@ const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Z\d]{6,}$/i;
 export const AddressSchema = z.object({
 city: z.string().min(1, 'City is required').regex(/^[A-Za-z\s'-]+$/, 'Only latin letters allowed'),
 country: z.string().min(1, 'Country is required').regex(/^[A-Za-z\s'-]+$/, 'Only latin letters allowed'),
-streetName: z.string().min(1, 'Street name is required').regex(/^[A-Za-z\s'-]+$/, 'Only latin letters allowed'),
+streetName: z.string().min(1, 'Street name is required').regex(/^[A-Za-z0-9\s'-]+$/, 'Only latin letters and numbers allowed'),
 zip: z.string().min(1, 'ZIP code is required').regex(/^[0-9]+$/, 'Only numbers allowed'),
   type: z.enum(['billing', 'shipping']),
   isPrimaryAddress: z.boolean().default(true),
