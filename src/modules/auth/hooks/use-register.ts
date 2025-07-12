@@ -1,7 +1,7 @@
 import type { ApiErrorResponse, ApiSuccessResponse } from '@kernel/api';
 import type { User } from '@kernel/types';
-import type { RegisterFormValues } from '@modules/auth/model/types';
-import { useAuth, useGoTo } from '@kernel/hooks';
+import type { RegisterBody } from '@modules/auth/model/types';
+import { useGoTo } from '@kernel/hooks';
 import { toast } from '@kernel/notifications';
 import { useAuthStore } from '@kernel/stores';
 import { authApi } from '@modules/auth/api';
@@ -18,16 +18,17 @@ export function useRegister() {
   useEffect(() => {
     let timerId: NodeJS.Timeout;
 
-    timerId = setTimeout(() => {
-      navigateToShowcase();
-    }, 2000);
-
+    if (isRegisterFinish) {
+      timerId = setTimeout(() => {
+        navigateToShowcase();
+      }, 2000);
+    }
     return () => {
       clearTimeout(timerId);
     };
   }, [isRegisterFinish]);
 
-  const registerMutation = useMutation<ApiSuccessResponse<User>, ApiErrorResponse, RegisterFormValues>({
+  const registerMutation = useMutation<ApiSuccessResponse<User>, ApiErrorResponse, RegisterBody>({
     mutationFn: data => authApi.register(data),
     onSuccess: (response) => {
       if (response.success && response.message) {
@@ -35,9 +36,13 @@ export function useRegister() {
         storeLogin(response.data);
         setIsRegisterFinish(true);
       }
+
+      if (!response.success && response.message) {
+        toast.error(response.message);
+      }
     },
-    onError: (error) => {
-      toast.error(error.message);
+    onError: () => {
+      toast.error('Invalid data provided');
     },
   });
 

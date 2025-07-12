@@ -1,6 +1,6 @@
 import { useRegister } from '@modules/auth/hooks/use-register';
 import { nanoid } from 'nanoid';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { addressesSchema, personalInfoSchema, RegisterSchema, securitySchema } from '../model/schema';
 import { useRegisterStore } from '../stores/register-store';
 
@@ -76,19 +76,12 @@ export function useRegisterForm() {
       return result;
     }
 
-    console.error('🎉 SUBMIT DATA SUCCESS:', result.data);
-    await register.mutateAsync({
-      addresses: [{ ...result.data.addresses[0], id: nanoid() }],
-      personalInfo: {
-        email: result.data.email,
-        firstName: result.data.firstName,
-        lastName: result.data.lastName,
-      },
 
-      security: {
-        password: result.data.password,
-        confirmPassword: result.data.confirmPassword,
-      },
+    const {confirmPassword, ...userData} = result.data;
+    await register.mutateAsync({
+      ...userData,
+      addresses: [{ ...result.data.addresses[0], id: nanoid() }],
+
     });
     return result;
   }, [personalInfo, addresses, security]);

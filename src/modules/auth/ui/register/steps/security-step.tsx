@@ -1,5 +1,6 @@
 import type { SecurityInfo } from '@modules/auth/model/types';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRegister } from '@modules/auth/hooks/use-register';
 import { securitySchema } from '@modules/auth/model/schema';
 import { Flex } from '@radix-ui/themes';
 import { InputPassword } from '@shared/components';
@@ -27,6 +28,8 @@ export const SecurityStep = memo(({ security, setSecurity, onSubmit, step, total
     mode: 'onChange',
   });
 
+  const { isPending } = useRegister();
+
   const passwordError = errors.password?.message;
   const confirmPasswordError = errors.confirmPassword?.message;
 
@@ -48,11 +51,13 @@ export const SecurityStep = memo(({ security, setSecurity, onSubmit, step, total
       <Flex direction="column" gap="2">
         <InputPassword
           {...register('password')}
+          disabled={isPending}
           placeholder="Password"
           error={passwordError}
           onChange={handlePasswordChange}
         />
         <InputPassword
+          disabled={isPending}
           {...register('confirmPassword')}
           placeholder="Confirm Password"
           error={confirmPasswordError}
