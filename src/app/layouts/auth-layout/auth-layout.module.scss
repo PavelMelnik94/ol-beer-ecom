@@ -3,32 +3,41 @@
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+
+
 }
 
 .layoutWithScrollActive {
-    margin-top: 48px;
+  margin-top: 48px;
 }
 
 .decorativeBg {
-    position: absolute;
-    left: 0px;
-    right: 0px;
-    height: 480px;
-    opacity: 0.6;
-    background: linear-gradient(to bottom, var(--accent-4), transparent);
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  height: 480px;
+  opacity: 0.6;
+  background: linear-gradient(to bottom, var(--accent-4), transparent);
 
-    z-index: -1;
+  z-index: -1;
 }
 
 .main {
   flex: 1;
+
+
+
   display: flex;
   flex-direction: column;
   position: relative;
 
-  background: radial-gradient(
-    50% 50% at 75% 50%,
-    var(--accent-7) 0%,
-    rgba(255, 255, 255, 0.1) 100%
-  );
+  background: radial-gradient(50% 50% at 75% 50%,
+      var(--accent-7) 0%,
+      rgba(255, 255, 255, 0.1) 100%);
+
+  @media (max-width: 1000px) {
+    background: radial-gradient(50% 40% at 50% 60%,
+        var(--accent-7) 0%,
+        rgba(255, 255, 255, 0.1) 100%);
+  }
 }

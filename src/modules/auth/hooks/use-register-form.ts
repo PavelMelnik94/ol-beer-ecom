@@ -45,6 +45,8 @@ export function useRegisterForm() {
       ...security,
     });
     if (!result.success) return result;
+
+    console.log(result.data, 'submit data');
     // await registerApi(result.data)
     return result;
   }, [personalInfo, addresses, security]);

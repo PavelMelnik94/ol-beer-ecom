@@ -49,7 +49,7 @@ export function useHeader() {
     profile: ROUTES.profile.root,
     favorites: ROUTES.profile.favorites.full,
     orders: ROUTES.profile.orders.full,
-    register: ROUTES.auth.register.short,
+    register: ROUTES.auth.register.full,
   };
 
   return {

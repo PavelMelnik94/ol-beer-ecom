@@ -1,11 +1,11 @@
-import  { memo, useState } from 'react';
 import type { Address } from '@modules/auth/stores/register-store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { addressesSchema } from '@modules/auth/model/schema';
-import { Flex, Tabs, Text } from '@radix-ui/themes';
+import { Checkbox, Flex, Switch, Tabs, Text } from '@radix-ui/themes';
 import { InputText } from '@shared/components';
-import { RegisterFooter } from '../register-footer/register-footer';
+import { memo, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { RegisterFooter } from '../register-footer/register-footer';
 
 interface AddressesStepProps {
   addresses: Address[];
@@ -17,10 +17,8 @@ interface AddressesStepProps {
 }
 
 export const AddressesStep = memo(({ addresses, setAddresses, onSubmit, step, totalSteps, onClickBack }: AddressesStepProps) => {
-
-
   const [activeTab, setActiveTab] = useState<'shipping' | 'billing'>('shipping');
-  const [useShippingAsBilling, setUseShippingAsBilling] = useState(false);
+  const [useShippingAsBilling, setUseShippingAsBilling] = useState(true);
 
   // Преобразуем addresses в массив для RHF
   const defaultAddresses: Address[] = [
@@ -37,16 +35,13 @@ export const AddressesStep = memo(({ addresses, setAddresses, onSubmit, step, to
     register,
     handleSubmit,
     formState: { errors },
-
-  } = useForm<{ addresses: Address[] }>({
+  } = useForm<{ addresses: Address[]; }>({
     resolver: zodResolver(addressesSchema),
     defaultValues: { addresses: defaultAddresses },
     mode: 'onSubmit',
   });
 
-
-
-  const handleFormSubmit = (data: { addresses: Address[] }) => {
+  const handleFormSubmit = (data: { addresses: Address[]; }) => {
     let result: Address[] = [];
     const shipping = data.addresses[0];
     const billing = data.addresses[1];
@@ -55,7 +50,8 @@ export const AddressesStep = memo(({ addresses, setAddresses, onSubmit, step, to
     const billingHasValue = billing && (billing.city || billing.country || billing.streetName || billing.zip);
     if (!useShippingAsBilling && (billingTabActive || billingHasValue)) {
       result.push({ ...billing, type: 'billing' });
-    } else if (useShippingAsBilling) {
+    }
+    else if (useShippingAsBilling) {
       result.push({ ...shipping, type: 'billing' });
     }
     setAddresses(result);
@@ -66,33 +62,36 @@ export const AddressesStep = memo(({ addresses, setAddresses, onSubmit, step, to
     }
   };
 
-
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <Tabs.Root value={activeTab} onValueChange={value => setActiveTab(value as 'shipping' | 'billing')} className="address-tabs">
         <Tabs.List>
           <Tabs.Trigger value="shipping">
             Shipping
-            <span className="required-star">*</span>
+            <Text color="red">
+              *
+            </Text>
           </Tabs.Trigger>
           <Tabs.Trigger value="billing" disabled={useShippingAsBilling}>Billing (optional)</Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content value="shipping">
           <Flex direction="column" gap="2" mt="4">
-            <Flex align="center" gap="2" mb="3">
-              <Text>Use shipping as billing</Text>
-              <input
-                type="checkbox"
-                checked={useShippingAsBilling}
-                onChange={e => setUseShippingAsBilling(e.target.checked)}
-                className="shipping-billing-checkbox"
-                title="Use shipping as billing"
-              />
-            </Flex>
             <InputText {...register('addresses.0.city')} placeholder="City" error={errors.addresses?.[0]?.city?.message} />
             <InputText {...register('addresses.0.country')} placeholder="Country" error={errors.addresses?.[0]?.country?.message} />
             <InputText {...register('addresses.0.streetName')} placeholder="Street Name" error={errors.addresses?.[0]?.streetName?.message} />
             <InputText {...register('addresses.0.zip')} placeholder="ZIP" error={errors.addresses?.[0]?.zip?.message} />
+            <Flex align="center" gap="2">
+              <Switch
+                variant="soft"
+                size="1"
+                radius="full"
+                defaultChecked
+                checked={useShippingAsBilling}
+                onClick={() => setUseShippingAsBilling(prev => !prev)}
+              />
+              {' '}
+              <Text size="2">Use shipping as billing</Text>
+            </Flex>
           </Flex>
         </Tabs.Content>
         <Tabs.Content value="billing">

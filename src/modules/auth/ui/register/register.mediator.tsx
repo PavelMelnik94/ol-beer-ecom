@@ -1,4 +1,3 @@
-import React from 'react';
 import { RegisterContainer } from '@modules/auth/ui/register/register-container/register-container';
 import { Box, Container, Flex, Text } from '@radix-ui/themes';
 import { Stepper } from '@shared/components/stepper';
@@ -25,11 +24,10 @@ export function RegisterMediator() {
     submit,
   } = useRegisterForm();
 
-
   return (
     <Container pr="5" pl="5">
       <Box className={styles.centered}>
-        <Flex className={styles.flexContainer} direction={isColumn ? 'column' : 'row'} gap="9">
+        <Flex className={styles.flexContainer} direction={isColumn ? 'column' : 'row'} gap={isColumn ? '5' : '9'}>
           <Flex direction="column" className={styles.leftPart} mt={isColumn ? '5' : '0'}>
             <Text size="8" weight="bold" mb="2">Join Our Community</Text>
             <Text size="4" mb="4" color="gray">Create your account in just a few simple steps and unlock access to exclusive features.</Text>
@@ -40,7 +38,7 @@ export function RegisterMediator() {
               <Stepper.Progress />
             </Stepper.Root>
           </Flex>
-          <Flex className={styles.rightPart}>
+          <Flex className={styles.rightPart} mb={isColumn ? '9' : '0'}>
             {step === 1 && (
               <RegisterContainer
                 step={step}
@@ -51,7 +49,7 @@ export function RegisterMediator() {
                 <PersonalInfoStep
                   personalInfo={personalInfo}
                   setPersonalInfo={setPersonalInfo}
-                  onSubmit={() => nextStep()}
+                  onSubmit={nextStep}
                   step={step}
                   totalSteps={3}
                   onClickBack={prevStep}
@@ -66,14 +64,14 @@ export function RegisterMediator() {
                 stepDescription="Provide your shipping and billing address"
               >
 
-                  <AddressesStep
-                    addresses={addresses}
-                    setAddresses={setAddresses}
-                    onSubmit={() => nextStep()}
-                    step={step}
-                    totalSteps={3}
-                    onClickBack={prevStep}
-                  />
+                <AddressesStep
+                  addresses={addresses}
+                  setAddresses={setAddresses}
+                  onSubmit={nextStep}
+                  step={step}
+                  totalSteps={3}
+                  onClickBack={prevStep}
+                />
               </RegisterContainer>
             )}
             {step === 3 && (
