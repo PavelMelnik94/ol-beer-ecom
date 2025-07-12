@@ -22,16 +22,38 @@ export function useRegisterForm() {
       case 1:
         return personalInfoSchema.safeParse(personalInfo);
       case 2:
-        return addressesSchema.safeParse(addresses);
+        return addressesSchema.safeParse({ addresses });
       case 3:
         return securitySchema.safeParse(security);
       default:
         return { success: false, error: null };
     }
-  }, [personalInfo, addresses, security]);
+  }, []);
 
   const nextStep = useCallback(() => {
-    if (step < 3) setStep(step + 1);
+    const { personalInfo: currentPersonalInfo, addresses: currentAddresses, security: currentSecurity } = useRegisterStore.getState();
+
+    let validation;
+    switch (step as RegisterStep) {
+      case 1:
+        validation = personalInfoSchema.safeParse(currentPersonalInfo);
+        break;
+      case 2:
+        validation = addressesSchema.safeParse({ addresses: currentAddresses });
+        break;
+      case 3:
+        validation = securitySchema.safeParse(currentSecurity);
+        break;
+      default:
+        validation = { success: false, error: null };
+    }
+
+    if (validation.success && step < 3) {
+      setStep(step + 1);
+    }
+    else if (!validation.success) {
+      console.error('DEBUG: validation failed:', validation.error);
+    }
   }, [step, setStep]);
 
   const prevStep = useCallback(() => {
@@ -39,14 +61,18 @@ export function useRegisterForm() {
   }, [step, setStep]);
 
   const submit = useCallback(async () => {
-    const result = RegisterSchema.safeParse({
+    const dataToValidate = {
       ...personalInfo,
       addresses,
       ...security,
-    });
-    if (!result.success) return result;
+    };
 
-    console.log(result.data, 'submit data');
+    const result = RegisterSchema.safeParse(dataToValidate);
+    if (!result.success) {
+      return result;
+    }
+
+    console.error('🎉 SUBMIT DATA SUCCESS:', result.data);
     // await registerApi(result.data)
     return result;
   }, [personalInfo, addresses, security]);

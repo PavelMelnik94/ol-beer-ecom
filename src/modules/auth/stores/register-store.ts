@@ -12,8 +12,8 @@ export interface Address {
   country: string;
   streetName: string;
   zip: string;
-  type: 'billing' | 'shipping';
-  isPrimaryAddress?: boolean;
+  type: 'shipping';
+  isPrimaryAddress: boolean;
 }
 
 export interface SecurityInfo {

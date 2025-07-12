@@ -31,10 +31,30 @@ export function RegisterMediator() {
           <Flex direction="column" className={styles.leftPart} mt={isColumn ? '5' : '0'}>
             <Text size="8" weight="bold" mb="2">Join Our Community</Text>
             <Text size="4" mb="4" color="gray">Create your account in just a few simple steps and unlock access to exclusive features.</Text>
+
             <Stepper.Root activeStep={step - 1} completedSteps={Array.from({ length: step - 1 }, (_, i) => i)} direction="column">
-              <Stepper.Step index={0} label="Personal Information" description="Tell us about yourself" icon={<UserIcon />} />
-              <Stepper.Step index={1} label="Shipping Details" description="Provide your shipping and billing address" icon={<Truck />} />
-              <Stepper.Step index={2} label="Account Security" description="Protect your account with a strong password" icon={<LockIcon />} />
+
+              <Stepper.Step
+                index={0}
+                label="Personal Information"
+                description="Tell us about yourself"
+                icon={<UserIcon />}
+              />
+
+              <Stepper.Step
+                index={1}
+                label="Shipping Details"
+                description="Provide your shipping address"
+                icon={<Truck />}
+              />
+
+              <Stepper.Step
+                index={2}
+                label="Account Security"
+                description="Protect your account with a strong password"
+                icon={<LockIcon />}
+              />
+
               <Stepper.Progress />
             </Stepper.Root>
           </Flex>
@@ -61,7 +81,7 @@ export function RegisterMediator() {
                 step={step}
                 totalSteps={3}
                 stepTitle="Shipping Details"
-                stepDescription="Provide your shipping and billing address"
+                stepDescription="Provide your shipping address"
               >
 
                 <AddressesStep

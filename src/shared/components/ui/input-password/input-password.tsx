@@ -21,7 +21,6 @@ export const InputPassword = forwardRef((
   const setRefs = (el: HTMLInputElement) => {
     if (typeof ref === 'function') ref(el);
     else if (ref && 'current' in ref) (ref as { current: HTMLInputElement | null; }).current = el;
-    // @ts-ignore
     if (inputRef && 'current' in inputRef) (inputRef as { current: HTMLInputElement | null; }).current = el;
   };
 
@@ -51,12 +50,11 @@ export const InputPassword = forwardRef((
         {...inputProps}
         className={clsx(error && styles.errorInput)}
       >
-        {icon && <TextField.Slot>{icon}</TextField.Slot>}
         <TextField.Slot
           onClick={handleToggleVisible}
           style={{ cursor: 'pointer' }}
           tabIndex={0}
-          aria-label={visible ? 'Скрыть пароль' : 'Показать пароль'}
+          aria-label={visible ? 'Hide password' : 'Show password'}
         >
           {visible
             ? <Eye height={16} width={16} />

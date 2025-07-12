@@ -3,21 +3,21 @@ import { z } from 'zod';
 const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Z\d]{6,}$/i;
 
 export const AddressSchema = z.object({
-city: z.string().min(1, 'City is required').regex(/^[A-Za-z\s'-]+$/, 'Only latin letters allowed'),
-country: z.string().min(1, 'Country is required').regex(/^[A-Za-z\s'-]+$/, 'Only latin letters allowed'),
-streetName: z.string().min(1, 'Street name is required').regex(/^[A-Za-z0-9\s'-]+$/, 'Only latin letters and numbers allowed'),
-zip: z.string().min(1, 'ZIP code is required').regex(/^[0-9]+$/, 'Only numbers allowed'),
-  type: z.enum(['billing', 'shipping']),
-  isPrimaryAddress: z.boolean().default(true),
+  city: z.string().min(1, 'City is required').regex(/^[a-z\s',-]+$/i, 'Only latin letters, spaces, apostrophes, commas and dashes allowed'),
+  country: z.string().min(1, 'Country is required').regex(/^[a-z\s',-]+$/i, 'Only latin letters, spaces, apostrophes, commas and dashes allowed'),
+  streetName: z.string().min(1, 'Street name is required').regex(/^[a-z0-9\s',-]+$/i, 'Only latin letters, numbers, spaces, apostrophes, commas and dashes allowed'),
+  zip: z.string().min(1, 'ZIP code is required').regex(/^\d+$/, 'Only numbers allowed'),
+  type: z.literal('shipping'),
+  isPrimaryAddress: z.boolean(),
 });
 
 export const personalInfoSchema = z.object({
   firstName: z.string()
     .min(3, 'First name must be at least 3 characters')
-    .regex(/^[A-Za-z]+$/, 'Only latin letters allowed'),
+    .regex(/^[a-z]+$/i, 'Only latin letters allowed'),
   lastName: z.string()
     .min(3, 'Last name must be at least 3 characters')
-    .regex(/^[A-Za-z]+$/, 'Only latin letters allowed'),
+    .regex(/^[a-z]+$/i, 'Only latin letters allowed'),
   email: z.string().email('Invalid email format'),
 });
 
@@ -31,24 +31,14 @@ export const securitySchema = z.object({
 
 export const addressesSchema = z.object({
   addresses: z.array(AddressSchema)
-    .min(1, 'Shipping address is required')
+    .length(1, 'Exactly one shipping address is required')
     .refine(
-      addresses => addresses.some(addr => addr.type === 'shipping'),
-      { message: 'You must provide at least one shipping address' },
-    )
-    .refine(
-      addresses => {
-        const billing = addresses.find(addr => addr.type === 'billing');
-        // Если billing не заполнен, не валидируем
-        if (!billing) return true;
-        const hasValue = billing.city || billing.country || billing.streetName || billing.zip;
-        // Если billing не заполнен, не валидируем
-        if (!hasValue) return true;
-        // Если заполнен — должен быть валиден (валидируется AddressSchema)
-        return true;
+      (addresses) => {
+        const shipping = addresses[0];
+        return shipping && shipping.type === 'shipping';
       },
-      { message: 'Billing address is invalid', path: ['addresses', 1] }
-    )
+      { message: 'Address must be a shipping address' },
+    ),
 });
 
 export const LoginSchema = z.object({
@@ -65,8 +55,8 @@ export const LoginSchema = z.object({
 });
 
 export const RegisterSchema = personalInfoSchema
-  .extend({ addresses: addressesSchema })
   .extend({
+    addresses: z.array(AddressSchema).length(1, 'Exactly one shipping address is required'),
     password: z.string().min(8, 'Password must be at least 8 characters'),
     confirmPassword: z.string().min(8, 'Password confirmation required'),
   })

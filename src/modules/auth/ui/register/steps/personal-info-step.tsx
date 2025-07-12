@@ -2,6 +2,7 @@ import type { PersonalInfo } from '@modules/auth/stores/register-store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { personalInfoSchema } from '@modules/auth/model/schema';
 import { InputText } from '@shared/components';
+import { Mailbox, Signature } from 'lucide-react';
 import { memo } from 'react';
 import { useForm } from 'react-hook-form';
 import { RegisterFooter } from '../register-footer/register-footer';
@@ -38,9 +39,26 @@ export const PersonalInfoStep = memo(
 
     return (
       <form onSubmit={handleSubmit(handleFormSubmit)}>
-        <InputText {...register('firstName')} placeholder="First Name" error={firstNameError} />
-        <InputText {...register('lastName')} placeholder="Last Name" error={lastNameError} />
-        <InputText {...register('email')} placeholder="Email" type="email" error={emailError} />
+        <InputText
+          {...register('firstName')}
+          placeholder="First Name"
+          error={firstNameError}
+          icon={<Signature size="16px" />}
+        />
+        <InputText
+          {...register('lastName')}
+          placeholder="Last Name"
+          error={lastNameError}
+          icon={<Signature size="16px" />}
+        />
+        <InputText
+          {...register('email')}
+          placeholder="Email"
+          type="email"
+          error={emailError}
+          icon={<Mailbox size="16px" />}
+
+        />
         <RegisterFooter
           step={step}
           totalSteps={totalSteps}

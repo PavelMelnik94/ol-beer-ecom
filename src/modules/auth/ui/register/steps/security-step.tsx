@@ -1,11 +1,11 @@
 import type { SecurityInfo } from '@modules/auth/stores/register-store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { securitySchema } from '@modules/auth/model/schema';
-import { Flex, Text } from '@radix-ui/themes';
-import { InputText } from '@shared/components';
-import { RegisterFooter } from '../register-footer/register-footer';
+import { Flex } from '@radix-ui/themes';
+import { InputPassword } from '@shared/components';
 import { memo } from 'react';
 import { useForm } from 'react-hook-form';
+import { RegisterFooter } from '../register-footer/register-footer';
 
 interface SecurityStepProps {
   security: SecurityInfo;
@@ -35,12 +35,29 @@ export const SecurityStep = memo(({ security, setSecurity, onSubmit, step, total
     if (onSubmit) onSubmit();
   };
 
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSecurity({ password: e.target.value });
+  };
+
+  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSecurity({ confirmPassword: e.target.value });
+  };
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <Flex direction="column" gap="2">
-        <InputText {...register('password')} placeholder="Password" type="password" error={passwordError} />
-        <InputText {...register('confirmPassword')} placeholder="Confirm Password" type="password" error={confirmPasswordError} />
+        <InputPassword
+          {...register('password')}
+          placeholder="Password"
+          error={passwordError}
+          onChange={handlePasswordChange}
+        />
+        <InputPassword
+          {...register('confirmPassword')}
+          placeholder="Confirm Password"
+          error={confirmPasswordError}
+          onChange={handleConfirmPasswordChange}
+        />
       </Flex>
       <RegisterFooter
         step={step}
