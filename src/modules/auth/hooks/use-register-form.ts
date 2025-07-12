@@ -85,6 +85,11 @@ export function useRegisterForm() {
     return result;
   }, [personalInfo, addresses, security, register]);
 
+  const resetForm = useCallback(() => {
+    reset();
+    setIsRegisterFinish(false);
+  }, [reset]);
+
   return {
     step,
     setStep,
@@ -95,6 +100,7 @@ export function useRegisterForm() {
     security,
     setSecurity,
     reset,
+    resetForm,
     validateStep,
     nextStep,
     prevStep,

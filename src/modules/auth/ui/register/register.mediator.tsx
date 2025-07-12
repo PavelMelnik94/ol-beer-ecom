@@ -49,13 +49,14 @@ export function RegisterMediator() {
     prevStep,
     submit,
     isRegisterFinish,
+    resetForm,
   } = useRegisterForm();
 
   return (
     <Container pr="5" pl="5">
       <Box className={styles.centered}>
 
-        {isRegisterFinish && <RegisterCongrats />}
+        {isRegisterFinish && <RegisterCongrats onReset={resetForm} />}
 
         {!isRegisterFinish && (
           <Flex className={styles.flexContainer} direction={isColumn ? 'column' : 'row'} gap={isColumn ? '5' : '9'}>
