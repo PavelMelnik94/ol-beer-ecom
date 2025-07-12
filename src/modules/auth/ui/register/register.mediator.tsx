@@ -1,3 +1,4 @@
+import { RegisterCongrats } from '@modules/auth/ui/register/register-congrats/register-congrats';
 import { RegisterContainer } from '@modules/auth/ui/register/register-container/register-container';
 import { Box, Container, Flex, Text } from '@radix-ui/themes';
 import { Stepper } from '@shared/components/stepper';
@@ -47,68 +48,74 @@ export function RegisterMediator() {
     nextStep,
     prevStep,
     submit,
+    isRegisterFinish,
   } = useRegisterForm();
 
   return (
     <Container pr="5" pl="5">
       <Box className={styles.centered}>
-        <Flex className={styles.flexContainer} direction={isColumn ? 'column' : 'row'} gap={isColumn ? '5' : '9'}>
-          <Flex direction="column" className={styles.leftPart} mt={isColumn ? '5' : '0'}>
-            <Text size="8" weight="bold" mb="2">Join Our Community</Text>
-            <Text size="4" mb="4" color="gray">Create your account in just a few simple steps and unlock access to exclusive features.</Text>
 
-            <Stepper.Root activeStep={step - 1} completedSteps={Array.from({ length: step - 1 }, (_, i) => i)} direction="column">
-              <Stepper.Step index={0} {...getStepProperties(0)} />
-              <Stepper.Step index={1} {...getStepProperties(1)} />
-              <Stepper.Step index={2} {...getStepProperties(2)} />
-              <Stepper.Progress />
-            </Stepper.Root>
+        {isRegisterFinish && <RegisterCongrats />}
 
+        {!isRegisterFinish && (
+          <Flex className={styles.flexContainer} direction={isColumn ? 'column' : 'row'} gap={isColumn ? '5' : '9'}>
+            <Flex direction="column" className={styles.leftPart} mt={isColumn ? '5' : '0'}>
+              <Text size="8" weight="bold" mb="2">Join Our Community</Text>
+              <Text size="4" mb="4" color="gray">Create your account in just a few simple steps and unlock access to exclusive features.</Text>
+
+              <Stepper.Root activeStep={step - 1} completedSteps={Array.from({ length: step - 1 }, (_, i) => i)} direction="column">
+                <Stepper.Step index={0} {...getStepProperties(0)} />
+                <Stepper.Step index={1} {...getStepProperties(1)} />
+                <Stepper.Step index={2} {...getStepProperties(2)} />
+                <Stepper.Progress />
+              </Stepper.Root>
+
+            </Flex>
+            <Flex className={styles.rightPart} mb={isColumn ? '9' : '0'}>
+
+              <RegisterContainer
+                step={step}
+                totalSteps={STEPS_STATIC.length}
+                stepTitle={STEPS_STATIC[step - 1].label}
+                stepDescription={STEPS_STATIC[step - 1].description}
+              >
+                {step === 1 && (
+                  <PersonalInfoStep
+                    personalInfo={personalInfo}
+                    setPersonalInfo={setPersonalInfo}
+                    onSubmit={nextStep}
+                    step={step}
+                    totalSteps={3}
+                    onClickBack={prevStep}
+                  />
+                )}
+
+                {step === 2 && (
+                  <AddressesStep
+                    addresses={addresses}
+                    setAddresses={setAddresses}
+                    onSubmit={nextStep}
+                    step={step}
+                    totalSteps={3}
+                    onClickBack={prevStep}
+                  />
+                )}
+
+                {step === 3 && (
+                  <SecurityStep
+                    security={security}
+                    setSecurity={setSecurity}
+                    onSubmit={submit}
+                    step={step}
+                    totalSteps={3}
+                    onClickBack={prevStep}
+                  />
+                )}
+
+              </RegisterContainer>
+            </Flex>
           </Flex>
-          <Flex className={styles.rightPart} mb={isColumn ? '9' : '0'}>
-
-            <RegisterContainer
-              step={step}
-              totalSteps={STEPS_STATIC.length}
-              stepTitle={STEPS_STATIC[step - 1].label}
-              stepDescription={STEPS_STATIC[step - 1].description}
-            >
-              {step === 1 && (
-                <PersonalInfoStep
-                  personalInfo={personalInfo}
-                  setPersonalInfo={setPersonalInfo}
-                  onSubmit={nextStep}
-                  step={step}
-                  totalSteps={3}
-                  onClickBack={prevStep}
-                />
-              )}
-
-              {step === 2 && (
-                <AddressesStep
-                  addresses={addresses}
-                  setAddresses={setAddresses}
-                  onSubmit={nextStep}
-                  step={step}
-                  totalSteps={3}
-                  onClickBack={prevStep}
-                />
-              )}
-
-              {step === 3 && (
-                <SecurityStep
-                  security={security}
-                  setSecurity={setSecurity}
-                  onSubmit={submit}
-                  step={step}
-                  totalSteps={3}
-                  onClickBack={prevStep}
-                />
-              )}
-
-            </RegisterContainer>
-          </Flex>
-        </Flex>
+        )}
       </Box>
     </Container>
   );

@@ -1,5 +1,6 @@
+import type { SecurityInfo } from '../model/types';
 import { useRegister } from '@modules/auth/hooks/use-register';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { addressesSchema, personalInfoSchema, RegisterSchema, securitySchema } from '../model/schema';
 import { useRegisterStore } from '../stores/register-store';
 
@@ -17,6 +18,7 @@ export function useRegisterForm() {
     setSecurity,
     reset,
   } = useRegisterStore();
+  const [isRegisterFinish, setIsRegisterFinish] = useState<boolean>(false);
 
   const register = useRegister();
 
@@ -60,11 +62,13 @@ export function useRegisterForm() {
     if (step > 1) setStep(step - 1);
   }, [step, setStep]);
 
-  const submit = useCallback(async () => {
+  const submit = useCallback(async (formData?: Partial<SecurityInfo>) => {
+    const securityData = formData ? { ...security, ...formData } : security;
+
     const dataToValidate = {
       ...personalInfo,
       addresses,
-      ...security,
+      ...securityData,
     };
 
     const result = RegisterSchema.safeParse(dataToValidate);
@@ -73,7 +77,11 @@ export function useRegisterForm() {
     }
 
     const { confirmPassword, ...userData } = result.data;
-    await register.mutateAsync(userData);
+    const response = await register.mutateAsync(userData);
+
+    if (response.success) {
+      setIsRegisterFinish(true);
+    }
     return result;
   }, [personalInfo, addresses, security, register]);
 
@@ -91,5 +99,6 @@ export function useRegisterForm() {
     nextStep,
     prevStep,
     submit,
+    isRegisterFinish,
   };
 }

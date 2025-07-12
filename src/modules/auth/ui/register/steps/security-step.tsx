@@ -4,14 +4,14 @@ import { useRegister } from '@modules/auth/hooks/use-register';
 import { securitySchema } from '@modules/auth/model/schema';
 import { Flex } from '@radix-ui/themes';
 import { InputPassword } from '@shared/components';
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { RegisterFooter } from '../register-footer/register-footer';
 
 interface SecurityStepProps {
   security: SecurityInfo;
   setSecurity: (data: Partial<SecurityInfo>) => void;
-  onSubmit?: () => void;
+  onSubmit?: (data?: SecurityInfo) => void;
   step: number;
   totalSteps: number;
   onClickBack: () => void;
@@ -28,14 +28,17 @@ export const SecurityStep = memo(({ security, setSecurity, onSubmit, step, total
     mode: 'onChange',
   });
 
-  const { isPending } = useRegister();
-
   const passwordError = errors.password?.message;
   const confirmPasswordError = errors.confirmPassword?.message;
 
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
   const handleFormSubmit = (data: SecurityInfo) => {
     setSecurity(data);
-    if (onSubmit) onSubmit();
+    if (onSubmit) {
+      onSubmit(data);
+      setIsSubmitting(true);
+    }
   };
 
   return (
@@ -43,18 +46,19 @@ export const SecurityStep = memo(({ security, setSecurity, onSubmit, step, total
       <Flex direction="column" gap="2">
         <InputPassword
           {...register('password')}
-          disabled={isPending}
+          disabled={isSubmitting}
           placeholder="Password"
           error={passwordError}
         />
         <InputPassword
           {...register('confirmPassword')}
-          disabled={isPending}
+          disabled={isSubmitting}
           placeholder="Confirm Password"
           error={confirmPasswordError}
         />
       </Flex>
       <RegisterFooter
+        isLockButtons={isSubmitting}
         step={step}
         totalSteps={totalSteps}
         onClickBack={onClickBack}
