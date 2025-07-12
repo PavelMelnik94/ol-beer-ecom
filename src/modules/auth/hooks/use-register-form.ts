@@ -1,6 +1,5 @@
 import { useRegister } from '@modules/auth/hooks/use-register';
-import { nanoid } from 'nanoid';
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { addressesSchema, personalInfoSchema, RegisterSchema, securitySchema } from '../model/schema';
 import { useRegisterStore } from '../stores/register-store';
 
@@ -55,9 +54,6 @@ export function useRegisterForm() {
     if (validation.success && step < 3) {
       setStep(step + 1);
     }
-    else if (!validation.success) {
-      console.error('DEBUG: validation failed:', validation.error);
-    }
   }, [step, setStep]);
 
   const prevStep = useCallback(() => {
@@ -76,15 +72,10 @@ export function useRegisterForm() {
       return result;
     }
 
-
-    const {confirmPassword, ...userData} = result.data;
-    await register.mutateAsync({
-      ...userData,
-      addresses: [{ ...result.data.addresses[0], id: nanoid() }],
-
-    });
+    const { confirmPassword, ...userData } = result.data;
+    await register.mutateAsync(userData);
     return result;
-  }, [personalInfo, addresses, security]);
+  }, [personalInfo, addresses, security, register]);
 
   return {
     step,

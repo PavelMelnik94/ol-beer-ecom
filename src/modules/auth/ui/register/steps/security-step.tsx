@@ -38,14 +38,6 @@ export const SecurityStep = memo(({ security, setSecurity, onSubmit, step, total
     if (onSubmit) onSubmit();
   };
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSecurity({ password: e.target.value });
-  };
-
-  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSecurity({ confirmPassword: e.target.value });
-  };
-
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <Flex direction="column" gap="2">
@@ -54,14 +46,12 @@ export const SecurityStep = memo(({ security, setSecurity, onSubmit, step, total
           disabled={isPending}
           placeholder="Password"
           error={passwordError}
-          onChange={handlePasswordChange}
         />
         <InputPassword
-          disabled={isPending}
           {...register('confirmPassword')}
+          disabled={isPending}
           placeholder="Confirm Password"
           error={confirmPasswordError}
-          onChange={handleConfirmPasswordChange}
         />
       </Flex>
       <RegisterFooter

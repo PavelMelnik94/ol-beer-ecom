@@ -1,13 +1,14 @@
 import { z } from 'zod';
 
-const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Z\d]{6,}$/i;
+const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{6,}$/; // Минимум 6 символов, хотя бы одна заглавная буква и одна цифра
 
 export const AddressSchema = z.object({
   city: z.string().min(1, 'City is required').regex(/^[a-z\s',-]+$/i, 'Only latin letters, spaces, apostrophes, commas and dashes allowed'),
   country: z.string().min(1, 'Country is required').regex(/^[a-z\s',-]+$/i, 'Only latin letters, spaces, apostrophes, commas and dashes allowed'),
   streetName: z.string().min(1, 'Street name is required').regex(/^[a-z0-9\s',-]+$/i, 'Only latin letters, numbers, spaces, apostrophes, commas and dashes allowed'),
   zip: z.string().min(1, 'ZIP code is required').regex(/^\d+$/, 'Only numbers allowed'),
-  type: z.literal('shipping'),
+  type: z.enum(['billing', 'shipping']),
+  id: z.string(),
   isPrimaryAddress: z.boolean(),
 });
 
@@ -22,8 +23,11 @@ export const personalInfoSchema = z.object({
 });
 
 export const securitySchema = z.object({
-  password: z.string().min(8, 'Password must be at least 8 characters'),
-  confirmPassword: z.string().min(8, 'Password confirmation required'),
+  password: z.string()
+    .min(6, 'Password must be at least 6 characters long')
+    .regex(passwordRegex, 'Password must contain at least one uppercase letter and one number'),
+  confirmPassword: z.string()
+    .min(6, 'Password confirmation required'),
 }).refine(data => data.password === data.confirmPassword, {
   message: 'Passwords do not match',
   path: ['confirmPassword'],
@@ -57,8 +61,11 @@ export const LoginSchema = z.object({
 export const RegisterSchema = personalInfoSchema
   .extend({
     addresses: z.array(AddressSchema).length(1, 'Exactly one shipping address is required'),
-    password: z.string().min(8, 'Password must be at least 8 characters'),
-    confirmPassword: z.string().min(8, 'Password confirmation required'),
+    password: z.string()
+      .min(6, 'Password must be at least 6 characters long')
+      .regex(passwordRegex, 'Password must contain at least one uppercase letter and one number'),
+    confirmPassword: z.string()
+      .min(6, 'Password confirmation required'),
   })
   .refine(data => data.password === data.confirmPassword, {
     message: 'Passwords do not match',

@@ -22,5 +22,5 @@ export interface RegisterFormValuesCombine {
 }
 
 export type RegisterBody = {
-  addresses: [Address];
+  addresses: Address[];
 } & PersonalInfo & Omit<SecurityInfo, 'confirmPassword'>;
