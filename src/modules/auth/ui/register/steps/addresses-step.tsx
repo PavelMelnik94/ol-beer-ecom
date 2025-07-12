@@ -42,10 +42,13 @@ export const AddressesStep = memo(({ addresses, setAddresses, onSubmit, step, to
     const shipping = data.addresses[0];
     const billing = data.addresses[1];
     result.push({ ...shipping, type: 'shipping' });
-    if (useShippingAsBilling) {
-      result.push({ ...shipping, type: 'billing' });
-    } else if (billing && billing.city) {
+    // billing валидация: если таб открыт или есть значения, либо не выбран useShippingAsBilling
+    const billingTabActive = activeTab === 'billing';
+    const billingHasValue = billing && (billing.city || billing.country || billing.streetName || billing.zip);
+    if (!useShippingAsBilling && (billingTabActive || billingHasValue)) {
       result.push({ ...billing, type: 'billing' });
+    } else if (useShippingAsBilling) {
+      result.push({ ...shipping, type: 'billing' });
     }
     setAddresses(result);
     if (onSubmit) onSubmit();

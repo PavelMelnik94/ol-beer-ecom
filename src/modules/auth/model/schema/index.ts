@@ -12,8 +12,12 @@ export const AddressSchema = z.object({
 });
 
 export const personalInfoSchema = z.object({
-  firstName: z.string().min(1, 'First name is required'),
-  lastName: z.string().min(1, 'Last name is required'),
+  firstName: z.string()
+    .min(3, 'First name must be at least 3 characters')
+    .regex(/^[A-Za-z]+$/, 'Only latin letters allowed'),
+  lastName: z.string()
+    .min(3, 'Last name must be at least 3 characters')
+    .regex(/^[A-Za-z]+$/, 'Only latin letters allowed'),
   email: z.string().email('Invalid email format'),
 });
 

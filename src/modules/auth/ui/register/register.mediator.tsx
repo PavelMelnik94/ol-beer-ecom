@@ -74,7 +74,6 @@ export function RegisterMediator() {
                     step={step}
                     totalSteps={3}
                     onClickBack={prevStep}
-                    onClickNext={nextStep}
                   />
               </RegisterContainer>
             )}
