@@ -1,7 +1,7 @@
 {
   "name": "clean-arch-frontend-template",
   "type": "module",
-  "version": "0.4.33",
+  "version": "0.4.34",
   "private": true,
   "scripts": {
     "start": "vite",
@@ -28,6 +28,7 @@
     "js-confetti": "^0.12.0",
     "lodash-es": "^4.17.21",
     "lucide-react": "^0.525.0",
+    "nanoid": "^5.1.5",
     "next-themes": "^0.4.6",
     "nuqs": "^2.4.3",
     "react": "^18.2.0",
