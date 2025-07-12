@@ -1,4 +1,4 @@
-import type { Address } from '@modules/auth/stores/register-store';
+import type { Address } from '@kernel/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { addressesSchema } from '@modules/auth/model/schema';
 import { Flex, Text } from '@radix-ui/themes';

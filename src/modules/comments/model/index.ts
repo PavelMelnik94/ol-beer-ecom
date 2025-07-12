@@ -1,8 +1,9 @@
 import type { User } from '@kernel/types';
 import type { Comment, CommentsActions, OptimisticComment } from '../types';
+import { nanoid } from 'nanoid';
 
 function createOptimisticComment(content: string, user: any): OptimisticComment {
-  const optimisticId = `temp-${Date.now()}`;
+  const optimisticId = nanoid();
   return {
     id: optimisticId,
     content: content.trim(),

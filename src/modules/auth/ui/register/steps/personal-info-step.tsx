@@ -1,4 +1,4 @@
-import type { PersonalInfo } from '@modules/auth/stores/register-store';
+import type { PersonalInfo } from '@modules/auth/model/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { personalInfoSchema } from '@modules/auth/model/schema';
 import { InputText } from '@shared/components';

@@ -1,25 +1,7 @@
+import type { Address } from '@kernel/types';
+import type { PersonalInfo, SecurityInfo } from '@modules/auth/model/types';
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
-
-export interface PersonalInfo {
-  firstName: string;
-  lastName: string;
-  email: string;
-}
-
-export interface Address {
-  city: string;
-  country: string;
-  streetName: string;
-  zip: string;
-  type: 'shipping';
-  isPrimaryAddress: boolean;
-}
-
-export interface SecurityInfo {
-  password: string;
-  confirmPassword: string;
-}
 
 export interface RegisterFormState {
   step: number;

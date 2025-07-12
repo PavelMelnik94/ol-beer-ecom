@@ -1,4 +1,5 @@
 import type { Address, FavoriteProduct, Rating, User } from '@kernel/types';
+import { nanoid } from 'nanoid';
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 
@@ -62,7 +63,7 @@ export const useUserStore = create<State & Actions>()(
     optimisticAddRating: (productId: string, rating: number) => {
       const currentRatings = get().ratings;
       const newRating = {
-        id: `temp-${Date.now()}`,
+        id: nanoid(),
         productId,
         rating,
         userId: get().user?.id || '',
@@ -98,14 +99,14 @@ export const useUserStore = create<State & Actions>()(
       }
       else {
         const newFavorite = {
-          id: `temp-${Date.now()}`,
+          id: nanoid(),
           productId,
           userId: get().user?.id || '',
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
           product: {
-            id: `temp-${Date.now()}`,
-            title: `temp-${Date.now()}`,
+            id: nanoid(),
+            title: nanoid(),
           },
         } as unknown as FavoriteProduct;
         set({ favorites: [...currentFavorites, newFavorite] });

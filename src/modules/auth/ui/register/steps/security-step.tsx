@@ -1,4 +1,4 @@
-import type { SecurityInfo } from '@modules/auth/stores/register-store';
+import type { SecurityInfo } from '@modules/auth/model/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { securitySchema } from '@modules/auth/model/schema';
 import { Flex } from '@radix-ui/themes';

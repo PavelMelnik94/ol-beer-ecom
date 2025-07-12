@@ -1,11 +1,22 @@
+import type { Address } from '@kernel/types';
 import type { z } from 'zod';
-import type { AddressSchema, LoginSchema, RegisterSchema } from '../schema';
-
-export interface LoginCredentials {
-  email: string;
-  password: string;
-}
+import type { LoginSchema } from '../schema';
 
 export type LoginFormValues = z.infer<typeof LoginSchema>;
-export type RegisterFormValues = z.infer<typeof RegisterSchema>;
-export type AddressFormValues = z.infer<typeof AddressSchema>;
+
+export interface PersonalInfo {
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+
+export interface SecurityInfo {
+  password: string;
+  confirmPassword: string;
+}
+
+export interface RegisterFormValues {
+  personalInfo: PersonalInfo;
+  addresses: Address[];
+  security: SecurityInfo;
+}
