@@ -1,78 +1,99 @@
+import React, { memo, useState } from 'react';
 import type { Address } from '@modules/auth/stores/register-store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { addressesSchema } from '@modules/auth/model/schema';
-import { Button, Flex, Switch, Text } from '@radix-ui/themes';
+import { Flex, Tabs, Text } from '@radix-ui/themes';
 import { InputText } from '@shared/components';
-import { memo, useState } from 'react';
+import { RegisterFooter } from '../register-footer/register-footer';
 import { useForm } from 'react-hook-form';
 
 interface AddressesStepProps {
   addresses: Address[];
   setAddresses: (addresses: Address[]) => void;
-  onNext: () => void;
-  onPrev: () => void;
+  onSubmit?: () => void;
+  step: number;
+  totalSteps: number;
+  onClickBack: () => void;
 }
-export const AddressesStep = memo(({ addresses, setAddresses, onNext, onPrev }: AddressesStepProps) => {
+
+export const AddressesStep = memo(({ addresses, setAddresses, onSubmit, step, totalSteps, onClickBack }: AddressesStepProps) => {
+  const [activeTab, setActiveTab] = useState<'shipping' | 'billing'>('shipping');
   const [useShippingAsBilling, setUseShippingAsBilling] = useState(false);
-  const shipping = addresses.find((a: Address) => a.type === 'shipping') ?? { city: '', country: '', streetName: '', zip: '', type: 'shipping' };
-  const billing = addresses.find((a: Address) => a.type === 'billing') ?? { city: '', country: '', streetName: '', zip: '', type: 'billing' };
+
+  // Преобразуем addresses в массив для RHF
+  const defaultAddresses: Address[] = [
+    addresses.find(a => a.type === 'shipping') ?? { city: '', country: '', streetName: '', zip: '', type: 'shipping' },
+    addresses.find(a => a.type === 'billing') ?? { city: '', country: '', streetName: '', zip: '', type: 'billing' },
+  ];
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
-    getValues,
-  } = useForm<Address[]>({
+  } = useForm<{ addresses: Address[] }>({
     resolver: zodResolver(addressesSchema),
-    defaultValues: [shipping, billing],
+    defaultValues: { addresses: defaultAddresses },
     mode: 'onChange',
   });
 
-  const onSubmit = (data: Address[]) => {
-    let result: Address[] = [
-      { ...data[0], type: 'shipping' },
-    ];
+  // Обработка сабмита
+  const handleFormSubmit = (data: { addresses: Address[] }) => {
+    let result: Address[] = [];
+    const shipping = data.addresses[0];
+    const billing = data.addresses[1];
+    result.push({ ...shipping, type: 'shipping' });
     if (useShippingAsBilling) {
-      result.push({ ...data[0], type: 'billing' });
-    }
-    else if (data[1] && data[1].city) {
-      result.push({ ...data[1], type: 'billing' });
+      result.push({ ...shipping, type: 'billing' });
+    } else if (billing && billing.city) {
+      result.push({ ...billing, type: 'billing' });
     }
     setAddresses(result);
-    onNext();
+    if (onSubmit) onSubmit();
   };
 
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Text mb="2">Shipping Address</Text>
-      <Flex direction="column" gap="2">
-        <InputText {...register('0.city')} placeholder="City" />
-        <InputText {...register('0.country')} placeholder="Country" />
-        <InputText {...register('0.streetName')} placeholder="Street Name" />
-        <InputText {...register('0.zip')} placeholder="ZIP" />
-      </Flex>
-      {errors[0] && <span>{errors[0].message}</span>}
-      <Flex align="center" mt="3" gap="2">
-        <Switch checked={useShippingAsBilling} onCheckedChange={setUseShippingAsBilling} />
-        <Text>Use shipping as billing</Text>
-      </Flex>
-      {!useShippingAsBilling && (
-        <>
-          <Text mt="3" mb="2">Billing Address (optional)</Text>
-          <Flex direction="column" gap="2">
-            <InputText {...register('1.city')} placeholder="City" />
-            <InputText {...register('1.country')} placeholder="Country" />
-            <InputText {...register('1.streetName')} placeholder="Street Name" />
-            <InputText {...register('1.zip')} placeholder="ZIP" />
+    <form onSubmit={handleSubmit(handleFormSubmit)}>
+      <Tabs.Root value={activeTab} onValueChange={value => setActiveTab(value as 'shipping' | 'billing')} className="address-tabs">
+        <Tabs.List>
+          <Tabs.Trigger value="shipping">
+            Shipping
+            <span className="required-star">*</span>
+          </Tabs.Trigger>
+          <Tabs.Trigger value="billing" disabled={useShippingAsBilling}>Billing (optional)</Tabs.Trigger>
+        </Tabs.List>
+        <Tabs.Content value="shipping">
+          <Flex direction="column" gap="2" mt="4">
+            <Flex align="center" gap="2" mb="3">
+              <Text>Use shipping as billing</Text>
+              <input
+                type="checkbox"
+                checked={useShippingAsBilling}
+                onChange={e => setUseShippingAsBilling(e.target.checked)}
+                className="shipping-billing-checkbox"
+                title="Use shipping as billing"
+              />
+            </Flex>
+            <InputText {...register('addresses.0.city')} placeholder="City" error={errors.addresses?.[0]?.city?.message} />
+            <InputText {...register('addresses.0.country')} placeholder="Country" error={errors.addresses?.[0]?.country?.message} />
+            <InputText {...register('addresses.0.streetName')} placeholder="Street Name" error={errors.addresses?.[0]?.streetName?.message} />
+            <InputText {...register('addresses.0.zip')} placeholder="ZIP" error={errors.addresses?.[0]?.zip?.message} />
           </Flex>
-          {errors[1] && <span>{errors[1].message}</span>}
-        </>
-      )}
-      <Flex justify="between" mt="4">
-        <Button variant="soft" type="button" onClick={onPrev}>Back</Button>
-        <Button type="submit">Next</Button>
-      </Flex>
+        </Tabs.Content>
+        <Tabs.Content value="billing">
+          <Flex direction="column" gap="2" mt="4">
+            <InputText {...register('addresses.1.city')} placeholder="City" error={errors.addresses?.[1]?.city?.message} disabled={useShippingAsBilling} />
+            <InputText {...register('addresses.1.country')} placeholder="Country" error={errors.addresses?.[1]?.country?.message} disabled={useShippingAsBilling} />
+            <InputText {...register('addresses.1.streetName')} placeholder="Street Name" error={errors.addresses?.[1]?.streetName?.message} disabled={useShippingAsBilling} />
+            <InputText {...register('addresses.1.zip')} placeholder="ZIP" error={errors.addresses?.[1]?.zip?.message} disabled={useShippingAsBilling} />
+          </Flex>
+        </Tabs.Content>
+      </Tabs.Root>
+      <RegisterFooter
+        step={step}
+        totalSteps={totalSteps}
+        onClickBack={onClickBack}
+      />
     </form>
   );
 });

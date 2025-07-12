@@ -1,42 +1,50 @@
 import type { PersonalInfo } from '@modules/auth/stores/register-store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { personalInfoSchema } from '@modules/auth/model/schema';
-import { Button } from '@radix-ui/themes';
 import { InputText } from '@shared/components';
 import { memo } from 'react';
 import { useForm } from 'react-hook-form';
+import { RegisterFooter } from '../register-footer/register-footer';
 
-interface Props {
+interface PersonalInfoStepProps {
   personalInfo: PersonalInfo;
   setPersonalInfo: (data: Partial<PersonalInfo>) => void;
-  onNext: () => void;
+  onSubmit?: () => void;
+  step: number;
+  totalSteps: number;
+  onClickBack: () => void;
+  onClickNext: () => void;
 }
 
-export const PersonalInfoStep = memo(({ personalInfo, setPersonalInfo, onNext }: Props) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<PersonalInfo>({
-    resolver: zodResolver(personalInfoSchema),
-    defaultValues: personalInfo,
-    mode: 'onChange',
-  });
+export const PersonalInfoStep = memo(
+  ({ personalInfo, setPersonalInfo, onSubmit, step, totalSteps, onClickBack, onClickNext }: PersonalInfoStepProps) => {
+    const {
+      register,
+      handleSubmit,
+      formState: { errors },
+    } = useForm<PersonalInfo>({
+      resolver: zodResolver(personalInfoSchema),
+      defaultValues: personalInfo,
+      mode: 'onChange',
+    });
 
-  const onSubmit = (data: PersonalInfo) => {
-    setPersonalInfo(data);
-    onNext();
-  };
+    const handleFormSubmit = (data: PersonalInfo) => {
+      setPersonalInfo(data);
+      if (onSubmit) onSubmit();
+    };
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <InputText {...register('firstName')} placeholder="First Name" />
-      {errors.firstName && <span>{errors.firstName.message}</span>}
-      <InputText {...register('lastName')} placeholder="Last Name" />
-      {errors.lastName && <span>{errors.lastName.message}</span>}
-      <InputText {...register('email')} placeholder="Email" type="email" />
-      {errors.email && <span>{errors.email.message}</span>}
-      <Button type="submit">Next</Button>
-    </form>
-  );
-});
+    return (
+      <form onSubmit={handleSubmit(handleFormSubmit)}>
+        <InputText {...register('firstName')} placeholder="First Name" error={errors.firstName?.message} />
+        <InputText {...register('lastName')} placeholder="Last Name" error={errors.lastName?.message} />
+        <InputText {...register('email')} placeholder="Email" type="email" error={errors.email?.message} />
+        <RegisterFooter
+          step={step}
+          totalSteps={totalSteps}
+          onClickBack={onClickBack}
+          onClickNext={onClickNext}
+        />
+      </form>
+    );
+  },
+);

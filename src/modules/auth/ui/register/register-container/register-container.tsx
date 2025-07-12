@@ -1,4 +1,5 @@
-import { Badge, Button, Card, Flex, Heading, Separator, Text } from '@radix-ui/themes';
+import type { ReactNode } from 'react';
+import { Badge,  Card, Flex, Heading, Text } from '@radix-ui/themes';
 import styles from './register-container.module.scss';
 
 interface Props {
@@ -6,18 +7,14 @@ interface Props {
   totalSteps: number;
   stepTitle: string;
   stepDescription: string;
-
-  onClickNext: () => void;
-  onClickBack: () => void;
+  children: ReactNode;
 }
 export function RegisterContainer({
   step = 1,
   totalSteps = 3,
   stepTitle = 'Personal Information',
   stepDescription = 'Tell us about yourself',
-
-  onClickBack,
-  onClickNext,
+  children,
 }: Props) {
   return (
     <Card className={styles.container}>
@@ -49,15 +46,9 @@ export function RegisterContainer({
 
       {/*  CONTENT */}
       <Flex direction="column" pr="5" pl="5" flexGrow="1" className={styles.content}>
-        <div>content</div>
+        {children}
       </Flex>
 
-      <div className={styles.separator} />
-      {/*  CONTROLS FOOTER */}
-      <Flex justify="between" align="center" p="5" className={styles.footer}>
-        <Button variant="soft" onClick={onClickBack}>Back</Button>
-        <Button variant="soft" onClick={onClickNext}>Next</Button>
-      </Flex>
     </Card>
   );
 }

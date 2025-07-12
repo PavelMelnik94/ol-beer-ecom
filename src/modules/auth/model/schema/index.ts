@@ -25,12 +25,14 @@ export const securitySchema = z.object({
   path: ['confirmPassword'],
 });
 
-export const addressesSchema = z.array(AddressSchema)
-  .min(1, 'Shipping address is required')
-  .refine(
-    addresses => addresses.some(addr => addr.type === 'shipping'),
-    { message: 'You must provide at least one shipping address' },
-  );
+export const addressesSchema = z.object({
+  addresses: z.array(AddressSchema)
+    .min(1, 'Shipping address is required')
+    .refine(
+      addresses => addresses.some(addr => addr.type === 'shipping'),
+      { message: 'You must provide at least one shipping address' },
+    )
+});
 
 export const LoginSchema = z.object({
   email: z.string({
