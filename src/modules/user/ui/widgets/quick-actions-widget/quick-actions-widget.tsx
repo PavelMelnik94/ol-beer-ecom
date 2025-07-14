@@ -5,9 +5,9 @@ export function QuickActionsWidget() {
   return (
     <Widget title="Quick Actions">
       <Flex direction="column" gap="2" mt="3">
-        <Button variant="outline">Edit Profile</Button>
-        <Button variant="outline">Add Address</Button>
-        <Button variant="outline">Security Settings</Button>
+        <Button variant="soft">Edit Profile</Button>
+        <Button variant="soft">Add Address</Button>
+        <Button variant="soft">Security Settings</Button>
       </Flex>
     </Widget>
   );

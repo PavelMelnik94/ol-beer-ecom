@@ -1,8 +1,13 @@
+import type { AccountInfoWidgetProps } from '@modules/user/types';
 import { Widget } from '@modules/user/ui/widget/widget';
 import { Badge, Flex, Text } from '@radix-ui/themes';
 import styles from './account-info-widget.module.scss';
 
-export function AccountInfoWidget() {
+export function AccountInfoWidget({
+  id,
+  updatedAt,
+}: AccountInfoWidgetProps) {
+  console.log(id, updatedAt, 'account widget props');
   return (
     <Widget
       title="Account Information"

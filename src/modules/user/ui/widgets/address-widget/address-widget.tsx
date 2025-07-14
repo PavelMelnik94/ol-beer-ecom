@@ -1,8 +1,12 @@
+import type { AddressWidgetProps } from '@modules/user/types';
 import { Widget } from '@modules/user/ui/widget/widget';
 import { Badge, Card, Flex, Text } from '@radix-ui/themes';
 import styles from './address-widget.module.scss';
 
-export function AddressesWidget() {
+export function AddressesWidget({
+  addresses,
+}: AddressWidgetProps) {
+  console.log(addresses, 'addresses');
   return (
     <Widget
       title="Addresses"
@@ -12,7 +16,7 @@ export function AddressesWidget() {
         <Card data-card className={styles.addressWrapper}>
           <Flex direction="column">
             <Flex gap="2" mb="3">
-              <Badge>Billing</Badge>
+              <Badge color="indigo">Billing</Badge>
               <Badge color="sky">Primary</Badge>
             </Flex>
             <Text size="2">123 Main Street</Text>
@@ -24,7 +28,7 @@ export function AddressesWidget() {
         <Card data-card className={styles.addressWrapper}>
           <Flex direction="column">
             <Flex gap="2" mb="3">
-              <Badge>Shipping</Badge>
+              <Badge color="indigo">Shipping</Badge>
             </Flex>
             <Text size="2">456 Oak Avenue</Text>
             <Text size="2">Los Angeles, 90210</Text>

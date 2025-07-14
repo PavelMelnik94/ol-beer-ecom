@@ -1,8 +1,13 @@
+import type { ActivityWidgetProps } from '@modules/user/types';
 import { Widget } from '@modules/user/ui/widget/widget';
 import { Badge, Flex, Text } from '@radix-ui/themes';
 import { HandHeart, MessageCircleHeart } from 'lucide-react';
 
-export function ActivityWidget() {
+export function ActivityWidget({
+  likedCommentsCount,
+  likedPostsCount,
+}: ActivityWidgetProps) {
+  console.log(likedCommentsCount, likedPostsCount, 'activity widget');
   return (
     <Widget
       title="Activity"
