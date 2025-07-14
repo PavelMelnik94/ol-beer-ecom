@@ -108,6 +108,10 @@ export function useComments({
     queryClient.invalidateQueries({
       queryKey: QUERY_KEYS.products.detail(parentId),
     });
+
+    queryClient.invalidateQueries({
+      queryKey: QUERY_KEYS.user.profile(),
+    });
   }, [parentId]);
 
   const createCommentMutation = useMutation<CommentResponse, ErrorResponse, CommentCreateRequest>({

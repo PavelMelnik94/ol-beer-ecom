@@ -14,7 +14,8 @@ import styles from './profile.module.scss';
 
 export function ProfileMediator() {
   const isOneColumn = useMediaQuery({ query: '(max-width: 610px)' });
-  const { profile: profileCache } = useUserProfile();
+
+  const { profile: profileCache, isLoading, isFetching } = useUserProfile();
   const profileState = useUserStore(s => s.profile);
 
   const profile = {
@@ -51,7 +52,7 @@ export function ProfileMediator() {
     return <AccountStatusWidget />;
   }, [profile]);
 
-  if (!Object?.keys(profile)?.length) {
+  if (isFetching || isLoading) {
     return <ProfileSkeleton isOneColumn={isOneColumn} />;
   }
   return (

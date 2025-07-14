@@ -8,10 +8,11 @@ import { clone } from 'lodash-es';
 import { useEffect } from 'react';
 
 export function useUserProfile(enabled: boolean = true) {
-  const { data: response, error, isLoading, refetch } = useQuery<SuccessResponseProfile, ErrorResponse>({
+  const { data: response, error, isLoading, isFetching } = useQuery<SuccessResponseProfile, ErrorResponse>({
     queryKey: QUERY_KEYS.user.profile(),
     queryFn: () => userApi.getProfile(),
     enabled,
+    refetchOnMount: true,
   });
 
   const { setProfile } = useUserStore();
@@ -26,6 +27,6 @@ export function useUserProfile(enabled: boolean = true) {
     profile: response?.data || null,
     isLoading,
     error,
-    refetchRatings: refetch,
+    isFetching,
   } as const;
 }

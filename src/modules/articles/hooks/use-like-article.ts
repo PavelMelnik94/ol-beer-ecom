@@ -46,6 +46,10 @@ export function useLikeArticle({ initialIsLiked, initialLikesCount }: UseLikeArt
           queryClient.invalidateQueries({
             queryKey: QUERY_KEYS.articles.all,
           }),
+
+          queryClient.invalidateQueries({
+            queryKey: QUERY_KEYS.user.profile(),
+          }),
         ]);
 
         if (response.data.liked) {
