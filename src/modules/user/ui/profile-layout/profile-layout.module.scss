@@ -1,0 +1,34 @@
+.profileLayout {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1fr 250px;
+  margin-top: 0;
+  gap: 1.5em;
+}
+
+.leftCol {
+  border-radius: 12px;
+  width: 100%;
+}
+
+.rightCol {
+  border-radius: 12px;
+  width: 100%;
+}
+
+
+
+
+@media (max-width: 1000px) {
+  .mainGrid, .leftCol, .rightCol {
+    border: none;
+    padding: 0;
+  }
+}
