@@ -1,7 +1,8 @@
 import type { SecurityInfo } from '../model/types';
+import { addressesSchema, personalInfoSchema, securitySchema } from '@kernel/types';
 import { useRegister } from '@modules/auth/hooks/use-register';
 import { useCallback, useState } from 'react';
-import { addressesSchema, personalInfoSchema, RegisterSchema, securitySchema } from '../model/schema';
+import { RegisterSchema } from '../model/schema';
 import { useRegisterStore } from '../stores/register-store';
 
 export type RegisterStep = 1 | 2 | 3;

@@ -15,12 +15,6 @@ export interface SecurityInfo {
   confirmPassword: string;
 }
 
-export interface RegisterFormValuesCombine {
-  personalInfo: PersonalInfo;
-  addresses: Address[];
-  security: SecurityInfo;
-}
-
 export type RegisterBody = {
   addresses: Address[];
 } & PersonalInfo & Omit<SecurityInfo, 'confirmPassword'>;

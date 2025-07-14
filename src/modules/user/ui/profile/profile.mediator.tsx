@@ -48,6 +48,7 @@ export function ProfileMediator() {
   const quickActionsWidget = useMemo(() => {
     return <QuickActionsWidget />;
   }, [profile]);
+
   const accountStatusWidget = useMemo(() => {
     return <AccountStatusWidget />;
   }, [profile]);
