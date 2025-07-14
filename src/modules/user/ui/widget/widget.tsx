@@ -1,8 +1,6 @@
 import type { ReactNode } from 'react';
-import { Badge, Box, Flex, Text } from '@radix-ui/themes';
+import { Card, Flex, Text } from '@radix-ui/themes';
 import { Show } from '@shared/components';
-import { HandHeart, MessageCircleHeart } from 'lucide-react';
-import styles from './widget.module.scss';
 
 interface WidgetProps {
   title: string;
@@ -11,8 +9,7 @@ interface WidgetProps {
 }
 export function Widget({ title, description, children }: WidgetProps) {
   return (
-    <Box className={styles.widget} p="4" mb="4">
-
+    <Card>
       <Flex direction="column">
         <Text weight="bold" mb="1" size="3">{title}</Text>
         <Show when={description}>
@@ -23,6 +20,6 @@ export function Widget({ title, description, children }: WidgetProps) {
       </Flex>
 
       {children}
-    </Box>
+    </Card>
   );
 }

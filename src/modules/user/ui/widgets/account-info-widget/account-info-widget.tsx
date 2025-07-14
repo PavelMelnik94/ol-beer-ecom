@@ -7,7 +7,7 @@ export function AccountInfoWidget() {
     <Widget
       title="Account Information"
     >
-      <Flex gap="4" mt="3" wrap="wrap">
+      <Flex gap="4" wrap="wrap">
         <Flex direction="column">
           <Text size="2" mb="1" color="gray">User ID</Text>
 

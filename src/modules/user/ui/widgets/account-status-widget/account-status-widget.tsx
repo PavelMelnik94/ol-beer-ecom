@@ -7,7 +7,7 @@ export const AccountStatusWidget: React.FC = () => (
   <Widget
     title="Account Status"
   >
-    <Flex align="center" gap="2" mt="3" wrap="wrap">
+    <Flex align="center" gap="2" wrap="wrap">
       <Box className={styles.statusDot} />
       <Text size="2" color="grass">Active</Text>
     </Flex>

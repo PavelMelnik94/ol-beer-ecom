@@ -3,7 +3,7 @@ import { Container } from '@radix-ui/themes';
 
 export function ProfilePage() {
   return (
-    <Container pr="5" pl="5" mt="5">
+    <Container pr="5" pl="5" mt="7">
       <ProfileLayout />
     </Container>
   );

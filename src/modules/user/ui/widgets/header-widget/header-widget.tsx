@@ -1,15 +1,14 @@
-import { Avatar, Box, Flex, Text } from '@radix-ui/themes';
-import styles from './header-widget.module.scss';
+import { Avatar, Card, Flex, Text } from '@radix-ui/themes';
 
 export const HeaderWidget: React.FC = () => (
-  <Box className={styles.header} p="4" mb="4">
+  <Card mb="4">
     <Flex align="center" gap="4" wrap="wrap">
-      <Avatar fallback="OL" size="8" />
+      <Avatar fallback="OL" size="6" />
       <Flex direction="column">
         <Text size="2">John Doe</Text>
         <Text size="2">john.doe@example.com</Text>
         <Text size="1" color="gray" mt="2">Registered on June 6, 2025</Text>
       </Flex>
     </Flex>
-  </Box>
+  </Card>
 );

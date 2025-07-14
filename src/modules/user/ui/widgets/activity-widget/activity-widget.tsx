@@ -8,7 +8,7 @@ export function ActivityWidget() {
       title="Activity"
       description="Interaction statistics"
     >
-      <Flex direction="column" gap="2" mt="3">
+      <Flex direction="column" gap="2">
         <Flex align="center" gap="2">
           <HandHeart color="teal" size={20} strokeWidth="1.5" />
           <Text size="2">Liked posts</Text>
