@@ -48,6 +48,7 @@ export function Header({ isFixed }: Props) {
       <Show when={isMobileLayout}>
         <MobileMenu
           isAuth={isAuth}
+          user={user!}
           mobileMenuOpen={mobileMenuOpen}
           setMobileMenuOpen={setMobileMenuOpen}
           navigationHandlers={navigationHandlers}

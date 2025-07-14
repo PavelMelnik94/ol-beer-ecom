@@ -1,11 +1,12 @@
+import type { User } from '@kernel/index';
 import { ThemeButton } from '@kernel/index';
-import { Avatar, Button, Flex, IconButton, Popover, Separator } from '@radix-ui/themes';
+import { Avatar, Button, Flex, IconButton, Popover, Separator, Text } from '@radix-ui/themes';
 import { GithubButton } from '@shared/components/ui/github-button';
 import { AuthSection } from './auth-section';
 import styles from './header.module.scss';
 
 interface UserMenuProps {
-  user: any;
+  user: User;
   isAuth: boolean;
   mobileMenuOpen: boolean;
   setMobileMenuOpen: (open: boolean) => void;
@@ -16,6 +17,7 @@ interface UserMenuProps {
 }
 
 interface MenuContentProps {
+  user: User;
   isAuth: boolean;
   onLogout: () => void;
   navigationHandlers: any;
@@ -23,9 +25,21 @@ interface MenuContentProps {
   routes: any;
 }
 
-function MenuContent({ isAuth, onLogout, navigationHandlers, getActiveProps, routes }: MenuContentProps) {
+function MenuContent({ user, isAuth, onLogout, navigationHandlers, getActiveProps, routes }: MenuContentProps) {
   return (
     <Flex direction="column" gap="3" align="start" style={{ minWidth: 100 }}>
+      {isAuth && (
+        <>
+          <Flex align="center" justify="center" width="100%">
+            <Text size="2" weight="medium">
+              {user.firstName}
+            </Text>
+          </Flex>
+          <Separator size="4" />
+        </>
+
+      )}
+
       <AuthSection
         isAuth={isAuth}
         onProfile={navigationHandlers.onProfile}
@@ -81,12 +95,15 @@ export function UserMenu({
             radius="full"
             fallback="ØL"
             size="1"
+
           />
+
         </IconButton>
       </Popover.Trigger>
       <Popover.Content align="end" sideOffset={8}>
         <MenuContent
           isAuth={isAuth}
+          user={user}
           onLogout={onLogout}
           navigationHandlers={navigationHandlers}
           getActiveProps={getActiveProps}

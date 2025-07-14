@@ -1,5 +1,6 @@
+import type { User } from '@kernel/types';
 import { ROUTES } from '@kernel/router';
-import { Button } from '@radix-ui/themes';
+import { Button, Flex, Separator, Text } from '@radix-ui/themes';
 import { Pulse } from '@shared/components';
 import clsx from 'clsx';
 import styles from './header.module.scss';
@@ -8,6 +9,8 @@ export function HeaderNav({
   getActiveProps,
   onClickHandlers,
   fullWidth = false,
+  isAuth,
+  user,
 }: {
   getActiveProps: (path: string) => { [key: string]: string; };
   onClickHandlers: {
@@ -17,10 +20,24 @@ export function HeaderNav({
     onShowcase: () => void;
   };
   fullWidth?: boolean;
+  isAuth: boolean;
+  user: User;
 }) {
   const location = window.location.pathname;
   return (
     <>
+      {isAuth && (
+        <>
+          <Flex align="center" justify="center" width="100%">
+            <Text size="2" weight="medium">
+              {user.firstName}
+            </Text>
+
+          </Flex>
+          <Separator size="4" />
+        </>
+      )}
+
       <Button
         variant="ghost"
         size="1"

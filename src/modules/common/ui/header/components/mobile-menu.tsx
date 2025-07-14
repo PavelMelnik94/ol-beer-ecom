@@ -1,3 +1,4 @@
+import type { User } from '@kernel/index';
 import { ThemeButton } from '@kernel/index';
 import { CartButton } from '@modules/cart';
 import { Button, Flex, IconButton, Popover, Separator } from '@radix-ui/themes';
@@ -52,6 +53,7 @@ function MobileSection({ isAuth, onLogout, navigationHandlers, getActiveProps, r
 
 interface MobileMenuProps {
   isAuth: boolean;
+  user: User;
   mobileMenuOpen: boolean;
   setMobileMenuOpen: (open: boolean) => void;
   navigationHandlers: any;
@@ -61,6 +63,7 @@ interface MobileMenuProps {
 
 export function MobileMenu({
   isAuth,
+  user,
   mobileMenuOpen,
   setMobileMenuOpen,
   navigationHandlers,
@@ -87,6 +90,8 @@ export function MobileMenu({
               getActiveProps={getActiveProps}
               onClickHandlers={navigationHandlers}
               fullWidth
+              isAuth={isAuth}
+              user={user}
             />
             <MobileSection
               isAuth={isAuth}
