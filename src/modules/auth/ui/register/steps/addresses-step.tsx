@@ -1,6 +1,5 @@
-import type { Address } from '@kernel/types';
+import { addressesSchema, type Address } from '@kernel/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { addressesSchema } from '@modules/auth/model/schema';
 import { Flex, Text } from '@radix-ui/themes';
 import { InputText } from '@shared/components';
 import { Building, Building2, House, MailOpen } from 'lucide-react';
