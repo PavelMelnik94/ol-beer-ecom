@@ -1,5 +1,6 @@
 import { useUserProfile } from '@modules/user/hooks';
 import { useUserStore } from '@modules/user/stores/user-store';
+import { ProfileSkeleton } from '@modules/user/ui/skeleton/skeleton';
 import { AccountInfoWidget } from '@modules/user/ui/widgets/account-info-widget/account-info-widget';
 import { AccountStatusWidget } from '@modules/user/ui/widgets/account-status-widget/account-status-widget';
 import { ActivityWidget } from '@modules/user/ui/widgets/activity-widget/activity-widget';
@@ -51,7 +52,7 @@ export function ProfileMediator() {
   }, [profile]);
 
   if (!Object?.keys(profile)?.length) {
-    return <span>loading </span>;
+    return <ProfileSkeleton isOneColumn={isOneColumn} />;
   }
   return (
     <Flex direction="column" className={styles.profileLayout}>

@@ -1,0 +1,32 @@
+.profileSkeletonLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profileSkeletonHeader {
+  height: 56px;
+  width: 100%;
+  border-radius: 16px;
+  margin-bottom: 16px;
+}
+
+.profileSkeletonMainGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.profileSkeletonLeftCol,
+.profileSkeletonRightCol {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profileSkeletonWidget {
+  height: 120px;
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
