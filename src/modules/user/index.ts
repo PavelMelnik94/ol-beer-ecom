@@ -6,4 +6,4 @@ export * from './model';
 
 // Store
 export { useUserStore } from './stores/user-store';
-export { ProfileLayout } from './ui/profile-layout/profile-layout';
+export { ProfileMediator } from './ui/profile/profile.mediator';

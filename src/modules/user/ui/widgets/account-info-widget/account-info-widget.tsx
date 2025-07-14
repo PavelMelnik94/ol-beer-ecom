@@ -1,13 +1,12 @@
-import type { AccountInfoWidgetProps } from '@modules/user/types';
 import { Widget } from '@modules/user/ui/widget/widget';
 import { Badge, Flex, Text } from '@radix-ui/themes';
-import styles from './account-info-widget.module.scss';
+import { dateParser } from '@shared/lib';
 
-export function AccountInfoWidget({
-  id,
-  updatedAt,
-}: AccountInfoWidgetProps) {
-  console.log(id, updatedAt, 'account widget props');
+interface Props {
+  id: string;
+  updatedAt: string;
+}
+export function AccountInfoWidget({ id, updatedAt }: Props) {
   return (
     <Widget
       title="Account Information"
@@ -16,15 +15,15 @@ export function AccountInfoWidget({
         <Flex direction="column">
           <Text size="2" mb="1" color="gray">User ID</Text>
 
-          <Badge color="gray" size="1" className={styles.value}>
-            550e8400-e29b-41d4-a716-446655440000
+          <Badge color="gray" size="1">
+            {id}
           </Badge>
         </Flex>
         <Flex direction="column">
           <Text size="2" mb="1" color="gray">Last Updated</Text>
 
-          <Badge color="gray" size="1" className={styles.value}>
-            June 6, 2025
+          <Badge color="gray" size="1">
+            {dateParser.toFormat(updatedAt, 'MMMM dd yyyy')}
           </Badge>
         </Flex>
       </Flex>

@@ -4,7 +4,6 @@ export {
   useDeleteAddress,
   useSetAddressPrimary,
   useUpdateAddress,
-  useUserAddress,
   useUserAddresses,
 } from './use-user-addresses';
 
@@ -27,6 +26,8 @@ export {
   useToggleFavorite,
   useUserFavorites,
 } from './use-user-favorites';
+
+export { useUserProfile } from './use-user-profile';
 
 // Ratings
 export {

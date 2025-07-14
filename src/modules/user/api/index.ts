@@ -1,11 +1,12 @@
 import type { ApiErrorResponse, ApiSuccessResponse } from '@kernel/api';
-import type { Address, FavoriteProduct, Rating } from '@kernel/types';
+import type { Address, FavoriteProduct, Rating, User } from '@kernel/types';
 import type {
   CreateAddressData,
   ToggleFavoriteData,
   UpdateAddressData,
   UploadAvatarData,
 } from '@modules/user/model';
+import type { UserProfile } from '@modules/user/types';
 import { API_ENDPOINTS, apiClient } from '@kernel/api';
 
 export type SuccessResponse<T> = ApiSuccessResponse<T>;
@@ -15,6 +16,7 @@ export type SuccessResponseAddress = ApiSuccessResponse<Address>;
 export type SuccessResponseAvatar = ApiSuccessResponse<{ avatarUrl: string; }>;
 export type SuccessResponseFavorites = ApiSuccessResponse<FavoriteProduct[]>;
 export type SuccessResponseRatings = ApiSuccessResponse<Rating[]>;
+export type SuccessResponseProfile = ApiSuccessResponse<UserProfile>;
 
 async function getAddresses(): Promise<SuccessResponseAddresses> {
   return apiClient.get(API_ENDPOINTS.users.addresses);
@@ -79,6 +81,10 @@ async function getRatings(): Promise<SuccessResponseRatings> {
   return apiClient.get(API_ENDPOINTS.users.ratings);
 }
 
+async function getProfile(): Promise<SuccessResponseProfile> {
+  return apiClient.get(API_ENDPOINTS.users.profile);
+}
+
 export const userApi = {
   // Addresses
   getAddresses,
@@ -103,4 +109,7 @@ export const userApi = {
 
   // Ratings
   getRatings,
+
+  // etc
+  getProfile,
 };

@@ -1,10 +1,11 @@
-import type { Address, FavoriteProduct, Rating, User } from '@kernel/types';
+import type { Address, FavoriteProduct, Rating } from '@kernel/types';
+import type { UserProfile } from '@modules/user/types';
 import { nanoid } from 'nanoid';
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 
 interface State {
-  user: Omit<User, 'token'> | null;
+  profile: UserProfile | null;
   ratings: Rating[];
   favorites: FavoriteProduct[];
   addresses: Address[];
@@ -14,7 +15,7 @@ interface Actions {
   setRatings: (ratings: Rating[]) => void;
   setFavorites: (favorites: FavoriteProduct[]) => void;
   setAddresses: (addresses: Address[]) => void;
-  setUser: (user: Omit<User, 'token'> | null) => void;
+  setProfile: (user: UserProfile | null) => void;
 
   hasRating: (productId: string) => Rating | undefined;
   hasFavorite: (productId: string) => boolean;
@@ -27,7 +28,7 @@ interface Actions {
 
 export const useUserStore = create<State & Actions>()(
   subscribeWithSelector((set, get) => ({
-    user: null,
+    profile: null,
     ratings: [],
     favorites: [],
     addresses: [],
@@ -47,9 +48,9 @@ export const useUserStore = create<State & Actions>()(
         addresses,
       });
     },
-    setUser: (user: Omit<User, 'token'> | null) => {
+    setProfile: (profile: UserProfile | null) => {
       set({
-        user,
+        profile,
       });
     },
 
@@ -66,7 +67,7 @@ export const useUserStore = create<State & Actions>()(
         id: nanoid(),
         productId,
         rating,
-        userId: get().user?.id || '',
+        userId: get().profile?.id || '',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       } as Rating;
@@ -101,7 +102,7 @@ export const useUserStore = create<State & Actions>()(
         const newFavorite = {
           id: nanoid(),
           productId,
-          userId: get().user?.id || '',
+          userId: get().profile?.id || '',
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
           product: {

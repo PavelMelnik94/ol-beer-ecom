@@ -69,5 +69,8 @@ export const API_ENDPOINTS = {
 
     // Ratings
     ratings: '/users/ratings',
+
+    // Profile
+    profile: '/users/profile',
   },
 } as const;

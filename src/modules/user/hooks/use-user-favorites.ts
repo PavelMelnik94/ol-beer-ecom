@@ -18,7 +18,7 @@ export function useUserFavorites({ enabled = true }: { enabled?: boolean; }) {
   const { setFavorites } = useUserStore();
 
   useEffect(() => {
-    if (response?.data) {
+    if (!isLoading && response?.data) {
       setFavorites(response.data);
     }
   }, [response, error, isLoading]);

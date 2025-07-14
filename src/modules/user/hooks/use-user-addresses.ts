@@ -6,29 +6,25 @@ import { QUERY_KEYS } from '@kernel/query';
 import { userApi } from '@modules/user/api';
 import { useUserStore } from '@modules/user/stores/user-store';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
-export function useUserAddresses() {
+export function useUserAddresses({ enabled = true }: { enabled?: boolean; }) {
   const { data: response, error, isLoading } = useQuery<SuccessResponseAddresses, ErrorResponse>({
     queryKey: QUERY_KEYS.user.addresses(),
     queryFn: () => userApi.getAddresses(),
+    enabled,
   });
+
+  const setAddresses = useUserStore(s => s.setAddresses);
+
+  useEffect(() => {
+    if (!isLoading && response?.data) {
+      setAddresses(response.data);
+    }
+  }, [isLoading, response]);
 
   return {
     addresses: response?.data || [],
-    isLoading,
-    error,
-  } as const;
-}
-
-export function useUserAddress(id: string) {
-  const { data: response, error, isLoading } = useQuery<SuccessResponseAddress, ErrorResponse>({
-    queryKey: QUERY_KEYS.user.address(id),
-    queryFn: () => userApi.getAddress(id),
-    enabled: !!id,
-  });
-
-  return {
-    address: response?.data,
     isLoading,
     error,
   } as const;

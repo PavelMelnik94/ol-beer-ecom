@@ -1,12 +1,17 @@
 import type { Address } from '@kernel/types';
 
-export interface HeaderWidgetProps {
+export interface UserProfile {
+  id: string;
+  email: string;
   firstName: string;
   lastName: string;
+  avatar: string | null;
+  addresses: Address[];
+  likedPostsCount: number;
+  likedCommentsCount: number;
   createdAt: string;
-  avatar?: string;
+  updatedAt: string;
 }
-
 export interface ActivityWidgetProps {
   likedPostsCount: number;
   likedCommentsCount: number;
