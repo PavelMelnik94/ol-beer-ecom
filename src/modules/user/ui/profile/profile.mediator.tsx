@@ -64,9 +64,10 @@ export function ProfileMediator() {
       {isOneColumn
         ? (
             <Flex direction="column" gap="4">
-              {accountInfoWidget}
-              {activityWidget}
               {quickActionsWidget}
+              {addressesWidget}
+              {activityWidget}
+              {accountInfoWidget}
               {accountStatusWidget}
             </Flex>
           )
