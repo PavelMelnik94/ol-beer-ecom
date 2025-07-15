@@ -52,25 +52,15 @@ export const API_ENDPOINTS = {
   },
 
   users: {
-    // Addresses
     addresses: '/users/addresses',
     address: (id: string) => `/users/addresses/${id}`,
     setAddressPrimary: (id: string) => `/users/addresses/${id}/set-primary`,
-
-    // Avatar
     avatar: '/users/avatar',
-
-    // Billing and shipping addresses
     billingAddresses: '/users/billing-addresses',
     shippingAddresses: '/users/shipping-addresses',
-
-    // Favorites
     favorites: '/users/favorites',
-
-    // Ratings
     ratings: '/users/ratings',
-
-    // Profile
     profile: '/users/profile',
+    changePassword: '/users/change-password',
   },
 } as const;

@@ -17,6 +17,10 @@ export type SuccessResponseFavorites = ApiSuccessResponse<FavoriteProduct[]>;
 export type SuccessResponseRatings = ApiSuccessResponse<Rating[]>;
 export type SuccessResponseProfile = ApiSuccessResponse<User>;
 
+export interface ChangePasswordPayload {
+  oldPassword: string;
+  newPassword: string;
+}
 async function getAddresses(): Promise<SuccessResponseAddresses> {
   return apiClient.get(API_ENDPOINTS.users.addresses);
 }
@@ -88,6 +92,10 @@ async function updateProfile(data: Partial<User>): Promise<SuccessResponseProfil
   return apiClient.patch(API_ENDPOINTS.users.profile, data);
 }
 
+async function changePassword(data: ChangePasswordPayload): Promise<SuccessResponseProfile> {
+  return apiClient.post(API_ENDPOINTS.users.changePassword, data);
+}
+
 export const userApi = {
   getAddresses,
   createAddress,
@@ -110,4 +118,6 @@ export const userApi = {
 
   getProfile,
   updateProfile,
+
+  changePassword,
 };

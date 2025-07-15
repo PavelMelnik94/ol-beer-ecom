@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const createAddressSchema = z.object({
+export const createAddressSchema = z.object({
   city: z.string().min(1, 'Город обязателен'),
   country: z.string().min(1, 'Страна обязательна'),
   streetName: z.string().min(1, 'Улица обязательна'),

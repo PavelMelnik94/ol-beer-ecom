@@ -20,9 +20,8 @@ export function AddressesWidget({ addresses }: Props) {
             <Card key={address.id} data-card className={styles.addressWrapper}>
               <Flex direction="column">
                 <Flex gap="2" mb="3">
-                  {address.type === 'billing' && <Badge color="indigo">Billing</Badge>}
+                  {address.type === 'billing' && <Badge color="plum">Billing</Badge>}
                   {address.type === 'shipping' && <Badge color="indigo">Shipping</Badge>}
-                  {address.isPrimaryAddress && <Badge color="sky">Primary</Badge>}
                 </Flex>
                 <Text size="2">{address.streetName}</Text>
                 <Text size="2">

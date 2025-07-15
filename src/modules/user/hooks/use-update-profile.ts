@@ -1,12 +1,12 @@
+import type { User } from '@kernel/types';
 import type { ErrorResponse, SuccessResponseProfile } from '@modules/user/api';
-import type { UserProfile } from '@modules/user/types';
 import { toast } from '@kernel/notifications';
 import { QUERY_KEYS, queryClient } from '@kernel/query';
 import { userApi } from '@modules/user/api';
 import { useMutation } from '@tanstack/react-query';
 
 export function useUpdateProfile() {
-  return useMutation<SuccessResponseProfile, ErrorResponse, Partial<UserProfile>>({
+  return useMutation<SuccessResponseProfile, ErrorResponse, Partial<User>>({
     mutationKey: QUERY_KEYS.user.profile(),
     mutationFn: data => userApi.updateProfile(data),
     onSuccess: (response) => {
