@@ -1,6 +1,5 @@
 import { Widget } from '@modules/user/ui/widget/widget';
-import { Flex, Text } from '@radix-ui/themes';
-import { Box } from 'lucide-react';
+import { Box, Flex, Text } from '@radix-ui/themes';
 import styles from './account-status-widget.module.scss';
 
 export const AccountStatusWidget: React.FC = () => (

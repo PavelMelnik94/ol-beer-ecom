@@ -145,6 +145,20 @@ export const securitySchema = z.object({
   path: ['confirmPassword'],
 });
 
+export const changePasswordSchema = z.object({
+  currentPassword: z.string()
+    .min(6, 'Current password is required')
+    .regex(passwordRegex, 'Current password must contain at least one uppercase letter and one number'),
+  newPassword: z.string()
+    .min(6, 'New password must be at least 6 characters long')
+    .regex(passwordRegex, 'New password must contain at least one uppercase letter and one number'),
+  confirmPassword: z.string()
+    .min(6, 'Password confirmation required'),
+}).refine(data => data.newPassword === data.confirmPassword, {
+  message: 'Passwords do not match',
+  path: ['confirmPassword'],
+});
+
 export const addressesSchema = z.object({
   addresses: z.array(AddressSchema)
     .length(1, 'Exactly one shipping address is required')
