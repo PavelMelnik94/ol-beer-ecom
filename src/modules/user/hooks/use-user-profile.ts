@@ -1,5 +1,4 @@
-import type { SuccessResponseProfile } from '@modules/user/api';
-import type { ErrorResponse } from 'react-router-dom';
+import type { ErrorResponse, SuccessResponseProfile } from '@modules/user/api';
 import { QUERY_KEYS } from '@kernel/query';
 import { userApi } from '@modules/user/api';
 import { useQuery } from '@tanstack/react-query';
@@ -13,7 +12,7 @@ export function useUserProfile(enabled: boolean = true) {
   });
 
   return {
-    profile: response?.data || null,
+    profile: response?.data,
     isLoading,
     error,
     isFetching,

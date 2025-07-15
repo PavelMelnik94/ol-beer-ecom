@@ -1,6 +1,7 @@
 import type z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { personalInfoSchema } from '@kernel/types';
+import { useUpdateProfile } from '@modules/user/hooks';
 import { Button, Flex } from '@radix-ui/themes';
 import { Dialog, InputText } from '@shared/components';
 import { useOnClickOutside } from '@shared/hooks';
@@ -30,9 +31,22 @@ export function EditProfileAction({ initialState }: Props) {
     mode: 'onSubmit',
   });
 
-  const handleFormSubmit = (data: FormData,
+  console.log(initialState, 'initialState');
+
+  const mutation = useUpdateProfile();
+
+  const handleFormSubmit = async (data: FormData,
   ) => {
-    console.log('wqeqwe', data);
+    const res = await mutation.mutateAsync(data);
+
+    if (res.success) {
+      reset({
+        firstName: res.data.firstName,
+        lastName: res.data.lastName,
+        email: res.data.email,
+      });
+      setIsOpen(false);
+    }
   };
 
   const handleClickOutside = () => {
@@ -56,12 +70,14 @@ export function EditProfileAction({ initialState }: Props) {
           placeholder="First Name"
           error={errors.firstName?.message}
           icon={<Signature size="16px" />}
+          disabled={mutation.isPending}
         />
         <InputText
           {...register('lastName')}
           placeholder="Last Name"
           error={errors.lastName?.message}
           icon={<Signature size="16px" />}
+          disabled={mutation.isPending}
         />
         <InputText
           {...register('email')}
@@ -69,12 +85,14 @@ export function EditProfileAction({ initialState }: Props) {
           type="email"
           error={errors.email?.message}
           icon={<Mailbox size="16px" />}
+          disabled={mutation.isPending}
 
         />
         <Flex justify="end" align="center" gap="3">
           <Button
             size="1"
             variant="outline"
+            disabled={mutation.isPending}
             onClick={() => setIsOpen(false)}
           >
             Cancel
@@ -83,6 +101,8 @@ export function EditProfileAction({ initialState }: Props) {
             size="1"
             variant="soft"
             type="submit"
+            disabled={mutation.isPending}
+            loading={mutation.isPending}
           >
             Update
           </Button>

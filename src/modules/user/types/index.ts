@@ -9,19 +9,7 @@ export interface UserProfile {
   addresses: Address[];
   likedPostsCount: number;
   likedCommentsCount: number;
+  ordersCount: number;
   createdAt: string;
-  updatedAt: string;
-}
-export interface ActivityWidgetProps {
-  likedPostsCount: number;
-  likedCommentsCount: number;
-}
-
-export interface AddressWidgetProps {
-  addresses: Address[];
-}
-
-export interface AccountInfoWidgetProps {
-  id: string;
   updatedAt: string;
 }

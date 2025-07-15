@@ -85,8 +85,11 @@ async function getProfile(): Promise<SuccessResponseProfile> {
   return apiClient.get(API_ENDPOINTS.users.profile);
 }
 
+async function updateProfile(data: Partial<UserProfile>): Promise<SuccessResponseProfile> {
+  return apiClient.patch(API_ENDPOINTS.users.profile, data);
+}
+
 export const userApi = {
-  // Addresses
   getAddresses,
   createAddress,
   getAddress,
@@ -94,22 +97,18 @@ export const userApi = {
   deleteAddress,
   setAddressPrimary,
 
-  // Avatar
   uploadAvatar,
   deleteAvatar,
   getAvatarUrl,
 
-  // Billing and shipping addresses
   getBillingAddresses,
   getShippingAddresses,
 
-  // Favorites
   getFavorites,
   toggleFavorite,
 
-  // Ratings
   getRatings,
 
-  // etc
   getProfile,
+  updateProfile,
 };

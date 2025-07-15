@@ -1,4 +1,5 @@
-// Addresses
+export { useUpdateProfile } from './use-update-profile';
+
 export {
   useCreateAddress,
   useDeleteAddress,
@@ -7,29 +8,23 @@ export {
   useUserAddresses,
 } from './use-user-addresses';
 
-// Avatar
 export {
   useDeleteAvatar,
   useUploadAvatar,
   useUserAvatar,
 } from './use-user-avatar';
 
-// Billing and Shipping
 export {
   useUserBillingAddresses,
   useUserShippingAddresses,
 } from './use-user-billing-shipping';
 
-// Favorites
 export {
   useIsFavorite,
   useToggleFavorite,
   useUserFavorites,
 } from './use-user-favorites';
-
 export { useUserProfile } from './use-user-profile';
-
-// Ratings
 export {
   useUserRating,
   useUserRatings,
