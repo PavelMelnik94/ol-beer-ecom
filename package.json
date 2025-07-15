@@ -1,7 +1,7 @@
 {
   "name": "clean-arch-frontend-template",
   "type": "module",
-  "version": "0.4.54",
+  "version": "0.4.55",
   "private": true,
   "scripts": {
     "start": "vite",

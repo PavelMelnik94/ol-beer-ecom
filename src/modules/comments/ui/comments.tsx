@@ -1,6 +1,6 @@
 import type { ApiErrorResponse } from '@kernel/api';
 import type { Comment, OptimisticComment } from '../types';
-import { useAuthStore } from '@kernel/stores';
+import { useUserStore } from '@kernel/stores';
 import { Box, Container, Flex, Separator } from '@radix-ui/themes';
 import { ErrorAlert, Pagination, Show, SuccessAlert } from '@shared/components';
 import { CommentList } from './comment-list';
@@ -37,7 +37,7 @@ export function Comments({
   onLikeComment,
   onPageChange,
 }: CommentsProps) {
-  const user = useAuthStore(s => s.user);
+  const user = useUserStore(s => s.profile);
 
   if (error) {
     return (

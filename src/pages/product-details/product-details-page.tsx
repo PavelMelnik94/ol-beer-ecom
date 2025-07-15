@@ -1,10 +1,11 @@
 import type { Product, ProductWithFavoritesAndRatings } from '@kernel/types';
-import { useAuth, useGoTo } from '@kernel/hooks';
+import { useGoTo } from '@kernel/hooks';
 import { QUERY_KEYS, queryClient } from '@kernel/query';
+import { useAuthStore, useUserStore } from '@kernel/stores';
 import { PromoCodeVelocity } from '@modules/cart';
 import { Comments, commentsProductsApi, useComments } from '@modules/comments';
 import { ProductDetails, ProductsGrid, useProductDetails, useProductRate, useProductsRelated } from '@modules/products';
-import { useToggleFavorite, useUserFavorites, useUserRatings, useUserStore } from '@modules/user';
+import { useToggleFavorite, useUserFavorites, useUserRatings } from '@modules/user';
 import { Box, Container, Text } from '@radix-ui/themes';
 import { Breadcrumbs, Pagination } from '@shared/components';
 import { useMemo } from 'react';
@@ -17,7 +18,7 @@ export function ProductDetailsPage() {
   const { product } = useProductDetails(id!);
   const { products: relatedProducts } = useProductsRelated(product?.id ?? '');
 
-  const { isAuth } = useAuth();
+  const isAuth = useAuthStore(s => s.isAuth);
 
   useUserFavorites({ enabled: isAuth });
   useUserRatings({ enabled: isAuth });

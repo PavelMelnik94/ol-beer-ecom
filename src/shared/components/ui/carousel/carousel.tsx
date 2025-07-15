@@ -20,7 +20,7 @@ export const Carousel: React.FC<PropType> = (props) => {
     <section className="embla">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
-          {images.map((img, index) => (
+          {images?.map((img, index) => (
             <div className="embla__slide" key={index}>
               <Image
                 src={img}

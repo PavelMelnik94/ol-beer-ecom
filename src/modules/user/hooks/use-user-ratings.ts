@@ -1,8 +1,8 @@
 import type { SuccessResponseRatings } from '@modules/user/api';
 import type { ErrorResponse } from 'react-router-dom';
+import { useUserStore } from '@kernel/index';
 import { QUERY_KEYS } from '@kernel/query';
 import { userApi } from '@modules/user/api';
-import { useUserStore } from '@modules/user/stores/user-store';
 import { useQuery } from '@tanstack/react-query';
 import { clone } from 'lodash-es';
 import { useEffect } from 'react';

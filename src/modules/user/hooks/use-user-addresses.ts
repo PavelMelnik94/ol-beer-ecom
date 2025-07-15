@@ -1,10 +1,10 @@
 import type { Address } from '@kernel/types';
-import type { SuccessResponseAddress, SuccessResponseAddresses } from '@modules/user/api';
+import type { SuccessResponseAddresses } from '@modules/user/api';
 import type { CreateAddressData } from '@modules/user/model';
 import type { ErrorResponse } from 'react-router-dom';
+import { useUserStore } from '@kernel/index';
 import { QUERY_KEYS } from '@kernel/query';
 import { userApi } from '@modules/user/api';
-import { useUserStore } from '@modules/user/stores/user-store';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 

@@ -1,5 +1,5 @@
 import type { Comment, OptimisticComment } from '../types';
-import { useAuthStore } from '@kernel/stores';
+import { useUserStore } from '@kernel/stores';
 import { commentsModel } from '@modules/comments/model';
 import { Flex } from '@radix-ui/themes';
 import { For } from '@shared/components';
@@ -19,7 +19,7 @@ export function CommentList({
   onDelete,
   onLike,
 }: CommentListProps) {
-  const user = useAuthStore(s => s.user);
+  const user = useUserStore(s => s.profile);
 
   const commentsActions = useMemo(() => {
     const actions = commentsModel.getCommentAllowActions(user, commentList as Comment[]);

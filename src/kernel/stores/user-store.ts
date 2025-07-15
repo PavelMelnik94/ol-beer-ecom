@@ -1,11 +1,10 @@
-import type { Address, FavoriteProduct, Rating } from '@kernel/types';
-import type { UserProfile } from '@modules/user/types';
+import type { Address, FavoriteProduct, Rating, User } from '@kernel/types';
 import { nanoid } from 'nanoid';
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 
 interface State {
-  profile: UserProfile | null;
+  profile: User | null;
   ratings: Rating[];
   favorites: FavoriteProduct[];
   addresses: Address[];
@@ -15,7 +14,7 @@ interface Actions {
   setRatings: (ratings: Rating[]) => void;
   setFavorites: (favorites: FavoriteProduct[]) => void;
   setAddresses: (addresses: Address[]) => void;
-  setProfile: (user: UserProfile | null) => void;
+  setProfile: (user: User | null) => void;
 
   hasRating: (productId: string) => Rating | undefined;
   hasFavorite: (productId: string) => boolean;
@@ -48,7 +47,7 @@ export const useUserStore = create<State & Actions>()(
         addresses,
       });
     },
-    setProfile: (profile: UserProfile | null) => {
+    setProfile: (profile: User | null) => {
       set({
         profile,
       });

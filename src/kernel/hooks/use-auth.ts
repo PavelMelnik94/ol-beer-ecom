@@ -1,37 +1,33 @@
-import type { ApiErrorResponse, ApiSuccessResponse, User } from '@kernel/index';
-import { API_ENDPOINTS, apiClient, QUERY_KEYS, useAuthStore } from '@kernel/index';
+import type { ApiErrorResponse, ApiSuccessResponse } from '@kernel/index';
+import { API_ENDPOINTS, apiClient, QUERY_KEYS, toast, useAuthStore } from '@kernel/index';
 import { useMutation } from '@tanstack/react-query';
 
 export interface LoginCredentials {
   email: string;
   password: string;
 }
-type SuccessResponse = ApiSuccessResponse<User>;
+type SuccessResponse = ApiSuccessResponse<{ token: string; firstName: string; }>;
 type ErrorResponse = ApiErrorResponse;
 
 export function useAuth() {
-  const storeLogin = useAuthStore(state => state.login);
-  const storeLogout = useAuthStore(state => state.logout);
-  const isAuth = useAuthStore(state => state.isAuth);
+  const setToken = useAuthStore(s => s.setToken);
+  const clearToken = useAuthStore(s => s.clearToken);
 
   const mutation = useMutation<SuccessResponse, ErrorResponse, LoginCredentials>({
     mutationKey: QUERY_KEYS.auth.login(),
     mutationFn: ({ email, password }) =>
       apiClient.post(API_ENDPOINTS.auth.login, { email, password }),
+    onSuccess: (res) => {
+      if (res.success && res.data) {
+        const { token, firstName } = res.data;
+        setToken(token);
+        toast.success(`Welcome back, ${firstName}`);
+      }
+    },
   });
 
-  const login = async (credentials: LoginCredentials) => {
-    const res = await mutation.mutateAsync(credentials);
-
-    if (res.success) {
-      storeLogin(res.data);
-    }
-
-    return res;
-  };
-
   const logout = () => {
-    storeLogout();
+    clearToken();
   };
 
   return {
@@ -39,8 +35,7 @@ export function useAuth() {
     isLoading: mutation.isSuccess,
     isError: mutation.isError,
 
-    login,
+    login: mutation.mutateAsync,
     logout,
-    isAuth,
   };
 }

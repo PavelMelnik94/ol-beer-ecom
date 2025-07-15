@@ -1,10 +1,11 @@
 import type { FavoriteProduct, Product, ProductWithFavorites } from '@kernel/types';
 import { NoData } from '@kernel/components';
 import { useGoTo } from '@kernel/hooks';
-import { ButtonWithAuthPopup } from '@modules/common';
+import { useUserStore } from '@kernel/stores';
 
+import { ButtonWithAuthPopup } from '@modules/common';
 import { ProductCard, ProductCardSkeleton } from '@modules/products';
-import { useToggleFavorite, useUserFavorites, useUserStore } from '@modules/user';
+import { useToggleFavorite, useUserFavorites } from '@modules/user';
 import { Button, Container, Flex, Tooltip } from '@radix-ui/themes';
 import { For, Pulse, Show } from '@shared/components';
 import { Heart } from 'lucide-react';
@@ -15,7 +16,7 @@ export function FavoritesPage() {
   const { isLoading } = useUserFavorites({ enabled: true });
   const { mutateAsync: toggleFavorite } = useToggleFavorite();
 
-  const favoritesProducts = useUserStore(state => state.favorites);
+  const favoritesProducts = useUserStore(s => s.favorites);
 
   const products: ProductWithFavorites[] = favoritesProducts.map((product: FavoriteProduct) => {
     return {
@@ -61,7 +62,7 @@ export function FavoritesPage() {
       </Container>
 
       <Container pr="5" pl="5">
-        <Flex direction="row" wrap="wrap" gap="4" justify="center">
+        <Flex direction="row" wrap="wrap" gap="4" justify={products.length < 3 ? 'center' : 'start'}>
 
           <Show when={isLoading}>
             <For each={skeletons}>

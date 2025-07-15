@@ -6,7 +6,6 @@ import type {
   UpdateAddressData,
   UploadAvatarData,
 } from '@modules/user/model';
-import type { UserProfile } from '@modules/user/types';
 import { API_ENDPOINTS, apiClient } from '@kernel/api';
 
 export type SuccessResponse<T> = ApiSuccessResponse<T>;
@@ -16,7 +15,7 @@ export type SuccessResponseAddress = ApiSuccessResponse<Address>;
 export type SuccessResponseAvatar = ApiSuccessResponse<{ avatarUrl: string; }>;
 export type SuccessResponseFavorites = ApiSuccessResponse<FavoriteProduct[]>;
 export type SuccessResponseRatings = ApiSuccessResponse<Rating[]>;
-export type SuccessResponseProfile = ApiSuccessResponse<UserProfile>;
+export type SuccessResponseProfile = ApiSuccessResponse<User>;
 
 async function getAddresses(): Promise<SuccessResponseAddresses> {
   return apiClient.get(API_ENDPOINTS.users.addresses);
@@ -85,7 +84,7 @@ async function getProfile(): Promise<SuccessResponseProfile> {
   return apiClient.get(API_ENDPOINTS.users.profile);
 }
 
-async function updateProfile(data: Partial<UserProfile>): Promise<SuccessResponseProfile> {
+async function updateProfile(data: Partial<User>): Promise<SuccessResponseProfile> {
   return apiClient.patch(API_ENDPOINTS.users.profile, data);
 }
 

@@ -1,5 +1,5 @@
 import { useGoTo } from '@kernel/hooks';
-import { ROUTES, useAuthStore } from '@kernel/index';
+import { ROUTES, useAuthStore, useUserStore } from '@kernel/index';
 import { useAuth } from '@modules/auth';
 import clsx from 'clsx';
 import { useState } from 'react';
@@ -12,7 +12,7 @@ export function useHeader() {
   const { pathname } = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { logout } = useAuth();
-  const user = useAuthStore(s => s.user);
+  const user = useUserStore(s => s.profile);
   const isAuth = useAuthStore(s => s.isAuth);
   const isMobileLayout = useMediaQuery({
     query: '(max-width: 670px)',

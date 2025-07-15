@@ -25,6 +25,10 @@ export interface User {
   token: string;
   createdAt: string;
   updatedAt: string;
+
+  likedPostsCount: number;
+  likedCommentsCount: number;
+  ordersCount: number;
 }
 
 export interface Author {

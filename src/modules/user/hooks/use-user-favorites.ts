@@ -1,10 +1,10 @@
 import type { SuccessResponseFavorites } from '@modules/user/api';
 import type { ToggleFavoriteData } from '@modules/user/model';
 import type { ErrorResponse } from 'react-router-dom';
+import { useUserStore } from '@kernel/index';
 import { toast } from '@kernel/notifications';
 import { QUERY_KEYS } from '@kernel/query';
 import { userApi } from '@modules/user/api';
-import { useUserStore } from '@modules/user/stores/user-store';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
@@ -38,7 +38,6 @@ export function useToggleFavorite() {
   return useMutation({
     mutationFn: (data: ToggleFavoriteData) => userApi.toggleFavorite(data),
     onMutate: async (variables) => {
-      // Optimistic update
       optimisticToggleFavorite(variables.productId);
     },
     onSuccess: (res) => {

@@ -1,7 +1,7 @@
 import type { SuccessResponseRate } from '@modules/products/api';
 import { toast } from '@kernel/notifications';
+import { useUserStore } from '@kernel/stores';
 import { productsApi } from '@modules/products/api';
-import { useUserStore } from '@modules/user';
 import { useMutation } from '@tanstack/react-query';
 
 export function useProductRate() {

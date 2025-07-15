@@ -7,14 +7,14 @@ import { authApi } from '@modules/auth/api';
 import { useMutation } from '@tanstack/react-query';
 
 export function useRegister() {
-  const storeLogin = useAuthStore(state => state.login);
+  const setToken = useAuthStore(s => s.setToken);
 
   const registerMutation = useMutation<ApiSuccessResponse<User>, ApiErrorResponse, RegisterBody>({
     mutationFn: data => authApi.register(data),
     onSuccess: (response) => {
       if (response.success && response.message) {
         toast.success(response.message);
-        storeLogin(response.data);
+        setToken(response.data.token);
       }
 
       if (!response.success && response.message) {

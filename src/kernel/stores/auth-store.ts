@@ -1,50 +1,40 @@
-import type { User } from '@kernel/index';
-import { tokenStorage } from '@kernel/index';
+import { tokenStorage } from '@kernel/storage';
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
 interface AuthState {
-  user: User | null;
+  token: string | null;
   isAuth: boolean;
 }
 interface AuthStore extends AuthState {
-  setUser: (user: User | null) => void;
-  login: (user: User) => void;
-  logout: () => void;
+  setToken: (token: string | null) => void;
+  clearToken: () => void;
 }
-
 export const useAuthStore = create<AuthStore>()(
   devtools(
     persist(
       set => ({
-        user: null,
+        token: null,
         isAuth: false,
-
-        setUser: user =>
-          set({ user, isAuth: !!user }),
-
-        login: (user) => {
-          tokenStorage.set(user.token);
-          set({
-            user,
-            isAuth: true,
-          });
+        setToken: (token) => {
+          tokenStorage.set(token);
+          set({ token, isAuth: !!token });
         },
 
-        logout: () => {
+        clearToken: () => {
           tokenStorage.remove();
           set({
-            user: null,
+            token: null,
             isAuth: false,
           });
         },
 
       }),
       {
-        name: 'auth-storage',
+        name: 'auth',
         partialize: state => ({
-          user: state.user,
           isAuth: state.isAuth,
+          token: state.token,
         }),
       },
     ),

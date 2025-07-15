@@ -9,7 +9,7 @@ import type {
   CommentUpdateRequest,
   OptimisticComment,
 } from '../types';
-import { QUERY_KEYS, queryClient, toast, useAuthStore } from '@kernel/index';
+import { QUERY_KEYS, queryClient, toast, useUserStore } from '@kernel/index';
 import { useCommentStore } from '@modules/comments/stores/comment-store';
 
 import { useOptimistic } from '@shared/hooks';
@@ -24,9 +24,7 @@ type ErrorResponse = ApiErrorResponse;
 interface UseCommentsProps {
   page?: number;
   parentId: string;
-  queryKey: (string | number)[]; // optional query key for the query
-
-  // dependency injection for API calls
+  queryKey: (string | number)[];
   api: CommentsApi;
 }
 
@@ -36,7 +34,7 @@ export function useComments({
   api,
   queryKey,
 }: UseCommentsProps) {
-  const currentUser = useAuthStore(state => state.user);
+  const currentUser = useUserStore(s => s.profile);
   const {
     commentsState,
     setComments,

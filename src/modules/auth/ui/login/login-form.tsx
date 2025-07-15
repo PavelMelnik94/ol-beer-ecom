@@ -1,6 +1,6 @@
 import type { LoginFormValues } from '@modules/auth/model/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { toast, useAuth } from '@kernel/index';
+import { useAuth } from '@kernel/index';
 import { Button, Flex, Text } from '@radix-ui/themes';
 import { ErrorAlert, Image, InputPassword, InputText, Show } from '@shared/components';
 import { KeyRound, Mail } from 'lucide-react';
@@ -31,7 +31,6 @@ export function LoginForm({ onSuccess, onCancel, onNavigateToRegister }: LoginFo
     if (res?.success) {
       resetForm();
       onSuccess?.();
-      toast.success(`Welcome back, ${res.data.firstName}`);
     }
   };
 

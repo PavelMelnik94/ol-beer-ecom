@@ -5,5 +5,4 @@ export * from './hooks';
 export * from './model';
 
 // Store
-export { useUserStore } from './stores/user-store';
 export { ProfileMediator } from './ui/profile/profile.mediator';

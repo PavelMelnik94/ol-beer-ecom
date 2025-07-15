@@ -14,7 +14,7 @@ export function ProfileMediator() {
   const isOneColumn = useMediaQuery({ query: '(max-width: 610px)' });
 
   const { profile } = useUserProfile();
-  // const [state, setState] = useState<UserProfile | object>({});
+  // const [state, setState] = useState<User | object>({});
 
   // console.log(profile.firstName, 'profile firstName');
   if (typeof profile !== 'object' || Object.keys(profile).length === 0) {

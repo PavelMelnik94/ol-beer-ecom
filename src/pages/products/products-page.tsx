@@ -1,5 +1,6 @@
 import type { Product, ProductWithFavorites } from '@kernel/types';
 import { useGoTo } from '@kernel/hooks';
+import { useUserStore } from '@kernel/stores';
 import {
   Products,
   ProductsFilters,
@@ -8,7 +9,7 @@ import {
   useProductsPagination,
   useProductsPaginationState,
 } from '@modules/products';
-import { useToggleFavorite, useUserStore } from '@modules/user';
+import { useToggleFavorite } from '@modules/user';
 import { Box, Button, Container, Flex } from '@radix-ui/themes';
 import { Show } from '@shared/components';
 import { FunnelX, MoveLeft } from 'lucide-react';
