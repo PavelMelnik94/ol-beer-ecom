@@ -1,17 +1,18 @@
 import type z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useCreateAddress } from '@modules/user/hooks';
+import { AddressSchema } from '@kernel/types';
+import { useCreateAddress, useUpdateAddress } from '@modules/user/hooks';
 import { createAddressSchema } from '@modules/user/model';
-import { Button, Flex, RadioGroup } from '@radix-ui/themes';
+import { Button, Flex, IconButton, RadioGroup } from '@radix-ui/themes';
 import { Dialog, InputText } from '@shared/components';
 import { useOnClickOutside } from '@shared/hooks';
-import { Building, Building2, House, MailOpen } from 'lucide-react';
+import { Building, Building2, House, MailOpen, PencilLine } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
-type FormData = z.infer<typeof createAddressSchema>;
+type FormData = z.infer<typeof AddressSchema>;
 
-export function AddAddressAction() {
+export function UpdateAddressDialog({ initialState }: { initialState?: FormData; }) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const {
     register,
@@ -20,15 +21,16 @@ export function AddAddressAction() {
     formState: { errors },
     control,
   } = useForm<FormData> ({
-    resolver: zodResolver(createAddressSchema),
+    resolver: zodResolver(AddressSchema),
+    defaultValues: initialState,
     mode: 'onChange',
   });
 
-  const mutation = useCreateAddress();
+  const mutation = useUpdateAddress();
 
   const handleFormSubmit = async (data: FormData,
   ) => {
-    const res = await mutation.mutateAsync({ ...data });
+    const res = await mutation.mutateAsync({ id: initialState?.id || '', data });
     if (res.success) {
       reset();
       setIsOpen(false);
@@ -46,9 +48,13 @@ export function AddAddressAction() {
   return (
     <Dialog
       open={isOpen}
-      title="Add new Address"
+      title="Update Address Information"
       onOpenChange={() => setIsOpen(true)}
-      trigger={<Button style={{ width: '100%' }} variant="soft">Add Address</Button>}
+      trigger={(
+        <IconButton variant="ghost" size="2" color="blue" aria-label="Edit address">
+          <PencilLine size={16} />
+        </IconButton>
+      )}
     >
       <form ref={formRef} onSubmit={handleSubmit(handleFormSubmit)}>
         <InputText
@@ -102,9 +108,9 @@ export function AddAddressAction() {
             size="1"
             variant="soft"
             color="gray"
-            type="button"
             disabled={mutation.isPending}
             onClick={handleClose}
+            type="button"
           >
             Cancel
           </Button>
@@ -112,10 +118,11 @@ export function AddAddressAction() {
             disabled={mutation.isPending}
             loading={mutation.isPending}
             size="1"
+            color="blue"
             variant="soft"
             type="submit"
           >
-            Create
+            Update
           </Button>
         </Flex>
       </form>

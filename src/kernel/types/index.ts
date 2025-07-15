@@ -7,7 +7,6 @@ export interface Address {
   streetName: string;
   zip: string;
   type: 'billing' | 'shipping';
-  isPrimaryAddress: boolean;
 }
 
 export interface User {
@@ -125,7 +124,7 @@ export const AddressSchema = z.object({
   zip: z.string().min(1, 'ZIP code is required').regex(/^\d+$/, 'Only numbers allowed'),
   type: z.enum(['billing', 'shipping']),
   id: z.string(),
-  isPrimaryAddress: z.boolean(),
+  isPrimaryAddress: z.boolean().optional(),
 });
 
 export const personalInfoSchema = z.object({

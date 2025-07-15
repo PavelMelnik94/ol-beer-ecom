@@ -2,8 +2,8 @@ import type { Address } from '@kernel/types';
 import type { SuccessResponseAddresses } from '@modules/user/api';
 import type { CreateAddressData } from '@modules/user/model';
 import type { ErrorResponse } from 'react-router-dom';
-import { useUserStore } from '@kernel/index';
-import { QUERY_KEYS } from '@kernel/query';
+import { toast, useUserStore } from '@kernel/index';
+import { QUERY_KEYS, queryClient } from '@kernel/query';
 import { userApi } from '@modules/user/api';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
@@ -48,44 +48,51 @@ export function useCreateAddress() {
 }
 
 export function useUpdateAddress() {
-  const queryClient = useQueryClient();
   const { setAddresses } = useUserStore();
 
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: Partial<Address>; }) =>
       userApi.updateAddress(id, data),
     onSuccess: (response, variables) => {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.addresses() });
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.address(variables.id) });
+      if (response.success && response.message) {
+        queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.addresses() });
+        queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.address(variables.id) });
+        queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.profile() });
 
-      const currentAddresses = useUserStore.getState().addresses;
-      const updatedAddresses = currentAddresses.map(address =>
-        address.id === variables.id ? response.data : address,
-      );
-      setAddresses(updatedAddresses);
+        const currentAddresses = useUserStore.getState().addresses;
+        const updatedAddresses = currentAddresses.map(address =>
+          address.id === variables.id ? response.data : address,
+        );
+        setAddresses(updatedAddresses);
+
+        toast.success(response.message);
+      }
     },
   });
 }
 
 export function useDeleteAddress() {
-  const queryClient = useQueryClient();
   const { setAddresses } = useUserStore();
 
   return useMutation({
     mutationFn: (id: string) => userApi.deleteAddress(id),
-    onSuccess: (_, deletedId) => {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.addresses() });
-      queryClient.removeQueries({ queryKey: QUERY_KEYS.user.address(deletedId) });
+    onSuccess: (response, deletedId) => {
+      if (response.success && response.message) {
+        queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.addresses() });
+        queryClient.removeQueries({ queryKey: QUERY_KEYS.user.address(deletedId) });
+        queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.profile() });
 
-      const currentAddresses = useUserStore.getState().addresses;
-      const filteredAddresses = currentAddresses.filter(address => address.id !== deletedId);
-      setAddresses(filteredAddresses);
+        const currentAddresses = useUserStore.getState().addresses;
+        const filteredAddresses = currentAddresses.filter(address => address.id !== deletedId);
+        setAddresses(filteredAddresses);
+
+        toast.success(response.message);
+      }
     },
   });
 }
 
 export function useSetAddressPrimary() {
-  const queryClient = useQueryClient();
   const { setAddresses } = useUserStore();
 
   return useMutation({

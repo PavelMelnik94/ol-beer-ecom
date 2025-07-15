@@ -31,8 +31,6 @@ export function EditProfileAction({ initialState }: Props) {
     mode: 'onSubmit',
   });
 
-  console.log(initialState, 'initialState');
-
   const mutation = useUpdateProfile();
 
   const handleFormSubmit = async (data: FormData,
@@ -49,13 +47,13 @@ export function EditProfileAction({ initialState }: Props) {
     }
   };
 
-  const handleClickOutside = () => {
+  const handleClose = () => {
     reset();
     setIsOpen(false);
   };
 
   const formRef = useRef(null);
-  useOnClickOutside(formRef, handleClickOutside);
+  useOnClickOutside(formRef, handleClose);
 
   return (
     <Dialog
@@ -91,9 +89,11 @@ export function EditProfileAction({ initialState }: Props) {
         <Flex justify="end" align="center" gap="3">
           <Button
             size="1"
-            variant="outline"
+            variant="soft"
+            color="gray"
+            type="button"
             disabled={mutation.isPending}
-            onClick={() => setIsOpen(false)}
+            onClick={handleClose}
           >
             Cancel
           </Button>

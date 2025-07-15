@@ -1,3 +1,10 @@
 .addressWrapper[data-card] {
   --card-border-radius: 6px;
+  position: relative;
+}
+
+.actions {
+  position: absolute;
+  right: 16px;
+  top: 16px;
 }

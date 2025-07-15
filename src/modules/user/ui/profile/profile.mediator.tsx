@@ -28,6 +28,7 @@ export function ProfileMediator() {
 
   const activityWidget = (
     <ActivityWidget
+      ordersCount={profile.ordersCount}
       likedCommentsCount={profile.likedCommentsCount}
       likedPostsCount={profile.likedPostsCount}
     />

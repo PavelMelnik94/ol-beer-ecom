@@ -1,5 +1,7 @@
 import type { Address } from '@kernel/types';
 import { Widget } from '@modules/user/ui/widget/widget';
+import { RemoveAddressDialog } from '@modules/user/ui/widgets/address-widget/remove-address-dialog';
+import { UpdateAddressDialog } from '@modules/user/ui/widgets/address-widget/update-address-dialog';
 import { Badge, Card, Flex, Text } from '@radix-ui/themes';
 import { For } from '@shared/components';
 import styles from './address-widget.module.scss';
@@ -31,6 +33,11 @@ export function AddressesWidget({ addresses }: Props) {
                   {address.zip}
                 </Text>
                 <Text size="2">{address.country}</Text>
+              </Flex>
+
+              <Flex gap="3" className={styles.actions}>
+                <UpdateAddressDialog initialState={address} />
+                <RemoveAddressDialog addressId={address.id} />
               </Flex>
             </Card>
           )}

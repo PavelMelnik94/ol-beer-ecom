@@ -40,13 +40,13 @@ export function ChangePasswordAction() {
     }
   };
 
-  const handleClickOutside = () => {
+  const handleClose = () => {
     reset();
     setIsOpen(false);
   };
 
   const formRef = useRef(null);
-  useOnClickOutside(formRef, handleClickOutside);
+  useOnClickOutside(formRef, handleClose);
 
   return (
     <Dialog
@@ -78,9 +78,10 @@ export function ChangePasswordAction() {
         <Flex justify="end" align="center" gap="3">
           <Button
             disabled={mutation.isPending}
-            size="1"
-            variant="outline"
-            onClick={() => setIsOpen(false)}
+            variant="soft"
+            color="gray"
+            type="button"
+            onClick={handleClose}
           >
             Cancel
           </Button>
