@@ -4,7 +4,7 @@ import { ProductCardSkeleton } from '@modules/products/ui/product-card/product-c
 import { ProductCard } from '@modules/products/ui/product-card/products-card';
 import { Flex, Grid, Tooltip } from '@radix-ui/themes';
 import { For, Pulse, Show } from '@shared/components';
-import { Heart } from 'lucide-react';
+import { Bookmark } from 'lucide-react';
 import { useMediaQuery } from 'react-responsive';
 
 function isProductWithFavorites(product: Product | ProductWithFavorites): product is ProductWithFavorites {
@@ -82,7 +82,7 @@ export function ProductsGrid({
                         }}
                       >
                         <Tooltip content={isFavorite ? 'Remove from Wishlist' : 'Add to Wishlist'} side="top">
-                          <Heart
+                          <Bookmark
                             size={12}
                             fill={isFavorite ? 'red' : 'transparent'}
                             color={isFavorite ? 'red' : 'gray'}

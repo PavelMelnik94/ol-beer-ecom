@@ -33,7 +33,10 @@ export const Carousel: React.FC<PropType> = (props) => {
     slideChangeDelay = 3000,
     changeStrategy = 'autoplay'
   } = props;
-  const [emblaRef] = useEmblaCarousel(options, [
+  const [emblaRef] = useEmblaCarousel({
+    ...options,
+    loop: true,
+  }, [
     Autoplay({
     delay: slideChangeDelay,
     playOnInit: changeStrategy === 'autoplay',

@@ -10,11 +10,13 @@ interface StarRatingProps {
   readonly?: boolean;
   showTooltip?: boolean;
   showRatingText?: boolean;
+  userRating?: number;
 }
 
 export function StarRating({
   maxRating = 5,
   currentRating = 0,
+  userRating = undefined,
   onRatingClick,
   size = 16,
   readonly = false,
@@ -39,12 +41,12 @@ export function StarRating({
   };
 
   const getStarColor = (starIndex: number) => {
-    const displayRating = hoveredRating ?? currentRating;
+    const displayRating = hoveredRating ?? userRating ?? currentRating;
     return starIndex <= displayRating ? '#ffd700' : '#e0e0e0';
   };
 
   const getStarFill = (starIndex: number) => {
-    const displayRating = hoveredRating ?? currentRating;
+    const displayRating = hoveredRating ?? userRating ??  currentRating;
     return starIndex <= displayRating ? '#ffd700' : 'none';
   };
 

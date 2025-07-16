@@ -3,13 +3,13 @@ import type { User } from '@kernel/types';
 import type { RegisterBody } from '@modules/auth/model/types';
 import { toast } from '@kernel/notifications';
 import { useAuthStore } from '@kernel/stores';
-import { authApi } from '@modules/auth/api';
+import { authApi, type RegisterResponse } from '@modules/auth/api';
 import { useMutation } from '@tanstack/react-query';
 
 export function useRegister() {
   const setToken = useAuthStore(s => s.setToken);
 
-  const registerMutation = useMutation<ApiSuccessResponse<User>, ApiErrorResponse, RegisterBody>({
+  const registerMutation = useMutation<ApiSuccessResponse<RegisterResponse>, ApiErrorResponse, RegisterBody>({
     mutationFn: data => authApi.register(data),
     onSuccess: (response) => {
       if (response.success && response.message) {

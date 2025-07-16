@@ -12,8 +12,7 @@ export function HeaderWidget({ firstName, lastName, createdAt, avatar }: Props) 
   return (
     <Card mb="4">
       <Flex align="center" gap="4" wrap="wrap">
-        {/* <Avatar fallback="OL" size="6" src={avatar} /> */}
-        <AvatarUploader avatarUrl={avatar} fallback="User" />
+        <AvatarUploader avatarUrl={avatar} fallback="ØL" />
         <Flex direction="column">
           <Text size="4">{firstName}</Text>
           <Text size="4">{lastName}</Text>

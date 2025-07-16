@@ -37,19 +37,34 @@ export function AvatarUploader({ avatarUrl, fallback = 'User' }: AvatarUploaderP
   };
 
   const handleClick = () => {
+    console.log('Avatar clicked');
     inputRef.current?.click();
   };
 
   return (
     <Flex direction="column" gap="3" align="center">
       <Show when={!loading}>
-        <Avatar
+        <button
+          type="button"
+          style={{
+            background: 'none',
+            border: 'none',
+            padding: 0,
+            cursor: 'pointer',
+            display: 'flex',
+          }}
+          onClick={handleClick}
+          aria-label="Upload avatar"
+        >
+<Avatar
           src={preview ?? avatarUrl ?? undefined}
           fallback={fallback}
           size="6"
           style={{ cursor: 'pointer' }}
           onClick={handleClick}
         />
+        </button>
+
       </Show>
 
       <Show when={loading}>
@@ -58,7 +73,6 @@ export function AvatarUploader({ avatarUrl, fallback = 'User' }: AvatarUploaderP
           fallback={<Spinner size="3" />}
           size="6"
           style={{ cursor: 'pointer' }}
-          onClick={handleClick}
         />
       </Show>
       <input

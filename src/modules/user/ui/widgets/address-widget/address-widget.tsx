@@ -37,7 +37,8 @@ export function AddressesWidget({ addresses }: Props) {
 
               <Flex gap="3" className={styles.actions}>
                 <UpdateAddressDialog initialState={address} />
-                <RemoveAddressDialog addressId={address.id} />
+                {addresses.length > 1 && <RemoveAddressDialog addressId={address.id} />}
+
               </Flex>
             </Card>
           )}

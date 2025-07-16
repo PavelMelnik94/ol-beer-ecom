@@ -1,14 +1,14 @@
 import type { Product, ProductWithFavoritesAndRatings } from '@kernel/types';
 import { ButtonWithAuthPopup } from '@modules/common';
 import { ProductDetailsSkeleton } from '@modules/products/ui/product-details/product-details-skeleton';
-import { Box, Container, Flex, ScrollArea, Separator, Text } from '@radix-ui/themes';
+import { Box, Container, Flex, ScrollArea, Separator, Text, Tooltip } from '@radix-ui/themes';
 import { Carousel, Image, Pulse, Show } from '@shared/components';
 import { useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { BreweryDescription } from './brewery-description/brewery-description';
 import { ProductDatalist } from './product-datalist/product-datalist';
-import { ProductDetailsActionBlock } from './product-details-action-block/product-details-action-block';
 import styles from './product-details.module.scss';
+import { Bookmark, BookmarkCheck, Heart } from 'lucide-react';
 
 interface ProductDetailsProps {
   product?: ProductWithFavoritesAndRatings | null;
@@ -88,27 +88,39 @@ export function ProductDetails({ product, onClickRating, onClickAddToWishlist }:
           {product.description}
         </Text>
 
-        <ProductDatalist product={product} />
+        <ProductDatalist
+        onClickRating={rating => onClickRating?.(rating, product.id)}
+        product={product}
+         />
 
         <Separator mt="5" mb="2" size="4" />
 
-        <ProductDetailsActionBlock
-          isFavorite={product.isFavorite}
-          userRating={product.userRating}
-          onClickAddToWishlist={() => onClickAddToWishlist?.(product)}
-          onClickRating={rating => onClickRating?.(rating, product.id)}
-        />
+
 
         <BreweryDescription
           brewerytitle={product.brewery.name}
           brewerydescription={product.brewery.description}
         />
 
-        <Flex justify="center" mt="5">
-          <ButtonWithAuthPopup size="2" variant="outline">
+        <Flex justify="center" mt="5" gap={'2'}>
+          <ButtonWithAuthPopup
+        size="2"
+        variant="soft"
+        style={{ padding: '6px' }}
+        onClick={(e) => {
+          e.stopPropagation();
+          onClickAddToWishlist?.(product)
+        }}
+      >
+        <Tooltip content={product.isFavorite ? 'Remove from Wishlist' : 'Add to Wishlist'} side="top">
+          <Bookmark size={20} fill={product.isFavorite ? 'red' : 'transparent'} color={product.isFavorite ?'red' : 'gray'} />
+        </Tooltip>
+      </ButtonWithAuthPopup>
+
+          <ButtonWithAuthPopup size="2" color='bronze' variant="solid">
             Add to Cart
             {' '}
-            <Pulse size={10} />
+            <Pulse size={8} />
           </ButtonWithAuthPopup>
         </Flex>
 
