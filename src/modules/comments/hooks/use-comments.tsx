@@ -9,11 +9,12 @@ import type {
   CommentUpdateRequest,
   OptimisticComment,
 } from '../types';
-import { QUERY_KEYS, queryClient, toast, useUserStore } from '@kernel/index';
+import { normalizeAvatarUrl, QUERY_KEYS, queryClient, toast, useUserStore } from '@kernel/index';
 import { useCommentStore } from '@modules/comments/stores/comment-store';
 
 import { useOptimistic } from '@shared/hooks';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { clone } from 'lodash-es';
 import { useCallback, useEffect } from 'react';
 import { commentsModel } from '../model';
 
@@ -57,6 +58,15 @@ export function useComments({
     refetchOnWindowFocus: false,
     refetchOnReconnect: true,
     retry: false,
+    select: (response) => {
+      if (response.success && response.data) {
+        return {
+          ...response,
+          data: commentsModel.normalizeComments(response.data),
+        };
+      }
+      return response;
+    },
   });
 
   const {

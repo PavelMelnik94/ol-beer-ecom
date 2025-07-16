@@ -1,7 +1,7 @@
 {
   "name": "clean-arch-frontend-template",
   "type": "module",
-  "version": "0.4.57",
+  "version": "0.4.58",
   "private": true,
   "scripts": {
     "start": "vite",
@@ -21,7 +21,6 @@
     "axios": "^1.10.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
-    "embla-carousel-auto-height": "^8.6.0",
     "embla-carousel-auto-scroll": "^8.6.0",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",

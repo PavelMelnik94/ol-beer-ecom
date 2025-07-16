@@ -1,5 +1,6 @@
 import type { User } from '@kernel/types';
 import type { Comment, CommentsActions, OptimisticComment } from '../types';
+import { normalizeAvatarUrl } from '@kernel/utils';
 import { nanoid } from 'nanoid';
 
 function createOptimisticComment(content: string, user: any): OptimisticComment {
@@ -20,6 +21,16 @@ function createOptimisticComment(content: string, user: any): OptimisticComment 
     isOptimistic: true,
     isPending: false,
   };
+}
+
+function normalizeComments(comments: Comment[]): Comment[] {
+  return comments.map(comment => ({
+    ...comment,
+    author: {
+      ...comment.author,
+      avatar: normalizeAvatarUrl(comment.author.avatar),
+    },
+  }));
 }
 
 function optimisticUpdateComment(comments: OptimisticComment[], id: string, content: string) {
@@ -89,4 +100,5 @@ export const commentsModel = {
   mapServerCommentsToOptimistic,
   shouldGoToPrevPage,
   getCommentAllowActions,
+  normalizeComments,
 };

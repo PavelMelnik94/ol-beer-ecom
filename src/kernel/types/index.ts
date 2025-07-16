@@ -34,7 +34,7 @@ export interface Author {
   id: string;
   firstName: string;
   lastName: string;
-  avatar: string;
+  avatar: string | null;
 }
 
 export interface LikeResponse {
@@ -135,6 +135,7 @@ export const personalInfoSchema = z.object({
     .min(3, 'Last name must be at least 3 characters')
     .regex(/^[a-z]+$/i, 'Only latin letters allowed'),
   email: z.string().email('Invalid email format'),
+  avatar: z.string().url('Invalid avatar URL').optional(),
 });
 
 export const securitySchema = z.object({
