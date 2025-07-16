@@ -19,7 +19,28 @@ export function useCart() {
 
   const clearCartMutation = useMutation({
     mutationFn: cartApi.clearCart,
-    onSuccess: () => {
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: QUERY_KEYS.cart.details() });
+      const previousCart = queryClient.getQueryData<any>(QUERY_KEYS.cart.details());
+      if (!previousCart?.data) return { previousCart };
+      queryClient.setQueryData(QUERY_KEYS.cart.details(), {
+        ...previousCart,
+        data: {
+          ...previousCart.data,
+          items: [],
+          total: 0,
+          discountAmount: 0,
+          promoCode: null,
+        },
+      });
+      return { previousCart } as { previousCart?: any };
+    },
+    onError: (_err, _data, context) => {
+      if ((context as { previousCart?: any })?.previousCart) {
+        queryClient.setQueryData(QUERY_KEYS.cart.details(), (context as { previousCart?: any }).previousCart);
+      }
+    },
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.cart.details() });
     },
   });
