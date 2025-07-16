@@ -9,6 +9,19 @@ export function useCartPayment() {
   const paymentMutation = useMutation({
     mutationFn: (data: CartPaymentRequest) => cartApi.processCartPayment(data),
     onSuccess: () => {
+      queryClient.setQueryData(QUERY_KEYS.cart.details(), (prev: any) => {
+        if (!prev?.data) return prev;
+        return {
+          ...prev,
+          data: {
+            ...prev.data,
+            items: [],
+            total: 0,
+            discountAmount: 0,
+            promoCode: null,
+          },
+        };
+      });
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.cart.details() });
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.profile() });
     },
