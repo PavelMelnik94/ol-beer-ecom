@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { cartApi, type ApiSuccessResponseCart } from '../api/cart-api';
+import { cartModel } from '../model';
 import { QUERY_KEYS } from '@kernel/query/query-keys';
 import type { CartAddItemRequest, CartUpdateItemRequest, CartRemoveItemRequest } from '../types';
 import { queryClient } from '@kernel/query';
@@ -13,17 +14,8 @@ export function useCartItem() {
       await queryClient.cancelQueries({ queryKey: QUERY_KEYS.cart.details() });
       const previousCart = queryClient.getQueryData<ApiSuccessResponseCart>(QUERY_KEYS.cart.details());
       if (!previousCart?.data) return { previousCart };
-      const product = previousCart.data.items.find(item => item.product.id === data.productId)?.product;
-      const optimisticItem = {
-        id: Math.random().toString(36),
-        product: product ?? { id: data.productId, name: '', price: 0 },
-        quantity: data.quantity,
-        subtotal: (product?.price ?? 0) * data.quantity,
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        isOptimistic: true,
-        isPending: true,
-      };
+      const product = previousCart.data.items.find(item => item.product.id === data.productId)?.product ?? cartModel.getDefaultProduct(data.productId);
+      const optimisticItem = cartModel.createOptimisticCartItem(product, data.quantity);
       queryClient.setQueryData(QUERY_KEYS.cart.details(), {
         ...previousCart,
         data: {
@@ -54,7 +46,9 @@ export function useCartItem() {
         data: {
           ...previousCart.data,
           items: previousCart.data.items.map(item =>
-            item.id === id ? { ...item, quantity, subtotal: item.product.price * quantity, isOptimistic: true, isPending: true } : item
+            item.id === id
+              ? { ...item, quantity, subtotal: item.product.price * quantity, isOptimistic: true, isPending: true }
+              : item
           ),
         },
       });

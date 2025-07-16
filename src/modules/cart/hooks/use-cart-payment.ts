@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { cartApi } from '../api/cart-api';
+import { cartModel } from '../model';
 import { QUERY_KEYS } from '@kernel/query/query-keys';
 import type { CartPaymentRequest } from '../types';
 import { queryClient } from '@kernel/query';
@@ -13,13 +14,7 @@ export function useCartPayment() {
         if (!prev?.data) return prev;
         return {
           ...prev,
-          data: {
-            ...prev.data,
-            items: [],
-            total: 0,
-            discountAmount: 0,
-            promoCode: null,
-          },
+          data: cartModel.clearCart(prev.data),
         };
       });
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.cart.details() });

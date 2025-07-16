@@ -1,5 +1,6 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { cartApi, type ApiSuccessResponseCart } from '../api/cart-api';
+import { cartModel } from '../model';
 import { QUERY_KEYS } from '@kernel/query/query-keys';
 import { queryClient } from '@kernel/query';
 import type { ApiErrorResponse } from '@kernel/api';
@@ -25,13 +26,7 @@ export function useCart() {
       if (!previousCart?.data) return { previousCart };
       queryClient.setQueryData(QUERY_KEYS.cart.details(), {
         ...previousCart,
-        data: {
-          ...previousCart.data,
-          items: [],
-          total: 0,
-          discountAmount: 0,
-          promoCode: null,
-        },
+        data: cartModel.clearCart(previousCart.data),
       });
       return { previousCart } as { previousCart?: any };
     },

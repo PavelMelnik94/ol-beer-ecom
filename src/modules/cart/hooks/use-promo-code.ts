@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { cartApi } from '../api/cart-api';
+import { cartModel } from '../model';
 import { QUERY_KEYS } from '@kernel/query/query-keys';
 import type { CartApplyPromoRequest } from '../types';
 import { queryClient } from '@kernel/query';
@@ -14,11 +15,7 @@ export function usePromoCode() {
       if (!previousCart?.data) return { previousCart };
       queryClient.setQueryData(QUERY_KEYS.cart.details(), {
         ...previousCart,
-        data: {
-          ...previousCart.data,
-          promoCode: data.promoCode,
-          discountAmount: 0,
-        },
+        data: cartModel.optimisticApplyPromo(previousCart.data, data.promoCode ?? ''),
       });
       return { previousCart } as { previousCart?: any };
     },
@@ -40,11 +37,7 @@ export function usePromoCode() {
       if (!previousCart?.data) return { previousCart };
       queryClient.setQueryData(QUERY_KEYS.cart.details(), {
         ...previousCart,
-        data: {
-          ...previousCart.data,
-          promoCode: null,
-          discountAmount: 0,
-        },
+        data: cartModel.optimisticRemovePromo(previousCart.data),
       });
       return { previousCart } as { previousCart?: any };
     },
