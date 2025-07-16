@@ -8,14 +8,52 @@ export function usePromoCode() {
 
   const applyPromoMutation = useMutation({
     mutationFn: (data: CartApplyPromoRequest) => cartApi.applyPromoCode(data),
-    onSuccess: () => {
+    onMutate: async (data: CartApplyPromoRequest) => {
+      await queryClient.cancelQueries({ queryKey: QUERY_KEYS.cart.details() });
+      const previousCart = queryClient.getQueryData<any>(QUERY_KEYS.cart.details());
+      if (!previousCart?.data) return { previousCart };
+      queryClient.setQueryData(QUERY_KEYS.cart.details(), {
+        ...previousCart,
+        data: {
+          ...previousCart.data,
+          promoCode: data.promoCode,
+          discountAmount: 0,
+        },
+      });
+      return { previousCart } as { previousCart?: any };
+    },
+    onError: (_err, _data, context) => {
+      if ((context as { previousCart?: any })?.previousCart) {
+        queryClient.setQueryData(QUERY_KEYS.cart.details(), (context as { previousCart?: any }).previousCart);
+      }
+    },
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.cart.details() });
     },
   });
 
   const removePromoMutation = useMutation({
     mutationFn: cartApi.removePromoCode,
-    onSuccess: () => {
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: QUERY_KEYS.cart.details() });
+      const previousCart = queryClient.getQueryData<any>(QUERY_KEYS.cart.details());
+      if (!previousCart?.data) return { previousCart };
+      queryClient.setQueryData(QUERY_KEYS.cart.details(), {
+        ...previousCart,
+        data: {
+          ...previousCart.data,
+          promoCode: null,
+          discountAmount: 0,
+        },
+      });
+      return { previousCart } as { previousCart?: any };
+    },
+    onError: (_err, _data, context) => {
+      if ((context as { previousCart?: any })?.previousCart) {
+        queryClient.setQueryData(QUERY_KEYS.cart.details(), (context as { previousCart?: any }).previousCart);
+      }
+    },
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.cart.details() });
     },
   });
