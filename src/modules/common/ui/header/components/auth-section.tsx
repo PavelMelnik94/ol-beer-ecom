@@ -1,7 +1,8 @@
 import { ThemeButton } from '@kernel/components';
+import { useUserStore } from '@kernel/stores';
 import { ButtonWithAuthPopup } from '@modules/common/ui/button-with-auth-popup';
 import { useHeader } from '@modules/common/ui/header/hooks/use-header';
-import { Button, Flex } from '@radix-ui/themes';
+import { Badge, Box, Button, Flex, Text } from '@radix-ui/themes';
 import { GithubButton } from '@shared/components/ui/github-button';
 
 interface AuthSectionProps {
@@ -32,7 +33,7 @@ export function AuthSection({
 }: AuthSectionProps) {
   const { isMobileLayout } = useHeader();
   const buttonStyle = fullWidth ? { width: '100%' } : {};
-
+  const favorites = useUserStore(s => s.favorites)
   if (isAuth) {
     return (
       <>
@@ -52,7 +53,7 @@ export function AuthSection({
           onClick={onFavorites}
           {...getActiveProps(routes.favorites)}
         >
-          Favorites
+          Favorites {favorites?.length > 0 && <Badge size='1'>{favorites?.length}</Badge>}
         </Button>
         <Button
           variant="ghost"

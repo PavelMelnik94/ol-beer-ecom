@@ -6,17 +6,41 @@ export function Footer() {
   return (
     <footer className={styles.footer}>
       <Box className={styles.decorativeBg} />
-      <Flex
+    <Flex justify={'center'} align={'center'} direction={'column'} pt={'6'} className={styles.textContent}>
+
+      <Flex gap={'1'}>
+        <Text size={'2'}>
+          Thank you very much for the illustrations
+        </Text>
+
+        <Text size={'2'}>
+          <Link
+            href="https://undraw.co/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            undraw.co
+          </Link>
+        </Text>
+      </Flex>
+
+      <Flex gap={'1'}>
+        <Text size={'2'}>
+          All information on the site is for informational purposes only.
+        </Text>
+      </Flex>
+
+
+        <Flex
         justify="center"
         align="end"
-        className={styles.textContent}
+
       >
         <Text
           size="2"
           weight="medium"
           align="center"
           mr="2"
-          style={{ marginBottom: '1rem' }}
         >
           v
           {pckg.version}
@@ -26,7 +50,6 @@ export function Footer() {
           size="2"
           weight="medium"
           align="center"
-          style={{ marginBottom: '1rem' }}
         >
 
           ©
@@ -48,6 +71,12 @@ export function Footer() {
           </Link>
         </Text>
       </Flex>
+
+
+
+    </Flex>
+
+
 
     </footer>
   );
