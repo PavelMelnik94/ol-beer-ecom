@@ -1,7 +1,7 @@
 import type { LoginFormValues } from '@modules/auth/model/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '@kernel/index';
-import { Button, Flex, Text } from '@radix-ui/themes';
+import { Box, Button, Flex, Text } from '@radix-ui/themes';
 import { ErrorAlert, Image, InputPassword, InputText, Show } from '@shared/components';
 import { KeyRound, Mail } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -77,9 +77,11 @@ export function LoginForm({ onSuccess, onCancel, onNavigateToRegister }: LoginFo
       </Flex>
 
       <Show when={isError}>
-        <ErrorAlert>
+        <Box mt="2">
+          <ErrorAlert>
           User with such email or password does not exist
         </ErrorAlert>
+        </Box>
       </Show>
 
       <Flex gap="3" mt="4" justify="end">

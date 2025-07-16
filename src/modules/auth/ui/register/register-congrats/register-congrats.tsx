@@ -22,7 +22,7 @@ export function RegisterCongrats({ onReset }: RegisterCongratsProps) {
   });
 
   const [countdown, setCountdown] = useState(7);
-  const navigateToShowcase = useGoTo().navigateToShowcase;
+  const navigateToProfile = useGoTo().navigateToProfile;
   useConfetti({ playWhen: true });
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export function RegisterCongrats({ onReset }: RegisterCongratsProps) {
         if (prev <= 1) {
           clearInterval(intervalId);
           onReset?.();
-          navigateToShowcase();
+          navigateToProfile();
           return 0;
         }
         return prev - 1;

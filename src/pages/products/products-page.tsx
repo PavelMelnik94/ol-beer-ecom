@@ -71,6 +71,11 @@ export function ProductsPage() {
     await toggleFavorite({ productId: product.id });
   };
 
+  const handleGoToStore = () => {
+    resetFilters();
+    navigateToShowcase();
+  };
+
   const productsWithFavorites: ProductWithFavorites[] = products.map(product => ({
     ...product,
     isFavorite: hasFavorite(product.id) || false,
@@ -91,7 +96,7 @@ export function ProductsPage() {
                 <Button
                   variant="ghost"
                   size="1"
-                  onClick={navigateToShowcase}
+                  onClick={handleGoToStore}
                 >
                   <MoveLeft size={14} />
                   Store

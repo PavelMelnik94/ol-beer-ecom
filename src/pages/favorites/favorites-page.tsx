@@ -11,8 +11,12 @@ import { For, Pulse, Show } from '@shared/components';
 import { Heart } from 'lucide-react';
 import styles from './favorites-page.module.scss';
 import { Hero } from './ui/hero';
+import { useMediaQuery } from 'react-responsive';
 
 export function FavoritesPage() {
+  const isCentered = useMediaQuery({
+    query: '(max-width: 1200px)',
+  });
   const { isLoading } = useUserFavorites({ enabled: true });
   const { mutateAsync: toggleFavorite } = useToggleFavorite();
 
@@ -62,7 +66,7 @@ export function FavoritesPage() {
       </Container>
 
       <Container pr="5" pl="5">
-        <Flex direction="row" wrap="wrap" gap="4" justify={products.length < 3 ? 'center' : 'start'}>
+        <Flex direction="row" wrap="wrap" gap="4" justify={products.length < 3 || isCentered ? 'center' : 'start'}>
 
           <Show when={isLoading}>
             <For each={skeletons}>

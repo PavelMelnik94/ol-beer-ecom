@@ -10,7 +10,6 @@ export function useGoTo() {
     navigateToArticle: (id: string) => navigate(ROUTES.articles.article(id)),
     navigateToBreweries: () => navigate(ROUTES.breweries.root),
     navigateToRegister: () => navigate(ROUTES.auth.register.full),
-    navigateToLogin: () => navigate(ROUTES.auth.login.full),
     navigateToShowcase: () => navigate(ROUTES.showcase.root),
     navigateToProductItem: (id: string) => navigate(ROUTES.showcase.item(id)),
     navigateToAbout: () => navigate(ROUTES.about.root),
