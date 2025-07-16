@@ -2,10 +2,11 @@ import { Badge, Button, Flex, Text } from '@radix-ui/themes';
 import clsx from 'clsx';
 import { ShoppingCart } from 'lucide-react';
 import styles from './cart-button.module.scss';
+import { useCart } from '@modules/cart/hooks';
 
-const FAKE_CART_COUNT = 2;
 
 export function CartButton({ fullWidth, onClick }: { fullWidth?: boolean; onClick?: () => void; }) {
+   const cart = useCart().cart
   return (
     <Button
       variant="ghost"
@@ -19,7 +20,7 @@ export function CartButton({ fullWidth, onClick }: { fullWidth?: boolean; onClic
           <ShoppingCart size={16} />
           <Text>Cart</Text>
         </Flex>
-        <Badge size="1" color="bronze">{FAKE_CART_COUNT}</Badge>
+        {cart && cart.items.length > 0 && <Badge size="1" color="bronze">{cart.items.length}</Badge>}
       </Flex>
     </Button>
   );
