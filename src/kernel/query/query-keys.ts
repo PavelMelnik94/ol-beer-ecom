@@ -59,6 +59,15 @@ export const QUERY_KEYS = {
     favorites: () => [...QUERY_KEYS.user.all, 'favorites'] as const,
     ratings: () => [...QUERY_KEYS.user.all, 'ratings'] as const,
   },
+  cart: {
+    all: ['cart'] as const,
+    details: () => [...QUERY_KEYS.cart.all, 'details'] as const,
+    items: () => [...QUERY_KEYS.cart.all, 'items'] as const,
+    item: (id: string) => [...QUERY_KEYS.cart.items(), id] as const,
+    summary: () => [...QUERY_KEYS.cart.all, 'summary'] as const,
+    promo: () => [...QUERY_KEYS.cart.all, 'promo'] as const,
+    payment: () => [...QUERY_KEYS.cart.all, 'payment'] as const,
+  },
 } as const;
 
 export type QueryKeys = typeof QUERY_KEYS;
