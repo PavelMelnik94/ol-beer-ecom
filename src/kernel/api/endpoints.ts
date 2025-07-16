@@ -63,4 +63,15 @@ export const API_ENDPOINTS = {
     profile: '/users/profile',
     changePassword: '/users/change-password',
   },
+
+  cart: {
+    cart: '/cart',
+    items: '/cart/items',
+    itemsBatch: '/cart/items/batch',
+    item: (id: string) => `/cart/items/${id}`,
+    summary: '/cart/summary',
+    promo: '/cart/promo',
+    payment: '/cart/payment',
+
+  }
 } as const;

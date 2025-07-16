@@ -1,3 +1,4 @@
+import type { BeerRank } from '@modules/user/types';
 import { z } from 'zod';
 
 export const createAddressSchema = z.object({
@@ -48,6 +49,44 @@ function validateToggleFavorite(data: unknown): ToggleFavoriteData {
   return toggleFavoriteSchema.parse(data);
 }
 
+function getBeerRank(ordersCount: number = 0): BeerRank {
+
+  const BEER_LEVELS = [
+    { beersToFinish: 1, rank: 'Newbie' },
+    { beersToFinish: 3, rank: 'Beer Enthusiast' },
+    { beersToFinish: 5, rank: 'Beer Expert' },
+    { beersToFinish: 7, rank: 'Beer Guru' },
+    { beersToFinish: 10, rank: 'Beer Master' }
+  ] as Array<{ beersToFinish: number; rank: string }>;
+
+  let currentLevel = BEER_LEVELS[0];
+  let nextLevel: { beersToFinish: number; rank: string } | undefined;
+
+  for (let i = 0; i < BEER_LEVELS.length; i++) {
+    if (ordersCount < BEER_LEVELS[i].beersToFinish) {
+      currentLevel = i === 0 ? BEER_LEVELS[0] : BEER_LEVELS[i - 1];
+      nextLevel = BEER_LEVELS[i];
+      break;
+    }
+    if (i === BEER_LEVELS.length - 1) {
+      currentLevel = BEER_LEVELS[i];
+      nextLevel = undefined;
+    }
+  }
+
+  const max = nextLevel ? nextLevel.beersToFinish : currentLevel.beersToFinish;
+  const toNext = nextLevel ? nextLevel.beersToFinish - ordersCount : 0;
+
+  return {
+    rank: currentLevel.rank,
+    current: ordersCount,
+    toNext,
+    nextRank: nextLevel?.rank,
+    max
+  };
+
+}
+
 export const userModel = {
   createAddressSchema,
   updateAddressSchema,
@@ -57,4 +96,5 @@ export const userModel = {
   validateUpdateAddress,
   validateUploadAvatar,
   validateToggleFavorite,
+  getBeerRank
 } as const;

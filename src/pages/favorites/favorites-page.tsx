@@ -4,6 +4,7 @@ import { useGoTo } from '@kernel/hooks';
 import { useUserStore } from '@kernel/stores';
 
 import { ButtonWithAuthPopup } from '@modules/common';
+import { useCartItem } from '@modules/cart';
 import { ProductCard, ProductCardSkeleton } from '@modules/products';
 import { useToggleFavorite, useUserFavorites } from '@modules/user';
 import { Button, Container, Flex, Tooltip } from '@radix-ui/themes';
@@ -14,6 +15,7 @@ import { Hero } from './ui/hero';
 import { useMediaQuery } from 'react-responsive';
 
 export function FavoritesPage() {
+  const cartItem = useCartItem();
   const isCentered = useMediaQuery({
     query: '(max-width: 1200px)',
   });
@@ -58,6 +60,10 @@ export function FavoritesPage() {
 
     );
   }
+  const handleAddToCart = async (product: Product) => {
+    cartItem.addItem({ productId: product.id, quantity: 1 });
+  };
+
   return (
     <>
 
@@ -109,7 +115,7 @@ export function FavoritesPage() {
                         variant="outline"
                         onClick={(e) => {
                           e.stopPropagation();
-                          throw new Error('not implemented');
+                          handleAddToCart(product);
                         }}
                       >
                         Add to Cart

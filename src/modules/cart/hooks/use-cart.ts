@@ -1,8 +1,8 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { cartApi } from '../api/cart-api';
+import { cartApi, type ApiSuccessResponseCart } from '../api/cart-api';
 import { QUERY_KEYS } from '@kernel/query/query-keys';
-import type { CartApiResponse } from '../types';
 import { queryClient } from '@kernel/query';
+import type { ApiErrorResponse } from '@kernel/api';
 
 export function useCart() {
 
@@ -12,7 +12,7 @@ export function useCart() {
     isError,
     error,
     refetch,
-  } = useQuery<CartApiResponse>({
+  } = useQuery<ApiSuccessResponseCart, ApiErrorResponse>({
     queryKey: QUERY_KEYS.cart.details(),
     queryFn: cartApi.getCart,
   });
@@ -25,7 +25,7 @@ export function useCart() {
   });
 
   return {
-    cart: data?.cart ?? null,
+    cart: data?.data ?? null,
     isLoading,
     isError,
     error,

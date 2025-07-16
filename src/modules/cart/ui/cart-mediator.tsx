@@ -17,7 +17,7 @@ export function CartMediator() {
 
   if (isLoading) return <div className={styles.loading}>Loading cart...</div>;
   if (isError) return <div className={styles.error}>Error: {error?.message}</div>;
-  if (!cart) return <div className={styles.empty}>Cart is empty</div>;
+  if (!cart?.items.length) return <div className={styles.empty}>Cart is empty</div>;
 
   return (
     <Theme appearance="light" accentColor="amber" radius="large">

@@ -10,6 +10,7 @@ export function useCartPayment() {
     mutationFn: (data: CartPaymentRequest) => cartApi.processCartPayment(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.cart.details() });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.profile() });
     },
   });
 

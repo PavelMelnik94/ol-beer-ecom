@@ -1,5 +1,6 @@
+import { userModel } from '@modules/user/model';
 import { Widget } from '@modules/user/ui/widget/widget';
-import { Badge, Box, Flex, Text } from '@radix-ui/themes';
+import { Badge,  Flex, Progress, Separator, Text } from '@radix-ui/themes';
 import { Beer, HandHeart, MessageCircleHeart } from 'lucide-react';
 
 interface Props {
@@ -7,13 +8,18 @@ interface Props {
   likedCommentsCount?: number;
   ordersCount?: number;
 }
+
+
+
 export function ActivityWidget({ likedCommentsCount, likedPostsCount, ordersCount }: Props) {
+
+  const rank = userModel.getBeerRank(ordersCount)
   return (
     <Widget
       title="Activity"
       description="Interaction statistics"
     >
-      <Flex direction="column" gap="2">
+      <Flex direction="column" gap="1">
 
         <Flex align="center" gap="2">
           <HandHeart color="green" size={20} strokeWidth="1.5" />
@@ -35,14 +41,19 @@ export function ActivityWidget({ likedCommentsCount, likedPostsCount, ordersCoun
           </Badge>
         </Flex>
 
-        <Flex align="center" gap="2">
-          <Beer color="green" size={20} strokeWidth="1.5" />
-          <Text size="2">total orders</Text>
-          <Badge color="gray" size="1">
-            {ordersCount}
-            {' '}
-            {ordersCount === 1 ? 'order' : 'orders'}
-          </Badge>
+        <Separator size={'4'} mt={'2'} mb={'3'}/>
+
+    <Flex direction={'row'} justify={'center'} gap={'1'}>
+      <Text size={'2'} align={'center'}>Rank by orders</Text>
+    <Beer color="green" size={18} strokeWidth="1.5" />
+    </Flex>
+
+        <Flex direction={'column'}>
+          <Flex direction={'row'} justify={'between'} align={'center'}>
+    <Text size={'2'} color='gray'>{rank.rank}</Text>
+    <Text size={'2'} color='gray'>{rank.current} / {rank.max}</Text>
+          </Flex>
+          <Progress  value={rank.current} max={rank.max} />
         </Flex>
 
       </Flex>
