@@ -45,6 +45,7 @@ export function ProfileMediator() {
   return (
     <Flex direction="column" className={styles.profileLayout}>
       <HeaderWidget
+        avatar={profile.avatar ?? undefined}
         firstName={profile.firstName}
         lastName={profile.lastName}
         createdAt={profile.createdAt}

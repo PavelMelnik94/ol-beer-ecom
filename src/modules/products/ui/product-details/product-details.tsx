@@ -2,8 +2,9 @@ import type { Product, ProductWithFavoritesAndRatings } from '@kernel/types';
 import { ButtonWithAuthPopup } from '@modules/common';
 import { ProductDetailsSkeleton } from '@modules/products/ui/product-details/product-details-skeleton';
 import { Box, Container, Flex, ScrollArea, Separator, Text } from '@radix-ui/themes';
-import { Image, Pulse } from '@shared/components';
+import { Carousel, Image, Pulse, Show } from '@shared/components';
 import { useEffect, useRef, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { BreweryDescription } from './brewery-description/brewery-description';
 import { ProductDatalist } from './product-datalist/product-datalist';
 import { ProductDetailsActionBlock } from './product-details-action-block/product-details-action-block';
@@ -16,6 +17,7 @@ interface ProductDetailsProps {
 }
 export function ProductDetails({ product, onClickRating, onClickAddToWishlist }: ProductDetailsProps) {
   const [imageScrollAreaHeight, setImageScrollAreaHeight] = useState<number | undefined>(700);
+  const isLargeScreen = useMediaQuery({ minWidth: 800 });
 
   const detailRef = useRef<HTMLDivElement | null>(null);
   const imageContainerRef = useRef<HTMLDivElement | null>(null);
@@ -36,24 +38,39 @@ export function ProductDetails({ product, onClickRating, onClickAddToWishlist }:
   return (
     <Flex className={styles.container}>
       <Box ref={imageContainerRef} className={styles.productImagesContainer}>
-        <ScrollArea
-          size="1"
-          type="scroll"
-          style={{
-            height: imageScrollAreaHeight ?? '700px',
-          }}
-        >
-          {product.images.map((image, index) => {
-            return (
-              <Image
-                key={index}
-                src={image}
-                alt={image || `Product image ${index + 1}`}
-                containerClassName={styles.productImage}
-              />
-            );
-          })}
-        </ScrollArea>
+        <Show when={!isLargeScreen}>
+          <ScrollArea
+            size="1"
+            type="scroll"
+            style={{
+              height: imageScrollAreaHeight ?? '700px',
+              width: '100%',
+            }}
+          >
+            {product.images.map((image, index) => {
+              return (
+                <Image
+                  key={index}
+                  src={image}
+                  alt={image || `Product image ${index + 1}`}
+                  containerClassName={styles.productImage}
+                />
+              );
+            })}
+          </ScrollArea>
+        </Show>
+
+        <Show when={isLargeScreen}>
+          <Carousel
+            images={product.images}
+            options={{ loop: true }}
+            emblaContainerClassName={styles.carouselContainer}
+            imageSizeMode="contain"
+            height="600px"
+            slideChangeDelay={2000}
+            changeStrategy='autoscroll'
+          />
+        </Show>
       </Box>
 
       <Box

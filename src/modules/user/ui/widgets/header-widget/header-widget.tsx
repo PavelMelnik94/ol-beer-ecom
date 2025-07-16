@@ -1,3 +1,4 @@
+import { AvatarUploader } from '@modules/user/ui/widgets/quick-actions-widget/actions/avatar-uploder';
 import { Avatar, Card, Flex, Text } from '@radix-ui/themes';
 import { dateParser } from '@shared/lib';
 
@@ -5,12 +6,14 @@ interface Props {
   firstName: string;
   lastName: string;
   createdAt: string;
+  avatar?: string;
 }
-export function HeaderWidget({ firstName, lastName, createdAt }: Props) {
+export function HeaderWidget({ firstName, lastName, createdAt, avatar }: Props) {
   return (
     <Card mb="4">
       <Flex align="center" gap="4" wrap="wrap">
-        <Avatar fallback="OL" size="6" />
+        {/* <Avatar fallback="OL" size="6" src={avatar} /> */}
+        <AvatarUploader avatarUrl={avatar} fallback="User" />
         <Flex direction="column">
           <Text size="4">{firstName}</Text>
           <Text size="4">{lastName}</Text>

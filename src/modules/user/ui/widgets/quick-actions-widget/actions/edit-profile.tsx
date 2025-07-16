@@ -2,6 +2,7 @@ import type z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { personalInfoSchema } from '@kernel/types';
 import { useUpdateProfile } from '@modules/user/hooks';
+import { AvatarUploader } from '@modules/user/ui/widgets/quick-actions-widget/actions/avatar-uploder';
 import { Button, Flex } from '@radix-ui/themes';
 import { Dialog, InputText } from '@shared/components';
 import { useOnClickOutside } from '@shared/hooks';
@@ -86,6 +87,7 @@ export function EditProfileAction({ initialState }: Props) {
           disabled={mutation.isPending}
 
         />
+
         <Flex justify="end" align="center" gap="3">
           <Button
             size="1"
