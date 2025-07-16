@@ -8,14 +8,15 @@ import { useMediaQuery } from 'react-responsive';
 import { BreweryDescription } from './brewery-description/brewery-description';
 import { ProductDatalist } from './product-datalist/product-datalist';
 import styles from './product-details.module.scss';
-import { Bookmark, BookmarkCheck, Heart } from 'lucide-react';
+import { Bookmark,  } from 'lucide-react';
 
 interface ProductDetailsProps {
   product?: ProductWithFavoritesAndRatings | null;
   onClickRating?: (rating: number, productId: string) => void;
   onClickAddToWishlist?: (product: Product) => void;
+  onClickAddToCart?: (product: Product) => void;
 }
-export function ProductDetails({ product, onClickRating, onClickAddToWishlist }: ProductDetailsProps) {
+export function ProductDetails({ product, onClickRating, onClickAddToWishlist, onClickAddToCart }: ProductDetailsProps) {
   const [imageScrollAreaHeight, setImageScrollAreaHeight] = useState<number | undefined>(700);
   const isLargeScreen = useMediaQuery({ minWidth: 800 });
 
@@ -106,6 +107,7 @@ export function ProductDetails({ product, onClickRating, onClickAddToWishlist }:
           <ButtonWithAuthPopup
         size="2"
         variant="soft"
+        color={product.isFavorite ? 'ruby' : 'bronze'}
         style={{ padding: '6px' }}
         onClick={(e) => {
           e.stopPropagation();
@@ -117,7 +119,7 @@ export function ProductDetails({ product, onClickRating, onClickAddToWishlist }:
         </Tooltip>
       </ButtonWithAuthPopup>
 
-          <ButtonWithAuthPopup size="2" color='bronze' variant="solid">
+          <ButtonWithAuthPopup size="2" color='bronze' variant="soft" onClick={() => onClickAddToCart?.(product)}>
             Add to Cart
             {' '}
             <Pulse size={8} />

@@ -17,6 +17,7 @@ import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Hero } from './ui/hero';
 import { ShowFiltersAction } from './ui/show-filters-action';
+import { useCartItem } from '@modules/cart';
 
 export function ProductsPage() {
   const { mutateAsync: toggleFavorite } = useToggleFavorite();
@@ -50,6 +51,8 @@ export function ProductsPage() {
     filterParams: getCurrentApiFilters(),
   });
 
+  const cartItem = useCartItem()
+
   const { navigateToProductItem, navigateToShowcase } = useGoTo();
 
   const [visibleFiltersPanel, setVisibleFiltersPanel] = useState<boolean>(false);
@@ -57,6 +60,10 @@ export function ProductsPage() {
   const handleClickShowFilters = () => {
     setVisibleFiltersPanel(prev => !prev);
   };
+
+  const handleClickToAddToCart = async (product: Product) => {
+      await cartItem.addItem({productId: product.id, quantity: 1})
+  }
 
   const handleClickHideFilters = () => {
     resetFilters();
@@ -144,10 +151,8 @@ export function ProductsPage() {
           isPageChanging={isPageChanging}
 
           onClickCard={handleClickOnCard}
-          onAddToWishlist={product => handleAddToWishlist(product)}
-          onAddToBasket={(product) => {
-            throw new Error(`Not implemented: ${product}`);
-          }}
+          onAddToWishlist={handleAddToWishlist}
+          onAddToBasket={handleClickToAddToCart}
 
         />
       </Box>

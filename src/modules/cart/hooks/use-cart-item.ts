@@ -29,11 +29,11 @@ export function useCartItem() {
   });
 
   return {
-    addItem: addItemMutation.mutate,
+    addItem: addItemMutation.mutateAsync,
     addItemStatus: addItemMutation.status,
-    updateItem: updateItemMutation.mutate,
+    updateItem: updateItemMutation.mutateAsync,
     updateItemStatus: updateItemMutation.status,
-    removeItem: removeItemMutation.mutate,
+    removeItem: removeItemMutation.mutateAsync,
     removeItemStatus: removeItemMutation.status,
   };
 }

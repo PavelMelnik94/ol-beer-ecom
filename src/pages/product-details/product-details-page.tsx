@@ -2,7 +2,7 @@ import type { Product, ProductWithFavoritesAndRatings } from '@kernel/types';
 import { useGoTo } from '@kernel/hooks';
 import { QUERY_KEYS, queryClient } from '@kernel/query';
 import { useAuthStore, useUserStore } from '@kernel/stores';
-import { PromoCodeVelocity } from '@modules/cart';
+import { PromoCodeVelocity, useCartItem } from '@modules/cart';
 import { Comments, commentsProductsApi, useComments } from '@modules/comments';
 import { ProductDetails, ProductsGrid, useProductDetails, useProductRate, useProductsRelated } from '@modules/products';
 import { useToggleFavorite, useUserFavorites, useUserRatings } from '@modules/user';
@@ -17,7 +17,7 @@ export function ProductDetailsPage() {
   const { id } = useParams<{ id: string; }>();
   const { product } = useProductDetails(id!);
   const { products: relatedProducts } = useProductsRelated(product?.id ?? '');
-
+  const cartItem = useCartItem()
   const isAuth = useAuthStore(s => s.isAuth);
 
   useUserFavorites({ enabled: isAuth });
@@ -57,8 +57,6 @@ export function ProductDetailsPage() {
   const handleOnClickRating = async (rating: number, productId: string) => {
     try {
       await rateProduct({ productId, rate: rating });
-      // Optimistic update уже сработал в onMutate
-      // Инвалидация кэша для свежих данных с сервера
       await Promise.all([
         queryClient.invalidateQueries({
           queryKey: QUERY_KEYS.user.ratings(),
@@ -74,14 +72,7 @@ export function ProductDetailsPage() {
   };
 
   const handleOnClickAddToWishlist = async (product: Product) => {
-    try {
-      await toggleFavorite({ productId: product.id });
-      // Optimistic update уже сработал в onMutate
-      // Инвалидация кэша происходит в onSuccess хука
-    }
-    catch (error) {
-      console.error('Failed to toggle favorite:', error);
-    }
+          await toggleFavorite({ productId: product.id });
   };
 
   const handleCreateComment = async (content: string) => {
@@ -99,6 +90,10 @@ export function ProductDetailsPage() {
   const handleLikeComment = async (id: string) => {
     await likeComment(id);
   };
+
+  const handleClickToAddCart = async (product: Product) => {
+     await cartItem.addItem({productId: product.id, quantity: 1})
+  }
 
   const breadcrumbs = useMemo(() => {
     const items = [
@@ -142,6 +137,7 @@ export function ProductDetailsPage() {
                 product={productWithFavoritesAndRatings}
                 onClickRating={handleOnClickRating}
                 onClickAddToWishlist={handleOnClickAddToWishlist}
+                onClickAddToCart={handleClickToAddCart}
               />
               <Comments
                 comments={comments}
@@ -168,6 +164,7 @@ export function ProductDetailsPage() {
                 product={productWithFavoritesAndRatings}
                 onClickRating={handleOnClickRating}
                 onClickAddToWishlist={handleOnClickAddToWishlist}
+                onClickAddToCart={handleClickToAddCart}
               />
               <Comments
                 comments={comments}
@@ -202,9 +199,7 @@ export function ProductDetailsPage() {
           isShow={relatedProductsWithFavoritesAndRatings && relatedProductsWithFavoritesAndRatings?.length > 0}
           imageAsSlider
           onAddToWishlist={handleOnClickAddToWishlist}
-          onAddToBasket={(product) => {
-            throw new Error(`Not implemented: ${product}`);
-          }}
+          onAddToBasket={handleClickToAddCart}
         />
       </Box>
     </div>
