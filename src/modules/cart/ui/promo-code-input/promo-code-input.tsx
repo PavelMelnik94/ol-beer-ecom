@@ -1,5 +1,5 @@
-import { Button, Card, Flex, TextField } from '@radix-ui/themes';
-import { InputText } from '@shared/components';
+import { Button, Card, Flex, Text, TextField } from '@radix-ui/themes';
+import { InputText, Show } from '@shared/components';
 import { useState } from 'react';
 import styles from './promo-code-input.module.scss';
 
@@ -22,32 +22,40 @@ export function PromoCodeInput({
 
   return (
     <Card className={styles.card} data-wrapper>
-      <Flex direction="column" gap="3">
-        <TextField.Root className={styles.input}>
-          <InputText
-            placeholder="Promo code"
-            value={input}
-            onChange={(e) => { setInput(e.target.value); }}
-            disabled={!!promoCode || applyPromoStatus === 'pending'}
-          />
-        </TextField.Root>
+
+      <Flex direction="column">
+        <Text size="3" weight="bold" mb="4">
+          Promo code
+        </Text>
+
+        <InputText
+          placeholder="code"
+          value={input}
+          onChange={(e) => { setInput(e.target.value); }}
+          disabled={!!promoCode || applyPromoStatus === 'pending'}
+        />
         <Flex gap="2">
           <Button
-            color="amber"
+            size="1"
+            color="green"
             variant="soft"
             onClick={() => { applyPromo({ promoCode: input }); }}
             disabled={!!promoCode || !input || applyPromoStatus === 'pending'}
           >
             Apply
           </Button>
-          <Button
-            color="gray"
-            variant="soft"
-            onClick={removePromo}
-            disabled={!promoCode || removePromoStatus === 'pending'}
-          >
-            Remove
-          </Button>
+
+          <Show when={promoCode && applyPromoStatus !== 'pending' && applyPromoStatus !== 'error'}>
+            <Button
+              size="1"
+              color="ruby"
+              variant="soft"
+              onClick={removePromo}
+              disabled={removePromoStatus === 'pending'}
+            >
+              Remove
+            </Button>
+          </Show>
         </Flex>
       </Flex>
     </Card>

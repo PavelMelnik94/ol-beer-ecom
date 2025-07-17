@@ -1,6 +1,7 @@
 import { NoData } from '@kernel/components';
 import { useGoTo } from '@kernel/hooks';
-import { Button, Container, Flex } from '@radix-ui/themes';
+import { Box, Button, Container, Flex } from '@radix-ui/themes';
+import { useConfetti } from '@shared/hooks';
 import { useCart, useCartItem, useCartPayment, usePromoCode } from '../hooks';
 import { CartItems } from './cart-items/cart-items';
 import styles from './cart-mediator.module.scss';
@@ -14,6 +15,19 @@ export function CartMediator() {
   const promo = usePromoCode();
   const payment = useCartPayment();
   const { navigateToShowcase } = useGoTo();
+
+  const lockStatus = 'pending';
+
+  const isLockUserInteraction = [
+    clearCartStatus,
+    payment.paymentStatus,
+    cartItem.removeItemStatus,
+    cartItem.updateItemStatus,
+  ].includes(lockStatus);
+
+  useConfetti({
+    playWhen: payment.paymentStatus === 'success',
+  });
 
   if (isLoading && !cart?.items.length) return <div className={styles.loading}>Loading cart...</div>;
   if (isError) {
@@ -68,10 +82,12 @@ export function CartMediator() {
           actionSlot={(
             <>
               <Button
+                className={styles.clearCartButton}
+                data-clear-cart-button
                 color="red"
-                variant="soft"
+                variant="ghost"
                 onClick={() => { clearCart(); }}
-                disabled={clearCartStatus === 'pending'}
+                disabled={isLockUserInteraction}
               >
                 Clear cart
               </Button>

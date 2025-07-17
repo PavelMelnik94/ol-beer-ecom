@@ -17,8 +17,12 @@ export function CartSummary({
 }: CartSummaryProps) {
   return (
     <Card className={styles.card} data-wrapper>
-      <Flex direction="column" gap="3">
-        <Text size="5" weight="bold" color="amber">
+      <Flex direction="column">
+        <Text size="3" weight="bold" mb="4">
+          Summary
+        </Text>
+
+        <Text size="5" weight="bold" mb="1">
           Total:
           {' '}
           {total}
@@ -27,15 +31,15 @@ export function CartSummary({
         </Text>
         {discountAmount
           ? (
-              <Text size="3" color="bronze">
+              <Text size="3" mb="1">
                 Discount: -
                 {discountAmount}
                 {' '}
-                ₽
+                $
               </Text>
             )
           : null}
-        <Text size="3" color="gray">
+        <Text size="3" color="gray" mb="4">
           Items:
           {' '}
           {itemCount}

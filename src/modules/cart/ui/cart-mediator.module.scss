@@ -23,3 +23,11 @@
   flex-direction: column;
   gap: 16px;
 }
+
+
+
+.clearCartButton[data-clear-cart-button] {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}

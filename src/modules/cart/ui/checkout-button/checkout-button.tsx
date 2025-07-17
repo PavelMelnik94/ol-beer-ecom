@@ -1,5 +1,6 @@
 import type { CartPaymentRequest } from '@modules/cart/types';
 import { Button, Flex, Text } from '@radix-ui/themes';
+import { InfoAlert } from '@shared/components';
 import { useState } from 'react';
 import styles from './checkout-button.module.scss';
 
@@ -21,21 +22,28 @@ export function CheckoutButton({ processPayment, paymentStatus }: CheckoutButton
       <Button
         color="green"
         variant="solid"
-        size="3"
+        size="2"
         onClick={handleCheckout}
         disabled={loading || paymentStatus === 'pending'}
       >
         Checkout
       </Button>
-      {paymentStatus === 'pending' && (
-        <Text color="gray" size="4">Payment is processing...</Text>
-      )}
-      {paymentStatus === 'error' && (
-        <Text color="red" size="4">Payment error. Please try again.</Text>
-      )}
-      {paymentStatus === 'success' && (
-        <Text color="green" size="4">Order placed successfully!</Text>
-      )}
+
+      <Flex justify="center" mt="1">
+        {paymentStatus === 'idle' && (
+          <Text color="gray" size="2">Payment is ready</Text>
+        )}
+
+        {paymentStatus === 'pending' && (
+          <Text color="gray" size="2">Payment is processing...</Text>
+        )}
+        {paymentStatus === 'error' && (
+          <Text color="red" size="2">Payment error. Please try again.</Text>
+        )}
+        {paymentStatus === 'success' && (
+          <Text color="green" size="2">Order placed successfully!</Text>
+        )}
+      </Flex>
     </Flex>
   );
 }
