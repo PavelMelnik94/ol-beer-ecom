@@ -37,12 +37,6 @@ export function useProductsPagination({
   } = useQuery<SuccessResponseFilterProducts, ErrorResponse>({
     queryKey: [QUERY_KEYS.products.list(), page, queryString],
     queryFn: () => productsApi.getProductsFiltered(queryString, page, LIMIT),
-    staleTime: 0,
-    gcTime: 0,
-    refetchOnMount: 'always',
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: true,
-    retry: false,
   });
 
   useEffect(() => {
@@ -60,17 +54,13 @@ export function useProductsPagination({
   }, [isQueryLoading, setProductsLoading]);
 
   return {
-    // data
     products: productsState.products,
     pagination: productsState.pagination,
 
-    // states loading
     isLoading: productsState.isLoading,
 
-    // errors
     error: queryError,
 
-    // actions
     refetch,
   } as const;
 }
