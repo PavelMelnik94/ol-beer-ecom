@@ -11,6 +11,7 @@ export function HeaderNav({
   fullWidth = false,
   isAuth,
   user,
+  isMobileLayout,
 }: {
   getActiveProps: (path: string) => { [key: string]: string; };
   onClickHandlers: {
@@ -22,11 +23,12 @@ export function HeaderNav({
   fullWidth?: boolean;
   isAuth: boolean;
   user: User;
+  isMobileLayout?: boolean;
 }) {
   const location = window.location.pathname;
   return (
     <>
-      {isAuth && (
+      {isAuth && isMobileLayout && (
         <>
           <Flex align="center" justify="center" width="100%">
             <Text size="2" weight="medium">

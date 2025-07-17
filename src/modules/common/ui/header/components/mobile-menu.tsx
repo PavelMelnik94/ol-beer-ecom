@@ -76,6 +76,7 @@ export function MobileMenu({
         <Popover.Content align="end" sideOffset={8}>
           <Flex direction="column" gap="3" align="start" style={{ minWidth: 100 }}>
             <HeaderNav
+              isMobileLayout={true}
               getActiveProps={getActiveProps}
               onClickHandlers={navHandlers}
               fullWidth
