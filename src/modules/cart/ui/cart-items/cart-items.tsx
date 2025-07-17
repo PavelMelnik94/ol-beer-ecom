@@ -1,6 +1,7 @@
 import type { CartItem } from '../../types';
-import { Button, Card, Flex } from '@radix-ui/themes';
-import { InputText } from '@shared/components/ui/input-text/input-text';
+import { CartItem as CartItemCard } from '@modules/cart/ui/cart-item/cart-item';
+import { Flex } from '@radix-ui/themes';
+import { For, Show } from '@shared/components';
 import { debounce } from 'lodash-es';
 import React from 'react';
 import { cartModel } from '../../model';
@@ -30,46 +31,23 @@ export function CartItems(props: CartItemsProps) {
 
   return (
     <div className={styles.items}>
-      {items.length === 0
-        ? (
-            <div className={styles.empty}>No items in cart</div>
-          )
-        : (
-            <Flex direction="column" gap="3">
-              {items.map(item => (
-                <Card key={item.id} className={styles.item} variant="surface">
-                  <Flex align="center" justify="between">
-                    <div className={styles.info}>
-                      <span className={styles.title}>{item.product.title}</span>
-                      <span className={styles.price}>
-                        {item.product.price}
-                        {' '}
-                        ₽
-                      </span>
-                    </div>
-                    <Flex align="center" gap="2">
-                      <InputText
-                        type="number"
-                        min={1}
-                        value={String(localQuantities[item.id] ?? item.quantity)}
-                        label="Quantity"
-                        className={styles.quantity}
-                        onChange={e => handleQuantityChange(item.id, Number((e.target as HTMLInputElement).value))}
-                      />
-                      <Button
-                        color="red"
-                        variant="soft"
-                        onClick={() => { removeItem({ id: item.id }); }}
-                        disabled={removeItemStatus === 'pending'}
-                      >
-                        Remove
-                      </Button>
-                    </Flex>
-                  </Flex>
-                </Card>
-              ))}
-            </Flex>
-          )}
+
+      <Show when={items.length > 0} fallback={<div className={styles.empty}>No items in cart</div>}>
+        <Flex  gap="3" className={styles.itemList} wrap={'wrap'}>
+          <For each={items}>
+            {item => (
+              <CartItemCard
+                key={item.id}
+                item={item}
+                localQuantities={localQuantities}
+                handleQuantityChange={handleQuantityChange}
+                removeItem={removeItem}
+                removeItemStatus={removeItemStatus}
+              />
+            )}
+          </For>
+        </Flex>
+      </Show>
     </div>
   );
 }

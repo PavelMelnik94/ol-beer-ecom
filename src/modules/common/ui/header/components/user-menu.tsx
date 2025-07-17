@@ -8,11 +8,11 @@ import styles from './header.module.scss';
 function MenuContent({ user, isAuth, onLogout, navigationHandlers, getActiveProps, routes }: MenuContentProps) {
   return (
     <Flex direction="column" gap="3" align="start" style={{ minWidth: 100 }}>
-      {isAuth && (
+      {isAuth && user?.firstName && (
         <>
           <Flex align="center" justify="center" width="100%">
             <Text size="2" weight="medium">
-              {user.firstName}
+              {user?.firstName}
             </Text>
           </Flex>
           <Separator size="4" />

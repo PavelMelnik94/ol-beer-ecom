@@ -45,7 +45,7 @@ export function useCart() {
     isError,
     error,
     refetch,
-    clearCart: clearCartMutation.mutate,
+    clearCart: clearCartMutation.mutateAsync,
     clearCartStatus: clearCartMutation.status,
   };
 }

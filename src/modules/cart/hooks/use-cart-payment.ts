@@ -21,7 +21,7 @@ export function useCartPayment() {
   });
 
   return {
-    processPayment: paymentMutation.mutate,
+    processPayment: paymentMutation.mutateAsync,
     paymentStatus: paymentMutation.status,
     paymentData: paymentMutation.data,
     paymentError: paymentMutation.error,

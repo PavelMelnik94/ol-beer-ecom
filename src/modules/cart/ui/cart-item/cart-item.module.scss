@@ -1,0 +1,83 @@
+.item[data-item] {
+  height: 250px;
+  position: relative;
+  padding-right: calc(12px + 32px + 12px);
+
+  @media (max-width: 768px) {
+    height: auto;
+    width: 100%;
+    padding-right: 0;
+  }
+
+}
+
+
+
+.inset[data-inset],
+.inset[data-inset] {
+  border-radius: unset;
+
+  @media (max-width: 768px) {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+}
+
+
+.image {
+  height: auto;
+  max-width: 200px;
+  border-radius: unset;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    border-radius: unset;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+}
+
+
+.itemContent {
+  flex-direction: row;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+
+.quantitySection {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+}
+
+.quantityInput {
+  height: 20px;
+  width: 40px;
+  border: unset;
+  border-bottom: 1px solid var(--gray-a8);
+  background-color: var(--color-panel);
+  font-size: 14px;
+  ;
+
+  &:focus {
+    outline: none;
+  }
+
+}
+
+
+
+.removeButton[data-remove-button] {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}

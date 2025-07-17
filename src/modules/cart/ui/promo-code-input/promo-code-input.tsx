@@ -21,7 +21,7 @@ export function PromoCodeInput({
   const [input, setInput] = useState('');
 
   return (
-    <Card className={styles.card} variant="surface">
+    <Card className={styles.card} data-wrapper>
       <Flex direction="column" gap="3">
         <TextField.Root className={styles.input}>
           <InputText

@@ -1,9 +1,10 @@
+import type { CartPaymentRequest } from '@modules/cart/types';
 import { Button, Flex, Text } from '@radix-ui/themes';
 import { useState } from 'react';
 import styles from './checkout-button.module.scss';
 
 interface CheckoutButtonProps {
-  processPayment: (data: unknown) => void;
+  processPayment: (data: CartPaymentRequest) => void;
   paymentStatus: string;
 }
 
@@ -16,9 +17,9 @@ export function CheckoutButton({ processPayment, paymentStatus }: CheckoutButton
   };
 
   return (
-    <Flex direction="column" gap="2" className={styles.checkout}>
+    <Flex direction="column" gap="2" className={styles.checkout} justify="center">
       <Button
-        color="amber"
+        color="green"
         variant="solid"
         size="3"
         onClick={handleCheckout}
@@ -27,13 +28,13 @@ export function CheckoutButton({ processPayment, paymentStatus }: CheckoutButton
         Checkout
       </Button>
       {paymentStatus === 'pending' && (
-        <Text color="gray" size="2">Payment is processing...</Text>
+        <Text color="gray" size="4">Payment is processing...</Text>
       )}
       {paymentStatus === 'error' && (
-        <Text color="red" size="2">Payment error. Please try again.</Text>
+        <Text color="red" size="4">Payment error. Please try again.</Text>
       )}
       {paymentStatus === 'success' && (
-        <Text color="green" size="2">Order placed successfully!</Text>
+        <Text color="green" size="4">Order placed successfully!</Text>
       )}
     </Flex>
   );

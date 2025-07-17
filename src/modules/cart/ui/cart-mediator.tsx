@@ -15,7 +15,7 @@ export function CartMediator() {
   const payment = useCartPayment();
   const { navigateToShowcase } = useGoTo();
 
-  // if (isLoading) return <div className={styles.loading}>Loading cart...</div>;
+  if (isLoading && !cart?.items.length) return <div className={styles.loading}>Loading cart...</div>;
   if (isError) {
     return (
       <div className={styles.error}>
@@ -64,13 +64,25 @@ export function CartMediator() {
           total={cart.total}
           discountAmount={cart.discountAmount}
           itemCount={cart.items.length}
-          clearCart={clearCart}
-          clearCartStatus={clearCartStatus}
+          actionSlot={(
+            <>
+              <Button
+                color="red"
+                variant="soft"
+                onClick={() => { clearCart(); }}
+                disabled={clearCartStatus === 'pending'}
+              >
+                Clear cart
+              </Button>
+
+              <CheckoutButton
+                processPayment={payment.processPayment}
+                paymentStatus={payment.paymentStatus}
+              />
+            </>
+          )}
         />
-        <CheckoutButton
-          processPayment={payment.processPayment}
-          paymentStatus={payment.paymentStatus}
-        />
+
       </div>
     </div>
   );

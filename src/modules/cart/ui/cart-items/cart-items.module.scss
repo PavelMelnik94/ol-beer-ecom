@@ -1,0 +1,6 @@
+.itemList {
+  flex-direction: column;
+  @media (max-width: 768px) {
+    flex-direction: row;
+  }
+}

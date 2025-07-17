@@ -1,0 +1,4 @@
+.card[data-wrapper] {
+  position: sticky;
+  top: calc(16px + var(--header-height));
+}

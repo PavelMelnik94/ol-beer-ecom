@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { Button, Card, Flex, Text } from '@radix-ui/themes';
 import styles from './cart-summary.module.scss';
 
@@ -5,19 +6,17 @@ interface CartSummaryProps {
   total: number;
   discountAmount?: number;
   itemCount: number;
-  clearCart: () => void;
-  clearCartStatus: string;
+  actionSlot?: ReactNode;
 }
 
 export function CartSummary({
   total,
   discountAmount,
   itemCount,
-  clearCart,
-  clearCartStatus,
+  actionSlot,
 }: CartSummaryProps) {
   return (
-    <Card className={styles.card} variant="surface">
+    <Card className={styles.card} data-wrapper>
       <Flex direction="column" gap="3">
         <Text size="5" weight="bold" color="amber">
           Total:
@@ -41,14 +40,9 @@ export function CartSummary({
           {' '}
           {itemCount}
         </Text>
-        <Button
-          color="red"
-          variant="soft"
-          onClick={clearCart}
-          disabled={clearCartStatus === 'pending'}
-        >
-          Clear cart
-        </Button>
+
+        {actionSlot}
+
       </Flex>
     </Card>
   );

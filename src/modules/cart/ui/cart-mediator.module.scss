@@ -1,9 +1,11 @@
 .layout {
+  padding-top: 16px;
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 16px;
 
-  @media screen and (max-width: 768px) {
+
+  @media screen and (max-width: 1000px) {
     grid-template-columns: 1fr;
 
   }
@@ -17,6 +19,7 @@
 }
 
 .additionalCol {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 16px;
