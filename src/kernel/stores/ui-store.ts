@@ -12,12 +12,12 @@ interface UiActions {
 
 export const useUiStore = create<UiState & UiActions>()(
   devtools(
-    subscribeWithSelector((set
-    ) => ({
+    subscribeWithSelector(set => ({
       theme: themeStorage.get() ?? 'light',
-
 
       setTheme: theme => set({ theme }),
 
     }),
-   )  ));
+    ),
+  ),
+);

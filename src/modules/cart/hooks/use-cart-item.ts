@@ -1,13 +1,12 @@
-import { useMutation } from '@tanstack/react-query';
-import { cartApi, type ApiSuccessResponseCart } from '../api/cart-api';
-import { cartModel } from '../model';
-import { QUERY_KEYS } from '@kernel/query/query-keys';
-import type { CartAddItemRequest, CartUpdateItemRequest, CartRemoveItemRequest } from '../types';
-import { queryClient } from '@kernel/query';
 import type { ApiErrorResponse } from '@kernel/api';
+import type { ApiSuccessResponseCart } from '../api/cart-api';
+import type { CartAddItemRequest, CartRemoveItemRequest, CartUpdateItemRequest } from '../types';
+import { QUERY_KEYS, queryClient } from '@kernel/index';
+import { useMutation } from '@tanstack/react-query';
+import { cartApi } from '../api/cart-api';
+import { cartModel } from '../model';
 
 export function useCartItem() {
-
   const addItemMutation = useMutation<ApiSuccessResponseCart, ApiErrorResponse, CartAddItemRequest>({
     mutationFn: (data: CartAddItemRequest) => cartApi.addCartItem(data),
     onMutate: async (data) => {
@@ -23,11 +22,11 @@ export function useCartItem() {
           items: [...previousCart.data.items, optimisticItem],
         },
       });
-      return { previousCart } as { previousCart?: ApiSuccessResponseCart };
+      return { previousCart } as { previousCart?: ApiSuccessResponseCart; };
     },
     onError: (_err, _data, context) => {
-      if ((context as { previousCart?: ApiSuccessResponseCart }).previousCart) {
-        queryClient.setQueryData(QUERY_KEYS.cart.details(), (context as { previousCart?: ApiSuccessResponseCart }).previousCart);
+      if ((context as { previousCart?: ApiSuccessResponseCart; }).previousCart) {
+        queryClient.setQueryData(QUERY_KEYS.cart.details(), (context as { previousCart?: ApiSuccessResponseCart; }).previousCart);
       }
     },
     onSettled: () => {
@@ -48,15 +47,15 @@ export function useCartItem() {
           items: previousCart.data.items.map(item =>
             item.id === id
               ? { ...item, quantity, subtotal: item.product.price * quantity, isOptimistic: true, isPending: true }
-              : item
+              : item,
           ),
         },
       });
-      return { previousCart } as { previousCart?: ApiSuccessResponseCart };
+      return { previousCart } as { previousCart?: ApiSuccessResponseCart; };
     },
     onError: (_err, _data, context) => {
-      if ((context as { previousCart?: ApiSuccessResponseCart })?.previousCart) {
-        queryClient.setQueryData(QUERY_KEYS.cart.details(), (context as { previousCart?: ApiSuccessResponseCart }).previousCart);
+      if ((context as { previousCart?: ApiSuccessResponseCart; })?.previousCart) {
+        queryClient.setQueryData(QUERY_KEYS.cart.details(), (context as { previousCart?: ApiSuccessResponseCart; }).previousCart);
       }
     },
     onSettled: () => {
@@ -77,11 +76,11 @@ export function useCartItem() {
           items: previousCart.data.items.filter(item => item.id !== id),
         },
       });
-      return { previousCart } as { previousCart?: ApiSuccessResponseCart };
+      return { previousCart } as { previousCart?: ApiSuccessResponseCart; };
     },
     onError: (_err, _data, context) => {
-      if ((context as { previousCart?: ApiSuccessResponseCart })?.previousCart) {
-        queryClient.setQueryData(QUERY_KEYS.cart.details(), (context as { previousCart?: ApiSuccessResponseCart }).previousCart);
+      if ((context as { previousCart?: ApiSuccessResponseCart; })?.previousCart) {
+        queryClient.setQueryData(QUERY_KEYS.cart.details(), (context as { previousCart?: ApiSuccessResponseCart; }).previousCart);
       }
     },
     onSettled: () => {

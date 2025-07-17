@@ -31,9 +31,9 @@ export function withAuthorizePopup<P extends object>(WrappedComponent: Component
 
     return (
       <div
-        onClick={e => { e.stopPropagation(); }}
-        onMouseDown={e => { e.stopPropagation(); }}
-        onMouseUp={e => { e.stopPropagation(); }}
+        onClick={(e) => { e.stopPropagation(); }}
+        onMouseDown={(e) => { e.stopPropagation(); }}
+        onMouseUp={(e) => { e.stopPropagation(); }}
         style={{
           display: 'flex',
           justifyContent: 'center',

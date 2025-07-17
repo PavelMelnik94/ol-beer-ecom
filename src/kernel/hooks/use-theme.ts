@@ -37,7 +37,9 @@ export function useTheme() {
 
     updateMetaColor();
 
-    return () => { observer.disconnect(); };
+    return () => {
+      observer.disconnect();
+    };
   }, [theme]);
 
   const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');

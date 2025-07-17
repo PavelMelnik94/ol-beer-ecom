@@ -16,7 +16,7 @@ export interface StepperProps {
   className?: string;
 }
 
-export const Stepper: React.FC<StepperProps> = React.memo(({ steps, activeStep, completedSteps = [], className }) => {
+export const Stepper: React.FC<StepperProps> = React.memo(({ steps, activeStep, completedSteps, className }) => {
   const progress = useMemo(() => ((activeStep + 1) / steps.length) * 100, [activeStep, steps.length]);
   const progressSpring = useSpring({ width: `${progress}%` });
 
@@ -30,7 +30,7 @@ export const Stepper: React.FC<StepperProps> = React.memo(({ steps, activeStep, 
           className={clsx(
             styles.step,
             idx === activeStep && styles.active,
-            completedSteps.includes(idx) && styles.completed,
+            completedSteps?.includes(idx) && styles.completed,
           )}
         >
           <Avatar size="4" fallback={step.label.charAt(0)}>

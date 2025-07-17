@@ -1,11 +1,11 @@
-import styles from './promo-code-input.module.scss';
-import { Flex, TextField, Button, Card } from '@radix-ui/themes';
+import { Button, Card, Flex, TextField } from '@radix-ui/themes';
 import { InputText } from '@shared/components';
 import { useState } from 'react';
+import styles from './promo-code-input.module.scss';
 
 interface PromoCodeInputProps {
   promoCode?: string | null;
-  applyPromo: (data: { promoCode: string | null }) => void;
+  applyPromo: (data: { promoCode: string | null; }) => void;
   applyPromoStatus: string;
   removePromo: () => void;
   removePromoStatus: string;
@@ -27,7 +27,7 @@ export function PromoCodeInput({
           <InputText
             placeholder="Promo code"
             value={input}
-            onChange={e => { setInput(e.target.value); }}
+            onChange={(e) => { setInput(e.target.value); }}
             disabled={!!promoCode || applyPromoStatus === 'pending'}
           />
         </TextField.Root>

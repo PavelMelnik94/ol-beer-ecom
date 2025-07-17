@@ -1,19 +1,19 @@
-import { API_ENDPOINTS, type ApiSuccessResponse } from '@kernel/api';
+import type { ApiSuccessResponse } from '@kernel/api';
 import type {
+  Cart,
   CartAddItemRequest,
-  CartUpdateItemRequest,
   CartApplyPromoRequest,
   CartPaymentRequest,
-  PromoCodeApiResponse,
   CartSummaryApiResponse,
-  Cart,
+  CartUpdateItemRequest,
+  PromoCodeApiResponse,
 } from '../types';
-import { apiClient } from '@kernel/api/client';
+import { API_ENDPOINTS } from '@kernel/api';
+import { apiClient } from '@kernel/index';
 
-
-export type ApiSuccessResponseCart = ApiSuccessResponse<Cart>
-export type ApiSuccessResponsePromocode = ApiSuccessResponse<PromoCodeApiResponse>
-export type ApiSuccessResponseCartSummary = ApiSuccessResponse<CartSummaryApiResponse>
+export type ApiSuccessResponseCart = ApiSuccessResponse<Cart>;
+export type ApiSuccessResponsePromocode = ApiSuccessResponse<PromoCodeApiResponse>;
+export type ApiSuccessResponseCartSummary = ApiSuccessResponse<CartSummaryApiResponse>;
 
 async function getCart(): Promise<ApiSuccessResponseCart> {
   return apiClient.get(API_ENDPOINTS.cart.cart);

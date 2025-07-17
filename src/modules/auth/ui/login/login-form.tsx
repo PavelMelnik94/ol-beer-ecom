@@ -79,8 +79,8 @@ export function LoginForm({ onSuccess, onCancel, onNavigateToRegister }: LoginFo
       <Show when={isError}>
         <Box mt="2">
           <ErrorAlert>
-          User with such email or password does not exist
-        </ErrorAlert>
+            User with such email or password does not exist
+          </ErrorAlert>
         </Box>
       </Show>
 

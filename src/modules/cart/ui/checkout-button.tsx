@@ -1,6 +1,6 @@
-import styles from './checkout-button.module.scss';
 import { Button, Flex, Text } from '@radix-ui/themes';
 import { useState } from 'react';
+import styles from './checkout-button.module.scss';
 
 interface CheckoutButtonProps {
   processPayment: (data: unknown) => void;

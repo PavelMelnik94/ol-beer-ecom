@@ -1,5 +1,5 @@
+import { Button, Card, Flex, Text } from '@radix-ui/themes';
 import styles from './cart-summary.module.scss';
-import { Card, Flex, Text, Button } from '@radix-ui/themes';
 
 interface CartSummaryProps {
   total: number;
@@ -20,15 +20,26 @@ export function CartSummary({
     <Card className={styles.card} variant="surface">
       <Flex direction="column" gap="3">
         <Text size="5" weight="bold" color="amber">
-          Total: {total} ₽
+          Total:
+          {' '}
+          {total}
+          {' '}
+          ₽
         </Text>
-        {discountAmount ? (
-          <Text size="3" color="bronze">
-            Discount: -{discountAmount} ₽
-          </Text>
-        ) : null}
+        {discountAmount
+          ? (
+              <Text size="3" color="bronze">
+                Discount: -
+                {discountAmount}
+                {' '}
+                ₽
+              </Text>
+            )
+          : null}
         <Text size="3" color="gray">
-          Items: {itemCount}
+          Items:
+          {' '}
+          {itemCount}
         </Text>
         <Button
           color="red"

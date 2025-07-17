@@ -50,17 +50,16 @@ function validateToggleFavorite(data: unknown): ToggleFavoriteData {
 }
 
 function getBeerRank(ordersCount = 0): BeerRank {
-
   const BEER_LEVELS = [
     { beersToFinish: 1, rank: 'Newbie' },
     { beersToFinish: 3, rank: 'Beer Enthusiast' },
     { beersToFinish: 5, rank: 'Beer Expert' },
     { beersToFinish: 7, rank: 'Beer Guru' },
-    { beersToFinish: 10, rank: 'Beer Master' }
-  ] as Array<{ beersToFinish: number; rank: string }>;
+    { beersToFinish: 10, rank: 'Beer Master' },
+  ] as Array<{ beersToFinish: number; rank: string; }>;
 
   let currentLevel = BEER_LEVELS[0];
-  let nextLevel: { beersToFinish: number; rank: string } | undefined;
+  let nextLevel: { beersToFinish: number; rank: string; } | undefined;
 
   for (let i = 0; i < BEER_LEVELS.length; i++) {
     if (ordersCount < BEER_LEVELS[i].beersToFinish) {
@@ -82,9 +81,8 @@ function getBeerRank(ordersCount = 0): BeerRank {
     current: ordersCount,
     toNext,
     nextRank: nextLevel?.rank,
-    max
+    max,
   };
-
 }
 
 export const userModel = {
@@ -96,5 +94,5 @@ export const userModel = {
   validateUpdateAddress,
   validateUploadAvatar,
   validateToggleFavorite,
-  getBeerRank
+  getBeerRank,
 } as const;

@@ -17,5 +17,6 @@ export function useFiltersData() {
     categories,
     breweries,
     isLoading: isCategoriesLoading || isBreweriesLoading,
-    error: categoriesError ?? breweriesError,  };
+    error: categoriesError ?? breweriesError,
+  };
 }

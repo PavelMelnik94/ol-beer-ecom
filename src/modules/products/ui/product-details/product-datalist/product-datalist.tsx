@@ -1,11 +1,13 @@
-import type {  ProductWithFavoritesAndRatings } from '@kernel/types';
+import type { ProductWithFavoritesAndRatings } from '@kernel/types';
 import { Price } from '@kernel/components';
 import { DataList } from '@radix-ui/themes';
 import { For, StarRating } from '@shared/components';
 import { HopBadge } from '@shared/components/ui/hop-badge';
 
 export function ProductDatalist({
-  product, onClickRating }: { product: ProductWithFavoritesAndRatings; onClickRating: (rating: number) => void; }) {
+  product,
+  onClickRating,
+}: { product: ProductWithFavoritesAndRatings; onClickRating: (rating: number) => void; }) {
   return (
     <DataList.Root mt="5">
       <DataList.Item align="center">

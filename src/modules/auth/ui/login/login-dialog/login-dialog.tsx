@@ -12,7 +12,9 @@ export function LoginDialog({ trigger }: LoginDialogProps) {
   const { navigateToRegister } = useGoTo();
   const [open, setOpen] = useState(false);
 
-  const handleSuccess = () => { setOpen(false); };
+  const handleSuccess = () => {
+    setOpen(false);
+  };
 
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);

@@ -37,7 +37,6 @@ export function AvatarUploader({ avatarUrl, fallback = 'User' }: AvatarUploaderP
   };
 
   const handleClick = () => {
-    console.log('Avatar clicked');
     inputRef.current?.click();
   };
 
@@ -56,13 +55,13 @@ export function AvatarUploader({ avatarUrl, fallback = 'User' }: AvatarUploaderP
           onClick={handleClick}
           aria-label="Upload avatar"
         >
-<Avatar
-          src={preview ?? avatarUrl ?? undefined}
-          fallback={fallback}
-          size="6"
-          style={{ cursor: 'pointer' }}
-          onClick={handleClick}
-        />
+          <Avatar
+            src={preview ?? avatarUrl ?? undefined}
+            fallback={fallback}
+            size="6"
+            style={{ cursor: 'pointer' }}
+            onClick={handleClick}
+          />
         </button>
 
       </Show>

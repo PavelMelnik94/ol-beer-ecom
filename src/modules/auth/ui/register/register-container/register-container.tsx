@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Badge,  Card, Flex, Heading, Text } from '@radix-ui/themes';
+import { Badge, Card, Flex, Heading, Text } from '@radix-ui/themes';
 import styles from './register-container.module.scss';
 
 interface Props {

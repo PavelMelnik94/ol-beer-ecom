@@ -1,12 +1,10 @@
+import type { CartApplyPromoRequest } from '../types';
+import { QUERY_KEYS, queryClient } from '@kernel/index';
 import { useMutation } from '@tanstack/react-query';
 import { cartApi } from '../api/cart-api';
 import { cartModel } from '../model';
-import { QUERY_KEYS } from '@kernel/query/query-keys';
-import type { CartApplyPromoRequest } from '../types';
-import { queryClient } from '@kernel/query';
 
 export function usePromoCode() {
-
   const applyPromoMutation = useMutation({
     mutationFn: (data: CartApplyPromoRequest) => cartApi.applyPromoCode(data),
     onMutate: async (data: CartApplyPromoRequest) => {
@@ -17,11 +15,11 @@ export function usePromoCode() {
         ...previousCart,
         data: cartModel.optimisticApplyPromo(previousCart.data, data.promoCode ?? ''),
       });
-      return { previousCart } as { previousCart?: any };
+      return { previousCart } as { previousCart?: any; };
     },
     onError: (_err, _data, context) => {
-      if ((context as { previousCart?: any })?.previousCart) {
-        queryClient.setQueryData(QUERY_KEYS.cart.details(), (context as { previousCart?: any }).previousCart);
+      if ((context as { previousCart?: any; })?.previousCart) {
+        queryClient.setQueryData(QUERY_KEYS.cart.details(), (context as { previousCart?: any; }).previousCart);
       }
     },
     onSettled: () => {
@@ -39,11 +37,11 @@ export function usePromoCode() {
         ...previousCart,
         data: cartModel.optimisticRemovePromo(previousCart.data),
       });
-      return { previousCart } as { previousCart?: any };
+      return { previousCart } as { previousCart?: any; };
     },
     onError: (_err, _data, context) => {
-      if ((context as { previousCart?: any })?.previousCart) {
-        queryClient.setQueryData(QUERY_KEYS.cart.details(), (context as { previousCart?: any }).previousCart);
+      if ((context as { previousCart?: any; })?.previousCart) {
+        queryClient.setQueryData(QUERY_KEYS.cart.details(), (context as { previousCart?: any; }).previousCart);
       }
     },
     onSettled: () => {

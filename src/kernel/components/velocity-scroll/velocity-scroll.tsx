@@ -45,7 +45,9 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({
     measureSizes();
 
     window.addEventListener('resize', measureSizes);
-    return () => { window.removeEventListener('resize', measureSizes); };
+    return () => {
+      window.removeEventListener('resize', measureSizes);
+    };
   }, [children]);
 
   const totalContentWidth = dimensions.contentWidth * copies;

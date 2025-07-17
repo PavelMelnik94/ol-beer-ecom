@@ -38,7 +38,9 @@ export function RegisterCongrats({ onReset }: RegisterCongratsProps) {
       });
     }, 1000);
 
-    return () => { clearInterval(intervalId); };
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [navigateToProfile, onReset]);
 
   return (

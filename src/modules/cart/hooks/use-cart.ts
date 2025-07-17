@@ -1,12 +1,11 @@
-import { useQuery, useMutation } from '@tanstack/react-query';
-import { cartApi, type ApiSuccessResponseCart } from '../api/cart-api';
-import { cartModel } from '../model';
-import { QUERY_KEYS } from '@kernel/query/query-keys';
-import { queryClient } from '@kernel/query';
 import type { ApiErrorResponse } from '@kernel/api';
+import type { ApiSuccessResponseCart } from '../api/cart-api';
+import { QUERY_KEYS, queryClient } from '@kernel/index';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { cartApi } from '../api/cart-api';
+import { cartModel } from '../model';
 
 export function useCart() {
-
   const {
     data,
     isLoading,
@@ -28,11 +27,11 @@ export function useCart() {
         ...previousCart,
         data: cartModel.clearCart(previousCart.data),
       });
-      return { previousCart } as { previousCart?: any };
+      return { previousCart } as { previousCart?: any; };
     },
     onError: (_err, _data, context) => {
-      if ((context as { previousCart?: any })?.previousCart) {
-        queryClient.setQueryData(QUERY_KEYS.cart.details(), (context as { previousCart?: any }).previousCart);
+      if ((context as { previousCart?: any; })?.previousCart) {
+        queryClient.setQueryData(QUERY_KEYS.cart.details(), (context as { previousCart?: any; }).previousCart);
       }
     },
     onSettled: () => {

@@ -1,5 +1,5 @@
 import { AvatarUploader } from '@modules/user/ui/widgets/quick-actions-widget/actions/avatar-uploder';
-import { Avatar, Card, Flex, Text } from '@radix-ui/themes';
+import { Card, Flex, Text } from '@radix-ui/themes';
 import { dateParser } from '@shared/lib';
 
 interface Props {

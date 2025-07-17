@@ -46,7 +46,7 @@ export function StarRating({
   };
 
   const getStarFill = (starIndex: number) => {
-    const displayRating = hoveredRating ?? userRating ??  currentRating;
+    const displayRating = hoveredRating ?? userRating ?? currentRating;
     return starIndex <= displayRating ? '#ffd700' : 'none';
   };
 

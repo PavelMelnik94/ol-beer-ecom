@@ -1,3 +1,8 @@
+import type { Product } from '@kernel/types';
+
+import type { Cart, CartItem, OptimisticCartItem, PromoCode } from '../types';
+import { nanoid } from 'nanoid';
+
 function clearCart(prev: Cart): Cart {
   return {
     ...prev,
@@ -23,7 +28,6 @@ function optimisticRemovePromo(prev: Cart): Cart {
     discountAmount: 0,
   };
 }
-import type { Product } from '@kernel/types';
 function getDefaultProduct(productId: string): Product {
   return {
     id: productId,
@@ -53,10 +57,6 @@ function getDefaultProduct(productId: string): Product {
     updatedAt: '',
   };
 }
-
-import type { Cart, CartItem, OptimisticCartItem, PromoCode } from '../types';
-import { nanoid } from 'nanoid';
-
 
 function createOptimisticCartItem(product: CartItem['product'], quantity: number): OptimisticCartItem {
   return {
@@ -92,13 +92,12 @@ function applyPromoCode(cart: Cart, promo: PromoCode): Cart {
   };
 }
 
-
 function syncLocalQuantities(prev: Record<string, number>, items: CartItem[]): Record<string, number> {
   const updated: Record<string, number> = { ...prev };
-  items.forEach(item => {
+  items.forEach((item) => {
     updated[item.id] = item.quantity;
   });
-  Object.keys(updated).forEach(id => {
+  Object.keys(updated).forEach((id) => {
     if (!items.find(item => item.id === id)) {
       delete updated[id];
     }
@@ -108,7 +107,7 @@ function syncLocalQuantities(prev: Record<string, number>, items: CartItem[]): R
 
 function getInitialLocalQuantities(items: CartItem[]): Record<string, number> {
   const initial: Record<string, number> = {};
-  items.forEach(item => {
+  items.forEach((item) => {
     initial[item.id] = item.quantity;
   });
   return initial;

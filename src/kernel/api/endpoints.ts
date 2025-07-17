@@ -73,5 +73,5 @@ export const API_ENDPOINTS = {
     promo: '/cart/promo',
     payment: '/cart/payment',
 
-  }
+  },
 } as const;

@@ -3,16 +3,16 @@ import { NoData } from '@kernel/components';
 import { useGoTo } from '@kernel/hooks';
 import { useUserStore } from '@kernel/stores';
 
-import { ButtonWithAuthPopup } from '@modules/common';
 import { useCartItem } from '@modules/cart';
+import { ButtonWithAuthPopup } from '@modules/common';
 import { ProductCard, ProductCardSkeleton } from '@modules/products';
 import { useToggleFavorite, useUserFavorites } from '@modules/user';
 import { Button, Container, Flex, Tooltip } from '@radix-ui/themes';
 import { For, Pulse, Show } from '@shared/components';
 import { Heart } from 'lucide-react';
+import { useMediaQuery } from 'react-responsive';
 import styles from './favorites-page.module.scss';
 import { Hero } from './ui/hero';
-import { useMediaQuery } from 'react-responsive';
 
 export function FavoritesPage() {
   const cartItem = useCartItem();

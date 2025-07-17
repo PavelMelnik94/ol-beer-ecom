@@ -1,6 +1,6 @@
 import { userModel } from '@modules/user/model';
 import { Widget } from '@modules/user/ui/widget/widget';
-import { Badge,  Flex, Progress, Separator, Text } from '@radix-ui/themes';
+import { Badge, Flex, Progress, Separator, Text } from '@radix-ui/themes';
 import { Beer, HandHeart, MessageCircleHeart } from 'lucide-react';
 
 interface Props {
@@ -9,11 +9,8 @@ interface Props {
   ordersCount?: number;
 }
 
-
-
 export function ActivityWidget({ likedCommentsCount, likedPostsCount, ordersCount }: Props) {
-
-  const rank = userModel.getBeerRank(ordersCount)
+  const rank = userModel.getBeerRank(ordersCount);
   return (
     <Widget
       title="Activity"
@@ -41,19 +38,25 @@ export function ActivityWidget({ likedCommentsCount, likedPostsCount, ordersCoun
           </Badge>
         </Flex>
 
-        <Separator size={'4'} mt={'2'} mb={'3'}/>
+        <Separator size="4" mt="2" mb="3" />
 
-    <Flex direction={'row'} justify={'center'} gap={'1'}>
-      <Text size={'2'} align={'center'}>Rank by orders</Text>
-    <Beer color="green" size={18} strokeWidth="1.5" />
-    </Flex>
+        <Flex direction="row" justify="center" gap="1">
+          <Text size="2" align="center">Rank by orders</Text>
+          <Beer color="green" size={18} strokeWidth="1.5" />
+        </Flex>
 
-        <Flex direction={'column'}>
-          <Flex direction={'row'} justify={'between'} align={'center'}>
-    <Text size={'2'} color='gray'>{rank.rank}</Text>
-    <Text size={'2'} color='gray'>{rank.current} / {rank.max}</Text>
+        <Flex direction="column">
+          <Flex direction="row" justify="between" align="center">
+            <Text size="2" color="gray">{rank.rank}</Text>
+            <Text size="2" color="gray">
+              {rank.current}
+              {' '}
+              /
+              {' '}
+              {rank.max}
+            </Text>
           </Flex>
-          <Progress  value={rank.current} max={rank.max} />
+          <Progress value={rank.current} max={rank.max} />
         </Flex>
 
       </Flex>

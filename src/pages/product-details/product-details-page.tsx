@@ -17,7 +17,7 @@ export function ProductDetailsPage() {
   const { id } = useParams<{ id: string; }>();
   const { product } = useProductDetails(id!);
   const { products: relatedProducts } = useProductsRelated(product?.id ?? '');
-  const cartItem = useCartItem()
+  const cartItem = useCartItem();
   const isAuth = useAuthStore(s => s.isAuth);
 
   useUserFavorites({ enabled: isAuth });
@@ -72,7 +72,7 @@ export function ProductDetailsPage() {
   };
 
   const handleOnClickAddToWishlist = async (product: Product) => {
-          await toggleFavorite({ productId: product.id });
+    await toggleFavorite({ productId: product.id });
   };
 
   const handleCreateComment = async (content: string) => {
@@ -92,8 +92,8 @@ export function ProductDetailsPage() {
   };
 
   const handleClickToAddCart = async (product: Product) => {
-     await cartItem.addItem({productId: product.id, quantity: 1})
-  }
+    await cartItem.addItem({ productId: product.id, quantity: 1 });
+  };
 
   const breadcrumbs = useMemo(() => {
     const items = [

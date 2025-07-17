@@ -1,9 +1,9 @@
 import type { ApiErrorResponse, ApiSuccessResponse } from '@kernel/api';
-import type { User } from '@kernel/types';
+import type { RegisterResponse } from '@modules/auth/api';
 import type { RegisterBody } from '@modules/auth/model/types';
 import { toast } from '@kernel/notifications';
 import { useAuthStore } from '@kernel/stores';
-import { authApi, type RegisterResponse } from '@modules/auth/api';
+import { authApi } from '@modules/auth/api';
 import { useMutation } from '@tanstack/react-query';
 
 export function useRegister() {

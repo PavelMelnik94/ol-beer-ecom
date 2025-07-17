@@ -9,12 +9,11 @@ import type {
   CommentUpdateRequest,
   OptimisticComment,
 } from '../types';
-import { normalizeAvatarUrl, QUERY_KEYS, queryClient, toast, useUserStore } from '@kernel/index';
+import { QUERY_KEYS, queryClient, toast, useUserStore } from '@kernel/index';
 import { useCommentStore } from '@modules/comments/stores/comment-store';
 
 import { useOptimistic } from '@shared/hooks';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { clone } from 'lodash-es';
 import { useCallback, useEffect } from 'react';
 import { commentsModel } from '../model';
 

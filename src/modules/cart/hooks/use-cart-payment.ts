@@ -1,12 +1,10 @@
+import type { CartPaymentRequest } from '../types';
+import { QUERY_KEYS, queryClient } from '@kernel/index';
 import { useMutation } from '@tanstack/react-query';
 import { cartApi } from '../api/cart-api';
 import { cartModel } from '../model';
-import { QUERY_KEYS } from '@kernel/query/query-keys';
-import type { CartPaymentRequest } from '../types';
-import { queryClient } from '@kernel/query';
 
 export function useCartPayment() {
-
   const paymentMutation = useMutation({
     mutationFn: (data: CartPaymentRequest) => cartApi.processCartPayment(data),
     onSuccess: () => {

@@ -1,16 +1,15 @@
-
 import type { Product } from '@kernel/types';
 
-export type CartItem = {
+export interface CartItem {
   id: string;
   product: Product;
   quantity: number;
   subtotal: number;
   createdAt: string;
   updatedAt: string;
-};
+}
 
-export type Cart = {
+export interface Cart {
   id: string;
   userId: string;
   items: CartItem[];
@@ -19,58 +18,58 @@ export type Cart = {
   discountAmount?: number;
   createdAt: string;
   updatedAt: string;
-};
+}
 
-export type PromoCode = {
+export interface PromoCode {
   code: string;
   discount: number;
   valid: boolean;
-};
+}
 
-export type CartSummary = {
+export interface CartSummary {
   totalItems: number;
   subtotal: number;
   promoCode?: string;
   discountAmount?: number;
   total: number;
-};
+}
 
-export type CartAddItemRequest = {
+export interface CartAddItemRequest {
   productId: string;
   quantity: number;
-};
+}
 
-export type CartUpdateItemRequest = {
+export interface CartUpdateItemRequest {
   id: string;
   quantity: number;
-};
+}
 
-export type CartRemoveItemRequest = {
+export interface CartRemoveItemRequest {
   id: string;
-};
+}
 
-export type CartApplyPromoRequest = {
+export interface CartApplyPromoRequest {
   promoCode: string | null;
-};
+}
 
-export type CartPaymentRequest = {
+export interface CartPaymentRequest {
   paymentMethod: string;
   billingAddressId?: string;
   shippingAddressId?: string;
-};
+}
 
 export type OptimisticCartItem = CartItem & {
   isOptimistic?: boolean;
   isPending?: boolean;
 };
 
-export type CartApiResponse = {
+export interface CartApiResponse {
   cart: Cart;
-};
-export type PromoCodeApiResponse = {
+}
+export interface PromoCodeApiResponse {
   message: string;
   promoCode: string;
   discountAmount: number;
   cart: Cart;
-};
+}
 export type CartSummaryApiResponse = CartSummary;

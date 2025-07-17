@@ -1,12 +1,11 @@
+import { useCart } from '@modules/cart/hooks';
 import { Badge, Button, Flex, Text } from '@radix-ui/themes';
 import clsx from 'clsx';
 import { ShoppingCart } from 'lucide-react';
 import styles from './cart-button.module.scss';
-import { useCart } from '@modules/cart/hooks';
-
 
 export function CartButton({ fullWidth, onClick }: { fullWidth?: boolean; onClick?: () => void; }) {
-   const cart = useCart().cart
+  const cart = useCart().cart;
   return (
     <Button
       variant="ghost"

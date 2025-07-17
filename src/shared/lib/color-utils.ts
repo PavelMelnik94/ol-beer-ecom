@@ -1,20 +1,16 @@
-
 interface RgbColor {
   readonly r: number;
   readonly g: number;
   readonly b: number;
 }
 
-
 export class ColorUtils {
-
   static hexToRgb(hex: string): RgbColor {
     if (!this.isValidHex(hex)) {
       console.warn(`Некорректный hex цвет: ${hex}. Используется fallback.`);
     }
 
     const normalizedHex = hex.replace('#', '');
-
 
     const fullHex = normalizedHex.length === 3
       ? normalizedHex.split('').map(char => char + char).join('')
@@ -28,19 +24,16 @@ export class ColorUtils {
     return { r, g, b };
   }
 
-
   static hexToRgba(hex: string, alpha = 1): string {
     const { r, g, b } = this.hexToRgb(hex);
     const clampedAlpha = Math.max(0, Math.min(1, alpha));
     return `rgba(${r}, ${g}, ${b}, ${clampedAlpha})`;
   }
 
-
   static isValidHex(hex: string): boolean {
     const hexRegex = /^#?(?:[A-F0-9]{6}|[A-F0-9]{3})$/i;
     return hexRegex.test(hex);
   }
-
 
   static namedColorToHex(colorName: string): string | null {
     const namedColors: Record<string, string> = {
@@ -58,7 +51,6 @@ export class ColorUtils {
 
     return namedColors[colorName.toLowerCase()] || null;
   }
-
 
   static parseColor(color: string): RgbColor {
     if (this.isValidHex(color)) {

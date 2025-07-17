@@ -1,11 +1,11 @@
 import type { SecurityInfo } from '@modules/auth/model/types';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { securitySchema } from '@kernel/types';
 import { Flex } from '@radix-ui/themes';
 import { InputPassword } from '@shared/components';
 import { memo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { RegisterFooter } from '../register-footer/register-footer';
-import { securitySchema } from '@kernel/types';
 
 interface SecurityStepProps {
   security: SecurityInfo;

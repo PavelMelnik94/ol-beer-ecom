@@ -1,5 +1,5 @@
 import { CartMediator } from '@modules/cart';
 
-export const CartPage = () => {
+export function CartPage() {
   return <CartMediator />;
-};
+}

@@ -1,13 +1,10 @@
-import { useCart } from '../hooks';
-import { useCartItem } from '../hooks';
-import { usePromoCode } from '../hooks';
-import { useCartPayment } from '../hooks';
-import { CartItems } from './cart-items';
-import { CartSummary } from './cart-summary';
-import { PromoCodeInput } from './promo-code-input';
-import { CheckoutButton } from './checkout-button';
-import styles from './cart-mediator.module.scss';
 import { Theme } from '@radix-ui/themes';
+import { useCart, useCartItem, useCartPayment, usePromoCode } from '../hooks';
+import { CartItems } from './cart-items';
+import styles from './cart-mediator.module.scss';
+import { CartSummary } from './cart-summary';
+import { CheckoutButton } from './checkout-button';
+import { PromoCodeInput } from './promo-code-input';
 
 export function CartMediator() {
   const { cart, isLoading, isError, error, clearCart, clearCartStatus } = useCart();
@@ -16,7 +13,14 @@ export function CartMediator() {
   const payment = useCartPayment();
 
   if (isLoading) return <div className={styles.loading}>Loading cart...</div>;
-  if (isError) return <div className={styles.error}>Error: {error?.message}</div>;
+  if (isError) {
+    return (
+      <div className={styles.error}>
+        Error:
+        {error?.message}
+      </div>
+    );
+  }
   if (!cart?.items.length) return <div className={styles.empty}>Cart is empty</div>;
 
   return (

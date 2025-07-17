@@ -111,7 +111,9 @@ function getFilterParams(filterParams: Filters): string {
 
   if (params.categoryIds) {
     if (Array.isArray(params.categoryIds)) {
-      params.categoryIds.forEach(id => { searchParams.append('categoryIds', id); });
+      params.categoryIds.forEach((id) => {
+        searchParams.append('categoryIds', id);
+      });
     }
     else {
       searchParams.append('categoryIds', params.categoryIds);

@@ -1,11 +1,11 @@
 import type { PersonalInfo } from '@modules/auth/model/types';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { personalInfoSchema } from '@kernel/types';
 import { InputText } from '@shared/components';
 import { Mailbox, Signature } from 'lucide-react';
 import { memo } from 'react';
 import { useForm } from 'react-hook-form';
 import { RegisterFooter } from '../register-footer/register-footer';
-import { personalInfoSchema } from '@kernel/types';
 
 interface PersonalInfoStepProps {
   personalInfo: PersonalInfo;

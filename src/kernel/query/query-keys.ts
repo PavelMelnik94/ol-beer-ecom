@@ -35,7 +35,6 @@ export const QUERY_KEYS = {
     search: (query: string) => [...QUERY_KEYS.products.all, 'search', query] as const,
     discounted: () => [...QUERY_KEYS.products.all, 'discounted'] as const,
     featured: () => [...QUERY_KEYS.products.all, 'featured'] as const,
-    // Данные для фильтров
     breweries: () => [...QUERY_KEYS.products.all, 'breweries'] as const,
     categories: () => [...QUERY_KEYS.products.all, 'categories'] as const,
     commentList: (productId: number | string, page = 1) => ['products', productId, 'comments', 'list', page],

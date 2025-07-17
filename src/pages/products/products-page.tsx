@@ -1,6 +1,7 @@
 import type { Product, ProductWithFavorites } from '@kernel/types';
 import { useGoTo } from '@kernel/hooks';
 import { useUserStore } from '@kernel/stores';
+import { useCartItem } from '@modules/cart';
 import {
   Products,
   ProductsFilters,
@@ -17,7 +18,6 @@ import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Hero } from './ui/hero';
 import { ShowFiltersAction } from './ui/show-filters-action';
-import { useCartItem } from '@modules/cart';
 
 export function ProductsPage() {
   const { mutateAsync: toggleFavorite } = useToggleFavorite();
@@ -51,7 +51,7 @@ export function ProductsPage() {
     filterParams: getCurrentApiFilters(),
   });
 
-  const cartItem = useCartItem()
+  const cartItem = useCartItem();
 
   const { navigateToProductItem, navigateToShowcase } = useGoTo();
 
@@ -62,8 +62,8 @@ export function ProductsPage() {
   };
 
   const handleClickToAddToCart = async (product: Product) => {
-      await cartItem.addItem({productId: product.id, quantity: 1})
-  }
+    await cartItem.addItem({ productId: product.id, quantity: 1 });
+  };
 
   const handleClickHideFilters = () => {
     resetFilters();

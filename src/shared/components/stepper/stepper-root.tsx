@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import React, { useMemo } from 'react';
 import styles from './stepper.module.scss';
 
-export const StepperRoot: React.FC<StepperRootProps> = React.memo(({ children, activeStep, completedSteps = [], direction = 'column', className, gap = '4' }) => {
+export const StepperRoot: React.FC<StepperRootProps> = React.memo(({ children, activeStep, completedSteps, direction = 'column', className, gap = '4' }) => {
   const value = useMemo(() => ({ activeStep, completedSteps, direction }), [activeStep, completedSteps, direction]);
   return (
     <StepperContext.Provider value={value}>
