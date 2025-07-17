@@ -1,4 +1,4 @@
-import type { User } from '@kernel/index';
+import type { MobileMenuProps, MobileSectionProps } from './header.types';
 import { ThemeButton } from '@kernel/index';
 import { CartButton } from '@modules/cart';
 import { Button, Flex, IconButton, Popover, Separator } from '@radix-ui/themes';
@@ -6,15 +6,8 @@ import { GithubButton } from '@shared/components/ui/github-button';
 import { Menu } from 'lucide-react';
 import { AuthSection } from './auth-section';
 import { HeaderNav } from './header-nav';
-import styles from './header.module.scss';
 
-interface MobileSectionProps {
-  isAuth: boolean;
-  onLogout: () => void;
-  navigationHandlers: any;
-  getActiveProps: (path: string) => any;
-  routes: any;
-}
+import styles from './header.module.scss';
 
 function MobileSection({ isAuth, onLogout, navigationHandlers, getActiveProps, routes }: MobileSectionProps) {
   return (
@@ -51,16 +44,6 @@ function MobileSection({ isAuth, onLogout, navigationHandlers, getActiveProps, r
   );
 }
 
-interface MobileMenuProps {
-  isAuth: boolean;
-  user: User;
-  mobileMenuOpen: boolean;
-  setMobileMenuOpen: (open: boolean) => void;
-  navigationHandlers: any;
-  getActiveProps: (path: string) => any;
-  routes: any;
-}
-
 export function MobileMenu({
   isAuth,
   user,
@@ -70,6 +53,12 @@ export function MobileMenu({
   getActiveProps,
   routes,
 }: MobileMenuProps) {
+  const navHandlers = {
+    onBlog: navigationHandlers.onBlog,
+    onBreweries: navigationHandlers.onBreweries,
+    onAbout: navigationHandlers.onAbout,
+    onShowcase: navigationHandlers.onShowcase,
+  };
   return (
     <Flex direction="row" align="center" wrap="nowrap" gap="4">
       {isAuth && <CartButton onClick={navigationHandlers.onBasket} />}
@@ -88,7 +77,7 @@ export function MobileMenu({
           <Flex direction="column" gap="3" align="start" style={{ minWidth: 100 }}>
             <HeaderNav
               getActiveProps={getActiveProps}
-              onClickHandlers={navigationHandlers}
+              onClickHandlers={navHandlers}
               fullWidth
               isAuth={isAuth}
               user={user}

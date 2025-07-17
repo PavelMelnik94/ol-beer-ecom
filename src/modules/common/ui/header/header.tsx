@@ -32,11 +32,21 @@ export function Header({ isFixed }: Props) {
 
       <Show when={!isMobileLayout}>
         <Flex align="center" gap="5" className={styles.desktopNav}>
-          <HeaderNav getActiveProps={getActiveProps} onClickHandlers={navigationHandlers} />
+          <HeaderNav
+            getActiveProps={getActiveProps}
+            onClickHandlers={{
+              onBlog: navigationHandlers.onBlog,
+              onBreweries: navigationHandlers.onBreweries,
+              onAbout: navigationHandlers.onAbout,
+              onShowcase: navigationHandlers.onShowcase,
+            }}
+            isAuth={isAuth}
+            user={user!}
+          />
         </Flex>
         <DesktopActions
           isAuth={isAuth}
-          user={user}
+          user={user!}
           mobileMenuOpen={mobileMenuOpen}
           setMobileMenuOpen={setMobileMenuOpen}
           navigationHandlers={navigationHandlers}

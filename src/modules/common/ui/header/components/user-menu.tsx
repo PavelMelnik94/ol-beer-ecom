@@ -1,29 +1,9 @@
-import type { User } from '@kernel/index';
+import type { MenuContentProps, UserMenuProps } from './header.types';
 import { ThemeButton } from '@kernel/index';
 import { Avatar, Button, Flex, IconButton, Popover, Separator, Text } from '@radix-ui/themes';
 import { GithubButton } from '@shared/components/ui/github-button';
 import { AuthSection } from './auth-section';
 import styles from './header.module.scss';
-
-interface UserMenuProps {
-  user: User;
-  isAuth: boolean;
-  mobileMenuOpen: boolean;
-  setMobileMenuOpen: (open: boolean) => void;
-  onLogout: () => void;
-  navigationHandlers: any;
-  getActiveProps: (path: string) => any;
-  routes: any;
-}
-
-interface MenuContentProps {
-  user: User;
-  isAuth: boolean;
-  onLogout: () => void;
-  navigationHandlers: any;
-  getActiveProps: (path: string) => any;
-  routes: any;
-}
 
 function MenuContent({ user, isAuth, onLogout, navigationHandlers, getActiveProps, routes }: MenuContentProps) {
   return (

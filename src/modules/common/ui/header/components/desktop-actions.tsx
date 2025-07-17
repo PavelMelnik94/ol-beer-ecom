@@ -1,18 +1,10 @@
+import type { DesktopActionsProps } from './header.types';
 import { CartButton } from '@modules/cart';
 import { Flex } from '@radix-ui/themes';
 import { AuthSection } from './auth-section';
 import styles from './header.module.scss';
-import { UserMenu } from './user-menu';
 
-interface DesktopActionsProps {
-  isAuth: boolean;
-  user: any;
-  mobileMenuOpen: boolean;
-  setMobileMenuOpen: (open: boolean) => void;
-  navigationHandlers: any;
-  getActiveProps: (path: string) => any;
-  routes: any;
-}
+import { UserMenu } from './user-menu';
 
 export function DesktopActions({
   isAuth,

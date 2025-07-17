@@ -1,28 +1,11 @@
+import type { AuthSectionProps } from './header.types';
 import { ThemeButton } from '@kernel/components';
 import { useUserStore } from '@kernel/stores';
 import { ButtonWithAuthPopup } from '@modules/common/ui/button-with-auth-popup';
 import { useHeader } from '@modules/common/ui/header/hooks/use-header';
 import { Badge, Button, Flex } from '@radix-ui/themes';
-import { GithubButton } from '@shared/components/ui/github-button';
 
-interface AuthSectionProps {
-  isAuth: boolean;
-  onProfile: () => void;
-  onFavorites: () => void;
-  onOrders: () => void;
-  onRegister: () => void;
-  getActiveProps: (path: string) => {
-    'data-active'?: string;
-    'className'?: string;
-  };
-  routes: {
-    profile: string;
-    favorites: string;
-    orders: string;
-    register: string;
-  };
-  fullWidth?: boolean;
-}
+import { GithubButton } from '@shared/components/ui/github-button';
 
 export function AuthSection({
   isAuth,

@@ -1,9 +1,6 @@
+import type { LogoProps } from '@modules/common/ui/header/components/header.types';
 import { Box, Text } from '@radix-ui/themes';
 import styles from './header.module.scss';
-
-interface LogoProps {
-  onClick: () => void;
-}
 
 export function Logo({ onClick }: LogoProps) {
   return (
