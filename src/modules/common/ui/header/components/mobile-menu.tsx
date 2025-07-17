@@ -61,7 +61,7 @@ export function MobileMenu({
   };
   return (
     <Flex direction="row" align="center" wrap="nowrap" gap="4">
-      {isAuth && <CartButton onClick={navigationHandlers.onBasket} />}
+      {isAuth && <CartButton onClick={navigationHandlers.onBasket} getActiveProps={getActiveProps} />}
       <Popover.Root open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
         <Popover.Trigger>
           <IconButton
