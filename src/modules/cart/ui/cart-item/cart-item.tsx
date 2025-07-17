@@ -1,7 +1,9 @@
 import type { CartItem as CartItemType } from '@modules/cart/types';
 import { Card, DataList, Flex, IconButton, Inset, Text } from '@radix-ui/themes';
-import { Image, InputText } from '@shared/components';
+import { Image } from '@shared/components';
+import clsx from 'clsx';
 import { Flame, X } from 'lucide-react';
+import { useMediaQuery } from 'react-responsive';
 import styles from './cart-item.module.scss';
 
 interface Props {
@@ -10,12 +12,21 @@ interface Props {
   handleQuantityChange: (id: string, quantity: number) => void;
   removeItem: (data: { id: string; }) => void;
   removeItemStatus: string;
+  updateItemStatus: string;
 }
 
-export function CartItem({ item, localQuantities, handleQuantityChange, removeItem, removeItemStatus }: Props) {
+export function CartItem({ item, localQuantities, handleQuantityChange, removeItem, removeItemStatus, updateItemStatus }: Props) {
+  const isSmallScreen = useMediaQuery({
+    query: '(max-width: 768px)',
+  });
+
+  const isRemovePending = removeItemStatus === 'pending';
+  const isUpdatePending = updateItemStatus === 'pending';
+  const isProcessing = isRemovePending || isUpdatePending;
+
   return (
     <Card key={item.id} className={styles.item} data-item>
-      <Flex justify="start" gap="6"  className={styles.itemContent}>
+      <Flex justify="start" gap="6" className={styles.itemContent}>
 
         {/* 1 COL */}
         <Inset className={styles.inset} data-inset>
@@ -90,33 +101,34 @@ export function CartItem({ item, localQuantities, handleQuantityChange, removeIt
 
       </Flex>
 
+      {/* ABSOLUTES */}
 
-          {/* ABSOLUTES */}
-
-        <Flex direction="row" gap="1" align={'end'} className={styles.quantitySection}>
-          <Text size="2" weight="medium" className={styles.quantityLabel}>
-            Quantity:
-          </Text>
-          <input
+      <Flex direction="row" gap="1" align="end" className={styles.quantitySection}>
+        <Text size="2" color={isProcessing ? 'gray' : undefined} weight="medium" className={styles.quantityLabel}>
+          Quantity:
+        </Text>
+        <input
           name="quantity"
           type="number"
           min={1}
           value={String(localQuantities[item.id] ?? item.quantity)}
-          className={styles.quantityInput}
+          className={clsx(styles.quantityInput, {
+            [styles.disabledQuantity]: isProcessing,
+          })}
           onChange={e => handleQuantityChange(item.id, Number((e.target).value))}
-          disabled={removeItemStatus === 'pending'}
+          disabled={isProcessing}
         />
-        </Flex>
-        <IconButton
-          color="red"
-          variant="solid"
-          data-remove-button
-          onClick={() => { removeItem({ id: item.id }); }}
-          disabled={removeItemStatus === 'pending'}
-          className={styles.removeButton}
-        >
-          <X size={16} />
-        </IconButton>
+      </Flex>
+      <IconButton
+        color="ruby"
+        variant={isSmallScreen ? 'solid' : 'soft'}
+        data-remove-button
+        onClick={() => { removeItem({ id: item.id }); }}
+        disabled={isProcessing}
+        className={styles.removeButton}
+      >
+        <X size={16} />
+      </IconButton>
     </Card>
   );
 }

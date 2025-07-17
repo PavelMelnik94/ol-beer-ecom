@@ -49,6 +49,7 @@ export function CartMediator() {
           updateItem={cartItem.updateItem}
           removeItem={cartItem.removeItem}
           removeItemStatus={cartItem.removeItemStatus}
+          updateItemStatus={cartItem.updateItemStatus}
         />
       </div>
 

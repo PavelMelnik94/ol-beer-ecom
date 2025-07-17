@@ -12,10 +12,11 @@ interface CartItemsProps {
   updateItem: (data: { id: string; quantity: number; }) => void;
   removeItem: (data: { id: string; }) => void;
   removeItemStatus: string;
+  updateItemStatus: string;
 }
 
 export function CartItems(props: CartItemsProps) {
-  const { items, updateItem, removeItem, removeItemStatus } = props;
+  const { items, updateItem, removeItem, removeItemStatus, updateItemStatus } = props;
   const [localQuantities, setLocalQuantities] = React.useState<Record<string, number>>(() => cartModel.getInitialLocalQuantities(props.items));
 
   React.useEffect(() => {
@@ -33,7 +34,7 @@ export function CartItems(props: CartItemsProps) {
     <div className={styles.items}>
 
       <Show when={items.length > 0} fallback={<div className={styles.empty}>No items in cart</div>}>
-        <Flex  gap="3" className={styles.itemList} wrap={'wrap'}>
+        <Flex gap="3" className={styles.itemList} wrap="wrap">
           <For each={items}>
             {item => (
               <CartItemCard
@@ -43,6 +44,7 @@ export function CartItems(props: CartItemsProps) {
                 handleQuantityChange={handleQuantityChange}
                 removeItem={removeItem}
                 removeItemStatus={removeItemStatus}
+                updateItemStatus={updateItemStatus}
               />
             )}
           </For>

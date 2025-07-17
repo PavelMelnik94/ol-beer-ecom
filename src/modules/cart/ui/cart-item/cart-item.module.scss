@@ -8,7 +8,6 @@
     width: 100%;
     padding-right: 0;
   }
-
 }
 
 
@@ -60,18 +59,23 @@
 }
 
 .quantityInput {
+  all: unset;
+
   height: 20px;
   width: 40px;
   border: unset;
   border-bottom: 1px solid var(--gray-a8);
   background-color: var(--color-panel);
   font-size: 14px;
-  ;
 
   &:focus {
     outline: none;
   }
+}
 
+.disabledQuantity {
+  color: var(--gray-a4);
+  cursor: not-allowed;
 }
 
 
