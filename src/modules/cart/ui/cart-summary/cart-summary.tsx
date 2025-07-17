@@ -25,9 +25,9 @@ export function CartSummary({
         <Text size="5" weight="bold" mb="1">
           Total:
           {' '}
-          {total}
+          {total.toFixed(2)}
           {' '}
-          ₽
+          $
         </Text>
         {discountAmount
           ? (
