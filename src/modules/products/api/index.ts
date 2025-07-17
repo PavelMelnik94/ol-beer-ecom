@@ -14,7 +14,7 @@ export type ErrorResponse = ApiErrorResponse;
 async function getProductsFiltered(
   filterQuery: string,
   page: number | string = 1,
-  limit: number = 16,
+  limit = 16,
 ): Promise<SuccessResponseFilterProducts> {
   if (!filterQuery) return apiClient.get(`${API_ENDPOINTS.products.all}?page=${page}&limit=${limit}`);
 

@@ -4,12 +4,12 @@ export const QUERY_KEYS = {
     all: ['articles'] as const,
     articleList: () => [...QUERY_KEYS.articles.all, 'list'] as const,
     articleTags: () => [...QUERY_KEYS.articles.all, 'tags'] as const,
-    articleListFilters: (filters: Record<string, any>) => [...QUERY_KEYS.articles.articleList(), filters] as const,
+    articleListFilters: (filters: Record<string, unknown>) => [...QUERY_KEYS.articles.articleList(), filters] as const,
     articleDetails: () => [...QUERY_KEYS.articles.all, 'detail'] as const,
     detail: (id: number | string) => [...QUERY_KEYS.articles.articleDetails(), id] as const,
     articleRandom: (id: string) => [...QUERY_KEYS.articles.all, 'random', id] as const,
     articleLike: (id: number | string) => [...QUERY_KEYS.articles.detail(id), 'like'] as const,
-    commentList: (articleId: number | string, page: number = 1) => ['articles', articleId, 'comments', 'list', page],
+    commentList: (articleId: number | string, page = 1) => ['articles', articleId, 'comments', 'list', page],
     commentListAll: (articleId: number | string) => ['articles', articleId, 'comments'] as const,
   },
 
@@ -28,7 +28,7 @@ export const QUERY_KEYS = {
 
   products: {
     all: ['products'] as const,
-    list: (filters: Record<string, any> = {}) => [...QUERY_KEYS.products.all, 'list', filters] as const,
+    list: (filters: Record<string, unknown> = {}) => [...QUERY_KEYS.products.all, 'list', filters] as const,
     detail: (id: number | string) => [...QUERY_KEYS.products.all, 'detail', id] as const,
     related: (id: number | string) => [...QUERY_KEYS.products.detail(id), 'related'] as const,
     random: () => [...QUERY_KEYS.products.all, 'random'] as const,
@@ -38,7 +38,7 @@ export const QUERY_KEYS = {
     // Данные для фильтров
     breweries: () => [...QUERY_KEYS.products.all, 'breweries'] as const,
     categories: () => [...QUERY_KEYS.products.all, 'categories'] as const,
-    commentList: (productId: number | string, page: number = 1) => ['products', productId, 'comments', 'list', page],
+    commentList: (productId: number | string, page = 1) => ['products', productId, 'comments', 'list', page],
     commentListAll: (productId: number | string) => ['products', productId, 'comments'] as const,
   },
 

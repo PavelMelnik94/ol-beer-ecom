@@ -65,8 +65,8 @@ export function StarRating({
                 cursor: readonly ? 'default' : 'pointer',
                 transition: 'color 0.2s ease',
               }}
-              onClick={() => handleStarClick(starIndex)}
-              onMouseEnter={() => handleStarHover(starIndex)}
+              onClick={() => { handleStarClick(starIndex); }}
+              onMouseEnter={() => { handleStarHover(starIndex); }}
               onMouseLeave={handleStarLeave}
             />
           );

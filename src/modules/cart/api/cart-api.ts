@@ -47,7 +47,7 @@ async function removePromoCode(): Promise<ApiSuccessResponseCart> {
   return apiClient.delete(API_ENDPOINTS.cart.promo);
 }
 
-async function processCartPayment(data: CartPaymentRequest): Promise<any> {
+async function processCartPayment(data: CartPaymentRequest): Promise<unknown> {
   return apiClient.post(API_ENDPOINTS.cart.payment, data);
 }
 

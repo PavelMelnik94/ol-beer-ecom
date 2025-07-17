@@ -49,7 +49,7 @@ function validateToggleFavorite(data: unknown): ToggleFavoriteData {
   return toggleFavoriteSchema.parse(data);
 }
 
-function getBeerRank(ordersCount: number = 0): BeerRank {
+function getBeerRank(ordersCount = 0): BeerRank {
 
   const BEER_LEVELS = [
     { beersToFinish: 1, rank: 'Newbie' },

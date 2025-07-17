@@ -90,7 +90,7 @@ export function useComments({
 
   useEffect(() => {
     if (parentId) {
-      refetch();
+      void refetch();
     }
   }, [parentId, refetch]);
 

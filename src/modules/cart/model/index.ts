@@ -71,7 +71,7 @@ function createOptimisticCartItem(product: CartItem['product'], quantity: number
   };
 }
 
-function calculateCartTotal(items: CartItem[], discountAmount: number = 0): number {
+function calculateCartTotal(items: CartItem[], discountAmount = 0): number {
   const total = items.reduce((sum, item) => sum + item.subtotal, 0);
   return Math.max(total - discountAmount, 0);
 }

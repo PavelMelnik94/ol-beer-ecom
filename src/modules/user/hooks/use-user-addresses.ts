@@ -37,8 +37,8 @@ export function useCreateAddress() {
   return useMutation({
     mutationFn: (data: CreateAddressData) => userApi.createAddress(data),
     onSuccess: (response) => {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.addresses() });
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.profile() });
+      void queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.addresses() });
+      void queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.profile() });
 
       const currentAddresses = useUserStore.getState().addresses;
       const newAddresses = [...currentAddresses, response.data];

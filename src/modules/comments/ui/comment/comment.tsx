@@ -110,7 +110,7 @@ export function CommentItem({
             disabled={isUpdating}
             placeholder="What are your thoughts?"
             value={editContent}
-            onChange={e => setEditContent(e.target.value)}
+            onChange={e => { setEditContent(e.target.value); }}
           />
           <Flex justify="end" align="center" mt="2">
             <Button

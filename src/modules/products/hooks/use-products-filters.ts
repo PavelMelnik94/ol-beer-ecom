@@ -15,7 +15,7 @@ import {
 } from '../model';
 
 interface UseProductsFiltersProps {
-  onFiltersChange?: (filters: Record<string, any>) => void;
+  onFiltersChange?: (filters: Record<string, unknown>) => void;
 }
 
 export function useProductsFilters({
@@ -104,8 +104,6 @@ export function useProductsFilters({
       breweryId: '',
       minPrice: undefined,
       maxPrice: undefined,
-      sortBy: undefined,
-      order: undefined,
     };
 
     reset(emptyData);
@@ -126,7 +124,7 @@ export function useProductsFilters({
 
   return {
     form,
-    setValue: (name: keyof FiltersForm, value: any) => {
+    setValue: (name: keyof FiltersForm, value: string | string[]) => {
       setValue(name, value);
 
       const currentData = { ...watch(), [name]: value };
@@ -135,7 +133,7 @@ export function useProductsFilters({
         throttledUpdateUrl(currentData);
       }
       else {
-        instantUpdateUrl(currentData);
+        void instantUpdateUrl(currentData);
       }
 
       notifyFiltersChange(currentData);

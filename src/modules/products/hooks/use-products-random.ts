@@ -3,7 +3,7 @@ import { QUERY_KEYS } from '@kernel/index';
 import { useQuery } from '@tanstack/react-query';
 import { productsApi } from '../api';
 
-export function useProductsRandom(limit: number = 4) {
+export function useProductsRandom(limit = 4) {
   const {
     data,
     isLoading,

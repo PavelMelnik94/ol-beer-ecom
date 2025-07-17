@@ -24,7 +24,7 @@ export function ProductDetails({ product, onClickRating, onClickAddToWishlist, o
   const imageContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const computeHeight = () => setImageScrollAreaHeight(detailRef.current?.clientHeight);
+    const computeHeight = () => { setImageScrollAreaHeight(detailRef.current?.clientHeight); };
     document.addEventListener('resize', computeHeight);
 
     return () => {

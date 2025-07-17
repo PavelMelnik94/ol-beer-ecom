@@ -54,7 +54,7 @@ export function CartItems(props: CartItemsProps) {
                   <Button
                     color="red"
                     variant="soft"
-                    onClick={() => removeItem({ id: item.id })}
+                    onClick={() => { removeItem({ id: item.id }); }}
                     disabled={removeItemStatus === 'pending'}
                   >
                     Remove

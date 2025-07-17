@@ -44,7 +44,7 @@ export function useToggleFavorite() {
       if (res.message) {
         toast.success(res.message);
       }
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.favorites() });
+      void queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.favorites() });
     },
     onError: (error, variables) => {
       optimisticToggleFavorite(variables.productId);

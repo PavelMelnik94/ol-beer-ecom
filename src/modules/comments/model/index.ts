@@ -1,9 +1,9 @@
-import type { User } from '@kernel/types';
+import type { Author, User } from '@kernel/types';
 import type { Comment, CommentsActions, OptimisticComment } from '../types';
 import { normalizeAvatarUrl } from '@kernel/utils';
 import { nanoid } from 'nanoid';
 
-function createOptimisticComment(content: string, user: any): OptimisticComment {
+function createOptimisticComment(content: string, user: Author): OptimisticComment {
   const optimisticId = nanoid();
   return {
     id: optimisticId,
@@ -78,7 +78,7 @@ function getUserIsAuthor(user: User, commentAuthor: Comment['author']): boolean 
 }
 
 function getCommentAllowActions(user: User | null, Comments: Comment[]): CommentsActions {
-  return Comments?.reduce((acc, comment) => {
+  return Comments.reduce((acc, comment) => {
     const isSelfComment = user ? getUserIsAuthor(user, comment.author) : false;
 
     return {
@@ -89,7 +89,7 @@ function getCommentAllowActions(user: User | null, Comments: Comment[]): Comment
         withLike: !isSelfComment,
       },
     } satisfies CommentsActions;
-  }, {} as CommentsActions);
+  }, {});
 }
 
 export const commentsModel = {

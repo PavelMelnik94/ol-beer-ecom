@@ -38,8 +38,8 @@ export function RegisterCongrats({ onReset }: RegisterCongratsProps) {
       });
     }, 1000);
 
-    return () => clearInterval(intervalId);
-  }, [navigateToShowcase, onReset]);
+    return () => { clearInterval(intervalId); };
+  }, [navigateToProfile, onReset]);
 
   return (
     <Section pt={isMobile ? '4' : '9'}>

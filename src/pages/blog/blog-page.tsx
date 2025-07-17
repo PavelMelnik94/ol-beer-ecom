@@ -37,7 +37,7 @@ export function BlogPage() {
               <ProductsGrid
                 products={products}
                 columnsCount="3"
-                onClickCard={({ id }) => handleClickProductCard(id)}
+                onClickCard={({ id }) => { handleClickProductCard(id); }}
                 onAddToBasket={onAddToBasket}
                 onAddToWishlist={onAddToWishlist}
               />

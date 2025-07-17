@@ -45,7 +45,7 @@ export function FavoritesPage() {
     <ProductCardSkeleton key={`skeleton-${index}`} />
   ));
 
-  if (products?.length === 0 && !isLoading) {
+  if (products.length === 0 && !isLoading) {
     return (
       <Flex direction="column" align="center" justify="center" flexGrow="1">
         <Container pr="5" pl="5">
@@ -88,7 +88,7 @@ export function FavoritesPage() {
                   imageAsSlider={true}
                   key={product.id}
                   product={product}
-                  onClickCart={() => handleClickOnCard(product)}
+                  onClickCart={() => { handleClickOnCard(product); }}
                   cardActionSlot={(
                     <Flex align="center" gap="2">
                       <ButtonWithAuthPopup
@@ -98,7 +98,7 @@ export function FavoritesPage() {
                         style={{ padding: '6px' }}
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleToggleWishlist?.(product);
+                          handleToggleWishlist(product);
                         }}
                       >
                         <Tooltip content={product.isFavorite ? 'Remove from Wishlist' : 'Add to Wishlist'} side="top">
@@ -115,7 +115,7 @@ export function FavoritesPage() {
                         variant="outline"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleAddToCart(product);
+                          void handleAddToCart(product);
                         }}
                       >
                         Add to Cart

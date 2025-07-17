@@ -53,7 +53,7 @@ function urlToForm(urlParams: FiltersUrl): FiltersForm {
 function formToUrl(formData: FiltersForm): FiltersUrl {
   const result: FiltersUrl = {};
 
-  if (formData.search && formData.search.trim()) {
+  if (formData.search?.trim()) {
     result.search = formData.search.trim();
   }
 
@@ -61,7 +61,7 @@ function formToUrl(formData: FiltersForm): FiltersUrl {
     result.categoryIds = formData.categoryIds;
   }
 
-  if (formData.breweryId && formData.breweryId.trim()) {
+  if (formData.breweryId?.trim()) {
     result.breweryId = formData.breweryId;
   }
 
@@ -76,8 +76,8 @@ function formToUrl(formData: FiltersForm): FiltersUrl {
   return result;
 }
 
-function formToApi(formData: FiltersForm): Record<string, any> {
-  const result: Record<string, any> = {};
+function formToApi(formData: FiltersForm): Record<string, unknown> {
+  const result: Record<string, unknown> = {};
 
   if (formData.search && formData.search.trim()) {
     result.search = formData.search.trim();
@@ -111,7 +111,7 @@ function getFilterParams(filterParams: Filters): string {
 
   if (params.categoryIds) {
     if (Array.isArray(params.categoryIds)) {
-      params.categoryIds.forEach(id => searchParams.append('categoryIds', id));
+      params.categoryIds.forEach(id => { searchParams.append('categoryIds', id); });
     }
     else {
       searchParams.append('categoryIds', params.categoryIds);

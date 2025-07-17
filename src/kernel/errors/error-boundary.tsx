@@ -69,7 +69,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
             <Box mb="4">
               <Text size="3" color="gray" align="center" as="div">
-                {this.state.error?.message || 'An unexpected error occurred'}
+                {this.state.error?.message ?? 'An unexpected error occurred'}
               </Text>
 
               {import.meta.env.DEV && this.state.error?.stack && (

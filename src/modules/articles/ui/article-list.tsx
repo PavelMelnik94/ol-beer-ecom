@@ -26,7 +26,7 @@ export function ArticleList({ promoSlots }: ArticleListProps) {
 
   const loadMoreRef = useLoadMore(hasNextPage, isFetchingNextPage, fetchNextPage);
 
-  if (isError) refetch();
+  if (isError) void refetch();
 
   if (isLoading) {
     return (

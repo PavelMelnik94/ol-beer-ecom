@@ -27,7 +27,7 @@ export function PromoCodeInput({
           <InputText
             placeholder="Promo code"
             value={input}
-            onChange={e => setInput(e.target.value)}
+            onChange={e => { setInput(e.target.value); }}
             disabled={!!promoCode || applyPromoStatus === 'pending'}
           />
         </TextField.Root>
@@ -35,7 +35,7 @@ export function PromoCodeInput({
           <Button
             color="amber"
             variant="soft"
-            onClick={() => applyPromo({ promoCode: input })}
+            onClick={() => { applyPromo({ promoCode: input }); }}
             disabled={!!promoCode || !input || applyPromoStatus === 'pending'}
           >
             Apply

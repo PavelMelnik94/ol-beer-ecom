@@ -14,7 +14,7 @@ export function RemoveAddressDialog({ addressId }: { addressId: string; }) {
 
   return (
     <AlertDialog.Root open={isOpen}>
-      <IconButton variant="ghost" size="2" color="red" aria-label="Delete address" onClick={() => setOpen(true)}>
+      <IconButton variant="ghost" size="2" color="red" aria-label="Delete address" onClick={() => { setOpen(true); }}>
         <Trash2 size={16} />
       </IconButton>
       <AlertDialog.Content maxWidth="450px">
@@ -25,7 +25,7 @@ export function RemoveAddressDialog({ addressId }: { addressId: string; }) {
 
         <Flex gap="3" mt="4" justify="end">
           <AlertDialog.Cancel>
-            <Button type="button" variant="soft" size="1" color="gray" disabled={mutation.isPending} onClick={() => setOpen(false)}>
+            <Button type="button" variant="soft" size="1" color="gray" disabled={mutation.isPending} onClick={() => { setOpen(false); }}>
               Cancel
             </Button>
           </AlertDialog.Cancel>

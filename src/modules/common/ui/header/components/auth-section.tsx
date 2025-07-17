@@ -11,7 +11,10 @@ interface AuthSectionProps {
   onFavorites: () => void;
   onOrders: () => void;
   onRegister: () => void;
-  getActiveProps: (path: string) => any;
+  getActiveProps: (path: string) => {
+    'data-active'?: string;
+    className?: string;
+  };
   routes: {
     profile: string;
     favorites: string;

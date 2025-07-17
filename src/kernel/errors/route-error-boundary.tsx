@@ -18,7 +18,7 @@ export function RouteErrorBoundary() {
   }
   else if (error instanceof Error) {
     errorMessage = error.message;
-    errorDetails = error.stack || '';
+    errorDetails = error.stack ?? '';
   }
   else if (typeof error === 'string') {
     errorMessage = error;

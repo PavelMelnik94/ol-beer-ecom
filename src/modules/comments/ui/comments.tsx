@@ -71,7 +71,7 @@ export function Comments({
       />
 
       <Show when={pagination.totalPages > 1}>
-        {(isPageChanging || isLoading) && (
+        {(isPageChanging ?? isLoading) && (
           <Box mb="4" style={{ textAlign: 'center' }}>
             <SuccessAlert>
               Loading page

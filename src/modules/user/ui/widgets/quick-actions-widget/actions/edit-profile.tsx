@@ -2,7 +2,6 @@ import type z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { personalInfoSchema } from '@kernel/types';
 import { useUpdateProfile } from '@modules/user/hooks';
-import { AvatarUploader } from '@modules/user/ui/widgets/quick-actions-widget/actions/avatar-uploder';
 import { Button, Flex } from '@radix-ui/themes';
 import { Dialog, InputText } from '@shared/components';
 import { useOnClickOutside } from '@shared/hooks';
@@ -60,7 +59,7 @@ export function EditProfileAction({ initialState }: Props) {
     <Dialog
       open={isOpen}
       title="Update Personal Information"
-      onOpenChange={() => setIsOpen(true)}
+      onOpenChange={() => { setIsOpen(true); }}
       trigger={<Button style={{ width: '100%' }} variant="soft">Edit Profile</Button>}
     >
       <form ref={formRef} onSubmit={handleSubmit(handleFormSubmit)}>

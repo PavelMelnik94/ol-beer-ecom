@@ -47,7 +47,7 @@ export function CommentCreate({
         mt="2"
         placeholder="What are your thoughts?"
         value={content}
-        onChange={e => setContent(e.target.value)}
+        onChange={e => { setContent(e.target.value); }}
       />
       <Flex justify="end" align="center" mt="2">
         <Button

@@ -105,7 +105,7 @@ export function ProductDetailsPage() {
         ? { label: product.title, to: `/products/${product.id}` }
         : null,
     ];
-    return items.filter((item): item is { label: string; to: string; } => Boolean(item && item.label));
+    return items.filter((item): item is { label: string; to: string; } => Boolean(item?.label));
   }, [product]);
 
   const productWithFavoritesAndRatings: ProductWithFavoritesAndRatings | null = useMemo(() => {

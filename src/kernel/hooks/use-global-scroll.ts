@@ -64,7 +64,7 @@ export function useGlobalScroll() {
     setScrollVelocity,
   ]);
 
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  const scrollToTop = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); };
 
   return {
     scrollY,

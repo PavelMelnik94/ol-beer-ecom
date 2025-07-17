@@ -47,7 +47,7 @@ export function AddAddressAction() {
     <Dialog
       open={isOpen}
       title="Add new Address"
-      onOpenChange={() => setIsOpen(true)}
+      onOpenChange={() => { setIsOpen(true); }}
       trigger={<Button style={{ width: '100%' }} variant="soft">Add Address</Button>}
     >
       <form ref={formRef} onSubmit={handleSubmit(handleFormSubmit)}>

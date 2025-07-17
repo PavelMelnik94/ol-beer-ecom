@@ -9,11 +9,11 @@ export function Price({ price, discount }: { price: number; discount?: number | 
           <Flex direction="row" gap="2" align="center">
             <Strong>
               $
-              {discount?.toFixed(2)}
+              {discount.toFixed(2)}
             </Strong>
             <Text as="span" style={{ textDecoration: 'line-through' }}>
               $
-              {price?.toFixed(2)}
+              {price.toFixed(2)}
             </Text>
           </Flex>
         </Tooltip>

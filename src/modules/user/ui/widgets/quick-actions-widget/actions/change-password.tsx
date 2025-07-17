@@ -52,7 +52,7 @@ export function ChangePasswordAction() {
     <Dialog
       open={isOpen}
       title="Update Security Information"
-      onOpenChange={() => setIsOpen(true)}
+      onOpenChange={() => { setIsOpen(true); }}
       trigger={<Button style={{ width: '100%' }} variant="soft">Change Password</Button>}
     >
       <form ref={formRef} onSubmit={handleSubmit(handleFormSubmit)}>

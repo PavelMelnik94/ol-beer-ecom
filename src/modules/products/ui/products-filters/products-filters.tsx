@@ -95,7 +95,7 @@ export function ProductsFilters({
                     const category = categories?.find(c => c.id === categoryId);
                     return category
                       ? (
-                          <Badge key={categoryId} variant="soft" className={clsx(styles.categoryBadge, 'pointer')} onClick={() => handleCategoryRemove(categoryId)}>
+                          <Badge key={categoryId} variant="soft" className={clsx(styles.categoryBadge, 'pointer')} onClick={() => { handleCategoryRemove(categoryId); }}>
                             <Flex justify="between" align="center" gap="2" width="100%">
                               {category.name}
                               <X size={12} />

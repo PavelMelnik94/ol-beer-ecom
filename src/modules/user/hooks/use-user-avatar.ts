@@ -46,7 +46,7 @@ export function useDeleteAvatar() {
   return useMutation({
     mutationFn: () => userApi.deleteAvatar(),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.avatar() });
+      void queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.avatar() });
 
       const currentUser = useUserStore.getState().profile;
       if (currentUser) {

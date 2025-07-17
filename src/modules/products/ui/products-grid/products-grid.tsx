@@ -67,7 +67,7 @@ export function ProductsGrid({
                 imageAsSlider={imageAsSlider}
                 key={product.id}
                 product={product}
-                onClickCart={() => onClickCard(product)}
+                onClickCart={() => { onClickCard(product); }}
                 cardActionSlot={(
                   <Flex align="center" gap="2">
                     <Show when={typeof onAddToWishlist === 'function'}>

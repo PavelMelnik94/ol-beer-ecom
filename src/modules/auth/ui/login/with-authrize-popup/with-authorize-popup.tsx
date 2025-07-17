@@ -3,13 +3,13 @@ import { useAuthStore } from '@kernel/stores';
 import { LoginDialog } from '../login-dialog/login-dialog';
 
 interface EventHandlers {
-  onClick?: (...args: any[]) => void;
-  onMouseDown?: (...args: any[]) => void;
-  onMouseUp?: (...args: any[]) => void;
-  onKeyDown?: (...args: any[]) => void;
-  onKeyUp?: (...args: any[]) => void;
-  onPointerDown?: (...args: any[]) => void;
-  onPointerUp?: (...args: any[]) => void;
+  onClick?: (...args: unknown[]) => void;
+  onMouseDown?: (...args: unknown[]) => void;
+  onMouseUp?: (...args: unknown[]) => void;
+  onKeyDown?: (...args: unknown[]) => void;
+  onKeyUp?: (...args: unknown[]) => void;
+  onPointerDown?: (...args: unknown[]) => void;
+  onPointerUp?: (...args: unknown[]) => void;
 }
 
 export function withAuthorizePopup<P extends object>(WrappedComponent: ComponentType<P>) {
@@ -31,9 +31,9 @@ export function withAuthorizePopup<P extends object>(WrappedComponent: Component
 
     return (
       <div
-        onClick={e => e.stopPropagation()}
-        onMouseDown={e => e.stopPropagation()}
-        onMouseUp={e => e.stopPropagation()}
+        onClick={e => { e.stopPropagation(); }}
+        onMouseDown={e => { e.stopPropagation(); }}
+        onMouseUp={e => { e.stopPropagation(); }}
         style={{
           display: 'flex',
           justifyContent: 'center',

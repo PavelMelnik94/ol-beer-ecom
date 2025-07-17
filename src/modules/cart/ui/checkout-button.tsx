@@ -3,7 +3,7 @@ import { Button, Flex, Text } from '@radix-ui/themes';
 import { useState } from 'react';
 
 interface CheckoutButtonProps {
-  processPayment: (data: any) => void;
+  processPayment: (data: unknown) => void;
   paymentStatus: string;
 }
 

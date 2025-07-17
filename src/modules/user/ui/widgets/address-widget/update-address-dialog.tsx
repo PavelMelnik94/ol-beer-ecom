@@ -1,8 +1,8 @@
 import type z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AddressSchema } from '@kernel/types';
-import { useCreateAddress, useUpdateAddress } from '@modules/user/hooks';
-import { createAddressSchema } from '@modules/user/model';
+import { useUpdateAddress } from '@modules/user/hooks';
+
 import { Button, Flex, IconButton, RadioGroup } from '@radix-ui/themes';
 import { Dialog, InputText } from '@shared/components';
 import { useOnClickOutside } from '@shared/hooks';
@@ -49,7 +49,7 @@ export function UpdateAddressDialog({ initialState }: { initialState?: FormData;
     <Dialog
       open={isOpen}
       title="Update Address Information"
-      onOpenChange={() => setIsOpen(true)}
+      onOpenChange={() => { setIsOpen(true); }}
       trigger={(
         <IconButton variant="ghost" size="2" color="blue" aria-label="Edit address">
           <PencilLine size={16} />

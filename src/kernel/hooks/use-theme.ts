@@ -18,7 +18,7 @@ export function useTheme() {
   useEffect(() => {
     const themeInStorage = themeStorage.get();
     if (!themeInStorage) {
-      const isDarkMode = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
+      const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
       themeStorage.set(isDarkMode ? 'dark' : 'light');
     }
     else {
@@ -37,7 +37,7 @@ export function useTheme() {
 
     updateMetaColor();
 
-    return () => observer.disconnect();
+    return () => { observer.disconnect(); };
   }, [theme]);
 
   const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
