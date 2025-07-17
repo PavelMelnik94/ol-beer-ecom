@@ -5,9 +5,10 @@ import { Image } from '@shared/components';
 
 type Props = {
   actionSlot?: ReactNode;
+  entity?: string;
 } & FlexProps;
 
-export function NoData({ actionSlot, ...flexProps }: Props) {
+export function NoData({ actionSlot, entity = 'Data', ...flexProps }: Props) {
   return (
     <Flex direction="column" gap="6" justify="center" align="center" {...flexProps}>
       <Image
@@ -16,7 +17,11 @@ export function NoData({ actionSlot, ...flexProps }: Props) {
         alt="data is empty"
       />
 
-      <Heading size="6" align="center">Data is empty.</Heading>
+      <Heading size="6" align="center">
+        {entity}
+        {' '}
+        is empty.
+      </Heading>
 
       {actionSlot}
 
