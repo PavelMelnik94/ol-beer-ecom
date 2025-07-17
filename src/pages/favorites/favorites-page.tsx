@@ -98,7 +98,7 @@ export function FavoritesPage() {
                         style={{ padding: '6px' }}
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleToggleWishlist(product);
+                          void handleToggleWishlist(product);
                         }}
                       >
                         <Tooltip content={product.isFavorite ? 'Remove from Wishlist' : 'Add to Wishlist'} side="top">

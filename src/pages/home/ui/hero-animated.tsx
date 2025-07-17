@@ -53,7 +53,7 @@ function useScrollAnimation(
 
   const prevScrollPosRef = useRef<number>(0);
 
-  const throttle = useCallback(<T extends (...args: unknown[]) => any>(
+  const throttle = useCallback(<T extends (...args: unknown[]) => unknown>(
     func: T,
     limit: number,
   ): ((...args: Parameters<T>) => void) => {
@@ -167,7 +167,7 @@ export function AnimatedHero(): JSX.Element {
   useEffect(() => {
     const jsConfetti = new JSConfetti();
     if (scrollState.isComplete) {
-      if (window.innerWidth < 576 && typeof window.navigator?.vibrate === 'function') {
+      if (window.innerWidth < 576 && typeof window.navigator.vibrate === 'function') {
         window.navigator.vibrate([100, 50, 100]);
       }
       jsConfetti.addConfetti({

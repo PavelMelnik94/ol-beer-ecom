@@ -79,7 +79,7 @@ function formToUrl(formData: FiltersForm): FiltersUrl {
 function formToApi(formData: FiltersForm): Record<string, unknown> {
   const result: Record<string, unknown> = {};
 
-  if (formData.search && formData.search.trim()) {
+  if (formData.search?.trim()) {
     result.search = formData.search.trim();
   }
 
@@ -87,7 +87,7 @@ function formToApi(formData: FiltersForm): Record<string, unknown> {
     result.categoryIds = formData.categoryIds;
   }
 
-  if (formData.breweryId && formData.breweryId.trim()) {
+  if (formData.breweryId?.trim()) {
     result.breweryId = formData.breweryId;
   }
 

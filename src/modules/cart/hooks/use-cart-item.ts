@@ -54,7 +54,7 @@ export function useCartItem() {
       return { previousCart } as { previousCart?: ApiSuccessResponseCart; };
     },
     onError: (_err, _data, context) => {
-      if ((context as { previousCart?: ApiSuccessResponseCart; })?.previousCart) {
+      if ((context as { previousCart?: ApiSuccessResponseCart; }).previousCart) {
         queryClient.setQueryData(QUERY_KEYS.cart.details(), (context as { previousCart?: ApiSuccessResponseCart; }).previousCart);
       }
     },

@@ -13,7 +13,7 @@ export function Price({ price, discount }: { price: number; discount?: number | 
             </Strong>
             <Text as="span" style={{ textDecoration: 'line-through' }}>
               $
-              {price.toFixed(2)}
+              {price?.toFixed(2)}
             </Text>
           </Flex>
         </Tooltip>
