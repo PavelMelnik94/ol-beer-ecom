@@ -1,9 +1,9 @@
-import type { CartItem } from '../types';
+import type { CartItem } from '../../types';
 import { Button, Card, Flex } from '@radix-ui/themes';
 import { InputText } from '@shared/components/ui/input-text/input-text';
 import { debounce } from 'lodash-es';
 import React from 'react';
-import { cartModel } from '../model';
+import { cartModel } from '../../model';
 import styles from './cart-items.module.scss';
 
 interface CartItemsProps {

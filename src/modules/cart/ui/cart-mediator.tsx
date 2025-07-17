@@ -1,10 +1,10 @@
 import { Theme } from '@radix-ui/themes';
 import { useCart, useCartItem, useCartPayment, usePromoCode } from '../hooks';
-import { CartItems } from './cart-items';
+import { CartItems } from './cart-items/cart-items';
 import styles from './cart-mediator.module.scss';
-import { CartSummary } from './cart-summary';
-import { CheckoutButton } from './checkout-button';
-import { PromoCodeInput } from './promo-code-input';
+import { CartSummary } from './cart-summary/cart-summary';
+import { CheckoutButton } from './checkout-button/checkout-button';
+import { PromoCodeInput } from './promo-code-input/promo-code-input';
 
 export function CartMediator() {
   const { cart, isLoading, isError, error, clearCart, clearCartStatus } = useCart();
