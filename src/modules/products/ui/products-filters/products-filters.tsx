@@ -10,7 +10,8 @@ import styles from './products-filters.module.scss';
 
 interface ProductsFiltersProps {
   form: UseFormReturn<FiltersForm>;
-  setValue: (name: keyof FiltersForm, value: unknown) => void;  onReset: () => void;
+  setValue: (name: keyof FiltersForm, value: unknown) => void;
+  onReset: () => void;
   categories?: Array<{ id: string; name: string; }>;
   breweries?: Array<{ id: string; name: string; }>;
   isLoading?: boolean;
