@@ -1,4 +1,6 @@
-import { Theme } from '@radix-ui/themes';
+import { NoData } from '@kernel/components';
+import { useGoTo } from '@kernel/hooks';
+import { Button, Container, Flex } from '@radix-ui/themes';
 import { useCart, useCartItem, useCartPayment, usePromoCode } from '../hooks';
 import { CartItems } from './cart-items/cart-items';
 import styles from './cart-mediator.module.scss';
@@ -11,8 +13,9 @@ export function CartMediator() {
   const cartItem = useCartItem();
   const promo = usePromoCode();
   const payment = useCartPayment();
+  const { navigateToShowcase } = useGoTo();
 
-  if (isLoading) return <div className={styles.loading}>Loading cart...</div>;
+  // if (isLoading) return <div className={styles.loading}>Loading cart...</div>;
   if (isError) {
     return (
       <div className={styles.error}>
@@ -21,17 +24,35 @@ export function CartMediator() {
       </div>
     );
   }
-  if (!cart?.items.length) return <div className={styles.empty}>Cart is empty</div>;
+  if (!cart?.items.length) {
+    return (
+      <div className={styles.empty}>
+        <Container>
+          <Flex justify="center" align="center" direction="column" mt="9">
+            <NoData
+              entity="Cart"
+              actionSlot={
+                <Button size="2" onClick={navigateToShowcase}>Go store</Button>
+              }
+            />
+          </Flex>
+        </Container>
+      </div>
+    );
+  };
 
   return (
-    <Theme appearance="light" accentColor="amber" radius="large">
-      <div className={styles.mediator}>
+    <div className={styles.layout}>
+      <div className={styles.itemsCol}>
         <CartItems
-          items={cart.items}
+          items={cart?.items ?? []}
           updateItem={cartItem.updateItem}
           removeItem={cartItem.removeItem}
           removeItemStatus={cartItem.removeItemStatus}
         />
+      </div>
+
+      <div className={styles.additionalCol}>
         <PromoCodeInput
           promoCode={cart.promoCode}
           applyPromo={promo.applyPromo}
@@ -51,6 +72,6 @@ export function CartMediator() {
           paymentStatus={payment.paymentStatus}
         />
       </div>
-    </Theme>
+    </div>
   );
 }

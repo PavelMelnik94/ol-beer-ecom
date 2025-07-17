@@ -1,0 +1,23 @@
+.layout {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+
+  }
+}
+
+
+.itemsCol {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.additionalCol {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
