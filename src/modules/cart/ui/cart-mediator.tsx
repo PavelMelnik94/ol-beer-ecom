@@ -1,7 +1,7 @@
 import { NoData } from '@kernel/components';
 import { useGoTo } from '@kernel/hooks';
-import { Box, Button, Container, Flex } from '@radix-ui/themes';
-import { useConfetti } from '@shared/hooks';
+import { PaymentCongrats } from '@modules/cart/ui/payment-congrats/payment-congrats';
+import { Button, Container, Flex } from '@radix-ui/themes';
 import { useCart, useCartItem, useCartPayment, usePromoCode } from '../hooks';
 import { CartItems } from './cart-items/cart-items';
 import styles from './cart-mediator.module.scss';
@@ -25,9 +25,7 @@ export function CartMediator() {
     cartItem.updateItemStatus,
   ].includes(lockStatus);
 
-  useConfetti({
-    playWhen: payment.paymentStatus === 'success',
-  });
+  if (payment.paymentStatus === 'success') return <PaymentCongrats />;
 
   if (isLoading && !cart?.items.length) return <div className={styles.loading}>Loading cart...</div>;
   if (isError) {

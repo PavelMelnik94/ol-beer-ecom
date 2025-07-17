@@ -1,9 +1,10 @@
 import type { DesktopActionsProps } from './header.types';
+import { ROUTES } from '@kernel/router';
 import { CartButton } from '@modules/cart';
 import { Flex } from '@radix-ui/themes';
 import { AuthSection } from './auth-section';
-import styles from './header.module.scss';
 
+import styles from './header.module.scss';
 import { UserMenu } from './user-menu';
 
 export function DesktopActions({
@@ -17,7 +18,7 @@ export function DesktopActions({
 }: DesktopActionsProps) {
   return (
     <Flex align="center" gap="5" className={styles.desktopActions}>
-      {isAuth && <CartButton onClick={navigationHandlers.onBasket} />}
+      {isAuth && <CartButton onClick={navigationHandlers.onBasket} getActiveProps={getActiveProps} />}
       {isAuth
         ? (
             <UserMenu

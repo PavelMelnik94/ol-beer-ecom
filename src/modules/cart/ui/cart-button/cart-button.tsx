@@ -1,10 +1,11 @@
+import { ROUTES } from '@kernel/router';
 import { useCart } from '@modules/cart/hooks';
 import { Badge, Button, Flex, Text } from '@radix-ui/themes';
 import clsx from 'clsx';
 import { ShoppingCart } from 'lucide-react';
 import styles from './cart-button.module.scss';
 
-export function CartButton({ fullWidth, onClick }: { fullWidth?: boolean; onClick?: () => void; }) {
+export function CartButton({ fullWidth, onClick, getActiveProps }: { fullWidth?: boolean; onClick?: () => void; getActiveProps: (route: string) => any; }) {
   const cart = useCart().cart;
   return (
     <Button
@@ -13,6 +14,7 @@ export function CartButton({ fullWidth, onClick }: { fullWidth?: boolean; onClic
       className={clsx(styles.cartBtn, { [styles.cartBtnFull]: fullWidth })}
       style={fullWidth ? { width: '100%' } : undefined}
       onClick={onClick}
+      {...getActiveProps(ROUTES.basket.root)}
     >
       <Flex align="center" gap="1" justify={fullWidth ? 'between' : 'center'} style={{ width: '100%' }}>
         <Flex align="center" gap="2">
