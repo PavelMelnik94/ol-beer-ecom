@@ -1,18 +1,30 @@
 import { AuthLayout } from '@app/layouts/auth-layout/auth-layout';
 import { MainLayout } from '@app/layouts/main-layout/main-layout';
-import { RouteErrorBoundary, ROUTES } from '@kernel/index';
+import { RouteErrorBoundary, ROUTES, useAuthStore } from '@kernel/index';
 import { AboutPage, ArticlePage, CartPage, FavoritesPage, HomePage, LazyBlogPage, LazyBreweriesPage, LazyProductsPage, LazyRegisterPage, OrdersPage, ProductDetailsPage, ProfilePage } from '@pages/index';
 import { PagePreloader } from '@shared/components';
 import { Suspense } from 'react';
 
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom';
+
+function registerLoader() {
+  const isAuth = useAuthStore.getState().isAuth;
+  if (!isAuth) {
+    return redirect(ROUTES.auth.register.full);
+  }
+  return null;
+}
 
 const router = createBrowserRouter([
   {
+
     path: ROUTES.home.root,
     element: <MainLayout />,
     children: [
-      { index: true, element: <HomePage /> },
+      {
+        index: true,
+        element: <HomePage />,
+      },
     ],
   },
   {
@@ -54,6 +66,7 @@ const router = createBrowserRouter([
   {
     path: ROUTES.profile.root,
     element: <MainLayout />,
+    loader: registerLoader,
     children: [
       { index: true, element: <ProfilePage /> },
       { path: ROUTES.profile.orders.short, element: <OrdersPage /> },
@@ -61,11 +74,14 @@ const router = createBrowserRouter([
     ],
   },
   {
+
     path: ROUTES.basket.root,
     element: <MainLayout />,
+    loader: registerLoader,
     children: [
       { index: true, element: <CartPage /> },
     ],
+
   },
   {
     path: ROUTES.auth.root,
@@ -76,7 +92,7 @@ const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <div> /404  </div>,
+    element: <AboutPage />,
   },
 ]
   .map(route => ({ ...route, errorElement: <RouteErrorBoundary /> })),
