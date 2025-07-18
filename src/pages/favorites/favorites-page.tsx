@@ -3,19 +3,17 @@ import { NoData } from '@kernel/components';
 import { useGoTo } from '@kernel/hooks';
 import { useUserStore } from '@kernel/stores';
 
-import { useCartItem } from '@modules/cart';
-import { ButtonWithAuthPopup } from '@modules/common';
+import { AddToCartButton, ButtonWithAuthPopup } from '@modules/common';
 import { ProductCard, ProductCardSkeleton } from '@modules/products';
 import { useToggleFavorite, useUserFavorites } from '@modules/user';
 import { Button, Container, Flex, Tooltip } from '@radix-ui/themes';
-import { For, Pulse, Show } from '@shared/components';
+import { For, Show } from '@shared/components';
 import { Heart } from 'lucide-react';
 import { useMediaQuery } from 'react-responsive';
 import styles from './favorites-page.module.scss';
 import { Hero } from './ui/hero';
 
 export function FavoritesPage() {
-  const cartItem = useCartItem();
   const isCentered = useMediaQuery({
     query: '(max-width: 1200px)',
   });
@@ -60,9 +58,6 @@ export function FavoritesPage() {
 
     );
   }
-  const handleAddToCart = async (product: Product) => {
-    cartItem.addItem({ productId: product.id, quantity: 1 });
-  };
 
   return (
     <>
@@ -110,17 +105,7 @@ export function FavoritesPage() {
                         </Tooltip>
                       </ButtonWithAuthPopup>
 
-                      <ButtonWithAuthPopup
-                        size="1"
-                        variant="outline"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          void handleAddToCart(product);
-                        }}
-                      >
-                        Add to Cart
-                        {product.isDiscount && <Pulse size={8} />}
-                      </ButtonWithAuthPopup>
+                      <AddToCartButton product={product} />
                     </Flex>
                   )}
                 />

@@ -1,9 +1,9 @@
 import type { Product, ProductWithFavorites } from '@kernel/types';
-import { ButtonWithAuthPopup } from '@modules/common';
+import { AddToCartButton, ButtonWithAuthPopup } from '@modules/common';
 import { ProductCardSkeleton } from '@modules/products/ui/product-card/product-card-skeleton';
 import { ProductCard } from '@modules/products/ui/product-card/products-card';
 import { Flex, Grid, Tooltip } from '@radix-ui/themes';
-import { For, Pulse, Show } from '@shared/components';
+import { For, Show } from '@shared/components';
 import { Bookmark } from 'lucide-react';
 import { useMediaQuery } from 'react-responsive';
 
@@ -19,7 +19,6 @@ interface Props {
 
   onClickCard: (product: ProductWithFavorites | Product) => void;
   onAddToWishlist?: (product: ProductWithFavorites | Product) => void;
-  onAddToBasket?: (product: ProductWithFavorites | Product) => void;
 }
 export function ProductsGrid({
   products,
@@ -27,7 +26,6 @@ export function ProductsGrid({
   imageAsSlider,
 
   columnsCount,
-  onAddToBasket,
   onAddToWishlist,
   onClickCard,
 }: Props) {
@@ -91,19 +89,7 @@ export function ProductsGrid({
                       </ButtonWithAuthPopup>
                     </Show>
 
-                    <Show when={typeof onAddToBasket === 'function'}>
-                      <ButtonWithAuthPopup
-                        size="1"
-                        variant="outline"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onAddToBasket?.(product);
-                        }}
-                      >
-                        Add to Cart
-                        {product.isDiscount && <Pulse size={8} />}
-                      </ButtonWithAuthPopup>
-                    </Show>
+                    <AddToCartButton product={product} />
                   </Flex>
                 )}
               />

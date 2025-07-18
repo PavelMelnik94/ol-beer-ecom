@@ -1,4 +1,4 @@
-import { Button, Card, Flex, Text, TextField } from '@radix-ui/themes';
+import { Button, Card, Flex, Text } from '@radix-ui/themes';
 import { InputText, Show } from '@shared/components';
 import { useState } from 'react';
 import styles from './promo-code-input.module.scss';

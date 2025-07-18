@@ -2,11 +2,15 @@ import type { ApiErrorResponse } from '@kernel/api';
 import type { ApiSuccessResponseCart } from '../api/cart-api';
 import type { CartAddItemRequest, CartRemoveItemRequest, CartUpdateItemRequest } from '../types';
 import { QUERY_KEYS, queryClient } from '@kernel/index';
+import { useCartStore } from '@modules/cart/stores/cart-store';
 import { useMutation } from '@tanstack/react-query';
 import { cartApi } from '../api/cart-api';
 import { cartModel } from '../model';
 
 export function useCartItem() {
+  const addItemId = useCartStore(s => s.addItemId);
+  const removeItemId = useCartStore(s => s.removeItemId);
+
   const addItemMutation = useMutation<ApiSuccessResponseCart, ApiErrorResponse, CartAddItemRequest>({
     mutationFn: (data: CartAddItemRequest) => cartApi.addCartItem(data),
     onMutate: async (data) => {
@@ -14,6 +18,7 @@ export function useCartItem() {
       const previousCart = queryClient.getQueryData<ApiSuccessResponseCart>(QUERY_KEYS.cart.details());
       if (!previousCart?.data) return { previousCart };
       const product = previousCart.data.items.find(item => item.product.id === data.productId)?.product ?? cartModel.getDefaultProduct(data.productId);
+      addItemId(product.id);
       const optimisticItem = cartModel.createOptimisticCartItem(product, data.quantity);
       queryClient.setQueryData(QUERY_KEYS.cart.details(), {
         ...previousCart,
@@ -76,6 +81,8 @@ export function useCartItem() {
           items: previousCart.data.items.filter(item => item.id !== id),
         },
       });
+      removeItemId(id);
+
       return { previousCart } as { previousCart?: ApiSuccessResponseCart; };
     },
     onError: (_err, _data, context) => {

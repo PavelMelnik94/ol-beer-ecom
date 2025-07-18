@@ -1,8 +1,8 @@
 import type { Product, ProductWithFavoritesAndRatings } from '@kernel/types';
-import { ButtonWithAuthPopup } from '@modules/common';
+import { AddToCartButton, ButtonWithAuthPopup } from '@modules/common';
 import { ProductDetailsSkeleton } from '@modules/products/ui/product-details/product-details-skeleton';
 import { Box, Container, Flex, ScrollArea, Separator, Text, Tooltip } from '@radix-ui/themes';
-import { Carousel, Image, Pulse, Show } from '@shared/components';
+import { Carousel, Image, Show } from '@shared/components';
 import { Bookmark } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
@@ -14,9 +14,8 @@ interface ProductDetailsProps {
   product?: ProductWithFavoritesAndRatings | null;
   onClickRating?: (rating: number, productId: string) => void;
   onClickAddToWishlist?: (product: Product) => void;
-  onClickAddToCart?: (product: Product) => void;
 }
-export function ProductDetails({ product, onClickRating, onClickAddToWishlist, onClickAddToCart }: ProductDetailsProps) {
+export function ProductDetails({ product, onClickRating, onClickAddToWishlist }: ProductDetailsProps) {
   const [imageScrollAreaHeight, setImageScrollAreaHeight] = useState<number | undefined>(700);
   const isLargeScreen = useMediaQuery({ minWidth: 800 });
 
@@ -119,11 +118,7 @@ export function ProductDetails({ product, onClickRating, onClickAddToWishlist, o
             </Tooltip>
           </ButtonWithAuthPopup>
 
-          <ButtonWithAuthPopup size="2" color="bronze" variant="soft" onClick={() => onClickAddToCart?.(product)}>
-            Add to Cart
-            {' '}
-            <Pulse size={8} />
-          </ButtonWithAuthPopup>
+          <AddToCartButton product={product} />
         </Flex>
 
       </Box>

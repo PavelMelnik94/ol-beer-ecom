@@ -1,5 +1,4 @@
 import type { DesktopActionsProps } from './header.types';
-import { ROUTES } from '@kernel/router';
 import { CartButton } from '@modules/cart';
 import { Flex } from '@radix-ui/themes';
 import { AuthSection } from './auth-section';

@@ -1,6 +1,5 @@
 import type { CartPaymentRequest } from '@modules/cart/types';
 import { Button, Flex, Text } from '@radix-ui/themes';
-import { InfoAlert } from '@shared/components';
 import { useState } from 'react';
 import styles from './checkout-button.module.scss';
 

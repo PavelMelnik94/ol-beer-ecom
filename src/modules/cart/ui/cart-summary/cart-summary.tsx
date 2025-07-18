@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Button, Card, Flex, Text } from '@radix-ui/themes';
+import { Card, Flex, Text } from '@radix-ui/themes';
 import styles from './cart-summary.module.scss';
 
 interface CartSummaryProps {
