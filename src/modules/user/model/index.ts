@@ -52,10 +52,10 @@ function validateToggleFavorite(data: unknown): ToggleFavoriteData {
 function getBeerRank(ordersCount = 0): BeerRank {
   const BEER_LEVELS = [
     { beersToFinish: 1, rank: 'Newbie' },
-    { beersToFinish: 3, rank: 'Beer Enthusiast' },
-    { beersToFinish: 5, rank: 'Beer Expert' },
-    { beersToFinish: 7, rank: 'Beer Guru' },
-    { beersToFinish: 10, rank: 'Beer Master' },
+    { beersToFinish: 5, rank: 'Beer Enthusiast' },
+    { beersToFinish: 15, rank: 'Beer Expert' },
+    { beersToFinish: 25, rank: 'Beer Guru' },
+    { beersToFinish: 50, rank: 'Beer Master' },
   ] as Array<{ beersToFinish: number; rank: string; }>;
 
   let currentLevel = BEER_LEVELS[0];
