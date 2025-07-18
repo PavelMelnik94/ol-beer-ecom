@@ -3,10 +3,13 @@ import type { ApiSuccessResponseCart } from '../api/cart-api';
 import { QUERY_KEYS, queryClient } from '@kernel/index';
 import { useCartStore } from '@modules/cart/stores/cart-store';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { cartApi } from '../api/cart-api';
 import { cartModel } from '../model';
 
 export function useCart() {
+  const clearItemIds = useCartStore(s => s.clearItemIds);
+  const addItemId = useCartStore(s => s.addItemId);
   const {
     data,
     isLoading,
@@ -18,7 +21,14 @@ export function useCart() {
     queryFn: cartApi.getCart,
   });
 
-  const clearItemIds = useCartStore(s => s.clearItemIds);
+  useEffect(() => {
+    if (data?.data) {
+      clearItemIds();
+      data.data.items.forEach((item) => {
+        addItemId(item.product.id);
+      });
+    }
+  }, [data?.data]);
 
   const clearCartMutation = useMutation({
     mutationFn: cartApi.clearCart,

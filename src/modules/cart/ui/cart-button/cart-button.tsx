@@ -1,12 +1,12 @@
 import { ROUTES } from '@kernel/router';
-import { useCart } from '@modules/cart/hooks';
+import { useCartStore } from '@modules/cart/stores/cart-store';
 import { Badge, Button, Flex, Text } from '@radix-ui/themes';
 import clsx from 'clsx';
 import { ShoppingCart } from 'lucide-react';
 import styles from './cart-button.module.scss';
 
 export function CartButton({ fullWidth, onClick, getActiveProps }: { fullWidth?: boolean; onClick?: () => void; getActiveProps: (route: string) => any; }) {
-  const cart = useCart().cart;
+  const addedItemsSize = useCartStore(s => s.addedItemIds.size);
   return (
     <Button
       variant="ghost"
@@ -21,7 +21,7 @@ export function CartButton({ fullWidth, onClick, getActiveProps }: { fullWidth?:
           <ShoppingCart size={16} />
           <Text>Cart</Text>
         </Flex>
-        {cart && cart.items.length > 0 && <Badge size="1" color="bronze">{cart.items.length}</Badge>}
+        {addedItemsSize > 0 && <Badge size="1" color="bronze">{addedItemsSize}</Badge>}
       </Flex>
     </Button>
   );

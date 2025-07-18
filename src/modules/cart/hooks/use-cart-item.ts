@@ -1,7 +1,7 @@
 import type { ApiErrorResponse } from '@kernel/api';
 import type { ApiSuccessResponseCart } from '../api/cart-api';
 import type { CartAddItemRequest, CartRemoveItemRequest, CartUpdateItemRequest } from '../types';
-import { QUERY_KEYS, queryClient } from '@kernel/index';
+import { QUERY_KEYS, queryClient, toast } from '@kernel/index';
 import { useCartStore } from '@modules/cart/stores/cart-store';
 import { useMutation } from '@tanstack/react-query';
 import { cartApi } from '../api/cart-api';
@@ -27,6 +27,8 @@ export function useCartItem() {
           items: [...previousCart.data.items, optimisticItem],
         },
       });
+
+      toast.success(`Added to cart`);
       return { previousCart } as { previousCart?: ApiSuccessResponseCart; };
     },
     onError: (_err, _data, context) => {
@@ -56,6 +58,12 @@ export function useCartItem() {
           ),
         },
       });
+
+      const productTitle = previousCart.data.items.find(item => item.id === id)?.product.title;
+      toast.success(
+        `Quantity form ${productTitle} updated to ${quantity}`,
+      );
+
       return { previousCart } as { previousCart?: ApiSuccessResponseCart; };
     },
     onError: (_err, _data, context) => {
@@ -82,6 +90,7 @@ export function useCartItem() {
         },
       });
       removeItemId(id);
+      toast.error(`Removed item from cart`);
 
       return { previousCart } as { previousCart?: ApiSuccessResponseCart; };
     },
