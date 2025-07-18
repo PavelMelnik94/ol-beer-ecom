@@ -30,7 +30,7 @@ export function PromoCodeInput({
 
         <InputText
           placeholder="code"
-          value={input}
+          value={promoCode ?? input}
           onChange={(e) => { setInput(e.target.value); }}
           disabled={!!promoCode || applyPromoStatus === 'pending'}
         />

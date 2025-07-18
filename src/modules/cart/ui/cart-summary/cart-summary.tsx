@@ -33,7 +33,7 @@ export function CartSummary({
           ? (
               <Text size="3" mb="1">
                 Discount: -
-                {discountAmount}
+                {discountAmount.toFixed(2)}
                 {' '}
                 $
               </Text>
