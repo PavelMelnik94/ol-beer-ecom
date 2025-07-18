@@ -1,10 +1,12 @@
-import type { LogoProps } from '@modules/common/ui/header/components/header.types';
+import { useHeaderContext } from '../context/header-context';
 import { Box, Text } from '@radix-ui/themes';
 import styles from './header.module.scss';
 
-export function Logo({ onClick }: LogoProps) {
+export function Logo() {
+  const { navigationHandlers: { onHome } } = useHeaderContext();
+
   return (
-    <Box onClick={onClick} className={styles.logo}>
+    <Box onClick={onHome} className={styles.logo}>
       <Text as="span" size="7" weight="bold">
         ØL
       </Text>

@@ -4,23 +4,14 @@ import clsx from 'clsx';
 import { DesktopActions, Logo, MobileMenu } from './components';
 import { HeaderNav } from './components/header-nav';
 import styles from './components/header.module.scss';
-import { useHeader } from './hooks/use-header';
+import { HeaderProvider, useHeaderContext } from './context/header-context';
 
 interface Props {
   isFixed?: boolean;
 }
 
-export function Header({ isFixed }: Props) {
-  const {
-    user,
-    isAuth,
-    isMobileLayout,
-    mobileMenuOpen,
-    setMobileMenuOpen,
-    getActiveProps,
-    navigationHandlers,
-    routes,
-  } = useHeader();
+function HeaderContent({ isFixed }: Props) {
+  const { isMobileLayout } = useHeaderContext();
 
   return (
     <header
@@ -28,44 +19,26 @@ export function Header({ isFixed }: Props) {
         [styles.headerFixed]: isFixed,
       })}
     >
-      <Logo onClick={navigationHandlers.onHome} />
+      <Logo />
 
       <Show when={!isMobileLayout}>
         <Flex align="center" gap="5" className={styles.desktopNav}>
-          <HeaderNav
-            getActiveProps={getActiveProps}
-            onClickHandlers={{
-              onBlog: navigationHandlers.onBlog,
-              onBreweries: navigationHandlers.onBreweries,
-              onAbout: navigationHandlers.onAbout,
-              onShowcase: navigationHandlers.onShowcase,
-            }}
-            isAuth={isAuth}
-            user={user!}
-          />
+          <HeaderNav />
         </Flex>
-        <DesktopActions
-          isAuth={isAuth}
-          user={user!}
-          mobileMenuOpen={mobileMenuOpen}
-          setMobileMenuOpen={setMobileMenuOpen}
-          navigationHandlers={navigationHandlers}
-          getActiveProps={getActiveProps}
-          routes={routes}
-        />
+        <DesktopActions />
       </Show>
 
       <Show when={isMobileLayout}>
-        <MobileMenu
-          isAuth={isAuth}
-          user={user!}
-          mobileMenuOpen={mobileMenuOpen}
-          setMobileMenuOpen={setMobileMenuOpen}
-          navigationHandlers={navigationHandlers}
-          getActiveProps={getActiveProps}
-          routes={routes}
-        />
+        <MobileMenu />
       </Show>
     </header>
+  );
+}
+
+export function Header({ isFixed }: Props) {
+  return (
+    <HeaderProvider>
+      <HeaderContent isFixed={isFixed} />
+    </HeaderProvider>
   );
 }

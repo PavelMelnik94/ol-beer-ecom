@@ -45,13 +45,6 @@ export function useHeader() {
     },
   };
 
-  const routes = {
-    profile: ROUTES.profile.root,
-    favorites: ROUTES.profile.favorites.full,
-    orders: ROUTES.profile.orders.full,
-    register: ROUTES.auth.register.full,
-  };
-
   return {
     user,
     isAuth,
@@ -60,6 +53,6 @@ export function useHeader() {
     setMobileMenuOpen,
     getActiveProps,
     navigationHandlers,
-    routes,
+    routes: ROUTES,
   };
 }

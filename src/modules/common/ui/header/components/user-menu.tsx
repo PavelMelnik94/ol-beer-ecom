@@ -1,35 +1,31 @@
-import type { MenuContentProps, UserMenuProps } from './header.types';
 import { ThemeButton } from '@kernel/index';
 import { Avatar, Button, Flex, IconButton, Popover, Separator, Text } from '@radix-ui/themes';
 import { GithubButton } from '@shared/components/ui/github-button';
-import { AuthSection } from './auth-section';
+import { useHeaderContext } from '../context/header-context';
 import styles from './header.module.scss';
+import clsx from 'clsx';
 
-function MenuContent({ user, isAuth, onLogout, navigationHandlers, getActiveProps, routes }: MenuContentProps) {
+function MenuContent() {
+  const {
+    user,
+    isAuth,
+    navigationHandlers,
+  } = useHeaderContext();
+
   return (
     <Flex direction="column" gap="3" align="start" style={{ minWidth: 100 }}>
       {isAuth && user?.firstName && (
         <>
           <Flex align="center" justify="center" width="100%">
             <Text size="2" weight="medium">
-              {user?.firstName}
+              {user.firstName}
             </Text>
           </Flex>
           <Separator size="4" />
         </>
-
       )}
 
-      <AuthSection
-        isAuth={isAuth}
-        onProfile={navigationHandlers.onProfile}
-        onFavorites={navigationHandlers.onFavorites}
-        onOrders={navigationHandlers.onOrders}
-        onRegister={navigationHandlers.onRegister}
-        getActiveProps={getActiveProps}
-        routes={routes}
-        fullWidth
-      />
+      <AuthSection />
       <Separator my="1" size="4" />
       <ThemeButton withTitle style={{ width: '100%' }} />
       <GithubButton withTitle style={{ width: '100%' }} />
@@ -39,8 +35,7 @@ function MenuContent({ user, isAuth, onLogout, navigationHandlers, getActiveProp
           <Button
             variant="ghost"
             size="1"
-            color="red"
-            onClick={onLogout}
+            onClick={navigationHandlers.onLogout}
             style={{ width: '100%' }}
           >
             Log out
@@ -51,16 +46,13 @@ function MenuContent({ user, isAuth, onLogout, navigationHandlers, getActiveProp
   );
 }
 
-export function UserMenu({
-  user,
-  isAuth,
-  mobileMenuOpen,
-  setMobileMenuOpen,
-  onLogout,
-  navigationHandlers,
-  getActiveProps,
-  routes,
-}: UserMenuProps) {
+export function UserMenu() {
+  const {
+    user,
+    mobileMenuOpen,
+    setMobileMenuOpen,
+  } = useHeaderContext();
+
   return (
     <Popover.Root open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
       <Popover.Trigger>
@@ -81,15 +73,37 @@ export function UserMenu({
         </IconButton>
       </Popover.Trigger>
       <Popover.Content align="end" sideOffset={8}>
-        <MenuContent
-          isAuth={isAuth}
-          user={user}
-          onLogout={onLogout}
-          navigationHandlers={navigationHandlers}
-          getActiveProps={getActiveProps}
-          routes={routes}
-        />
+        <MenuContent />
       </Popover.Content>
     </Popover.Root>
+  );
+}
+
+function AuthSection() {
+  const { isAuth, navigationHandlers } = useHeaderContext();
+
+  return (
+    <Flex direction="row" gap="2" className={styles.authSection}>
+      {!isAuth && (
+        <>
+          <Button
+            variant="ghost"
+            size="2"
+            onClick={navigationHandlers.onProfile} // Updated to use onProfile
+            className={clsx(styles.authButton, styles.loginButton)}
+          >
+            Login
+          </Button>
+          <Button
+            variant="solid"
+            size="2"
+            onClick={navigationHandlers.onRegister}
+            className={clsx(styles.authButton, styles.registerButton)}
+          >
+            Register
+          </Button>
+        </>
+      )}
+    </Flex>
   );
 }

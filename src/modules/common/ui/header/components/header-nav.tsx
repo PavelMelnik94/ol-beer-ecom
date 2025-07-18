@@ -1,38 +1,29 @@
-import type { User } from '@kernel/types';
 import { ROUTES } from '@kernel/router';
 import { Button, Flex, Separator, Text } from '@radix-ui/themes';
 import { Pulse } from '@shared/components';
 import clsx from 'clsx';
+import { useHeaderContext } from '../context/header-context';
 import styles from './header.module.scss';
 
-export function HeaderNav({
-  getActiveProps,
-  onClickHandlers,
-  fullWidth = false,
-  isAuth,
-  user,
-  isMobileLayout,
-}: {
-  getActiveProps: (path: string) => { [key: string]: string; };
-  onClickHandlers: {
-    onBlog: () => void;
-    onBreweries: () => void;
-    onAbout: () => void;
-    onShowcase: () => void;
-  };
-  fullWidth?: boolean;
-  isAuth: boolean;
-  user: User;
-  isMobileLayout?: boolean;
-}) {
+export function HeaderNav() {
+  const {
+    getActiveProps,
+    navigationHandlers: { onBlog, onBreweries, onAbout, onShowcase },
+    isAuth,
+    user,
+    isMobileLayout,
+  } = useHeaderContext();
+
   const location = window.location.pathname;
+  const fullWidth = isMobileLayout;
+
   return (
     <>
       {isAuth && isMobileLayout && (
         <>
           <Flex align="center" justify="center" width="100%">
             <Text size="2" weight="medium">
-              {user.firstName}
+              {user?.firstName}
             </Text>
 
           </Flex>
@@ -43,7 +34,7 @@ export function HeaderNav({
       <Button
         variant="ghost"
         size="1"
-        onClick={onClickHandlers.onBlog}
+        onClick={onBlog}
         style={fullWidth ? { width: '100%' } : undefined}
         className={clsx({ [styles.fullWidth]: fullWidth })}
         {...getActiveProps(ROUTES.articles.root)}
@@ -53,7 +44,7 @@ export function HeaderNav({
       <Button
         variant="ghost"
         size="1"
-        onClick={onClickHandlers.onShowcase}
+        onClick={onShowcase}
         className={clsx({ [styles.fullWidth]: fullWidth })}
         style={fullWidth ? { width: '100%' } : undefined}
         {...getActiveProps(ROUTES.showcase.root)}
@@ -64,7 +55,7 @@ export function HeaderNav({
       <Button
         variant="ghost"
         size="1"
-        onClick={onClickHandlers.onBreweries}
+        onClick={onBreweries}
         className={clsx({ [styles.fullWidth]: fullWidth })}
         style={fullWidth ? { width: '100%' } : undefined}
         {...getActiveProps(ROUTES.breweries.root)}
@@ -74,7 +65,7 @@ export function HeaderNav({
       <Button
         variant="ghost"
         size="1"
-        onClick={onClickHandlers.onAbout}
+        onClick={onAbout}
         className={clsx({ [styles.fullWidth]: fullWidth })}
         style={fullWidth ? { width: '100%' } : undefined}
         {...getActiveProps(ROUTES.about.root)}
