@@ -11,22 +11,22 @@ export function PromoCodeInfoDialog() {
     setShownDialogs('promoCodeInfo', 'shown');
   };
 
-  const wrapperRef = useRef(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
   useOnClickOutside(wrapperRef, handleClockOkay);
 
   return (
     <AlertDialog.Root open={showDialogs.promoCodeInfo === 'needShow'} onOpenChange={handleClockOkay}>
       <AlertDialog.Content ref={wrapperRef} maxWidth="450px">
-        <AlertDialog.Title>Revoke access</AlertDialog.Title>
+        <AlertDialog.Title>Promo codes available!</AlertDialog.Title>
         <AlertDialog.Description size="2">
-          Are you sure? This application will no longer be accessible and any
-          existing sessions will be expired.
+          Since you have registered and added your first item, you can now use promo codes!
+          They are hidden somewhere on the site, just look for them and enjoy your discount 😉
         </AlertDialog.Description>
 
         <Flex gap="3" mt="4" justify="end">
           <AlertDialog.Action onClick={handleClockOkay}>
-            <Button variant="solid" color="red">
-              Revoke access
+            <Button variant="solid" color="green">
+              Got it
             </Button>
           </AlertDialog.Action>
         </Flex>
