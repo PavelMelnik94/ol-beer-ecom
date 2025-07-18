@@ -115,7 +115,10 @@ export function CartItem({ item, localQuantities, handleQuantityChange, removeIt
           className={clsx(styles.quantityInput, {
             [styles.disabledQuantity]: isProcessing,
           })}
+          inputMode="numeric"
+          pattern="[0-9]*"
           onChange={e => handleQuantityChange(item.id, Number((e.target).value))}
+          onFocus={e => e.target.select()}
           disabled={isProcessing}
         />
       </Flex>
