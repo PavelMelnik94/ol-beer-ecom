@@ -12,14 +12,17 @@ export const StepperStep: React.FC<StepperStepProps> = React.memo(({ index, labe
 
   return (
     <Flex direction="row" justify="start" align="start" className={clsx(className)}>
-      <Flex
-        className={clsx(styles.stepIcon, { [styles.stepIconActive]: isActive || isCompleted })}
-        justify="center"
-        align="center"
-        mr="2"
-      >
-        {icon}
-      </Flex>
+
+      {icon && (
+        <Flex
+          className={clsx(styles.stepIcon, { [styles.stepIconActive]: isActive || isCompleted })}
+          justify="center"
+          align="center"
+          mr="2"
+        >
+          {icon}
+        </Flex>
+      )}
 
       <Flex direction="column" justify="center" align="start" flexGrow="1" height="100%">
         <Text size="3" weight={isActive || isCompleted ? 'medium' : 'regular'}>{label}</Text>

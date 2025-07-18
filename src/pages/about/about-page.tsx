@@ -1,13 +1,14 @@
-import { Container, Flex, Heading, Link, Section, Separator, Text } from '@radix-ui/themes';
-import { Image } from '@shared/components';
+import { Box, Container, Flex, Heading, Link, Section, Separator, Text } from '@radix-ui/themes';
+import { Image, Show } from '@shared/components';
 import { Stepper } from '@shared/components/stepper';
-import { Briefcase, BriefcaseBusiness, Github, Goal, Linkedin, Mailbox } from 'lucide-react';
+import { Briefcase, BriefcaseBusiness, Github, Goal, Linkedin, Mailbox, SquareChartGantt } from 'lucide-react';
+import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import styles from './about-page.module.scss';
 
 const profileConstructor = {
-  illustration: '/illustrations/dev/u_dev4.svg',
-  title: 'Me',
+  illustration: '/illustrations/dev/u_dev2.svg',
+  title: 'Goals',
   content: [
     '4+ years of commercial experience with modern frontend stack (React 18+, TypeScript, MobX, Zustand, Webpack, Vite)',
     'Lead developer and architect of fintech SPA (frontend-backend via WebSocket)',
@@ -29,9 +30,19 @@ const workConstructor = {
       content: [
         <Text size="4" key={0}><Link href="https://dot818.com/finturf/">Intelico Systems</Link></Text>,
         <Text mb="2" key={1}>Frontend Developer | 07.2021 — present</Text>,
-        <Text key={2}>- Lead developer and main contributor for "Application Service" SPA (React 18, TypeScript, MobX, SCSS, Centrifugo.js)</Text>,
+        <Text key={2}>
+          -
+          {' '}
+          <mark>Main contributor for "Application Service"</mark>
+          {' '}
+          SPA (React 18, TypeScript, MobX, SCSS, Centrifugo.js)
+        </Text>,
         <Text key={3}>- Designed project architecture: modularity, source of truth, dependency inversion, strict boundaries (ESLint)</Text>,
-        <Text key={4}>- Introduced and migrated the project to TypeScript</Text>,
+        <Text key={4}>
+          -
+          {' '}
+          <mark>Introduced and migrated the project to TypeScript</mark>
+        </Text>,
         <Text key={5}>- Responsible for infrastructure: Webpack, ESLint, Husky, Storybook</Text>,
         <Text key={6}>- Implemented frontend integration with backend (WebSocket, multiple external APIs)</Text>,
         <Text key={7}>- Quickly delivered support for new business scenarios and features</Text>,
@@ -58,6 +69,15 @@ export function AboutPage() {
   const isColumn = useMediaQuery({
     query: '(max-width: 1180px)',
   });
+
+  const isMD = useMediaQuery({
+    query: '(max-width: 1000px)',
+  });
+
+  const isMobile = useMediaQuery({
+    query: '(max-width: 576px)',
+  });
+
   return (
     <Container mr="5" ml="5">
       <Flex direction="column" gap="4" align="center">
@@ -72,7 +92,7 @@ export function AboutPage() {
 
             <Text size="3" color="gray">
               <Flex gap="1" align="center">
-                <Mailbox size={20} />
+                <Mailbox size={18} />
                 <Link href="mailto:recyclesordie94@gmail.com">Gmail</Link>
               </Flex>
             </Text>
@@ -81,8 +101,8 @@ export function AboutPage() {
 
             <Text size="3" color="gray">
               <Flex gap="1" align="center">
-                <Github size={20} />
-                <Link href="https://github.com/pavelmelnik94">Github</Link>
+                <Github size={18} />
+                <Link target="_blank" href="https://github.com/pavelmelnik94">Github</Link>
               </Flex>
             </Text>
 
@@ -90,8 +110,26 @@ export function AboutPage() {
 
             <Text size="3" color="gray">
               <Flex gap="1" align="center">
-                <Linkedin size={20} />
-                <Link href="https://www.linkedin.com/in/pavel-melnik-562495203/">LinkedIn</Link>
+                <Linkedin size={18} />
+                <Link target="_blank" href="https://www.linkedin.com/in/pavel-melnik-562495203/">LinkedIn</Link>
+              </Flex>
+            </Text>
+
+            <Separator orientation="vertical" />
+
+            <Text size="3" color="gray">
+              <Flex gap="1" align="center">
+                <SquareChartGantt size={18} />
+                <Link target="_blank" href="https://beer.pvlmnk.xyz/api/auth/cv/middle-senior-frontend-react-EN.pdf">CV [EN]</Link>
+              </Flex>
+            </Text>
+
+            <Separator orientation="vertical" />
+
+            <Text size="3" color="gray">
+              <Flex gap="1" align="center">
+                <SquareChartGantt size={18} />
+                <Link target="_blank" href="https://beer.pvlmnk.xyz/api/auth/cv/middle-senior-frontend-react-RU.pdf">CV [RU]</Link>
               </Flex>
             </Text>
 
@@ -105,10 +143,12 @@ export function AboutPage() {
             {' '}
           </Heading>
 
-          <Flex direction={isColumn ? 'column' : 'row'} gap="3">
-            <Image src={profileConstructor.illustration} alt="Profile Picture" containerClassName={styles.imageLeft} />
+          <Flex direction={isMD ? 'column' : 'row'} gap="3">
+            <Show when={!isMD}>
+              <Image src={profileConstructor.illustration} alt="goals Picture" containerClassName={styles.imageLeft} />
+            </Show>
 
-            <Flex direction="column" gap="2" justify="center">
+            <Flex direction="column" gap="2" justify="center" mt={isMD ? '6' : '0'}>
               {profileConstructor.content.map(li => (
                 <div key={li} className={styles.itemGrid}>
                   <Goal color="green" />
@@ -131,7 +171,7 @@ export function AboutPage() {
                 key={index}
                 index={index}
                 label={place.title}
-                icon={place.icon}
+                icon={isColumn ? undefined : place.icon}
                 className="rt-r-mt-6"
                 description={(
                   <div>
@@ -144,6 +184,43 @@ export function AboutPage() {
             ),
             )}
           </Stepper.Root>
+
+        </Section>
+
+        <Section>
+          <Heading size="9" as="h3" align="center">
+            Me
+          </Heading>
+
+          <Flex
+            direction={isMobile ? 'column-reverse' : 'row'}
+            justify={isMobile ? 'center' : 'between'}
+            align={isMobile ? 'center' : 'start'}
+            gap="3"
+            mt="6"
+          >
+
+            <Box>
+              <Text as="p">
+                My name is Pavel, I am 30 years old.
+
+              </Text>
+
+              <Text as="p">
+                Outside of work, I am interested in programming in general, not just frontend. I watch podcasts, read articles, release descriptions, watch meetups.
+
+                Very curious.
+                I have permanent professional goals for the near future.
+              </Text>
+
+              <Text as="p">
+                On weekends, when the brain wants to take a break from everything, I watch TV series (mostly true crime) and drink beer.
+              </Text>
+            </Box>
+
+            <Image src="/illustrations/dev/u_dev4.svg" alt="me" containerClassName={styles.image} />
+
+          </Flex>
 
         </Section>
 
