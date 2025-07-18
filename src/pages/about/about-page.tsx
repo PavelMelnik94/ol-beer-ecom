@@ -22,6 +22,11 @@ const contactLinks = [
     text: 'LinkedIn',
     href: 'https://www.linkedin.com/in/pavel-melnik-562495203/',
   },
+
+];
+
+const cvs = [
+
   {
     icon: <SquareChartGantt size={18} />,
     text: 'CV [EN]',
@@ -113,13 +118,26 @@ export function AboutPage() {
           <Flex direction="row" mt="4" gap="2" align="center" justify={isTabletLayout ? 'center' : 'start'}>
             {contactLinks.map(({ icon, text, href }, idx) => (
               <React.Fragment key={idx}>
-                <Text size="3" color="gray">
+                <Text size="1" color="gray">
                   <Flex gap="1" align="center">
                     {icon}
                     <Link href={href} target="_blank" rel="noopener noreferrer">{text}</Link>
                   </Flex>
                 </Text>
                 {idx !== contactLinks.length - 1 && <Separator orientation="vertical" />}
+              </React.Fragment>
+            ))}
+          </Flex>
+
+          <Flex direction="row" mt="4" gap="2" align="center" justify={isTabletLayout ? 'center' : 'start'}>
+            {cvs.map(({ icon, text, href }, idx) => (
+              <React.Fragment key={idx}>
+                <Text size="1" color="gray">
+                  <Flex gap="1" align="center">
+                    {icon}
+                    <Link href={href} target="_blank" rel="noopener noreferrer">{text}</Link>
+                  </Flex>
+                </Text>
               </React.Fragment>
             ))}
           </Flex>
