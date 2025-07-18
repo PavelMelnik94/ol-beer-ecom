@@ -1,9 +1,8 @@
 import type { Product, ProductWithFavoritesAndRatings } from '@kernel/types';
 import { AddToCartButton, ButtonWithAuthPopup } from '@modules/common';
 import { ProductDetailsSkeleton } from '@modules/products/ui/product-details/product-details-skeleton';
-import { Box, Container, Flex, ScrollArea, Separator, Text, Tooltip } from '@radix-ui/themes';
+import { Box, Container, Flex, ScrollArea, Separator, Text } from '@radix-ui/themes';
 import { Carousel, Image, Show } from '@shared/components';
-import { Bookmark } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { BreweryDescription } from './brewery-description/brewery-description';
@@ -102,20 +101,18 @@ export function ProductDetails({ product, onClickRating, onClickAddToWishlist }:
           brewerydescription={product.brewery.description}
         />
 
-        <Flex justify="center" mt="5" gap="2">
+        <Flex justify="center" align="center" mt="5" gap="3">
           <ButtonWithAuthPopup
-            size="2"
-            variant="soft"
-            color={product.isFavorite ? 'ruby' : 'bronze'}
-            style={{ padding: '6px' }}
+            size="1"
+            variant="ghost"
+            color={product.isFavorite ? 'ruby' : 'green'}
             onClick={(e) => {
               e.stopPropagation();
               onClickAddToWishlist?.(product);
             }}
           >
-            <Tooltip content={product.isFavorite ? 'Remove from Wishlist' : 'Add to Wishlist'} side="top">
-              <Bookmark size={20} fill={product.isFavorite ? 'red' : 'transparent'} color={product.isFavorite ? 'red' : 'gray'} />
-            </Tooltip>
+
+            {product.isFavorite ? 'Remove from Wishlist' : 'Add to Wishlist'}
           </ButtonWithAuthPopup>
 
           <AddToCartButton product={product} />
