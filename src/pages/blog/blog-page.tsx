@@ -2,7 +2,7 @@ import type { Product } from '@kernel/types';
 import { useGoTo } from '@kernel/hooks';
 import { useUserStore } from '@kernel/stores';
 import { ArticleList } from '@modules/articles';
-import { PromoCodeVelocity, useCartItem, usePromoCode } from '@modules/cart';
+import { PromoCodeVelocity, useCartStore, usePromoCode } from '@modules/cart';
 import { ProductsGrid, useProductsRandom } from '@modules/products';
 import { useToggleFavorite } from '@modules/user';
 import { Box, Container } from '@radix-ui/themes';
@@ -14,8 +14,8 @@ export function BlogPage() {
   const { navigateToProductItem } = useGoTo();
   const { mutateAsync: toggleFavorite } = useToggleFavorite();
   const promo = usePromoCode();
-  const cartItem = useCartItem();
   const favorites = useUserStore(s => s.favorites);
+  const cartSize = useCartStore(s => s.addedItemIds.size);
 
   const handleClickPromoCode = async (promoCode: string) => {
     void promo.applyPromo({ promoCode });
@@ -27,10 +27,6 @@ export function BlogPage() {
 
   const handleOnClickAddToWishlist = async (product: Product) => {
     await toggleFavorite({ productId: product.id });
-  };
-
-  const handleClickToAddCart = async (product: Product) => {
-    await cartItem.addItem({ productId: product.id, quantity: 1 });
   };
 
   const productsWithFavorites = useMemo(() => {
@@ -47,14 +43,13 @@ export function BlogPage() {
       </Container>
       <ArticleList
         promoSlots={{
-          every4: <PromoCodeVelocity onClickPromocode={handleClickPromoCode} />,
+          every4: cartSize > 0 ? <PromoCodeVelocity onClickPromocode={handleClickPromoCode} /> : undefined,
           every7: (
             <Container>
               <ProductsGrid
                 products={productsWithFavorites}
                 columnsCount="3"
                 onClickCard={({ id }) => { handleClickProductCard(id); }}
-                onAddToBasket={handleClickToAddCart}
                 onAddToWishlist={handleOnClickAddToWishlist}
               />
             </Container>

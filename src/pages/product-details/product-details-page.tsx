@@ -2,12 +2,12 @@ import type { Product, ProductWithFavoritesAndRatings } from '@kernel/types';
 import { useGoTo } from '@kernel/hooks';
 import { QUERY_KEYS, queryClient } from '@kernel/query';
 import { useAuthStore, useUserStore } from '@kernel/stores';
-import { PromoCodeVelocity, useCartItem, usePromoCode } from '@modules/cart';
+import { PromoCodeVelocity, useCartStore, usePromoCode } from '@modules/cart';
 import { Comments, commentsProductsApi, useComments } from '@modules/comments';
 import { ProductDetails, ProductsGrid, useProductDetails, useProductRate, useProductsRelated } from '@modules/products';
 import { useToggleFavorite, useUserFavorites, useUserRatings } from '@modules/user';
 import { Box, Container, Text } from '@radix-ui/themes';
-import { Breadcrumbs, Pagination } from '@shared/components';
+import { Breadcrumbs, Pagination, Show } from '@shared/components';
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -17,7 +17,6 @@ export function ProductDetailsPage() {
   const { id } = useParams<{ id: string; }>();
   const { product } = useProductDetails(id!);
   const { products: relatedProducts } = useProductsRelated(product?.id ?? '');
-  const cartItem = useCartItem();
   const isAuth = useAuthStore(s => s.isAuth);
 
   useUserFavorites({ enabled: isAuth });
@@ -32,6 +31,8 @@ export function ProductDetailsPage() {
   const ratings = useUserStore(state => state.ratings);
   const { hasFavorite, hasRating } = useUserStore();
   const { mutateAsync: toggleFavorite } = useToggleFavorite();
+
+  const cartSize = useCartStore(s => s.addedItemIds.size);
 
   const {
     comments,
@@ -97,10 +98,6 @@ export function ProductDetailsPage() {
     await likeComment(id);
   };
 
-  const handleClickToAddCart = async (product: Product) => {
-    await cartItem.addItem({ productId: product.id, quantity: 1 });
-  };
-
   const breadcrumbs = useMemo(() => {
     const items = [
       { label: 'Showcase', to: '/showcase' },
@@ -143,7 +140,6 @@ export function ProductDetailsPage() {
                 product={productWithFavoritesAndRatings}
                 onClickRating={handleOnClickRating}
                 onClickAddToWishlist={handleOnClickAddToWishlist}
-                onClickAddToCart={handleClickToAddCart}
               />
               <Comments
                 comments={comments}
@@ -170,7 +166,6 @@ export function ProductDetailsPage() {
                 product={productWithFavoritesAndRatings}
                 onClickRating={handleOnClickRating}
                 onClickAddToWishlist={handleOnClickAddToWishlist}
-                onClickAddToCart={handleClickToAddCart}
               />
               <Comments
                 comments={comments}
@@ -191,9 +186,11 @@ export function ProductDetailsPage() {
             </Container>
           )}
 
-      <Box mt="5">
-        <PromoCodeVelocity onClickPromocode={handleClickPromoCode} />
-      </Box>
+      <Show when={cartSize > 0}>
+        <Box mt="5">
+          <PromoCodeVelocity onClickPromocode={handleClickPromoCode} />
+        </Box>
+      </Show>
 
       <Box pr="5" pl="5" mt="9">
         <Text as="div" size="7" weight="bold" align="center" mb="3">
@@ -205,7 +202,6 @@ export function ProductDetailsPage() {
           isShow={relatedProductsWithFavoritesAndRatings && relatedProductsWithFavoritesAndRatings?.length > 0}
           imageAsSlider
           onAddToWishlist={handleOnClickAddToWishlist}
-          onAddToBasket={handleClickToAddCart}
         />
       </Box>
     </div>
