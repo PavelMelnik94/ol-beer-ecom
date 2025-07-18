@@ -18,7 +18,7 @@ function MenuContent() {
         <>
           <Flex align="center" justify="center" width="100%">
             <Text size="2" weight="medium">
-              {user.firstName}
+              {user?.firstName}
             </Text>
           </Flex>
           <Separator size="4" />

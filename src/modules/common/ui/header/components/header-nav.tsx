@@ -19,7 +19,7 @@ export function HeaderNav() {
 
   return (
     <>
-      {isAuth && isMobileLayout && (
+      {isAuth && user?.firstName && isMobileLayout && (
         <>
           <Flex align="center" justify="center" width="100%">
             <Text size="2" weight="medium">
