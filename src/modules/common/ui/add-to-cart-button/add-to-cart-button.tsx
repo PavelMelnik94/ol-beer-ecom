@@ -12,11 +12,11 @@ export function AddToCartButton({
   const isAdded = useCartStore(s => s.hasItemId(product.id));
 
   const handleAddToCart = async () => {
-    cartItem.addItem({ productId: product.id, quantity: 1 });
+    await cartItem.addItem({ productId: product.id, quantity: 1 });
   };
 
   const handleRemoveFromCart = async () => {
-    cartItem.removeItem({ id: product.id });
+    await cartItem.removeItem({ id: product.id });
   };
 
   const handler = isAdded ? handleRemoveFromCart : handleAddToCart;
@@ -30,6 +30,7 @@ export function AddToCartButton({
         e.stopPropagation();
         void handler();
       }}
+      disabled={cartItem.updateItemStatus === 'pending' || cartItem.addItemStatus === 'pending'}
     >
       <Show when={!isAdded}>
         Add to Cart

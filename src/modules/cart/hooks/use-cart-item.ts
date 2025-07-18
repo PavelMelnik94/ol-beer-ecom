@@ -1,7 +1,7 @@
 import type { ApiErrorResponse } from '@kernel/api';
 import type { ApiSuccessResponseCart } from '../api/cart-api';
 import type { CartAddItemRequest, CartRemoveItemRequest, CartUpdateItemRequest } from '../types';
-import { QUERY_KEYS, queryClient, toast } from '@kernel/index';
+import { QUERY_KEYS, queryClient, toast, useUiStore } from '@kernel/index';
 import { useCartStore } from '@modules/cart/stores/cart-store';
 import { useMutation } from '@tanstack/react-query';
 import { cartApi } from '../api/cart-api';
@@ -10,12 +10,23 @@ import { cartModel } from '../model';
 export function useCartItem() {
   const addItemId = useCartStore(s => s.addItemId);
   const removeItemId = useCartStore(s => s.removeItemId);
+  const setShownDialogs = useUiStore(s => s.setShownDialogs);
+  const { promoCodeInfo } = useUiStore(s => s.shownDialogs);
 
   const addItemMutation = useMutation<ApiSuccessResponseCart, ApiErrorResponse, CartAddItemRequest>({
     mutationFn: (data: CartAddItemRequest) => cartApi.addCartItem(data),
     onMutate: async (data) => {
+      cartModel.getDefaultProduct(data.productId);
+      addItemId(data.productId);
+      if (promoCodeInfo === 'idle') {
+        setShownDialogs('promoCodeInfo', 'needShow');
+      }
+
+      toast.success(`Added to cart`);
+
       await queryClient.cancelQueries({ queryKey: QUERY_KEYS.cart.details() });
       const previousCart = queryClient.getQueryData<ApiSuccessResponseCart>(QUERY_KEYS.cart.details());
+
       if (!previousCart?.data) return { previousCart };
       const product = previousCart.data.items.find(item => item.product.id === data.productId)?.product ?? cartModel.getDefaultProduct(data.productId);
       addItemId(product.id);
@@ -28,7 +39,6 @@ export function useCartItem() {
         },
       });
 
-      toast.success(`Added to cart`);
       return { previousCart } as { previousCart?: ApiSuccessResponseCart; };
     },
     onError: (_err, _data, context) => {

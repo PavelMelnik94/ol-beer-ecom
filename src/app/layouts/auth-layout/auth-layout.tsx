@@ -1,5 +1,5 @@
 import { useGlobalScroll } from '@kernel/hooks';
-import { Header } from '@modules/common';
+import { Header, PromoCodeInfoDialog } from '@modules/common';
 import { Box } from '@radix-ui/themes';
 import { Footer } from '@shared/components';
 import clsx from 'clsx';
@@ -16,6 +16,8 @@ export function AuthLayout() {
       <Header isFixed={isFixedHeader} />
       <Box className={styles.decorativeBg} />
       <main className={styles.main}>
+        <PromoCodeInfoDialog />
+
         <Outlet />
       </main>
       <Footer />
