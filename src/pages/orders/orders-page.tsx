@@ -1,4 +1,5 @@
 import { useUserStore } from '@kernel/stores';
+import { Hero } from '@pages/orders/ui/hero';
 import { Avatar, Container, Flex, Section, Table, Text } from '@radix-ui/themes';
 import { format } from 'date-fns';
 
@@ -10,6 +11,12 @@ export function OrdersPage() {
   }
 
   return (
+    <>
+    <Container>
+      <Hero />
+    </Container>
+
+
     <Container mr="5" ml="5">
       <Section>
         <Table.Root variant="surface" size="3">
@@ -74,5 +81,7 @@ export function OrdersPage() {
         </Table.Root>
       </Section>
     </Container>
+    </>
+
   );
 }
