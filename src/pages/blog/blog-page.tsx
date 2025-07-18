@@ -1,7 +1,7 @@
 import type { Product } from '@kernel/types';
 import { useGoTo } from '@kernel/hooks';
 import { ArticleList } from '@modules/articles';
-import { PromoCodeVelocity } from '@modules/cart';
+import { PromoCodeVelocity, usePromoCode } from '@modules/cart';
 import { ProductsGrid, useProductsRandom } from '@modules/products';
 import { Box, Container } from '@radix-ui/themes';
 import { Hero } from './ui/hero';
@@ -9,9 +9,10 @@ import { Hero } from './ui/hero';
 export function BlogPage() {
   const { products } = useProductsRandom(3);
   const { navigateToProductItem } = useGoTo();
+  const promo = usePromoCode();
 
-  const handleClickPromocode = () => {
-    throw new Error('Not implemented');
+  const handleClickPromoCode = async (promoCode: string) => {
+    void promo.applyPromo({ promoCode });
   };
 
   const handleClickProductCard = (id: string) => {
@@ -31,7 +32,7 @@ export function BlogPage() {
       </Container>
       <ArticleList
         promoSlots={{
-          every4: <PromoCodeVelocity onClickPromocode={handleClickPromocode} />,
+          every4: <PromoCodeVelocity onClickPromocode={handleClickPromoCode} />,
           every7: (
             <Container>
               <ProductsGrid

@@ -2,7 +2,7 @@ import type { Product, ProductWithFavoritesAndRatings } from '@kernel/types';
 import { useGoTo } from '@kernel/hooks';
 import { QUERY_KEYS, queryClient } from '@kernel/query';
 import { useAuthStore, useUserStore } from '@kernel/stores';
-import { PromoCodeVelocity, useCartItem } from '@modules/cart';
+import { PromoCodeVelocity, useCartItem, usePromoCode } from '@modules/cart';
 import { Comments, commentsProductsApi, useComments } from '@modules/comments';
 import { ProductDetails, ProductsGrid, useProductDetails, useProductRate, useProductsRelated } from '@modules/products';
 import { useToggleFavorite, useUserFavorites, useUserRatings } from '@modules/user';
@@ -50,6 +50,8 @@ export function ProductDetailsPage() {
     queryKey: QUERY_KEYS.products.commentList(String(id), commentPage),
   });
 
+  const promo = usePromoCode();
+
   const handleClickOnCard = (product: Product) => {
     navigateToProductItem(product.id);
   };
@@ -69,6 +71,10 @@ export function ProductDetailsPage() {
     catch (error) {
       console.error('Failed to rate product:', error);
     }
+  };
+
+  const handleClickPromoCode = async (promoCode: string) => {
+    void promo.applyPromo({ promoCode });
   };
 
   const handleOnClickAddToWishlist = async (product: Product) => {
@@ -186,7 +192,7 @@ export function ProductDetailsPage() {
           )}
 
       <Box mt="5">
-        <PromoCodeVelocity />
+        <PromoCodeVelocity onClickPromocode={handleClickPromoCode} />
       </Box>
 
       <Box pr="5" pl="5" mt="9">

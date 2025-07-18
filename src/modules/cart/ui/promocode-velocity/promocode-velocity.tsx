@@ -4,7 +4,7 @@ import { getRandomPromoCode } from '@modules/cart/utils/get-random-promocode';
 import { Text } from '@radix-ui/themes';
 import { Beer } from 'lucide-react';
 
-export function PromoCodeVelocity({ onClickPromocode }: { onClickPromocode?: () => void; }) {
+export function PromoCodeVelocity({ onClickPromocode }: { onClickPromocode: (promoCode: string) => void; }) {
   const promoCode = getRandomPromoCode();
   if (!promoCode) return null;
 
@@ -15,7 +15,7 @@ export function PromoCodeVelocity({ onClickPromocode }: { onClickPromocode?: () 
       rotateDeg={1}
       onClick={() => {
         toast.success(`${description}`, <Beer />);
-        onClickPromocode?.();
+        onClickPromocode?.(promoCode.code);
       }}
     >
       <Text size="9" weight="bold" color="bronze">
