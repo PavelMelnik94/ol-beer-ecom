@@ -1,4 +1,5 @@
 import type { BoxProps } from '@radix-ui/themes';
+import type { ReactNode } from 'react';
 
 export interface StepperRootProps {
   activeStep: number;
@@ -11,8 +12,8 @@ export interface StepperRootProps {
 
 export interface StepperStepProps {
   index: number;
-  label: string;
-  description?: string;
+  label: string | ReactNode;
+  description?: string | ReactNode;
   icon?: React.ReactNode;
   className?: string;
   children?: React.ReactNode;

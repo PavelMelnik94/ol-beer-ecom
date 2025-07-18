@@ -11,7 +11,7 @@ export const StepperStep: React.FC<StepperStepProps> = React.memo(({ index, labe
   const isCompleted = completedSteps?.includes(index);
 
   return (
-    <Flex direction="row" justify="start" align="center" className={clsx(className)}>
+    <Flex direction="row" justify="start" align="start" className={clsx(className)}>
       <Flex
         className={clsx(styles.stepIcon, { [styles.stepIconActive]: isActive || isCompleted })}
         justify="center"
