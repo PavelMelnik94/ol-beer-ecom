@@ -8,7 +8,6 @@ import styles from './cart-button.module.scss';
 export function CartButton({ fullWidth, onClick, getActiveProps }: { fullWidth?: boolean; onClick?: () => void; getActiveProps: (route: string) => any; }) {
   const addedItemsSize = useCartStore(s => s.addedItemIds.size);
 
-  console.log(addedItemsSize, 'addedItemsSize');
   return (
     <Button
       variant="ghost"
