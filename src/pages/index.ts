@@ -6,6 +6,7 @@ export { BreweriesPage } from './breweries/breweries-page';
 export { CartPage } from './cart/cart-page';
 export { FavoritesPage } from './favorites/favorites-page';
 export { HomePage } from './home/home-page';
+export { OrdersPage } from './orders/orders-page';
 export { ProductDetailsPage } from './product-details/product-details-page';
 export { ProductsPage } from './products/products-page';
 export { ProfilePage } from './profile/profile-page';

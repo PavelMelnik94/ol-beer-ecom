@@ -9,6 +9,26 @@ export interface Address {
   type: 'billing' | 'shipping';
 }
 
+interface Order {
+  id: string;
+  userId: string;
+  total: number | null;
+  discountedTotal: number | null;
+  promoCode: number | null;
+  status: string;
+  userSnapshot: {
+    id: string;
+    email: string;
+    avatar: string | null;
+    lastName: string;
+    firstName: string;
+  };
+  billingAddress: Address | null;
+  shippingAddress: Address | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface User {
   id: string;
 
@@ -28,6 +48,8 @@ export interface User {
   likedPostsCount: number;
   likedCommentsCount: number;
   ordersCount: number;
+
+  orders: Order[] | [];
 }
 
 export interface Author {
