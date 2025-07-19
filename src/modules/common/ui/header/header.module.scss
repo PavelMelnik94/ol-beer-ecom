@@ -11,12 +11,7 @@
   position: relative;
 }
 
-.logo {
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
+
 
 .headerFixed {
   position: fixed;
@@ -34,13 +29,3 @@
   background-color: var(--accent-a3);
 }
 
-.desktopNav,
-.desktopActions {
-  display: flex;
-  gap: 1rem;
-}
-
-.mobileNav,
-.mobileActions {
-  display: none;
-}

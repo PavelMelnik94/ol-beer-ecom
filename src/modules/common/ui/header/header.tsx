@@ -1,17 +1,25 @@
-import { Flex } from '@radix-ui/themes';
-import { Show } from '@shared/components';
+import type { HeaderRenderMode } from '@modules/common/ui/header/types';
+import { DesktopAuthenticated } from '@modules/common/ui/header/ui/states/desktop-authenticated';
+import { DesktopUnauthenticated } from '@modules/common/ui/header/ui/states/desktop-unauthenticated';
+import { MobileAuthenticated } from '@modules/common/ui/header/ui/states/mobile-authenticated';
+import { MobileUnauthenticated } from '@modules/common/ui/header/ui/states/mobile-unauthenticated';
 import clsx from 'clsx';
-import { DesktopActions, Logo, MobileMenu } from './components';
-import { HeaderNav } from './components/header-nav';
-import styles from './components/header.module.scss';
 import { HeaderProvider, useHeaderContext } from './context/header-context';
+import styles from './header.module.scss';
 
-interface Props {
+interface Properties {
   isFixed?: boolean;
 }
 
-function HeaderContent({ isFixed }: Props) {
-  const { isMobileLayout } = useHeaderContext();
+function HeaderContent({ isFixed }: Properties) {
+  const { renderMode } = useHeaderContext();
+
+  const headerVariants: { [key in HeaderRenderMode]: JSX.Element } = {
+    'desktop-unauthenticated': <DesktopUnauthenticated />,
+    'desktop-authenticated': <DesktopAuthenticated />,
+    'mobile-unauthenticated': <MobileUnauthenticated />,
+    'mobile-authenticated': <MobileAuthenticated />,
+  };
 
   return (
     <header
@@ -19,23 +27,12 @@ function HeaderContent({ isFixed }: Props) {
         [styles.headerFixed]: isFixed,
       })}
     >
-      <Logo />
-
-      <Show when={!isMobileLayout}>
-        <Flex align="center" gap="5" className={styles.desktopNav}>
-          <HeaderNav />
-        </Flex>
-        <DesktopActions />
-      </Show>
-
-      <Show when={isMobileLayout}>
-        <MobileMenu />
-      </Show>
+      {headerVariants[renderMode]}
     </header>
   );
 }
 
-export function Header({ isFixed }: Props) {
+export function Header({ isFixed }: Properties) {
   return (
     <HeaderProvider>
       <HeaderContent isFixed={isFixed} />

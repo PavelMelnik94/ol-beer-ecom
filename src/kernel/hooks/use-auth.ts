@@ -18,9 +18,9 @@ export function useAuth() {
     mutationKey: QUERY_KEYS.auth.login(),
     mutationFn: ({ email, password }) =>
       apiClient.post(API_ENDPOINTS.auth.login, { email, password }),
-    onSuccess: (res) => {
-      if (res.success && res.data) {
-        const { token, firstName } = res.data;
+    onSuccess: (response) => {
+      if (response.success && response.data) {
+        const { token, firstName } = response.data;
         setToken(token);
         toast.success(`Welcome back, ${firstName}`);
       }

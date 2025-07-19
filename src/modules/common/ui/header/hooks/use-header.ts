@@ -1,11 +1,12 @@
+import type { HeaderRenderMode } from '@modules/common/ui/header/types';
 import { useGoTo } from '@kernel/hooks';
 import { ROUTES, useAuthStore, useUserStore } from '@kernel/index';
 import { useAuth } from '@modules/auth';
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation } from 'react-router-dom';
-import styles from '../components/header.module.scss';
+import styles from '../header.module.scss';
 
 export function useHeader() {
   const navigation = useGoTo();
@@ -18,13 +19,13 @@ export function useHeader() {
     query: '(max-width: 670px)',
   });
 
-  const getActiveProps = (path: string) => ({
+  const getActiveProperties = (path: string) => ({
     'data-active': path === pathname ? 'true' : 'false',
     'className': clsx({ [styles.active]: pathname.includes(path) || pathname === path }),
   });
 
-  const createNavigationHandler = (navigateFn: () => void) => () => {
-    navigateFn();
+  const createNavigationHandler = (navigateFunction: () => void) => () => {
+    navigateFunction();
     setMobileMenuOpen(false);
   };
 
@@ -45,14 +46,23 @@ export function useHeader() {
     },
   };
 
+  const renderMode: HeaderRenderMode = useMemo(() => {
+    if (!isAuth && !isMobileLayout) return 'desktop-unauthenticated';
+    if (isAuth && !isMobileLayout) return 'desktop-authenticated';
+    if (!isAuth && isMobileLayout) return 'mobile-unauthenticated';
+    if (isAuth && isMobileLayout) return 'mobile-authenticated';
+    return 'desktop-unauthenticated';
+  }, [isAuth, isMobileLayout]);
+
   return {
     user,
     isAuth,
     isMobileLayout,
     mobileMenuOpen,
     setMobileMenuOpen,
-    getActiveProps,
+    getActiveProps: getActiveProperties,
     navigationHandlers,
     routes: ROUTES,
+    renderMode,
   };
 }

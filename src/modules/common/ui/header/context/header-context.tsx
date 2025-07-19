@@ -1,8 +1,8 @@
+import type { ROUTES } from '@kernel/router';
 import type { User } from '@kernel/types';
+import type { HeaderRenderMode } from '@modules/common/ui/header/types';
 import { createContext, useContext, useMemo } from 'react';
 import { useHeader } from '../hooks/use-header';
-import { ROUTES } from '@kernel/router';
-
 
 interface HeaderContextProps {
   user: User | null;
@@ -10,7 +10,7 @@ interface HeaderContextProps {
   isMobileLayout: boolean;
   mobileMenuOpen: boolean;
   setMobileMenuOpen: (open: boolean) => void;
-  getActiveProps: (route: string) => { [key: string]: string };
+  getActiveProps: (route: string) => { [key: string]: string; };
   navigationHandlers: {
     onBlog: () => void;
     onBreweries: () => void;
@@ -25,6 +25,7 @@ interface HeaderContextProps {
     onLogout: () => void;
   };
   routes: typeof ROUTES;
+  renderMode: HeaderRenderMode;
 }
 
 const HeaderContext = createContext<HeaderContextProps | undefined>(undefined);
@@ -47,16 +48,17 @@ function useHeaderContext(): HeaderContextProps {
   return context;
 }
 
-function extractStringRoutes(routes: typeof ROUTES): { [key: string]: string } {
-  const result: { [key: string]: string } = {};
+function extractStringRoutes(routes: typeof ROUTES): { [key: string]: string; } {
+  const result: { [key: string]: string; } = {};
   for (const [key, value] of Object.entries(routes)) {
     if (typeof value === 'string') {
       result[key] = value;
-    } else if (value && typeof value === 'object' && 'root' in value) {
+    }
+    else if (value && typeof value === 'object' && 'root' in value) {
       result[key] = value.root;
     }
   }
   return result;
 }
 
-export { useHeaderContext, extractStringRoutes };
+export { extractStringRoutes, useHeaderContext };
