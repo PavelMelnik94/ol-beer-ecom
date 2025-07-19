@@ -24,18 +24,7 @@ export function CartItems(props: CartItemsProps) {
   React.useEffect(() => {
     setLocalQuantities(prev => cartModel.syncLocalQuantities(prev, props.items));
 
-    setOrderedItems(prev => {
-      const updatedItems = [...prev];
-      props.items.forEach(newItem => {
-        const index = updatedItems.findIndex(item => item.id === newItem.id);
-        if (index !== -1) {
-          updatedItems[index] = newItem;
-        } else {
-          updatedItems.push(newItem);
-        }
-      });
-      return updatedItems;
-    });
+    setOrderedItems(prev => cartModel.updateOrderedItems(prev, props.items));
 
     if (activeElementRef.current) {
       activeElementRef.current.focus();

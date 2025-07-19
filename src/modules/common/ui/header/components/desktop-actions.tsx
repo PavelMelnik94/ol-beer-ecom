@@ -12,6 +12,8 @@ export function DesktopActions() {
     navigationHandlers,
   } = useHeaderContext();
 
+
+  console.log('DesktopActions rendered', isAuth);
   return (
     <Flex align="center" gap="5" className={styles.desktopActions}>
       {isAuth && <CartButton onClick={navigationHandlers.onBasket} />}

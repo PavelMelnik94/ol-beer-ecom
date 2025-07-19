@@ -4,6 +4,7 @@ import { GithubButton } from '@shared/components/ui/github-button';
 import { useHeaderContext } from '../context/header-context';
 import styles from './header.module.scss';
 import clsx from 'clsx';
+import { AuthSection } from './auth-section';
 
 function MenuContent() {
   const {
@@ -79,31 +80,3 @@ export function UserMenu() {
   );
 }
 
-function AuthSection() {
-  const { isAuth, navigationHandlers } = useHeaderContext();
-
-  return (
-    <Flex direction="row" gap="2" className={styles.authSection}>
-      {!isAuth && (
-        <>
-          <Button
-            variant="ghost"
-            size="2"
-            onClick={navigationHandlers.onProfile} // Updated to use onProfile
-            className={clsx(styles.authButton, styles.loginButton)}
-          >
-            Login
-          </Button>
-          <Button
-            variant="solid"
-            size="2"
-            onClick={navigationHandlers.onRegister}
-            className={clsx(styles.authButton, styles.registerButton)}
-          >
-            Register
-          </Button>
-        </>
-      )}
-    </Flex>
-  );
-}

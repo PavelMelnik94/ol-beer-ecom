@@ -1,5 +1,5 @@
 import type { ApiErrorResponse, ApiSuccessResponse } from '@kernel/index';
-import { API_ENDPOINTS, apiClient, QUERY_KEYS, toast, useAuthStore } from '@kernel/index';
+import { API_ENDPOINTS, apiClient, QUERY_KEYS, toast, useAuthStore, useGoTo } from '@kernel/index';
 import { useMutation } from '@tanstack/react-query';
 
 export interface LoginCredentials {
@@ -12,6 +12,7 @@ type ErrorResponse = ApiErrorResponse;
 export function useAuth() {
   const setToken = useAuthStore(s => s.setToken);
   const clearToken = useAuthStore(s => s.clearToken);
+  const navigateToBlog = useGoTo().navigateToBlog;
 
   const mutation = useMutation<SuccessResponse, ErrorResponse, LoginCredentials>({
     mutationKey: QUERY_KEYS.auth.login(),
@@ -28,6 +29,7 @@ export function useAuth() {
 
   const logout = () => {
     clearToken();
+    navigateToBlog();
   };
 
   return {

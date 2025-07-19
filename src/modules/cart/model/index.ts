@@ -113,6 +113,19 @@ function getInitialLocalQuantities(items: CartItem[]): Record<string, number> {
   return initial;
 }
 
+function updateOrderedItems(prevItems: CartItem[], newItems: CartItem[]): CartItem[] {
+  const updatedItems = [...prevItems];
+  newItems.forEach(newItem => {
+    const index = updatedItems.findIndex(item => item.id === newItem.id);
+    if (index !== -1) {
+      updatedItems[index] = newItem;
+    } else {
+      updatedItems.push(newItem);
+    }
+  });
+  return updatedItems;
+}
+
 export const cartModel = {
   createOptimisticCartItem,
   calculateCartTotal,
@@ -124,4 +137,5 @@ export const cartModel = {
   clearCart,
   optimisticApplyPromo,
   optimisticRemovePromo,
+  updateOrderedItems,
 } as const;

@@ -56,7 +56,7 @@ export function PaymentCongrats() {
         </Flex>
 
         <Alert icon={<Beer />}>
-          Automatic redirect to your profile in
+          Automatic redirect to blog in
           {' '}
           {countdown}
           {' '}
