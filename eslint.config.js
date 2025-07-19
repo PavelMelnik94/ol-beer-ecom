@@ -7,6 +7,15 @@ export default antfu({
   react: true,
   yaml: false,
   markdown: false,
+  unicorn: {
+    allRecommended: true,
+  },
+  stylistic: {
+    jsx: true,
+    semi: true,
+    quotes: 'single',
+    indent: 2,
+  },
 
   ignores: [
     '!**/*',
