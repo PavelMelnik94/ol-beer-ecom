@@ -274,6 +274,12 @@ export function AboutPage() {
               <Text as="p" color="gray" size="2">
                 This project is powered by a real backend built using NestJS, showcasing your full-stack development skills. The backend was developed with the assistance of GitHub Copilot, demonstrating your ability to leverage AI tools for efficient and high-quality code generation. It includes features like RESTful APIs and robust data validation, ensuring seamless communication between the frontend and backend.
               </Text>
+
+              <Text as="p" color="gray" size="2">
+                App repository for code review:
+                {' '}
+                <Link href="https://github.com/PavelMelnik94/ol-beer-ecom">https://github.com/PavelMelnik94/ol-beer-ecom</Link>
+              </Text>
             </Flex>
           </Flex>
         </Section>
