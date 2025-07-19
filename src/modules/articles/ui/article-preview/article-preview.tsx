@@ -8,12 +8,12 @@ import { CalendarDays, MessageCircleReply, Signature } from 'lucide-react';
 import { TagList } from '../tag-list';
 import styles from './article-preview.module.scss';
 
-interface Props {
+interface Properties {
   article: ArticleType;
   sectionStyles?: CSSProperties;
 }
 
-export function ArticlePreview({ article, sectionStyles }: Props) {
+export function ArticlePreview({ article, sectionStyles }: Properties) {
   const { navigateToArticle } = useGoTo();
 
   const isLiked = getIsLiked(article.likedByUserIds);

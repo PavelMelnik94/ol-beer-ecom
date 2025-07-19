@@ -19,8 +19,8 @@ export function BreweriesListSkeleton() {
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {[...Array.from({ length: SKELETON_ROWS })].map((_, idx) => (
-          <Table.Row key={idx}>
+        {Array.from({ length: SKELETON_ROWS }).map((_, index) => (
+          <Table.Row key={index}>
             <Table.RowHeaderCell>
               <Skeleton width="100px" height="16px" />
             </Table.RowHeaderCell>

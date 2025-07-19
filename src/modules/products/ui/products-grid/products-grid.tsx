@@ -11,7 +11,7 @@ function isProductWithFavorites(product: Product | ProductWithFavorites): produc
   return 'isFavorite' in product;
 }
 
-interface Props {
+interface Properties {
   products?: ProductWithFavorites[] | Product[] | [];
   isShow?: boolean;
   imageAsSlider?: boolean;
@@ -28,7 +28,7 @@ export function ProductsGrid({
   columnsCount,
   onAddToWishlist,
   onClickCard,
-}: Props) {
+}: Properties) {
   const largeScreen = useMediaQuery({
     query: '(min-width: 1000px) and (max-width: 1400px)',
   });
@@ -74,8 +74,8 @@ export function ProductsGrid({
                         variant="soft"
                         color={isFavorite ? 'red' : 'gray'}
                         style={{ padding: '6px' }}
-                        onClick={(e) => {
-                          e.stopPropagation();
+                        onClick={(event) => {
+                          event.stopPropagation();
                           onAddToWishlist?.(product);
                         }}
                       >

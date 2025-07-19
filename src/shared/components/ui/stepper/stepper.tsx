@@ -9,28 +9,28 @@ export interface Step {
   icon?: React.ReactNode;
 }
 
-export interface StepperProps {
+export interface StepperProperties {
   steps: Step[];
   activeStep: number;
   completedSteps?: number[];
   className?: string;
 }
 
-export const Stepper: React.FC<StepperProps> = React.memo(({ steps, activeStep, completedSteps, className }) => {
+export const Stepper: React.FC<StepperProperties> = React.memo(({ steps, activeStep, completedSteps, className }) => {
   const progress = useMemo(() => ((activeStep + 1) / steps.length) * 100, [activeStep, steps.length]);
   const progressSpring = useSpring({ width: `${progress}%` });
 
   return (
     <div className={clsx(styles.stepper, className)}>
-      {steps.map((step, idx) => (
+      {steps.map((step, index) => (
         <Flex
           key={step.label}
           direction="column"
           align="center"
           className={clsx(
             styles.step,
-            idx === activeStep && styles.active,
-            completedSteps?.includes(idx) && styles.completed,
+            index === activeStep && styles.active,
+            completedSteps?.includes(index) && styles.completed,
           )}
         >
           <Avatar size="4" fallback={step.label.charAt(0)}>

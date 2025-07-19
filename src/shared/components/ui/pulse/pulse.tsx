@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import React, { useMemo } from 'react';
 import styles from './pulse.module.scss';
 
-interface PulseProps {
+interface PulseProperties {
   color?: string;
   size?: number;
   intensity?: number;
@@ -12,7 +12,7 @@ interface PulseProps {
   disabled?: boolean;
 }
 
-export const Pulse: React.FC<PulseProps> = ({
+export const Pulse: React.FC<PulseProperties> = ({
   color = '#ff6b35',
   size = 20,
   intensity = 0.7,
@@ -21,7 +21,7 @@ export const Pulse: React.FC<PulseProps> = ({
   disabled = false,
 }) => {
   const animationId = useMemo(() =>
-    `pulse-${Math.random().toString(36).substr(2, 9)}`, []);
+    `pulse-${Math.random().toString(36).slice(2, 11)}`, []);
 
   React.useEffect(() => {
     if (disabled) return;
@@ -48,10 +48,10 @@ export const Pulse: React.FC<PulseProps> = ({
 
     const styleElement = document.createElement('style');
     styleElement.textContent = keyframes;
-    document.head.appendChild(styleElement);
+    document.head.append(styleElement);
 
     return () => {
-      document.head.removeChild(styleElement);
+      styleElement.remove();
     };
   }, [color, size, intensity, duration, disabled, animationId]);
 

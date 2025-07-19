@@ -3,12 +3,12 @@ import { LoginCTA } from '@modules/auth/';
 import { Container, Flex, Text } from '@radix-ui/themes';
 import { LikesCounterWithAuthorizePopup } from '../../common';
 
-interface Props {
+interface Properties {
   likesCount: number;
   isLiked: boolean;
   likePost: () => void;
 }
-export function LikeAndComment({ likesCount, isLiked, likePost }: Props) {
+export function LikeAndComment({ likesCount, isLiked, likePost }: Properties) {
   const isAuth = useAuthStore(s => s.isAuth);
 
   return (

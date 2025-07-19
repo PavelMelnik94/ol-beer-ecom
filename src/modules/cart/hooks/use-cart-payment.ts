@@ -8,11 +8,11 @@ export function useCartPayment() {
   const paymentMutation = useMutation({
     mutationFn: (data: CartPaymentRequest) => cartApi.processCartPayment(data),
     onSuccess: () => {
-      queryClient.setQueryData(QUERY_KEYS.cart.details(), (prev: any) => {
-        if (!prev?.data) return prev;
+      queryClient.setQueryData(QUERY_KEYS.cart.details(), (previous: any) => {
+        if (!previous?.data) return previous;
         return {
-          ...prev,
-          data: cartModel.clearCart(prev.data),
+          ...previous,
+          data: cartModel.clearCart(previous.data),
         };
       });
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.cart.details() });

@@ -7,7 +7,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import React from 'react';
 import '@shared/styles/carousel.css';
 
-interface PropType {
+interface PropertyType {
   images: string[];
   options?: EmblaOptionsType;
   showSlideNumbers?: boolean;
@@ -20,7 +20,7 @@ interface PropType {
   changeStrategy?: 'autoscroll' | 'autoplay';
 }
 
-export const Carousel: React.FC<PropType> = (props) => {
+export const Carousel: React.FC<PropertyType> = (properties) => {
   const {
     images,
     imgContainerClassName,
@@ -32,8 +32,8 @@ export const Carousel: React.FC<PropType> = (props) => {
     imageSizeMode = 'background',
     slideChangeDelay = 3000,
     changeStrategy = 'autoplay',
-  } = props;
-  const [emblaRef] = useEmblaCarousel({
+  } = properties;
+  const [emblaReference] = useEmblaCarousel({
     ...options,
     loop: true,
   }, [
@@ -50,7 +50,7 @@ export const Carousel: React.FC<PropType> = (props) => {
 
   return (
     <section data-container className={clsx('embla', emblaContainerClassName)}>
-      <div className="embla__viewport" ref={emblaRef}>
+      <div className="embla__viewport" ref={emblaReference}>
         <div className="embla__container">
           {images?.map((img, index) => (
             <div data-slide className={clsx('embla__slide', emblaSlideClassName)} key={index}>

@@ -14,8 +14,8 @@ export function useBreweriesSearch() {
   const [isActiveBrewerySearch, setIsActiveBrewerySearch] = useState<boolean>(false);
   const [isActiveLocationSearch, setIsActiveLocationSearch] = useState<boolean>(false);
 
-  const breweryInputSearchRef = useRef(null);
-  const locationInputSearchRef = useRef(null);
+  const breweryInputSearchReference = useRef(null);
+  const locationInputSearchReference = useRef(null);
 
   const [search, setSearch] = useState<string>('');
 
@@ -27,17 +27,17 @@ export function useBreweriesSearch() {
   });
   const breweriesList = breweriesModel.flattenBreweriesPages(response ? [response] : undefined);
 
-  useOnClickOutside(breweryInputSearchRef, () => {
+  useOnClickOutside(breweryInputSearchReference, () => {
     setIsActiveBrewerySearch(false);
     setSearch('');
   });
-  useOnClickOutside(locationInputSearchRef, () => {
+  useOnClickOutside(locationInputSearchReference, () => {
     setIsActiveLocationSearch(false);
     setSearch('');
   });
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
   };
 
   const breweries = useMemo(() => {
@@ -70,8 +70,8 @@ export function useBreweriesSearch() {
     searchValue: search,
     isSearchLayout: isEnabled,
     refs: {
-      location: locationInputSearchRef,
-      brewery: breweryInputSearchRef,
+      location: locationInputSearchReference,
+      brewery: breweryInputSearchReference,
     },
     isLoading,
     error,

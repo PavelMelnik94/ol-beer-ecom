@@ -11,10 +11,10 @@ import { useForm } from 'react-hook-form';
 
 type FormData = z.infer<typeof personalInfoSchema>;
 
-interface Props {
+interface Properties {
   initialState: FormData;
 }
-export function EditProfileAction({ initialState }: Props) {
+export function EditProfileAction({ initialState }: Properties) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const {
     register,
@@ -35,13 +35,13 @@ export function EditProfileAction({ initialState }: Props) {
 
   const handleFormSubmit = async (data: FormData,
   ) => {
-    const res = await mutation.mutateAsync(data);
+    const editProfileResult = await mutation.mutateAsync(data);
 
-    if (res.success) {
+    if (editProfileResult.success) {
       reset({
-        firstName: res.data.firstName,
-        lastName: res.data.lastName,
-        email: res.data.email,
+        firstName: editProfileResult.data.firstName,
+        lastName: editProfileResult.data.lastName,
+        email: editProfileResult.data.email,
       });
       setIsOpen(false);
     }
@@ -52,8 +52,8 @@ export function EditProfileAction({ initialState }: Props) {
     setIsOpen(false);
   };
 
-  const formRef = useRef(null);
-  useOnClickOutside(formRef, handleClose);
+  const formReference = useRef(null);
+  useOnClickOutside(formReference, handleClose);
 
   return (
     <Dialog
@@ -62,7 +62,7 @@ export function EditProfileAction({ initialState }: Props) {
       onOpenChange={() => { setIsOpen(true); }}
       trigger={<Button style={{ width: '100%' }} variant="soft">Edit Profile</Button>}
     >
-      <form ref={formRef} onSubmit={handleSubmit(handleFormSubmit)}>
+      <form ref={formReference} onSubmit={handleSubmit(handleFormSubmit)}>
         <InputText
           {...register('firstName')}
           placeholder="First Name"

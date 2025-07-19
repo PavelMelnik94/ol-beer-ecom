@@ -14,16 +14,16 @@ export function ArticlePreviewSkeleton() {
           </Text>
 
           <Flex direction="row" gap="2" mb="4">
-            {[...Array.from({ length: 3 })].map((_, i) => (
-              <Flex key={i} direction="row" align="center" gap="1">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <Flex key={index} direction="row" align="center" gap="1">
                 <Skeleton width="2rem" height="1.2rem" />
               </Flex>
             ))}
           </Flex>
 
           <Flex direction="row" gap="4" flexBasis="1" flexGrow="1" align="end">
-            {[...Array.from({ length: 4 })].map((_, i) => (
-              <Flex key={i} direction="row" align="center" gap="2">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <Flex key={index} direction="row" align="center" gap="2">
                 <Skeleton width="1.5rem" height="1.2rem" />
                 <Skeleton width="3rem" height="1.2rem" />
               </Flex>

@@ -1,5 +1,5 @@
-export function getRandomFromArray<T = unknown>(arr: T[]): T | undefined {
-  if (arr.length === 0) return undefined;
-  const idx = Math.floor(Math.random() * arr.length);
-  return arr[idx];
+export function getRandomFromArray<T = unknown>(array: T[]): T | undefined {
+  if (array.length === 0) return undefined;
+  const index = Math.floor(Math.random() * array.length);
+  return array[index];
 }

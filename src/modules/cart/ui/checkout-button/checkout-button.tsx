@@ -3,12 +3,12 @@ import { Button, Flex, Text } from '@radix-ui/themes';
 import { useState } from 'react';
 import styles from './checkout-button.module.scss';
 
-interface CheckoutButtonProps {
+interface CheckoutButtonProperties {
   processPayment: (data: CartPaymentRequest) => void;
   paymentStatus: string;
 }
 
-export function CheckoutButton({ processPayment, paymentStatus }: CheckoutButtonProps) {
+export function CheckoutButton({ processPayment, paymentStatus }: CheckoutButtonProperties) {
   const [loading, setLoading] = useState(false);
 
   const handleCheckout = () => {

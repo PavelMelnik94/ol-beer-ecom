@@ -3,7 +3,7 @@ import { InputText, Show } from '@shared/components';
 import { useState } from 'react';
 import styles from './promo-code-input.module.scss';
 
-interface PromoCodeInputProps {
+interface PromoCodeInputProperties {
   promoCode?: string | null;
   applyPromo: (data: { promoCode: string | null; }) => void;
   applyPromoStatus: string;
@@ -17,7 +17,7 @@ export function PromoCodeInput({
   applyPromoStatus,
   removePromo,
   removePromoStatus,
-}: PromoCodeInputProps) {
+}: PromoCodeInputProperties) {
   const [input, setInput] = useState('');
 
   return (
@@ -31,7 +31,7 @@ export function PromoCodeInput({
         <InputText
           placeholder="code"
           value={promoCode ?? input}
-          onChange={(e) => { setInput(e.target.value); }}
+          onChange={(event) => { setInput(event.target.value); }}
           disabled={!!promoCode || applyPromoStatus === 'pending'}
         />
         <Flex gap="2">

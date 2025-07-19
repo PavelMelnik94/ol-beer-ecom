@@ -3,28 +3,28 @@ import type { Product } from '@kernel/types';
 import type { Cart, CartItem, OptimisticCartItem, PromoCode } from '../types';
 import { nanoid } from 'nanoid';
 
-function clearCart(prev: Cart): Cart {
+function clearCart(previous: Cart): Cart {
   return {
-    ...prev,
+    ...previous,
     items: [],
     total: 0,
     discountAmount: 0,
-    promoCode: null,
+    promoCode: undefined,
   };
 }
 
-function optimisticApplyPromo(prev: Cart, promoCode: string): Cart {
+function optimisticApplyPromo(previous: Cart, promoCode: string): Cart {
   return {
-    ...prev,
+    ...previous,
     promoCode,
     discountAmount: 0,
   };
 }
 
-function optimisticRemovePromo(prev: Cart): Cart {
+function optimisticRemovePromo(previous: Cart): Cart {
   return {
-    ...prev,
-    promoCode: null,
+    ...previous,
+    promoCode: undefined,
     discountAmount: 0,
   };
 }
@@ -92,37 +92,38 @@ function applyPromoCode(cart: Cart, promo: PromoCode): Cart {
   };
 }
 
-function syncLocalQuantities(prev: Record<string, number>, items: CartItem[]): Record<string, number> {
-  const updated: Record<string, number> = { ...prev };
-  items.forEach((item) => {
+function syncLocalQuantities(previous: Record<string, number>, items: CartItem[]): Record<string, number> {
+  const updated: Record<string, number> = { ...previous };
+  for (const item of items) {
     updated[item.id] = item.quantity;
-  });
-  Object.keys(updated).forEach((id) => {
-    if (!items.find(item => item.id === id)) {
+  }
+  for (const id of Object.keys(updated)) {
+    if (!items.some(item => item.id === id)) {
       delete updated[id];
     }
-  });
+  }
   return updated;
 }
 
 function getInitialLocalQuantities(items: CartItem[]): Record<string, number> {
   const initial: Record<string, number> = {};
-  items.forEach((item) => {
+  for (const item of items) {
     initial[item.id] = item.quantity;
-  });
+  }
   return initial;
 }
 
-function updateOrderedItems(prevItems: CartItem[], newItems: CartItem[]): CartItem[] {
-  const updatedItems = [...prevItems];
-  newItems.forEach(newItem => {
+function updateOrderedItems(previousItems: CartItem[], newItems: CartItem[]): CartItem[] {
+  const updatedItems = [...previousItems];
+  for (const newItem of newItems) {
     const index = updatedItems.findIndex(item => item.id === newItem.id);
-    if (index !== -1) {
-      updatedItems[index] = newItem;
-    } else {
+    if (index === -1) {
       updatedItems.push(newItem);
     }
-  });
+    else {
+      updatedItems[index] = newItem;
+    }
+  }
   return updatedItems;
 }
 

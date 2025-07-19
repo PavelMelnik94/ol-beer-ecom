@@ -6,7 +6,7 @@ import { Beer } from 'lucide-react';
 
 export function PromoCodeVelocity({ onClickPromocode }: { onClickPromocode: (promoCode: string) => void; }) {
   const promoCode = getRandomPromoCode();
-  if (!promoCode) return null;
+  if (!promoCode) return;
 
   const { code, discount, description } = promoCode;
   return (

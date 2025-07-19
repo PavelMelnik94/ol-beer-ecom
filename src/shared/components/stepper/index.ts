@@ -4,7 +4,7 @@ import { StepperRoot } from './stepper-root';
 import { StepperStep } from './stepper-step';
 import { useStepControl } from './use-step-control';
 
-export type { StepperConnectorProps, StepperProgressProps, StepperRootProps, StepperStepProps } from './types';
+export type { StepperConnectorProps, StepperProgressProperties as StepperProgressProps, StepperRootProps, StepperStepProps } from './types';
 
 export const Stepper = {
   Connector: StepperConnector,

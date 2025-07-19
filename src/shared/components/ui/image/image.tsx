@@ -7,7 +7,7 @@ import styles from './image.module.scss';
 type ImageLoadState = 'idle' | 'loading' | 'loaded' | 'error';
 type ImageSizeMode = 'cover' | 'contain' | 'responsive' | 'background';
 
-interface ImageProps extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'src' | 'onLoad' | 'onError'> {
+interface ImageProperties extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'src' | 'onLoad' | 'onError'> {
   src: string;
   alt: string;
   placeholder?: string;
@@ -25,7 +25,7 @@ interface ImageProps extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'sr
   skeletonStyle?: React.CSSProperties;
 }
 
-export const Image: React.FC<ImageProps> = ({
+export const Image: React.FC<ImageProperties> = ({
   src,
   alt,
   placeholder,
@@ -41,11 +41,11 @@ export const Image: React.FC<ImageProps> = ({
   width,
   height,
   skeletonStyle,
-  ...restProps
+  ...restProperties
 }) => {
   const [loadState, setLoadState] = useState<ImageLoadState>('idle');
-  const imgRef = useRef<HTMLImageElement>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
+  const imgReference = useRef<HTMLImageElement>(null);
+  const observerReference = useRef<IntersectionObserver | null>(null);
 
   const handleLoad = useCallback((event: React.SyntheticEvent<HTMLImageElement>) => {
     setLoadState('loaded');
@@ -55,8 +55,8 @@ export const Image: React.FC<ImageProps> = ({
   const handleError = useCallback((event: React.SyntheticEvent<HTMLImageElement>) => {
     setLoadState('error');
 
-    if (fallbackSrc && imgRef.current && imgRef.current.src !== fallbackSrc) {
-      imgRef.current.src = fallbackSrc;
+    if (fallbackSrc && imgReference.current && imgReference.current.src !== fallbackSrc) {
+      imgReference.current.src = fallbackSrc;
       setLoadState('loading');
       return;
     }
@@ -71,16 +71,16 @@ export const Image: React.FC<ImageProps> = ({
   }, [loadState]);
 
   useEffect(() => {
-    if (!lazy || !imgRef.current) return;
+    if (!lazy || !imgReference.current) return;
 
-    observerRef.current = new IntersectionObserver(
+    observerReference.current = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
+        for (const entry of entries) {
           if (entry.isIntersecting) {
             initializeLoading();
-            observerRef.current?.disconnect();
+            observerReference.current?.disconnect();
           }
-        });
+        }
       },
       {
         rootMargin: '50px',
@@ -88,10 +88,10 @@ export const Image: React.FC<ImageProps> = ({
       },
     );
 
-    observerRef.current.observe(imgRef.current);
+    observerReference.current.observe(imgReference.current);
 
     return () => {
-      observerRef.current?.disconnect();
+      observerReference.current?.disconnect();
     };
   }, [lazy, initializeLoading]);
 
@@ -143,7 +143,7 @@ export const Image: React.FC<ImageProps> = ({
 
       {sizeMode !== 'background' && (
         <img
-          ref={imgRef}
+          ref={imgReference}
           src={loadState === 'loading' || loadState === 'loaded' ? src : undefined}
           alt={alt}
           onLoad={handleLoad}
@@ -151,7 +151,7 @@ export const Image: React.FC<ImageProps> = ({
           className={imageClasses}
           loading={lazy ? 'lazy' : 'eager'}
 
-          {...restProps}
+          {...restProperties}
         />
       )}
 

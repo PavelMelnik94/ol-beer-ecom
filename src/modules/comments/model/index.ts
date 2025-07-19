@@ -69,7 +69,7 @@ function mapServerCommentsToOptimistic(data: Comment[]): OptimisticComment[] {
   }));
 }
 
-function shouldGoToPrevPage(currentData: Comment[] | undefined, optimisticCount: number, page: number, isLoading: boolean) {
+function shouldGoToPreviousPage(currentData: Comment[] | undefined, optimisticCount: number, page: number, isLoading: boolean) {
   return (currentData?.length === 0 || optimisticCount === 0) && page > 1 && !isLoading;
 }
 
@@ -78,11 +78,11 @@ function getUserIsAuthor(user: User, commentAuthor: Comment['author']): boolean 
 }
 
 function getCommentAllowActions(user: User | null, Comments: Comment[]): CommentsActions {
-  return Comments.reduce((acc, comment) => {
+  return Comments.reduce((accumulator, comment) => {
     const isSelfComment = user ? getUserIsAuthor(user, comment.author) : false;
 
     return {
-      ...acc,
+      ...accumulator,
       [comment.id]: {
         withDelete: isSelfComment,
         withEdit: isSelfComment,
@@ -98,7 +98,7 @@ export const commentsModel = {
   optimisticDeleteComment,
   optimisticLikeComment,
   mapServerCommentsToOptimistic,
-  shouldGoToPrevPage,
+  shouldGoToPrevPage: shouldGoToPreviousPage,
   getCommentAllowActions,
   normalizeComments,
 };

@@ -52,7 +52,7 @@ export function useDeleteAvatar() {
       if (currentUser) {
         setProfile({
           ...currentUser,
-          avatar: null,
+          avatar: undefined,
         });
       }
     },

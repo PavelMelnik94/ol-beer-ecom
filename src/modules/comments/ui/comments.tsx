@@ -6,7 +6,7 @@ import { ErrorAlert, Pagination, Show, SuccessAlert } from '@shared/components';
 import { CommentList } from './comment-list';
 import { CommentCreate } from './comment/comment-create';
 
-interface CommentsProps {
+interface CommentsProperties {
   comments: Comment[] | OptimisticComment[];
   error: ApiErrorResponse | null;
   pagination: {
@@ -36,7 +36,7 @@ export function Comments({
   onDeleteComment,
   onLikeComment,
   onPageChange,
-}: CommentsProps) {
+}: CommentsProperties) {
   const user = useUserStore(s => s.profile);
 
   if (error) {

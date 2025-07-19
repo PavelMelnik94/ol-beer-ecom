@@ -10,7 +10,7 @@ import { productsModel } from '../model';
 
 const LIMIT = 16;
 
-interface UseProductsPaginationProps {
+interface UseProductsPaginationProperties {
   page?: number;
   filterParams: Filters;
 }
@@ -18,7 +18,7 @@ interface UseProductsPaginationProps {
 export function useProductsPagination({
   page = 1,
   filterParams,
-}: UseProductsPaginationProps) {
+}: UseProductsPaginationProperties) {
   const {
     productsState,
     setProducts,

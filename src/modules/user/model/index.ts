@@ -61,14 +61,14 @@ function getBeerRank(ordersCount = 0): BeerRank {
   let currentLevel = BEER_LEVELS[0];
   let nextLevel: { beersToFinish: number; rank: string; } | undefined;
 
-  for (let i = 0; i < BEER_LEVELS.length; i++) {
-    if (ordersCount < BEER_LEVELS[i].beersToFinish) {
-      currentLevel = i === 0 ? BEER_LEVELS[0] : BEER_LEVELS[i - 1];
-      nextLevel = BEER_LEVELS[i];
+  for (let index = 0; index < BEER_LEVELS.length; index++) {
+    if (ordersCount < BEER_LEVELS[index].beersToFinish) {
+      currentLevel = index === 0 ? BEER_LEVELS[0] : BEER_LEVELS[index - 1];
+      nextLevel = BEER_LEVELS[index];
       break;
     }
-    if (i === BEER_LEVELS.length - 1) {
-      currentLevel = BEER_LEVELS[i];
+    if (index === BEER_LEVELS.length - 1) {
+      currentLevel = BEER_LEVELS[index];
       nextLevel = undefined;
     }
   }

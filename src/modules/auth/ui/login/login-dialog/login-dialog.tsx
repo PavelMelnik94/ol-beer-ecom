@@ -4,11 +4,11 @@ import { Dialog } from '@shared/components';
 import { useState } from 'react';
 import { LoginForm } from '../login-form';
 
-interface LoginDialogProps {
+interface LoginDialogProperties {
   trigger: ReactNode;
 }
 
-export function LoginDialog({ trigger }: LoginDialogProps) {
+export function LoginDialog({ trigger }: LoginDialogProperties) {
   const { navigateToRegister } = useGoTo();
   const [open, setOpen] = useState(false);
 
@@ -19,8 +19,7 @@ export function LoginDialog({ trigger }: LoginDialogProps) {
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
     if (!newOpen) {
-      setTimeout(() => {
-      }, 0);
+      setTimeout(() => {}, 0);
     }
   };
 

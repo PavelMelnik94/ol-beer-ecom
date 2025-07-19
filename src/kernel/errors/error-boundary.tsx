@@ -5,19 +5,19 @@ import { Component } from 'react';
 
 import styles from './error-boundary.module.scss';
 
-interface ErrorBoundaryProps {
+interface ErrorBoundaryProperties {
   children?: ReactNode;
 }
 
 interface ErrorBoundaryState {
   hasError: boolean;
-  error: Error | null;
+  error: Error | undefined;
 }
 
-export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  constructor(props: ErrorBoundaryProps) {
-    super(props);
-    this.state = { hasError: false, error: null };
+export class ErrorBoundary extends Component<ErrorBoundaryProperties, ErrorBoundaryState> {
+  constructor(properties: ErrorBoundaryProperties) {
+    super(properties);
+    this.state = { hasError: false, error: undefined };
   }
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
@@ -40,11 +40,11 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 
   handleReload = () => {
-    window.location.reload();
+    globalThis.location.reload();
   };
 
   handleClose = () => {
-    this.setState({ hasError: false, error: null });
+    this.setState({ hasError: false, error: undefined });
   };
 
   render() {

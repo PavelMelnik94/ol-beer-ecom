@@ -91,8 +91,8 @@ export function FavoritesPage() {
                         variant="soft"
                         color={product.isFavorite ? 'red' : 'gray'}
                         style={{ padding: '6px' }}
-                        onClick={(e) => {
-                          e.stopPropagation();
+                        onClick={(event) => {
+                          event.stopPropagation();
                           void handleToggleWishlist(product);
                         }}
                       >

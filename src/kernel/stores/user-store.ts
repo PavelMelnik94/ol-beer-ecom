@@ -4,7 +4,7 @@ import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 
 interface State {
-  profile: User | null;
+  profile: User | undefined;
   ratings: Rating[];
   favorites: FavoriteProduct[];
   addresses: Address[];
@@ -14,7 +14,7 @@ interface Actions {
   setRatings: (ratings: Rating[]) => void;
   setFavorites: (favorites: FavoriteProduct[]) => void;
   setAddresses: (addresses: Address[]) => void;
-  setProfile: (user: User | null) => void;
+  setProfile: (user: User | undefined) => void;
 
   hasRating: (productId: string) => Rating | undefined;
   hasFavorite: (productId: string) => boolean;
@@ -27,7 +27,7 @@ interface Actions {
 
 export const useUserStore = create<State & Actions>()(
   subscribeWithSelector((set, get) => ({
-    profile: null,
+    profile: undefined,
     ratings: [],
     favorites: [],
     addresses: [],
@@ -47,7 +47,7 @@ export const useUserStore = create<State & Actions>()(
         addresses,
       });
     },
-    setProfile: (profile: User | null) => {
+    setProfile: (profile: User | undefined) => {
       set({
         profile,
       });

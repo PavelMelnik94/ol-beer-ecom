@@ -6,15 +6,15 @@ interface UsePaginationOptions {
   isLoading?: boolean;
 }
 
-export function usePagination({ shouldGoToPrevPage = false, isLoading = false }: UsePaginationOptions = {}) {
+export function usePagination({ shouldGoToPrevPage: shouldGoToPreviousPage = false, isLoading = false }: UsePaginationOptions = {}) {
   const [page = 1, setPage] = useQueryState('commentPage', parseAsInteger);
   const [isPageChanging, setIsPageChanging] = useState(false);
 
   useEffect(() => {
-    if (shouldGoToPrevPage && (page || 1) > 1) {
+    if (shouldGoToPreviousPage && (page || 1) > 1) {
       setPage((page || 1) - 1);
     }
-  }, [shouldGoToPrevPage, page, setPage]);
+  }, [shouldGoToPreviousPage, page, setPage]);
 
   const handlePageChange = useCallback((newPage: number) => {
     setIsPageChanging(true);

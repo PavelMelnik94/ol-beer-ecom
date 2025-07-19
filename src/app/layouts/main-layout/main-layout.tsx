@@ -10,7 +10,7 @@ import styles from './main-layout.module.scss';
 export function MainLayout() {
   const { scrollY, scrollToTop } = useGlobalScroll();
 
-  useLayoutEffect(() => scrollToTop(), [window.location.pathname]);
+  useLayoutEffect(() => scrollToTop(), [globalThis.location.pathname]);
 
   const isFixedHeader = scrollY > 3;
 

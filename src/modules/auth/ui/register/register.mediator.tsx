@@ -64,7 +64,7 @@ export function RegisterMediator() {
               <Text size="8" weight="bold" mb="2">Join Our Community</Text>
               <Text size="4" mb="4" color="gray">Create your account in just a few simple steps and unlock access to exclusive features.</Text>
 
-              <Stepper.Root activeStep={step - 1} completedSteps={Array.from({ length: step - 1 }, (_, i) => i)} direction="column">
+              <Stepper.Root activeStep={step - 1} completedSteps={Array.from({ length: step - 1 }, (_, index) => index)} direction="column">
                 <Stepper.Step index={0} {...getStepProperties(0)} />
                 <Stepper.Step index={1} {...getStepProperties(1)} />
                 <Stepper.Step index={2} {...getStepProperties(2)} />

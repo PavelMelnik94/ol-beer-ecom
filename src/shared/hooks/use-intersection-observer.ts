@@ -6,7 +6,7 @@ interface State {
 }
 
 interface UseIntersectionObserverOptions {
-  root?: Element | Document | null;
+  root?: Element | Document | undefined;
   rootMargin?: string;
   threshold?: number | number[];
   freezeOnceVisible?: boolean;
@@ -26,31 +26,31 @@ type IntersectionReturn = [
 
 export function useIntersectionObserver({
   threshold = 0.5,
-  root = null,
+  root = undefined,
   rootMargin = '0%',
   freezeOnceVisible = false,
   initialIsIntersecting = false,
   onChange,
 }: UseIntersectionObserverOptions = {}): IntersectionReturn {
-  const [ref, setRef] = useState<Element | null>(null);
+  const [reference, setReference] = useState<Element | undefined>();
 
   const [state, setState] = useState<State>(() => ({
     isIntersecting: initialIsIntersecting,
     entry: undefined,
   }));
 
-  const callbackRef = useRef<UseIntersectionObserverOptions['onChange']>();
+  const callbackReference = useRef<UseIntersectionObserverOptions['onChange']>();
 
-  callbackRef.current = onChange;
+  callbackReference.current = onChange;
 
   const frozen = state.entry?.isIntersecting && freezeOnceVisible;
 
   useEffect(() => {
     // Ensure we have a ref to observe
-    if (!ref) return;
+    if (!reference) return;
 
     // Ensure the browser supports the Intersection Observer API
-    if (!('IntersectionObserver' in window)) return;
+    if (!('IntersectionObserver' in globalThis)) return;
 
     // Skip if frozen
     if (frozen) return;
@@ -63,33 +63,33 @@ export function useIntersectionObserver({
           ? observer.thresholds
           : [observer.thresholds];
 
-        entries.forEach((entry) => {
+        for (const entry of entries) {
           const isIntersecting
                         = entry.isIntersecting
                           && thresholds.some(threshold => entry.intersectionRatio >= threshold);
 
           setState({ isIntersecting, entry });
 
-          if (callbackRef.current) {
-            callbackRef.current(isIntersecting, entry);
+          if (callbackReference.current) {
+            callbackReference.current(isIntersecting, entry);
           }
 
           if (isIntersecting && freezeOnceVisible && unobserve) {
             unobserve();
             unobserve = undefined;
           }
-        });
+        }
       },
       { threshold, root, rootMargin },
     );
 
-    observer.observe(ref);
+    observer.observe(reference);
 
     return () => {
       observer.disconnect();
     };
   }, [
-    ref,
+    reference,
 
     JSON.stringify(threshold),
     root,
@@ -99,23 +99,23 @@ export function useIntersectionObserver({
   ]);
 
   // ensures that if the observed element changes, the intersection observer is reinitialized
-  const prevRef = useRef<Element | null>(null);
+  const previousReference = useRef<Element | null>(null);
 
   useEffect(() => {
     if (
-      !ref
+      !reference
       && state.entry?.target
       && !freezeOnceVisible
       && !frozen
-      && prevRef.current !== state.entry.target
+      && previousReference.current !== state.entry.target
     ) {
-      prevRef.current = state.entry.target;
+      previousReference.current = state.entry.target;
       setState({ isIntersecting: initialIsIntersecting, entry: undefined });
     }
-  }, [ref, state.entry, freezeOnceVisible, frozen, initialIsIntersecting]);
+  }, [reference, state.entry, freezeOnceVisible, frozen, initialIsIntersecting]);
 
   const result = [
-    setRef,
+    setReference,
     !!state.isIntersecting,
     state.entry,
   ] as IntersectionReturn;

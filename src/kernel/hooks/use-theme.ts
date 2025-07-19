@@ -17,12 +17,12 @@ export function useTheme() {
 
   useEffect(() => {
     const themeInStorage = themeStorage.get();
-    if (!themeInStorage) {
-      const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      themeStorage.set(isDarkMode ? 'dark' : 'light');
+    if (themeInStorage) {
+      themeStorage.set(theme);
     }
     else {
-      themeStorage.set(theme);
+      const isDarkMode = globalThis.matchMedia('(prefers-color-scheme: dark)').matches;
+      themeStorage.set(isDarkMode ? 'dark' : 'light');
     }
   }, [theme]);
 

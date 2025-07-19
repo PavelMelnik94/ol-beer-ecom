@@ -40,9 +40,9 @@ export function useToggleFavorite() {
     onMutate: async (variables) => {
       optimisticToggleFavorite(variables.productId);
     },
-    onSuccess: (res) => {
-      if (res.message) {
-        toast.success(res.message);
+    onSuccess: (toggleFavoriteResponse) => {
+      if (toggleFavoriteResponse.message) {
+        toast.success(toggleFavoriteResponse.message);
       }
       void queryClient.invalidateQueries({ queryKey: QUERY_KEYS.user.favorites() });
     },

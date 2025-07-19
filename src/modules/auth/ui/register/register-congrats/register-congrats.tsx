@@ -9,11 +9,11 @@ import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import styles from './register-congrats.module.scss';
 
-interface RegisterCongratsProps {
+interface RegisterCongratsProperties {
   onReset?: () => void;
 }
 
-export function RegisterCongrats({ onReset }: RegisterCongratsProps) {
+export function RegisterCongrats({ onReset }: RegisterCongratsProperties) {
   const isColumnDirection = useMediaQuery({
     query: '(max-width: 1100px)',
   });
@@ -27,14 +27,14 @@ export function RegisterCongrats({ onReset }: RegisterCongratsProps) {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
+      setCountdown((previous) => {
+        if (previous <= 1) {
           clearInterval(intervalId);
           onReset?.();
           navigateToProfile();
           return 0;
         }
-        return prev - 1;
+        return previous - 1;
       });
     }, 1000);
 

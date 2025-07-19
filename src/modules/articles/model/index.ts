@@ -11,10 +11,10 @@ export const articlesModel = {
     return page < totalPages ? page + 1 : undefined;
   },
 
-  toggleLikeState(prev: { isLiked: boolean; likeCounter: number; }) {
+  toggleLikeState(previous: { isLiked: boolean; likeCounter: number; }) {
     return {
-      isLiked: !prev.isLiked,
-      likeCounter: prev.isLiked ? prev.likeCounter - 1 : prev.likeCounter + 1,
+      isLiked: !previous.isLiked,
+      likeCounter: previous.isLiked ? previous.likeCounter - 1 : previous.likeCounter + 1,
     };
   },
 };

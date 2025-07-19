@@ -7,13 +7,13 @@ import { KeyRound, Mail } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { LoginSchema } from '../../model/schema';
 
-interface LoginFormProps {
+interface LoginFormProperties {
   onSuccess?: () => void;
   onCancel?: () => void;
   onNavigateToRegister?: () => void;
 }
 
-export function LoginForm({ onSuccess, onCancel, onNavigateToRegister }: LoginFormProps) {
+export function LoginForm({ onSuccess, onCancel, onNavigateToRegister }: LoginFormProperties) {
   const {
     register,
     handleSubmit,
@@ -27,8 +27,8 @@ export function LoginForm({ onSuccess, onCancel, onNavigateToRegister }: LoginFo
   const { login, isLoading, isError } = useAuth();
 
   const onSubmit = async (data: LoginFormValues) => {
-    const res = await login(data);
-    if (res?.success) {
+    const loginResponse = await login(data);
+    if (loginResponse?.success) {
       resetForm();
       onSuccess?.();
     }

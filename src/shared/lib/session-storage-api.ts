@@ -12,19 +12,19 @@ export class SessionStorageApi<Key extends string = string, Value extends JSONSe
       const serialized = JSON.stringify(value);
       sessionStorage.setItem(this.storageKey, serialized);
     }
-    catch (e) {
-      console.error(`Failed to set key "${this.storageKey}" in sessionStorage:`, e);
+    catch (error) {
+      console.error(`Failed to set key "${this.storageKey}" in sessionStorage:`, error);
     }
   }
 
-  get<T extends Value>(): T | null {
+  get<T extends Value>(): T | undefined {
     try {
       const item = sessionStorage.getItem(this.storageKey);
-      return item ? (JSON.parse(item) as T) : null;
+      return item ? (JSON.parse(item) as T) : undefined;
     }
-    catch (e) {
-      console.error(`Failed to get key "${this.storageKey}" from sessionStorage:`, e);
-      return null;
+    catch (error) {
+      console.error(`Failed to get key "${this.storageKey}" from sessionStorage:`, error);
+      return undefined;
     }
   }
 
@@ -32,8 +32,8 @@ export class SessionStorageApi<Key extends string = string, Value extends JSONSe
     try {
       sessionStorage.removeItem(this.storageKey);
     }
-    catch (e) {
-      console.error(`Failed to remove key "${this.storageKey}" from sessionStorage:`, e);
+    catch (error) {
+      console.error(`Failed to remove key "${this.storageKey}" from sessionStorage:`, error);
     }
   }
 

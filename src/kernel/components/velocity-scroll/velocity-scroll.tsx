@@ -6,19 +6,19 @@ import styles from './velocity-scroll.module.scss';
 
 type Direction = 'left' | 'right';
 
-interface MarqueeRowProps {
+interface MarqueeRowProperties {
   children: React.ReactNode;
   direction: Direction;
   speed: number;
 }
 
-const MarqueeRow: React.FC<MarqueeRowProps> = ({
+const MarqueeRow: React.FC<MarqueeRowProperties> = ({
   children,
   direction,
   speed,
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const containerReference = useRef<HTMLDivElement>(null);
+  const contentReference = useRef<HTMLDivElement>(null);
 
   const [dimensions, setDimensions] = useState({
     contentWidth: 0,
@@ -28,9 +28,9 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({
 
   useEffect(() => {
     const measureSizes = () => {
-      if (containerRef.current && contentRef.current) {
-        const containerWidth = containerRef.current.offsetWidth;
-        const contentWidth = contentRef.current.offsetWidth;
+      if (containerReference.current && contentReference.current) {
+        const containerWidth = containerReference.current.offsetWidth;
+        const contentWidth = contentReference.current.offsetWidth;
 
         setDimensions({
           containerWidth,
@@ -58,7 +58,7 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({
     to: { x: direction === 'left' ? -totalContentWidth : 0 },
 
     config: {
-      duration: totalContentWidth * (10000 / speed),
+      duration: totalContentWidth * (10_000 / speed),
       easing: t => t,
     },
 
@@ -70,16 +70,16 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({
   });
 
   const contentItems = useMemo(() => {
-    return Array.from({ length: copies }).map((_, idx) => (
-      <div key={idx} className={styles.item}>
+    return Array.from({ length: copies }).map((_, index) => (
+      <div key={index} className={styles.item}>
         {children}
       </div>
     ));
   }, [children, copies]);
 
   return (
-    <div className={styles.row} ref={containerRef}>
-      <div className={styles.measure} ref={contentRef}>
+    <div className={styles.row} ref={containerReference}>
+      <div className={styles.measure} ref={contentReference}>
         <div className={styles.item}>
           {children}
         </div>
@@ -96,7 +96,7 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({
   );
 };
 
-interface VelocityScrollProps {
+interface VelocityScrollProperties {
   className?: string;
   style?: React.CSSProperties;
   children: React.ReactNode;
@@ -106,19 +106,19 @@ interface VelocityScrollProps {
   speedOnScrolling?: number;
 }
 
-export const VelocityScroll: React.FC<VelocityScrollProps> = ({
+export const VelocityScroll: React.FC<VelocityScrollProperties> = ({
   className,
   style,
   children,
   rotateDeg = 0,
-  numRows = 2,
+  numRows: numberRows = 2,
   onClick,
   speedOnScrolling = 10,
 }) => {
   const { scrollDirection, isScrolling } = useGlobalScroll();
 
   const [rowDirections, setRowDirections] = useState<Direction[]>(() =>
-    Array.from({ length: numRows }, (_, i) => i % 2 === 0 ? 'right' : 'left'),
+    Array.from({ length: numberRows }, (_, index) => index % 2 === 0 ? 'right' : 'left'),
   );
 
   useEffect(() => {
@@ -126,19 +126,19 @@ export const VelocityScroll: React.FC<VelocityScrollProps> = ({
 
     const newDirections = [...rowDirections];
 
-    for (let i = 0; i < numRows; i++) {
-      const baseDirection: Direction = i % 2 === 0 ? 'right' : 'left';
+    for (let index = 0; index < numberRows; index++) {
+      const baseDirection: Direction = index % 2 === 0 ? 'right' : 'left';
 
       if (scrollDirection === 'down') {
-        newDirections[i] = baseDirection === 'right' ? 'left' : 'right';
+        newDirections[index] = baseDirection === 'right' ? 'left' : 'right';
       }
       else if (scrollDirection === 'up') {
-        newDirections[i] = baseDirection;
+        newDirections[index] = baseDirection;
       }
     }
 
     setRowDirections(newDirections);
-  }, [scrollDirection, numRows]);
+  }, [scrollDirection, numberRows]);
 
   const baseSpeed = 500;
   const currentSpeed = isScrolling ? baseSpeed * speedOnScrolling : baseSpeed;
@@ -154,10 +154,10 @@ export const VelocityScroll: React.FC<VelocityScrollProps> = ({
       tabIndex={onClick ? 0 : undefined}
       role={onClick ? 'button' : undefined}
     >
-      {Array.from({ length: numRows }).map((_, i) => (
+      {Array.from({ length: numberRows }).map((_, index) => (
         <MarqueeRow
-          key={i}
-          direction={rowDirections[i]}
+          key={index}
+          direction={rowDirections[index]}
           speed={currentSpeed}
         >
           {children}

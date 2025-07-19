@@ -69,7 +69,7 @@ function useEventListener<
   }, [handler]);
 
   useEffect(() => {
-    const targetElement: T | Window = element?.current ?? window;
+    const targetElement: T | Window = element?.current ?? globalThis;
 
     if (!(targetElement && targetElement.addEventListener)) return;
 

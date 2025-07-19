@@ -4,7 +4,7 @@ import { TextArea } from '@radix-ui/themes/src/index.js';
 import { useState } from 'react';
 import { CommentAuthor } from './comment-author';
 
-interface CommentCreateProps {
+interface CommentCreateProperties {
   user: User;
   onCreateComment?: (content: string) => Promise<void>;
   isLoading?: boolean;
@@ -14,7 +14,7 @@ export function CommentCreate({
   user,
   onCreateComment,
   isLoading: externalIsLoading = false,
-}: CommentCreateProps) {
+}: CommentCreateProperties) {
   const [content, setContent] = useState('');
   const [internalLoading, setInternalLoading] = useState(false);
 
@@ -47,7 +47,7 @@ export function CommentCreate({
         mt="2"
         placeholder="What are your thoughts?"
         value={content}
-        onChange={(e) => { setContent(e.target.value); }}
+        onChange={(event) => { setContent(event.target.value); }}
       />
       <Flex justify="end" align="center" mt="2">
         <Button

@@ -7,7 +7,7 @@ export function ThemeButton({ withTitle = false, style }: { withTitle?: boolean;
   const { theme, toggleTheme } = useTheme();
   return (
     <Button
-      style={{ ...(!withTitle ? { padding: '6px' } : {}), ...style }}
+      style={{ ...(withTitle ? {} : { padding: '6px' }), ...style }}
       variant="ghost"
       size="1"
       onClick={toggleTheme}

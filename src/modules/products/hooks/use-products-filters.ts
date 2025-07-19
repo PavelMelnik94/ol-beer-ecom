@@ -14,20 +14,20 @@ import {
   productsModel,
 } from '../model';
 
-interface UseProductsFiltersProps {
+interface UseProductsFiltersProperties {
   onFiltersChange?: (filters: Record<string, unknown>) => void;
 }
 
 export function useProductsFilters({
   onFiltersChange,
-}: UseProductsFiltersProps = {}) {
+}: UseProductsFiltersProperties = {}) {
   const [searchQuery, setSearchQuery] = useQueryState('search');
   const [categoryIdsQuery, setCategoryIdsQuery] = useQueryState('categoryIds');
   const [breweryIdQuery, setBreweryIdQuery] = useQueryState('breweryId');
   const [minPriceQuery, setMinPriceQuery] = useQueryState('minPrice');
   const [maxPriceQuery, setMaxPriceQuery] = useQueryState('maxPrice');
 
-  const urlParams: FiltersUrl = useMemo(() => ({
+  const urlParameters: FiltersUrl = useMemo(() => ({
     search: searchQuery || undefined,
     categoryIds: categoryIdsQuery ? categoryIdsQuery.split(',') : undefined,
     breweryId: breweryIdQuery || undefined,
@@ -35,7 +35,7 @@ export function useProductsFilters({
     maxPrice: maxPriceQuery || undefined,
   }), [searchQuery, categoryIdsQuery, breweryIdQuery, minPriceQuery, maxPriceQuery]);
 
-  const formData = useMemo(() => productsModel.urlToForm(urlParams), [urlParams]);
+  const formData = useMemo(() => productsModel.urlToForm(urlParameters), [urlParameters]);
 
   const form = useForm<FiltersForm>({
     resolver: zodResolver(filtersFormSchema),
@@ -93,8 +93,8 @@ export function useProductsFilters({
   ]);
 
   const notifyFiltersChange = useCallback((data: FiltersForm) => {
-    const apiParams = productsModel.formToApi(data);
-    onFiltersChange?.(apiParams);
+    const apiParameters = productsModel.formToApi(data);
+    onFiltersChange?.(apiParameters);
   }, [onFiltersChange]);
 
   const resetFilters = useCallback(async () => {
@@ -116,8 +116,8 @@ export function useProductsFilters({
   }, [watch]);
 
   useEffect(() => {
-    const initialApiParams = productsModel.formToApi(formData);
-    if (Object.keys(initialApiParams).length > 0) {
+    const initialApiParameters = productsModel.formToApi(formData);
+    if (Object.keys(initialApiParameters).length > 0) {
       notifyFiltersChange(formData);
     }
   }, []);

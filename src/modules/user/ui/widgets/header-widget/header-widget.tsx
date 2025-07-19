@@ -2,13 +2,13 @@ import { AvatarUploader } from '@modules/user/ui/widgets/quick-actions-widget/ac
 import { Card, Flex, Text } from '@radix-ui/themes';
 import { dateParser } from '@shared/lib';
 
-interface Props {
+interface Properties {
   firstName: string;
   lastName: string;
   createdAt: string;
   avatar?: string;
 }
-export function HeaderWidget({ firstName, lastName, createdAt, avatar }: Props) {
+export function HeaderWidget({ firstName, lastName, createdAt, avatar }: Properties) {
   return (
     <Card mb="4">
       <Flex align="center" gap="4" wrap="wrap">

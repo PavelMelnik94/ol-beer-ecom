@@ -7,7 +7,7 @@ import { memo } from 'react';
 import { useForm } from 'react-hook-form';
 import { RegisterFooter } from '../register-footer/register-footer';
 
-interface PersonalInfoStepProps {
+interface PersonalInfoStepProperties {
   personalInfo: PersonalInfo;
   setPersonalInfo: (data: Partial<PersonalInfo>) => void;
   onSubmit?: () => void;
@@ -17,7 +17,7 @@ interface PersonalInfoStepProps {
 }
 
 export const PersonalInfoStep = memo(
-  ({ personalInfo, setPersonalInfo, onSubmit, step, totalSteps, onClickBack }: PersonalInfoStepProps) => {
+  ({ personalInfo, setPersonalInfo, onSubmit, step, totalSteps, onClickBack }: PersonalInfoStepProperties) => {
     const {
       register,
       handleSubmit,

@@ -6,7 +6,7 @@ import { For } from '@shared/components';
 import { useMemo } from 'react';
 import { CommentItem } from './comment/comment';
 
-interface CommentListProps {
+interface CommentListProperties {
   commentList: Comment[] | OptimisticComment[];
   onUpdate?: (id: string, content: string) => Promise<void>;
   onDelete?: (id: string) => Promise<void>;
@@ -18,7 +18,7 @@ export function CommentList({
   onUpdate,
   onDelete,
   onLike,
-}: CommentListProps) {
+}: CommentListProperties) {
   const user = useUserStore(s => s.profile);
 
   const commentsActions = useMemo(() => {

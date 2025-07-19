@@ -36,17 +36,17 @@ export const filtersUrlSchema = z.object({
 
 export type FiltersUrl = z.infer<typeof filtersUrlSchema>;
 
-function urlToForm(urlParams: FiltersUrl): FiltersForm {
+function urlToForm(urlParameters: FiltersUrl): FiltersForm {
   return {
-    search: urlParams.search || '',
-    categoryIds: Array.isArray(urlParams.categoryIds)
-      ? urlParams.categoryIds
-      : urlParams.categoryIds
-        ? [urlParams.categoryIds]
-        : [],
-    breweryId: urlParams.breweryId || '',
-    minPrice: urlParams.minPrice ? Number(urlParams.minPrice) : undefined,
-    maxPrice: urlParams.maxPrice ? Number(urlParams.maxPrice) : undefined,
+    search: urlParameters.search || '',
+    categoryIds: Array.isArray(urlParameters.categoryIds)
+      ? urlParameters.categoryIds
+      : (urlParameters.categoryIds
+          ? [urlParameters.categoryIds]
+          : []),
+    breweryId: urlParameters.breweryId || '',
+    minPrice: urlParameters.minPrice ? Number(urlParameters.minPrice) : undefined,
+    maxPrice: urlParameters.maxPrice ? Number(urlParameters.maxPrice) : undefined,
   };
 }
 
@@ -102,45 +102,44 @@ function formToApi(formData: FiltersForm): Record<string, unknown> {
   return result;
 }
 
-function getFilterParams(filterParams: Filters): string {
-  const params = filtersSchema.parse(filterParams);
+function getFilterParameters(filterParameters: Filters): string {
+  const parameters = filtersSchema.parse(filterParameters);
 
-  if (!params || Object.keys(params).length === 0) return '';
+  if (!parameters || Object.keys(parameters).length === 0) return '';
 
-  const searchParams = new URLSearchParams();
+  const searchParameters = new URLSearchParams();
 
-  if (params.categoryIds) {
-    if (Array.isArray(params.categoryIds)) {
-      params.categoryIds.forEach((id) => {
-        searchParams.append('categoryIds', id);
-      });
+  if (parameters.categoryIds) {
+    if (Array.isArray(parameters.categoryIds)) {
+      for (const id of parameters.categoryIds) {
+        searchParameters.append('categoryIds', id);
+      }
     }
     else {
-      searchParams.append('categoryIds', params.categoryIds);
+      searchParameters.append('categoryIds', parameters.categoryIds);
     }
   }
-  if (params.breweryId) searchParams.append('breweryId', params.breweryId);
-  if (params.minPrice !== undefined) searchParams.append('minPrice', params.minPrice.toString());
-  if (params.maxPrice !== undefined) searchParams.append('maxPrice', params.maxPrice.toString());
-  if (params.search) searchParams.append('search', params.search);
+  if (parameters.breweryId) searchParameters.append('breweryId', parameters.breweryId);
+  if (parameters.minPrice !== undefined) searchParameters.append('minPrice', parameters.minPrice.toString());
+  if (parameters.maxPrice !== undefined) searchParameters.append('maxPrice', parameters.maxPrice.toString());
+  if (parameters.search) searchParameters.append('search', parameters.search);
 
-  return searchParams.toString();
+  return searchParameters.toString();
 }
 
-function getNextPageParam(lastPage: ApiSuccessResponsePaginated<Product>) {
+function getNextPageParameter(lastPage: ApiSuccessResponsePaginated<Product>) {
   const { pagination } = lastPage;
-  if (!pagination) return undefined;
+  if (!pagination) return;
   if (pagination.page < pagination.totalPages) return pagination.page + 1;
-  return undefined;
 }
 
 function flattenProductsPages(pages: ApiSuccessResponsePaginated<Product>[] | undefined): Product[] {
   return pages?.flatMap(page => page.data) ?? [];
 }
 export const productsModel = {
-  getNextPageParam,
+  getNextPageParam: getNextPageParameter,
   flattenProductsPages,
-  getFilterParams,
+  getFilterParams: getFilterParameters,
   formToApi,
   formToUrl,
   urlToForm,

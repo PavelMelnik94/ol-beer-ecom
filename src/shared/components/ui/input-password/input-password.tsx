@@ -5,27 +5,27 @@ import { Eye, EyeClosed } from 'lucide-react';
 import React, { forwardRef, useRef, useState } from 'react';
 import styles from './input-password.module.scss';
 
-interface InputPasswordProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+interface InputPasswordProperties extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
   error?: string;
   icon?: React.ReactNode;
   label?: string;
 }
 
 export const InputPassword = forwardRef((
-  { error, icon, label, className, ...inputProps }: InputPasswordProps,
-  ref: ForwardedRef<HTMLInputElement>,
+  { error, icon, label, className, ...inputProperties }: InputPasswordProperties,
+  reference: ForwardedRef<HTMLInputElement>,
 ) => {
   const [visible, setVisible] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputReference = useRef<HTMLInputElement>(null);
 
-  const setRefs = (el: HTMLInputElement) => {
-    if (typeof ref === 'function') ref(el);
-    else if (ref && 'current' in ref) (ref as { current: HTMLInputElement | null; }).current = el;
-    if (inputRef && 'current' in inputRef) (inputRef as { current: HTMLInputElement | null; }).current = el;
+  const setReferences = (element: HTMLInputElement) => {
+    if (typeof reference === 'function') reference(element);
+    else if (reference && 'current' in reference) (reference as { current: HTMLInputElement | null; }).current = element;
+    if (inputReference && 'current' in inputReference) (inputReference as { current: HTMLInputElement | null; }).current = element;
   };
 
   const handleToggleVisible = () => {
-    const input = inputRef.current;
+    const input = inputReference.current;
     if (!input) return;
     const { selectionStart, selectionEnd } = input;
     setVisible((v) => {
@@ -46,8 +46,8 @@ export const InputPassword = forwardRef((
         // @ts-expect-error
         color={error ? 'red' as const : undefined}
         type={visible ? 'text' : 'password'}
-        ref={setRefs}
-        {...inputProps}
+        ref={setReferences}
+        {...inputProperties}
         className={clsx(error && styles.errorInput)}
       >
         <TextField.Slot

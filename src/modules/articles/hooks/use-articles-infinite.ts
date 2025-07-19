@@ -21,8 +21,8 @@ export function useArticlesInfinite() {
   } = useInfiniteQuery<SuccessResponse, ErrorResponse>({
     queryKey: QUERY_KEYS.articles.articleList(),
     initialPageParam: 1,
-    queryFn: ({ pageParam = 1 }) =>
-      apiClient.get(`${API_ENDPOINTS.articles.all}?limit=${limit}&page=${pageParam}`),
+    queryFn: ({ pageParam: pageParameter = 1 }) =>
+      apiClient.get(`${API_ENDPOINTS.articles.all}?limit=${limit}&page=${pageParameter}`),
     getNextPageParam: articlesModel.getNextPageParam,
   });
 

@@ -1,11 +1,11 @@
-import type { StepperStepProps } from './types';
+import type { StepperStepProps as StepperStepProperties } from './types';
 import { Flex, Text } from '@radix-ui/themes';
 import clsx from 'clsx';
 import React from 'react';
 import styles from './stepper.module.scss';
 import { useStepper } from './use-stepper';
 
-export const StepperStep: React.FC<StepperStepProps> = React.memo(({ index, label, description, icon, children, className }) => {
+export const StepperStep: React.FC<StepperStepProperties> = React.memo(({ index, label, description, icon, children, className }) => {
   const { activeStep, completedSteps } = useStepper();
   const isActive = index === activeStep;
   const isCompleted = completedSteps?.includes(index);

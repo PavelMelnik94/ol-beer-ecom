@@ -3,20 +3,20 @@ import { useAuthStore } from '@kernel/stores';
 import { LoginDialog } from '../login-dialog/login-dialog';
 
 interface EventHandlers {
-  onClick?: (...args: unknown[]) => void;
-  onMouseDown?: (...args: unknown[]) => void;
-  onMouseUp?: (...args: unknown[]) => void;
-  onKeyDown?: (...args: unknown[]) => void;
-  onKeyUp?: (...args: unknown[]) => void;
-  onPointerDown?: (...args: unknown[]) => void;
-  onPointerUp?: (...args: unknown[]) => void;
+  onClick?: (...arguments_: unknown[]) => void;
+  onMouseDown?: (...arguments_: unknown[]) => void;
+  onMouseUp?: (...arguments_: unknown[]) => void;
+  onKeyDown?: (...arguments_: unknown[]) => void;
+  onKeyUp?: (...arguments_: unknown[]) => void;
+  onPointerDown?: (...arguments_: unknown[]) => void;
+  onPointerUp?: (...arguments_: unknown[]) => void;
 }
 
 export function withAuthorizePopup<P extends object>(WrappedComponent: ComponentType<P>) {
-  return function WithAuthorizePopup(props: P) {
+  return function WithAuthorizePopup(properties: P) {
     const isAuth = useAuthStore(s => s.isAuth);
 
-    if (isAuth) return <WrappedComponent {...props} />;
+    if (isAuth) return <WrappedComponent {...properties} />;
 
     const {
       onClick,
@@ -26,19 +26,19 @@ export function withAuthorizePopup<P extends object>(WrappedComponent: Component
       onKeyUp,
       onPointerDown,
       onPointerUp,
-      ...restProps
-    } = props as P & EventHandlers & { style?: React.CSSProperties; };
+      ...restProperties
+    } = properties as P & EventHandlers & { style?: React.CSSProperties; };
 
     return (
       <div
-        onClick={(e) => { e.stopPropagation(); }}
-        onMouseDown={(e) => { e.stopPropagation(); }}
-        onMouseUp={(e) => { e.stopPropagation(); }}
+        onClick={(event) => { event.stopPropagation(); }}
+        onMouseDown={(event) => { event.stopPropagation(); }}
+        onMouseUp={(event) => { event.stopPropagation(); }}
         style={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          ...restProps.style,
+          ...restProperties.style,
         }}
       >
         <LoginDialog
@@ -49,13 +49,13 @@ export function withAuthorizePopup<P extends object>(WrappedComponent: Component
                 justifyContent: 'center',
                 alignItems: 'center',
                 cursor: 'pointer',
-                ...restProps.style,
+                ...restProperties.style,
               }}
               tabIndex={0}
               role="button"
               aria-label="Open authorization popup"
             >
-              <WrappedComponent {...restProps as P} />
+              <WrappedComponent {...restProperties as P} />
             </div>
           )}
         />

@@ -1,21 +1,21 @@
 import type { JSX } from 'react';
 import { isValidElement } from 'react';
 
-export interface ShowProps<T> {
+export interface ShowProperties<T> {
   when: T | null | undefined;
   fallback?: React.ReactNode | undefined;
-  children: React.ReactNode | ((props: T) => React.ReactNode);
+  children: React.ReactNode | ((properties: T) => React.ReactNode);
 }
 
-export function Show<T>(props: ShowProps<T>): JSX.Element {
-  const { when, fallback, children } = props;
+export function Show<T>(properties: ShowProperties<T>): JSX.Element {
+  const { when, fallback, children } = properties;
   let result: React.ReactNode;
 
-  if (!when) {
-    result = fallback;
+  if (when) {
+    result = typeof children === 'function' ? children(when) : children;
   }
   else {
-    result = typeof children === 'function' ? children(when) : children;
+    result = fallback;
   }
 
   return isValidElement(result) ? result : <>{result}</>;

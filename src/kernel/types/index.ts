@@ -35,7 +35,7 @@ export interface User {
   email: string;
   firstName: string;
   lastName: string;
-  avatar: string | null;
+  avatar: string | undefined;
 
   addresses: Address[] | [];
   likedPostIds: string[] | [];

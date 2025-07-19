@@ -8,7 +8,7 @@ import { CommentActions } from './comment-actions';
 import { CommentAuthor } from './comment-author';
 import styles from './comment-list.module.scss';
 
-interface CommentItemProps {
+interface CommentItemProperties {
   comment: Comment | OptimisticComment;
   actions: CommentsActions[0];
   onUpdate?: (id: string, content: string) => Promise<void>;
@@ -22,7 +22,7 @@ export function CommentItem({
   onUpdate,
   onDelete,
   onLike,
-}: CommentItemProps) {
+}: CommentItemProperties) {
   const [mode, setMode] = useState<'view' | 'edit'>('view');
   const [editContent, setEditContent] = useState(comment.content);
   const [isInternalUpdating, setIsInternalUpdating] = useState(false);
@@ -87,7 +87,6 @@ export function CommentItem({
     if (isOptimistic) {
       return theme === 'dark' ? '#14532d' : '#dcfce7';
     }
-    return undefined;
   })();
 
   return (
@@ -110,7 +109,7 @@ export function CommentItem({
             disabled={isUpdating}
             placeholder="What are your thoughts?"
             value={editContent}
-            onChange={(e) => { setEditContent(e.target.value); }}
+            onChange={(event) => { setEditContent(event.target.value); }}
           />
           <Flex justify="end" align="center" mt="2">
             <Button

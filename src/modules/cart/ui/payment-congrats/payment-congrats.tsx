@@ -21,13 +21,13 @@ export function PaymentCongrats() {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
+      setCountdown((previous) => {
+        if (previous <= 1) {
           clearInterval(intervalId);
           navigateToBlog();
           return 0;
         }
-        return prev - 1;
+        return previous - 1;
       });
     }, 1000);
 

@@ -7,18 +7,18 @@ export interface BreadcrumbItem {
   to?: string;
 }
 
-interface BreadcrumbsProps {
+interface BreadcrumbsProperties {
   items: BreadcrumbItem[] | [];
 }
 
-export function Breadcrumbs({ items }: BreadcrumbsProps) {
-  if (!items.length) return null;
+export function Breadcrumbs({ items }: BreadcrumbsProperties) {
+  if (items.length === 0) return;
 
   return (
     <Flex align="center" mb="3" asChild wrap="wrap">
       <nav aria-label="Breadcrumb">
-        {items.map((item, idx) => {
-          const isLast = idx === items.length - 1;
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
           return (
             <Flex align="center" key={item.to ?? item.label}>
               {!isLast && item.to

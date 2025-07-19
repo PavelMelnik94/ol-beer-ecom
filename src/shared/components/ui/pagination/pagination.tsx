@@ -6,7 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 
 import styles from './pagination.module.scss';
 
-interface PaginationProps {
+interface PaginationProperties {
   page: number;
   total: number;
   onPageChange: (p: number) => void;
@@ -19,15 +19,15 @@ interface UsePaginationOptions {
   isLoading?: boolean;
 }
 
-function usePagination({ shouldGoToPrevPage = false, isLoading = false }: UsePaginationOptions = {}) {
+function usePagination({ shouldGoToPrevPage: shouldGoToPreviousPage = false, isLoading = false }: UsePaginationOptions = {}) {
   const [page = 1, setPage] = useQueryState('commentPage', parseAsInteger);
   const [isPageChanging, setIsPageChanging] = useState(false);
 
   useEffect(() => {
-    if (shouldGoToPrevPage && (page || 1) > 1) {
+    if (shouldGoToPreviousPage && (page || 1) > 1) {
       setPage((page || 1) - 1);
     }
-  }, [shouldGoToPrevPage, page, setPage]);
+  }, [shouldGoToPreviousPage, page, setPage]);
 
   const handlePageChange = useCallback((newPage: number) => {
     setIsPageChanging(true);
@@ -48,7 +48,7 @@ function usePagination({ shouldGoToPrevPage = false, isLoading = false }: UsePag
   };
 }
 
-interface PaginationComponent extends React.FC<PaginationProps> {
+interface PaginationComponent extends React.FC<PaginationProperties> {
   usePagination: typeof usePagination;
 }
 
@@ -65,7 +65,7 @@ const Pagination: PaginationComponent = ({
   const generatePageNumbers = (): number[] => {
     if (isMobile) {
       if (total <= 5) {
-        return Array.from({ length: total }, (_, i) => i + 1);
+        return Array.from({ length: total }, (_, index) => index + 1);
       }
 
       if (page <= 3) {
@@ -80,7 +80,7 @@ const Pagination: PaginationComponent = ({
     }
     else {
       if (total <= 9) {
-        return Array.from({ length: total }, (_, i) => i + 1);
+        return Array.from({ length: total }, (_, index) => index + 1);
       }
 
       if (page <= 5) {
@@ -98,9 +98,9 @@ const Pagination: PaginationComponent = ({
   const pageNumbers = generatePageNumbers();
 
   const handleChange = (value: string) => {
-    const pageNum = Number(value);
-    if (!Number.isNaN(pageNum) && pageNum !== page) {
-      onPageChange(pageNum);
+    const pageNumber = Number(value);
+    if (!Number.isNaN(pageNumber) && pageNumber !== page) {
+      onPageChange(pageNumber);
     }
   };
 
@@ -124,9 +124,9 @@ const Pagination: PaginationComponent = ({
         radius="full"
         className={styles.segmented}
       >
-        {pageNumbers.map(num => (
-          <SegmentedControl.Item key={num} value={String(num)}>
-            {num}
+        {pageNumbers.map(number_ => (
+          <SegmentedControl.Item key={number_} value={String(number_)}>
+            {number_}
           </SegmentedControl.Item>
         ))}
       </SegmentedControl.Root>

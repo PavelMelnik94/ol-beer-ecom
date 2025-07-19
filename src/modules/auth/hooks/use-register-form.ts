@@ -25,14 +25,18 @@ export function useRegisterForm() {
 
   const validateStep = useCallback((step: RegisterStep) => {
     switch (step) {
-      case 1:
+      case 1: {
         return personalInfoSchema.safeParse(personalInfo);
-      case 2:
+      }
+      case 2: {
         return addressesSchema.safeParse({ addresses });
-      case 3:
+      }
+      case 3: {
         return securitySchema.safeParse(security);
-      default:
-        return { success: false, error: null };
+      }
+      default: {
+        return { success: false, error: undefined };
+      }
     }
   }, []);
 
@@ -41,17 +45,21 @@ export function useRegisterForm() {
 
     let validation;
     switch (step as RegisterStep) {
-      case 1:
+      case 1: {
         validation = personalInfoSchema.safeParse(currentPersonalInfo);
         break;
-      case 2:
+      }
+      case 2: {
         validation = addressesSchema.safeParse({ addresses: currentAddresses });
         break;
-      case 3:
+      }
+      case 3: {
         validation = securitySchema.safeParse(currentSecurity);
         break;
-      default:
-        validation = { success: false, error: null };
+      }
+      default: {
+        validation = { success: false, error: undefined };
+      }
     }
 
     if (validation.success && step < 3) {
@@ -59,7 +67,7 @@ export function useRegisterForm() {
     }
   }, [step, setStep]);
 
-  const prevStep = useCallback(() => {
+  const previousStep = useCallback(() => {
     if (step > 1) setStep(step - 1);
   }, [step, setStep]);
 
@@ -104,7 +112,7 @@ export function useRegisterForm() {
     resetForm,
     validateStep,
     nextStep,
-    prevStep,
+    prevStep: previousStep,
     submit,
     isRegisterFinish,
   };

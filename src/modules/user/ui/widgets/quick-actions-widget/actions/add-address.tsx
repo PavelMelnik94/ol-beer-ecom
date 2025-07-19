@@ -28,8 +28,8 @@ export function AddAddressAction() {
 
   const handleFormSubmit = async (data: FormData,
   ) => {
-    const res = await mutation.mutateAsync({ ...data });
-    if (res.success) {
+    const addressMutationResponse = await mutation.mutateAsync({ ...data });
+    if (addressMutationResponse.success) {
       reset();
       setIsOpen(false);
     }
@@ -40,8 +40,8 @@ export function AddAddressAction() {
     setIsOpen(false);
   };
 
-  const formRef = useRef(null);
-  useOnClickOutside(formRef, handleClose);
+  const formReference = useRef(null);
+  useOnClickOutside(formReference, handleClose);
 
   return (
     <Dialog
@@ -50,7 +50,7 @@ export function AddAddressAction() {
       onOpenChange={() => { setIsOpen(true); }}
       trigger={<Button style={{ width: '100%' }} variant="soft">Add Address</Button>}
     >
-      <form ref={formRef} onSubmit={handleSubmit(handleFormSubmit)}>
+      <form ref={formReference} onSubmit={handleSubmit(handleFormSubmit)}>
         <InputText
           {...register('city')}
           placeholder="City"

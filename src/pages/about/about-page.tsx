@@ -116,22 +116,22 @@ export function AboutPage() {
           <Heading size="7" as="h2" align="center">Middle+ / Senior Frontend Developer (React/TypeScript)</Heading>
 
           <Flex direction="row" mt="4" gap="2" align="center" justify={isTabletLayout ? 'center' : 'start'}>
-            {contactLinks.map(({ icon, text, href }, idx) => (
-              <React.Fragment key={idx}>
+            {contactLinks.map(({ icon, text, href }, index) => (
+              <React.Fragment key={index}>
                 <Text size="1" color="gray">
                   <Flex gap="1" align="center">
                     {icon}
                     <Link href={href} target="_blank" rel="noopener noreferrer">{text}</Link>
                   </Flex>
                 </Text>
-                {idx !== contactLinks.length - 1 && <Separator orientation="vertical" />}
+                {index !== contactLinks.length - 1 && <Separator orientation="vertical" />}
               </React.Fragment>
             ))}
           </Flex>
 
           <Flex direction="row" mt="4" gap="2" align="center" justify={isTabletLayout ? 'center' : 'start'}>
-            {cvs.map(({ icon, text, href }, idx) => (
-              <React.Fragment key={idx}>
+            {cvs.map(({ icon, text, href }, index) => (
+              <React.Fragment key={index}>
                 <Text size="1" color="gray">
                   <Flex gap="1" align="center">
                     {icon}
@@ -167,7 +167,7 @@ export function AboutPage() {
           <Heading size="9" as="h3" align="center">Experience</Heading>
           <Stepper.Root
             activeStep={experienceSection.length}
-            completedSteps={Array.from({ length: experienceSection.length }, (_, i) => i)}
+            completedSteps={Array.from({ length: experienceSection.length }, (_, index) => index)}
             direction="column"
           >
             {experienceSection.map((job, index) => (
@@ -179,8 +179,8 @@ export function AboutPage() {
                 className="rt-r-mt-6"
                 description={(
                   <div>
-                    {job.items.map((item, i) => (
-                      <div key={i} className={i === 2 ? 'rt-r-mt-2' : ''}>{item}</div>
+                    {job.items.map((item, index_) => (
+                      <div key={index_} className={index_ === 2 ? 'rt-r-mt-2' : ''}>{item}</div>
                     ))}
                   </div>
                 )}
@@ -200,8 +200,8 @@ export function AboutPage() {
             mt="6"
           >
             <Box>
-              {personalSection.paragraphs.map((text, idx) => (
-                <Text as="p" key={idx}>{text}</Text>
+              {personalSection.paragraphs.map((text, index) => (
+                <Text as="p" key={index}>{text}</Text>
               ))}
             </Box>
             <Image src={personalSection.illustration} alt="About me" containerClassName={styles.image} />

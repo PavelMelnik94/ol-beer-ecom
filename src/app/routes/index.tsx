@@ -12,7 +12,6 @@ function registerLoader() {
   if (!isAuth) {
     return redirect(ROUTES.auth.register.full);
   }
-  return null;
 }
 
 const router = createBrowserRouter([

@@ -1,4 +1,4 @@
-export interface LikesCounterProps {
+export interface LikesCounterProperties {
   isLiked?: boolean;
   likesCount: number;
   heartSize?: number;

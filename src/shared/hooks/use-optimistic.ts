@@ -4,7 +4,7 @@ export function useOptimistic<T>(
   baseState: T,
 ): {
   optimisticValue: T;
-  addOptimistic: (updateFn: (draft: T) => T) => void;
+  addOptimistic: (updateFunction: (draft: T) => T) => void;
   rollback: () => void;
   isPending: boolean;
   confirm: () => void;
@@ -12,37 +12,37 @@ export function useOptimistic<T>(
   const [optimisticValue, setOptimisticValue] = useState<T>(baseState);
   const [isPending, startTransition] = useTransition();
 
-  const previousStateRef = useRef<T>(baseState);
-  const hasOptimisticUpdateRef = useRef(false);
+  const previousStateReference = useRef<T>(baseState);
+  const hasOptimisticUpdateReference = useRef(false);
 
   useEffect(() => {
-    if (!hasOptimisticUpdateRef.current) {
+    if (!hasOptimisticUpdateReference.current) {
       setOptimisticValue(baseState);
-      previousStateRef.current = baseState;
+      previousStateReference.current = baseState;
     }
   }, [baseState]);
 
-  const addOptimistic = useCallback((updateFn: (draft: T) => T) => {
+  const addOptimistic = useCallback((updateFunction: (draft: T) => T) => {
     startTransition(() => {
       setOptimisticValue((currentValue) => {
-        previousStateRef.current = currentValue;
-        hasOptimisticUpdateRef.current = true;
+        previousStateReference.current = currentValue;
+        hasOptimisticUpdateReference.current = true;
 
         const cloned = structuredClone(currentValue);
-        return updateFn(cloned);
+        return updateFunction(cloned);
       });
     });
   }, []);
 
   const rollback = useCallback(() => {
     startTransition(() => {
-      setOptimisticValue(previousStateRef.current);
-      hasOptimisticUpdateRef.current = false;
+      setOptimisticValue(previousStateReference.current);
+      hasOptimisticUpdateReference.current = false;
     });
   }, []);
 
   const confirm = useCallback(() => {
-    hasOptimisticUpdateRef.current = false;
+    hasOptimisticUpdateReference.current = false;
   }, []);
 
   return {

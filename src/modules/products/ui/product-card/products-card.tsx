@@ -8,14 +8,14 @@ import clsx from 'clsx';
 import { Coins } from 'lucide-react';
 import styles from './product-card.module.scss';
 
-interface Props {
+interface Properties {
   product: Product;
   onClickCart: () => void;
   cardActionSlot?: React.ReactNode;
   imageAsSlider?: boolean;
   className?: string;
 }
-export function ProductCard({ product, onClickCart, cardActionSlot, imageAsSlider = false, className }: Props) {
+export function ProductCard({ product, onClickCart, cardActionSlot, imageAsSlider = false, className }: Properties) {
   return (
     <Card key={product.id} size="2" className={clsx('pointer', styles.cardContainer, className)} onClick={onClickCart}>
       <Inset clip="padding-box" side="top" pb="current">

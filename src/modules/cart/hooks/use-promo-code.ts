@@ -17,7 +17,7 @@ export function usePromoCode() {
       });
       return { previousCart } as { previousCart?: any; };
     },
-    onError: (_err, _data, context) => {
+    onError: (_error, _data, context) => {
       if ((context as { previousCart?: any; })?.previousCart) {
         queryClient.setQueryData(QUERY_KEYS.cart.details(), (context as { previousCart?: any; }).previousCart);
       }
@@ -39,7 +39,7 @@ export function usePromoCode() {
       });
       return { previousCart } as { previousCart?: any; };
     },
-    onError: (_err, _data, context) => {
+    onError: (_error, _data, context) => {
       if ((context as { previousCart?: any; })?.previousCart) {
         queryClient.setQueryData(QUERY_KEYS.cart.details(), (context as { previousCart?: any; }).previousCart);
       }

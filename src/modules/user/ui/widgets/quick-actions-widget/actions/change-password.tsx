@@ -32,9 +32,9 @@ export function ChangePasswordAction() {
       newPassword: data.newPassword,
     };
 
-    const res = await mutation.mutateAsync(payload);
+    const changePasswordResponse = await mutation.mutateAsync(payload);
 
-    if (res.success) {
+    if (changePasswordResponse.success) {
       reset();
       setIsOpen(false);
     }
@@ -45,8 +45,8 @@ export function ChangePasswordAction() {
     setIsOpen(false);
   };
 
-  const formRef = useRef(null);
-  useOnClickOutside(formRef, handleClose);
+  const formReference = useRef(null);
+  useOnClickOutside(formReference, handleClose);
 
   return (
     <Dialog
@@ -55,7 +55,7 @@ export function ChangePasswordAction() {
       onOpenChange={() => { setIsOpen(true); }}
       trigger={<Button style={{ width: '100%' }} variant="soft">Change Password</Button>}
     >
-      <form ref={formRef} onSubmit={handleSubmit(handleFormSubmit)}>
+      <form ref={formReference} onSubmit={handleSubmit(handleFormSubmit)}>
         <InputPassword
           {...register('currentPassword')}
           placeholder="Current Password"

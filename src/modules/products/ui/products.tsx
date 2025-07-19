@@ -6,7 +6,7 @@ import { Flex } from '@radix-ui/themes';
 import { Pagination, Show } from '@shared/components';
 import { useEffect } from 'react';
 
-interface ProductsProps {
+interface ProductsProperties {
   products?: ProductWithFavorites[];
   error: ApiErrorResponse | null;
   isLoading: boolean;
@@ -25,7 +25,7 @@ interface ProductsProps {
 
 }
 
-export function Products(props: ProductsProps) {
+export function Products(properties: ProductsProperties) {
   const {
     products,
     isError,
@@ -38,7 +38,7 @@ export function Products(props: ProductsProps) {
     onClickCard,
     onAddToBasket,
     onAddToWishlist,
-  } = props;
+  } = properties;
   const { scrollToTop } = useGlobalScroll();
 
   useEffect(() => {

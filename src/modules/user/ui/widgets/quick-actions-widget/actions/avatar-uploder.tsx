@@ -4,32 +4,32 @@ import { Avatar, Flex, Spinner } from '@radix-ui/themes';
 import { Show } from '@shared/components';
 import { useRef, useState } from 'react';
 
-interface AvatarUploaderProps {
+interface AvatarUploaderProperties {
   avatarUrl?: string | null;
   fallback?: string;
 }
 
-export function AvatarUploader({ avatarUrl, fallback = 'User' }: AvatarUploaderProps) {
-  const [preview, setPreview] = useState<string | null>(null);
+export function AvatarUploader({ avatarUrl, fallback = 'User' }: AvatarUploaderProperties) {
+  const [preview, setPreview] = useState<string | undefined>();
   const [loading, setLoading] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputReference = useRef<HTMLInputElement>(null);
   const uploadAvatar = useUploadAvatar();
 
-  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] ?? null;
+  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] ?? undefined;
     if (!file) return;
     setLoading(true);
     try {
-      const res = await uploadAvatar.mutateAsync({ avatar: file });
-      if (res.success && res.data?.avatarUrl) {
-        setPreview(res.data.avatarUrl);
+      const avatarUploadResponse = await uploadAvatar.mutateAsync({ avatar: file });
+      if (avatarUploadResponse.success && avatarUploadResponse.data?.avatarUrl) {
+        setPreview(avatarUploadResponse.data.avatarUrl);
       }
       else {
         setPreview(URL.createObjectURL(file));
       }
     }
     catch {
-      setPreview(null);
+      setPreview(undefined);
     }
     finally {
       setLoading(false);
@@ -37,7 +37,7 @@ export function AvatarUploader({ avatarUrl, fallback = 'User' }: AvatarUploaderP
   };
 
   const handleClick = () => {
-    inputRef.current?.click();
+    inputReference.current?.click();
   };
 
   return (
@@ -75,7 +75,7 @@ export function AvatarUploader({ avatarUrl, fallback = 'User' }: AvatarUploaderP
         />
       </Show>
       <input
-        ref={inputRef}
+        ref={inputReference}
         type="file"
         accept="image/*"
         style={{ display: 'none' }}

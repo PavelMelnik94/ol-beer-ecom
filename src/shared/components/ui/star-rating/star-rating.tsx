@@ -2,7 +2,7 @@ import { Flex, Text, Tooltip } from '@radix-ui/themes';
 import { Flame } from 'lucide-react';
 import { useState } from 'react';
 
-interface StarRatingProps {
+interface StarRatingProperties {
   maxRating?: number;
   currentRating?: number;
   onRatingClick?: (rating: number) => void;
@@ -16,14 +16,14 @@ interface StarRatingProps {
 export function StarRating({
   maxRating = 5,
   currentRating = 0,
-  userRating = undefined,
+  userRating,
   onRatingClick,
   size = 16,
   readonly = false,
   showTooltip = true,
   showRatingText = false,
-}: StarRatingProps) {
-  const [hoveredRating, setHoveredRating] = useState<number | null>(null);
+}: StarRatingProperties) {
+  const [hoveredRating, setHoveredRating] = useState<number | undefined>();
 
   const handleStarClick = (rating: number) => {
     if (readonly) return;
@@ -37,7 +37,7 @@ export function StarRating({
 
   const handleStarLeave = () => {
     if (readonly) return;
-    setHoveredRating(null);
+    setHoveredRating(undefined);
   };
 
   const getStarColor = (starIndex: number) => {

@@ -11,12 +11,12 @@ export function PromoCodeInfoDialog() {
     setShownDialogs('promoCodeInfo', 'shown');
   };
 
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
-  useOnClickOutside(wrapperRef, handleClockOkay);
+  const wrapperReference = useRef<HTMLDivElement | null>(null);
+  useOnClickOutside(wrapperReference, handleClockOkay);
 
   return (
     <AlertDialog.Root open={showDialogs.promoCodeInfo === 'needShow'} onOpenChange={handleClockOkay}>
-      <AlertDialog.Content ref={wrapperRef} maxWidth="450px">
+      <AlertDialog.Content ref={wrapperReference} maxWidth="450px">
         <AlertDialog.Title>Promo codes available!</AlertDialog.Title>
         <AlertDialog.Description size="2">
           Since you have registered and added your first item, you can now use promo codes!

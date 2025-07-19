@@ -9,7 +9,7 @@ import { memo } from 'react';
 import { useForm } from 'react-hook-form';
 import { RegisterFooter } from '../register-footer/register-footer';
 
-interface AddressesStepProps {
+interface AddressesStepProperties {
   addresses: Address[];
   setAddresses: (addresses: Address[]) => void;
   onSubmit?: () => void;
@@ -18,7 +18,7 @@ interface AddressesStepProps {
   onClickBack: () => void;
 }
 
-export const AddressesStep = memo(({ addresses, setAddresses, onSubmit, step, totalSteps, onClickBack }: AddressesStepProps) => {
+export const AddressesStep = memo(({ addresses, setAddresses, onSubmit, step, totalSteps, onClickBack }: AddressesStepProperties) => {
   const shippingAddress = addresses.find(a => a.type === 'shipping') ?? {
     city: '',
     country: '',

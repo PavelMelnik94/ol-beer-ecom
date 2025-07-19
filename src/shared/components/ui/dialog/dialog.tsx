@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { Dialog as Modal, VisuallyHidden } from '@radix-ui/themes';
 
-interface DialogProps {
+interface DialogProperties {
   trigger: ReactNode;
   children: ReactNode;
   title?: string;
@@ -19,7 +19,7 @@ export function Dialog({
   open,
   onOpenChange,
   maxWidth = '450px',
-}: DialogProps) {
+}: DialogProperties) {
   const fallbackDescription = 'Dialog window. Please read the content carefully.';
 
   return (

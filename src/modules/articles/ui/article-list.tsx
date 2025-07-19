@@ -14,17 +14,17 @@ const Skeletons = (
   </div>
 );
 
-interface ArticleListProps {
+interface ArticleListProperties {
   promoSlots?: {
     every4: React.ReactNode;
     every7: React.ReactNode;
   };
 }
 
-export function ArticleList({ promoSlots }: ArticleListProps) {
+export function ArticleList({ promoSlots }: ArticleListProperties) {
   const { isLoading, isError, articles, hasNextPage, isFetchingNextPage, fetchNextPage, refetch } = useArticlesInfinite();
 
-  const loadMoreRef = useLoadMore(hasNextPage, isFetchingNextPage, fetchNextPage);
+  const loadMoreReference = useLoadMore(hasNextPage, isFetchingNextPage, fetchNextPage);
 
   if (isError) void refetch();
 
@@ -73,7 +73,7 @@ export function ArticleList({ promoSlots }: ArticleListProps) {
         }}
       </For>
 
-      <div ref={loadMoreRef} style={{ height: '50px' }} />
+      <div ref={loadMoreReference} style={{ height: '50px' }} />
 
       <Show when={isFetchingNextPage || isLoading || !articles?.length}>
         <Container pr="5" pl="5">

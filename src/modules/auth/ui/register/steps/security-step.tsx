@@ -7,7 +7,7 @@ import { memo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { RegisterFooter } from '../register-footer/register-footer';
 
-interface SecurityStepProps {
+interface SecurityStepProperties {
   security: SecurityInfo;
   setSecurity: (data: Partial<SecurityInfo>) => void;
   onSubmit?: (data?: SecurityInfo) => void;
@@ -16,7 +16,7 @@ interface SecurityStepProps {
   onClickBack: () => void;
 }
 
-export const SecurityStep = memo(({ security, setSecurity, onSubmit, step, totalSteps, onClickBack }: SecurityStepProps) => {
+export const SecurityStep = memo(({ security, setSecurity, onSubmit, step, totalSteps, onClickBack }: SecurityStepProperties) => {
   const {
     register,
     handleSubmit,

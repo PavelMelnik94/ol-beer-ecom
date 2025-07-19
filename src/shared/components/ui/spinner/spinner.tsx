@@ -2,13 +2,13 @@ import { animated, useSpring } from '@react-spring/web';
 import React from 'react';
 import styles from './spinner.module.scss';
 
-interface SpinnerProps {
+interface SpinnerProperties {
   size?: number;
   thickness?: number;
   className?: string;
 }
 
-export const Spinner: React.FC<SpinnerProps> = ({
+export const Spinner: React.FC<SpinnerProperties> = ({
   size = 40,
   thickness = 4,
   className,

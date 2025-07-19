@@ -1,4 +1,4 @@
-import type { LikesCounterProps } from './types';
+import type { LikesCounterProps as LikesCounterProperties } from './types';
 import { Flex, Text, Tooltip } from '@radix-ui/themes';
 import { Show } from '@shared/components';
 import { Heart } from 'lucide-react';
@@ -16,7 +16,7 @@ export function LikesCounter({
   heartSize = 16,
   textSize = '2',
   isLiked,
-}: LikesCounterProps) {
+}: LikesCounterProperties) {
   const handleClick = () => {
     onClick?.(!isLiked);
   };

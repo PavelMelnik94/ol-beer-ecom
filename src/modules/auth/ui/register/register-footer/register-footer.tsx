@@ -2,14 +2,14 @@ import { Button, Flex } from '@radix-ui/themes';
 import React from 'react';
 import styles from '../register-container/register-container.module.scss';
 
-interface RegisterFooterProps {
+interface RegisterFooterProperties {
   step: number;
   totalSteps: number;
   onClickBack: () => void;
   isLockButtons?: boolean;
 }
 
-export const RegisterFooter: React.FC<RegisterFooterProps> = ({ step, totalSteps, onClickBack, isLockButtons }) => {
+export const RegisterFooter: React.FC<RegisterFooterProperties> = ({ step, totalSteps, onClickBack, isLockButtons }) => {
   return (
     <>
       <div className={styles.separator} />

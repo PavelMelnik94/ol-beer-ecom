@@ -30,8 +30,8 @@ export function UpdateAddressDialog({ initialState }: { initialState?: FormData;
 
   const handleFormSubmit = async (data: FormData,
   ) => {
-    const res = await mutation.mutateAsync({ id: initialState?.id || '', data });
-    if (res.success) {
+    const updateAddressResponse = await mutation.mutateAsync({ id: initialState?.id || '', data });
+    if (updateAddressResponse.success) {
       reset();
       setIsOpen(false);
     }
@@ -42,8 +42,8 @@ export function UpdateAddressDialog({ initialState }: { initialState?: FormData;
     setIsOpen(false);
   };
 
-  const formRef = useRef(null);
-  useOnClickOutside(formRef, handleClose);
+  const formReference = useRef(null);
+  useOnClickOutside(formReference, handleClose);
 
   return (
     <Dialog
@@ -56,7 +56,7 @@ export function UpdateAddressDialog({ initialState }: { initialState?: FormData;
         </IconButton>
       )}
     >
-      <form ref={formRef} onSubmit={handleSubmit(handleFormSubmit)}>
+      <form ref={formReference} onSubmit={handleSubmit(handleFormSubmit)}>
         <InputText
           {...register('city')}
           placeholder="City"

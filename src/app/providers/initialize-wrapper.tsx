@@ -15,7 +15,7 @@ export function InitializeWrapper({ children }: { children: ReactNode; }) {
 
   return (
     <>
-      {isInit ? children : null}
+      {isInit ? children : undefined}
     </>
   );
 }

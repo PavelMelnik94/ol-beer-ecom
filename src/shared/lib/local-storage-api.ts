@@ -12,19 +12,19 @@ export class LocalStorageApi<Key extends string = string, Value extends JSONSeri
       const serialized = JSON.stringify(value);
       localStorage.setItem(this.storageKey, serialized);
     }
-    catch (e) {
-      console.error(`Failed to set key "${this.storageKey}" in localStorage:`, e);
+    catch (error) {
+      console.error(`Failed to set key "${this.storageKey}" in localStorage:`, error);
     }
   }
 
-  get<T extends Value>(): T | null {
+  get<T extends Value>(): T | undefined {
     try {
       const item = localStorage.getItem(this.storageKey);
-      return item ? (JSON.parse(item) as T) : null;
+      return item ? (JSON.parse(item) as T) : undefined;
     }
-    catch (e) {
-      console.error(`Failed to get key "${this.storageKey}" from localStorage:`, e);
-      return null;
+    catch (error) {
+      console.error(`Failed to get key "${this.storageKey}" from localStorage:`, error);
+      return undefined;
     }
   }
 
@@ -32,8 +32,8 @@ export class LocalStorageApi<Key extends string = string, Value extends JSONSeri
     try {
       localStorage.removeItem(this.storageKey);
     }
-    catch (e) {
-      console.error(`Failed to remove key "${this.storageKey}" from localStorage:`, e);
+    catch (error) {
+      console.error(`Failed to remove key "${this.storageKey}" from localStorage:`, error);
     }
   }
 

@@ -4,7 +4,7 @@ import type { HeaderRenderMode } from '@modules/common/ui/header/types';
 import { createContext, useContext, useMemo } from 'react';
 import { useHeader } from '../hooks/use-header';
 
-interface HeaderContextProps {
+interface HeaderContextProperties {
   user: User | null;
   isAuth: boolean;
   isMobileLayout: boolean;
@@ -28,7 +28,7 @@ interface HeaderContextProps {
   renderMode: HeaderRenderMode;
 }
 
-const HeaderContext = createContext<HeaderContextProps | undefined>(undefined);
+const HeaderContext = createContext<HeaderContextProperties | undefined>(undefined);
 
 export const HeaderProvider: React.FC<{ children: React.ReactNode; }> = ({ children }) => {
   const headerData = useHeader();
@@ -40,7 +40,7 @@ export const HeaderProvider: React.FC<{ children: React.ReactNode; }> = ({ child
   return <HeaderContext.Provider value={value}>{children}</HeaderContext.Provider>;
 };
 
-function useHeaderContext(): HeaderContextProps {
+function useHeaderContext(): HeaderContextProperties {
   const context = useContext(HeaderContext);
   if (!context) {
     throw new Error('useHeaderContext must be used within a HeaderProvider');

@@ -9,6 +9,11 @@ export default antfu({
   markdown: false,
   unicorn: {
     allRecommended: true,
+    overrides: {
+      'unicorn/filename-case': 'off',
+      'unicorn/no-array-reduce': 'off',
+      'unicorn/no-null': 'warn',
+    },
   },
   stylistic: {
     jsx: true,

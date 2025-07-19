@@ -4,6 +4,14 @@ import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
 
 import styles from './error-boundary.module.scss';
 
+function handleReload() {
+  globalThis.location.reload();
+}
+
+function handleGoHome() {
+  globalThis.location.href = '/';
+}
+
 export function RouteErrorBoundary() {
   const error = useRouteError();
 
@@ -23,14 +31,6 @@ export function RouteErrorBoundary() {
   else if (typeof error === 'string') {
     errorMessage = error;
   }
-
-  const handleReload = () => {
-    window.location.reload();
-  };
-
-  const handleGoHome = () => {
-    window.location.href = '/';
-  };
 
   return (
     <Dialog

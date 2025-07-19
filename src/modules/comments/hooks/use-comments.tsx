@@ -21,7 +21,7 @@ type CommentsResponse = ApiSuccessResponsePaginated<Comment>;
 type CommentResponse = ApiSuccessResponse<Comment>;
 type ErrorResponse = ApiErrorResponse;
 
-interface UseCommentsProps {
+interface UseCommentsProperties {
   page?: number;
   parentId: string;
   queryKey: (string | number)[];
@@ -33,7 +33,7 @@ export function useComments({
   parentId,
   api,
   queryKey,
-}: UseCommentsProps) {
+}: UseCommentsProperties) {
   const currentUser = useUserStore(s => s.profile);
   const {
     commentsState,
@@ -205,7 +205,7 @@ export function useComments({
 
   return {
     // data
-    comments: optimisticComments.length ? optimisticComments : commentsState.comments,
+    comments: optimisticComments.length > 0 ? optimisticComments : commentsState.comments,
     pagination: commentsState.pagination,
 
     // states loading

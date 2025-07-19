@@ -39,8 +39,8 @@ export function ProductDetailsSkeleton() {
           <Skeleton width="100%" height="3em" />
         </Text>
         <DataList.Root mt="5">
-          {[...Array.from({ length: 5 })].map((_, i) => (
-            <DataList.Item key={i} align="center">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <DataList.Item key={index} align="center">
               <DataList.Label minWidth="88px">
                 <Skeleton width="60px" height="1em" />
               </DataList.Label>

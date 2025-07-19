@@ -26,8 +26,8 @@ export function AddToCartButton({
       size="1"
       variant="outline"
       color={isAdded ? 'red' : 'green'}
-      onClick={(e) => {
-        e.stopPropagation();
+      onClick={(event) => {
+        event.stopPropagation();
         void handler();
       }}
       disabled={cartItem.updateItemStatus === 'pending' || cartItem.addItemStatus === 'pending'}

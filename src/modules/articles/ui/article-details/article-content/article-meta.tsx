@@ -2,11 +2,11 @@ import type { Article } from '../../../types';
 import { Avatar, Box, Flex, Text } from '@radix-ui/themes';
 import { TagList } from '../../tag-list';
 
-interface Props {
+interface Properties {
   author: Article['author'];
   tags: Article['tags'];
 }
-export function ArticleMeta({ author, tags }: Props) {
+export function ArticleMeta({ author, tags }: Properties) {
   return (
     <Flex justify="between" align="end" mb="6" wrap="wrap" gap="4">
       <Flex gap="3" align="center">

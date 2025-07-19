@@ -9,28 +9,28 @@ import { BreweryDescription } from './brewery-description/brewery-description';
 import { ProductDatalist } from './product-datalist/product-datalist';
 import styles from './product-details.module.scss';
 
-interface ProductDetailsProps {
+interface ProductDetailsProperties {
   product?: ProductWithFavoritesAndRatings | null;
   onClickRating?: (rating: number, productId: string) => void;
   onClickAddToWishlist?: (product: Product) => void;
 }
-export function ProductDetails({ product, onClickRating, onClickAddToWishlist }: ProductDetailsProps) {
+export function ProductDetails({ product, onClickRating, onClickAddToWishlist }: ProductDetailsProperties) {
   const [imageScrollAreaHeight, setImageScrollAreaHeight] = useState<number | undefined>(700);
   const isLargeScreen = useMediaQuery({ minWidth: 800 });
 
-  const detailRef = useRef<HTMLDivElement | null>(null);
-  const imageContainerRef = useRef<HTMLDivElement | null>(null);
+  const detailReference = useRef<HTMLDivElement | null>(null);
+  const imageContainerReference = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const computeHeight = () => {
-      setImageScrollAreaHeight(detailRef.current?.clientHeight);
+      setImageScrollAreaHeight(detailReference.current?.clientHeight);
     };
     document.addEventListener('resize', computeHeight);
 
     return () => {
       document.removeEventListener('resize', computeHeight);
     };
-  }, [detailRef.current?.clientHeight]);
+  }, [detailReference.current?.clientHeight]);
 
   if (!product) {
     return <Container pr="5" pl="5" pt="5" pb="5"><ProductDetailsSkeleton /></Container>;
@@ -38,7 +38,7 @@ export function ProductDetails({ product, onClickRating, onClickAddToWishlist }:
 
   return (
     <Flex className={styles.container}>
-      <Box ref={imageContainerRef} className={styles.productImagesContainer}>
+      <Box ref={imageContainerReference} className={styles.productImagesContainer}>
         <Show when={!isLargeScreen}>
           <ScrollArea
             size="1"
@@ -75,7 +75,7 @@ export function ProductDetails({ product, onClickRating, onClickAddToWishlist }:
       </Box>
 
       <Box
-        ref={detailRef}
+        ref={detailReference}
         className={styles.productDetails}
 
       >
@@ -106,8 +106,8 @@ export function ProductDetails({ product, onClickRating, onClickAddToWishlist }:
             size="1"
             variant="ghost"
             color={product.isFavorite ? 'ruby' : 'green'}
-            onClick={(e) => {
-              e.stopPropagation();
+            onClick={(event) => {
+              event.stopPropagation();
               onClickAddToWishlist?.(product);
             }}
           >

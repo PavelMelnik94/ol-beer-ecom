@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { Badge, Card, Flex, Heading, Text } from '@radix-ui/themes';
 import styles from './register-container.module.scss';
 
-interface Props {
+interface Properties {
   step: number;
   totalSteps: number;
   stepTitle: string;
@@ -15,7 +15,7 @@ export function RegisterContainer({
   stepTitle = 'Personal Information',
   stepDescription = 'Tell us about yourself',
   children,
-}: Props) {
+}: Properties) {
   return (
     <Card className={styles.container} data-step={step} data-total-steps={totalSteps} data-container>
 

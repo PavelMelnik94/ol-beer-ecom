@@ -29,21 +29,22 @@ function splitTitle(title: string, word: string): { before: string; highlight: s
 
   if (wordIndex !== -1) {
     return {
-      before: title.substring(0, wordIndex),
+      before: title.slice(0, Math.max(0, wordIndex)),
       highlight: word,
-      after: title.substring(wordIndex + word.length),
+      after: title.slice(Math.max(0, wordIndex + word.length)),
     };
   }
 
   return { before: title, highlight: '', after: '' };
 }
 
+const configInitial: AnimationConfig = {
+  initialScale: 1,
+  maxScale: 8,
+  completionThreshold: 0.85,
+};
 function useScrollAnimation(
-  config: AnimationConfig = {
-    initialScale: 1,
-    maxScale: 8,
-    completionThreshold: 0.85,
-  },
+  config: AnimationConfig = configInitial,
 ): ScrollAnimationState {
   const [scrollState, setScrollState] = useState<ScrollAnimationState>({
     progress: 0,
@@ -51,25 +52,25 @@ function useScrollAnimation(
     direction: 0,
   });
 
-  const prevScrollPosRef = useRef<number>(0);
+  const previousScrollPosReference = useRef<number>(0);
 
-  const throttle = useCallback(<T extends (...args: unknown[]) => unknown>(
-    func: T,
+  const throttle = useCallback(<T extends (...arguments_: unknown[]) => unknown>(
+    function_: T,
     limit: number,
-  ): ((...args: Parameters<T>) => void) => {
+  ): ((...arguments_: Parameters<T>) => void) => {
     let lastCall = 0;
-    return (...args) => {
+    return (...arguments_) => {
       const now = Date.now();
       if (now - lastCall >= limit) {
         lastCall = now;
-        func(...args);
+        function_(...arguments_);
       }
     };
   }, []);
 
   const handleScroll = useCallback(() => {
     const scrollY = window.scrollY || document.documentElement.scrollTop;
-    const prevScrollPos = prevScrollPosRef.current;
+    const previousScrollPos = previousScrollPosReference.current;
 
     const maxScroll = document.documentElement.scrollHeight - document.documentElement.clientHeight;
 
@@ -77,11 +78,11 @@ function useScrollAnimation(
 
     const progress = Math.min(Math.max(scrollY / (maxScroll * 0.65), 0), 1);
 
-    const direction = scrollY > prevScrollPos
+    const direction = scrollY > previousScrollPos
       ? 1
-      : scrollY < prevScrollPos ? -1 : 0;
+      : (scrollY < previousScrollPos ? -1 : 0);
 
-    prevScrollPosRef.current = scrollY;
+    previousScrollPosReference.current = scrollY;
 
     const isComplete = progress >= config.completionThreshold;
 
@@ -167,8 +168,8 @@ export function AnimatedHero(): JSX.Element {
   useEffect(() => {
     const jsConfetti = new JSConfetti();
     if (scrollState.isComplete) {
-      if (window.innerWidth < 576 && typeof window.navigator.vibrate === 'function') {
-        window.navigator.vibrate([100, 50, 100]);
+      if (window.innerWidth < 576 && typeof globalThis.navigator.vibrate === 'function') {
+        globalThis.navigator.vibrate([100, 50, 100]);
       }
       jsConfetti.addConfetti({
         confettiNumber: 15,

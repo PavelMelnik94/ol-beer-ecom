@@ -3,13 +3,13 @@ import { Widget } from '@modules/user/ui/widget/widget';
 import { Badge, Flex, Progress, Separator, Text } from '@radix-ui/themes';
 import { Beer, HandHeart, MessageCircleHeart } from 'lucide-react';
 
-interface Props {
+interface Properties {
   likedPostsCount?: number;
   likedCommentsCount?: number;
   ordersCount?: number;
 }
 
-export function ActivityWidget({ likedCommentsCount, likedPostsCount, ordersCount }: Props) {
+export function ActivityWidget({ likedCommentsCount, likedPostsCount, ordersCount }: Properties) {
   const rank = userModel.getBeerRank(ordersCount);
   return (
     <Widget

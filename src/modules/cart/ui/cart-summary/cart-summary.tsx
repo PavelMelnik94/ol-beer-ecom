@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { Card, Flex, Text } from '@radix-ui/themes';
 import styles from './cart-summary.module.scss';
 
-interface CartSummaryProps {
+interface CartSummaryProperties {
   total: number;
   discountAmount?: number;
   itemCount: number;
@@ -14,7 +14,7 @@ export function CartSummary({
   discountAmount,
   itemCount,
   actionSlot,
-}: CartSummaryProps) {
+}: CartSummaryProperties) {
   return (
     <Card className={styles.card} data-wrapper>
       <Flex direction="column">
@@ -29,16 +29,14 @@ export function CartSummary({
           {' '}
           $
         </Text>
-        {discountAmount
-          ? (
-              <Text size="3" mb="1">
-                Discount: -
-                {discountAmount.toFixed(2)}
-                {' '}
-                $
-              </Text>
-            )
-          : null}
+        {discountAmount && (
+          <Text size="3" mb="1">
+            Discount: -
+            {discountAmount.toFixed(2)}
+            {' '}
+            $
+          </Text>
+        )}
         <Text size="3" color="gray" mb="4">
           Items:
           {' '}

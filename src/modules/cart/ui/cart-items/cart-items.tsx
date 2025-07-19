@@ -7,7 +7,7 @@ import React from 'react';
 import { cartModel } from '../../model';
 import styles from './cart-items.module.scss';
 
-interface CartItemsProps {
+interface CartItemsProperties {
   items: CartItem[];
   updateItem: (data: { id: string; quantity: number; }) => void;
   removeItem: (data: { id: string; }) => void;
@@ -15,27 +15,27 @@ interface CartItemsProps {
   updateItemStatus: string;
 }
 
-export function CartItems(props: CartItemsProps) {
-  const { updateItem, removeItem, removeItemStatus, updateItemStatus } = props;
-  const [localQuantities, setLocalQuantities] = React.useState<Record<string, number>>(() => cartModel.getInitialLocalQuantities(props.items));
-  const [orderedItems, setOrderedItems] = React.useState<CartItem[]>(props.items);
-  const activeElementRef = React.useRef<HTMLInputElement | null>(null);
+export function CartItems(properties: CartItemsProperties) {
+  const { updateItem, removeItem, removeItemStatus, updateItemStatus } = properties;
+  const [localQuantities, setLocalQuantities] = React.useState<Record<string, number>>(() => cartModel.getInitialLocalQuantities(properties.items));
+  const [orderedItems, setOrderedItems] = React.useState<CartItem[]>(properties.items);
+  const activeElementReference = React.useRef<HTMLInputElement | null>(null);
 
   React.useEffect(() => {
-    setLocalQuantities(prev => cartModel.syncLocalQuantities(prev, props.items));
+    setLocalQuantities(previous => cartModel.syncLocalQuantities(previous, properties.items));
 
-    setOrderedItems(prev => cartModel.updateOrderedItems(prev, props.items));
+    setOrderedItems(previous => cartModel.updateOrderedItems(previous, properties.items));
 
-    if (activeElementRef.current) {
-      activeElementRef.current.focus();
+    if (activeElementReference.current) {
+      activeElementReference.current.focus();
     }
-  }, [props.items]);
+  }, [properties.items]);
 
   const debouncedUpdateItem = React.useMemo(() => debounce(updateItem, 300), [updateItem]);
 
   const handleQuantityChange = React.useCallback((id: string, quantity: number, element?: HTMLInputElement) => {
     setLocalQuantities(q => ({ ...q, [id]: quantity }));
-    if (element) activeElementRef.current = element;
+    if (element) activeElementReference.current = element;
     debouncedUpdateItem({ id, quantity });
   }, [debouncedUpdateItem]);
 

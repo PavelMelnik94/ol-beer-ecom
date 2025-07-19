@@ -8,7 +8,7 @@ import clsx from 'clsx';
 import { RotateCcw, Search, X } from 'lucide-react';
 import styles from './products-filters.module.scss';
 
-interface ProductsFiltersProps {
+interface ProductsFiltersProperties {
   form: UseFormReturn<FiltersForm>;
   setValue: (name: keyof FiltersForm, value: unknown) => void;
   onReset: () => void;
@@ -28,7 +28,7 @@ export function ProductsFilters({
   breweries,
   isLoading = false,
   isFiltersEmpty = true,
-}: ProductsFiltersProps) {
+}: ProductsFiltersProperties) {
   const { register, watch, formState: { errors } } = form;
   const watchedValues = watch();
 
@@ -102,7 +102,7 @@ export function ProductsFilters({
                             </Flex>
                           </Badge>
                         )
-                      : null;
+                      : undefined;
                   })}
                 </div>
               )}

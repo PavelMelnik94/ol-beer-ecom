@@ -6,7 +6,7 @@ import { ArticlePreview } from '../article-preview/article-preview';
 export const ArticleRandom = React.memo(({ excludeId }: { excludeId: string; }) => {
   const { article } = useArticlesRandom(excludeId);
 
-  if (!article) return null;
+  if (!article) return;
 
   return (
     <Container pr="5" pl="5">

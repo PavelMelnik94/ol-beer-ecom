@@ -24,9 +24,9 @@ export function useCart() {
   useEffect(() => {
     if (data?.data) {
       clearItemIds();
-      data.data.items.forEach((item) => {
+      for (const item of data.data.items) {
         addItemId(item.product.id);
-      });
+      }
     }
   }, [data?.data]);
 
@@ -44,7 +44,7 @@ export function useCart() {
       clearItemIds();
       return { previousCart } as { previousCart?: any; };
     },
-    onError: (_err, _data, context) => {
+    onError: (_error, _data, context) => {
       if ((context as { previousCart?: any; })?.previousCart) {
         queryClient.setQueryData(QUERY_KEYS.cart.details(), (context as { previousCart?: any; }).previousCart);
       }
@@ -55,7 +55,7 @@ export function useCart() {
   });
 
   return {
-    cart: data?.data ?? null,
+    cart: data?.data,
     isLoading,
     isError,
     error,

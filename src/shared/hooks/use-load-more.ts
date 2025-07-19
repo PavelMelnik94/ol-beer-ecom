@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 export function useLoadMore(hasNextPage: boolean, isFetchingNextPage: boolean, fetchNextPage: () => void) {
-  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  const loadMoreReference = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!hasNextPage || isFetchingNextPage) return;
@@ -13,7 +13,7 @@ export function useLoadMore(hasNextPage: boolean, isFetchingNextPage: boolean, f
       },
       { threshold: 1 },
     );
-    const node = loadMoreRef.current;
+    const node = loadMoreReference.current;
     if (node) observer.observe(node);
 
     return () => {
@@ -21,5 +21,5 @@ export function useLoadMore(hasNextPage: boolean, isFetchingNextPage: boolean, f
     };
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  return loadMoreRef;
+  return loadMoreReference;
 }

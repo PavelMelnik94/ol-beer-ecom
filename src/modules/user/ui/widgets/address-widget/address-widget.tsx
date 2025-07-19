@@ -6,10 +6,10 @@ import { Badge, Card, Flex, Text } from '@radix-ui/themes';
 import { For } from '@shared/components';
 import styles from './address-widget.module.scss';
 
-interface Props {
+interface Properties {
   addresses: Address[];
 }
-export function AddressesWidget({ addresses }: Props) {
+export function AddressesWidget({ addresses }: Properties) {
   return (
     <Widget
       title="Addresses"

@@ -5,6 +5,10 @@ function clamp(value: number, min: number, max: number) {
   return Math.max(min, Math.min(max, value));
 }
 
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 export function useGlobalScroll() {
   const {
     scrollY,
@@ -38,7 +42,7 @@ export function useGlobalScroll() {
       );
       setIsScrolling(true);
       setScrollVelocity(velocity);
-      setScrollDirection(y > lastY ? 'down' : y < lastY ? 'up' : null);
+      setScrollDirection(y > lastY ? 'down' : (y < lastY ? 'up' : undefined));
 
       lastY = y;
       lastTime = now;
@@ -63,10 +67,6 @@ export function useGlobalScroll() {
     setScrollDirection,
     setScrollVelocity,
   ]);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   return {
     scrollY,

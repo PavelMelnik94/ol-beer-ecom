@@ -2,37 +2,45 @@ import { Badge, Text } from '@radix-ui/themes';
 import { Flex } from '@radix-ui/themes/src/index.js';
 import { Hop } from 'lucide-react';
 
-interface HopBadgeProps {
+interface HopBadgeProperties {
   text: string;
   size?: 'small' | 'medium' | 'large';
 }
 
-function getIconSize(size: HopBadgeProps['size']): 12 | 16 | 18 {
+function getIconSize(size: HopBadgeProperties['size']): 12 | 16 | 18 {
   switch (size) {
-    case 'small':
+    case 'small': {
       return 12;
-    case 'medium':
+    }
+    case 'medium': {
       return 16;
-    case 'large':
+    }
+    case 'large': {
       return 18;
-    default:
+    }
+    default: {
       return 16;
+    }
   }
 }
 
-function getTextSize(size: HopBadgeProps['size']): '1' | '2' | '3' {
+function getTextSize(size: HopBadgeProperties['size']): '1' | '2' | '3' {
   switch (size) {
-    case 'small':
+    case 'small': {
       return '1';
-    case 'medium':
+    }
+    case 'medium': {
       return '2';
-    case 'large':
+    }
+    case 'large': {
       return '3';
-    default:
+    }
+    default: {
       return '2';
+    }
   }
 }
-export function HopBadge({ text, size }: HopBadgeProps) {
+export function HopBadge({ text, size }: HopBadgeProperties) {
   const iconSize = getIconSize(size);
   const textSize = getTextSize(size);
 

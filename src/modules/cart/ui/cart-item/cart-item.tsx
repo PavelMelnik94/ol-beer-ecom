@@ -3,11 +3,11 @@ import { Card, DataList, Flex, IconButton, Inset, Text } from '@radix-ui/themes'
 import { Image } from '@shared/components';
 import clsx from 'clsx';
 import { Flame, X } from 'lucide-react';
-import { useMediaQuery } from 'react-responsive';
 import { useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import styles from './cart-item.module.scss';
 
-interface Props {
+interface Properties {
   item: CartItemType;
   localQuantities: Record<string, number>;
   handleQuantityChange: (id: string, quantity: number, element?: HTMLInputElement) => void;
@@ -16,7 +16,7 @@ interface Props {
   updateItemStatus: string;
 }
 
-export function CartItem({ item, localQuantities, handleQuantityChange, removeItem, removeItemStatus, updateItemStatus }: Props) {
+export function CartItem({ item, localQuantities, handleQuantityChange, removeItem, removeItemStatus, updateItemStatus }: Properties) {
   const [localQuantity, setLocalQuantity] = useState(localQuantities[item.id] ?? item.quantity);
 
   const isSmallScreen = useMediaQuery({
@@ -27,10 +27,10 @@ export function CartItem({ item, localQuantities, handleQuantityChange, removeIt
   const isUpdatePending = updateItemStatus === 'pending';
   const isProcessing = isRemovePending || isUpdatePending;
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newQuantity = Number(e.target.value);
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newQuantity = Number(event.target.value);
     setLocalQuantity(newQuantity);
-    handleQuantityChange(item.id, newQuantity, e.target);
+    handleQuantityChange(item.id, newQuantity, event.target);
   };
 
   return (

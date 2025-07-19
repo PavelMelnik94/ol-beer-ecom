@@ -103,16 +103,16 @@ export function ProductDetailsPage() {
       { label: 'Showcase', to: '/showcase' },
       product?.brewery?.name && product?.brewery?.id
         ? { label: product.brewery.name, to: `/showcase?breweryId=${product.brewery.id}` }
-        : null,
+        : undefined,
       product
         ? { label: product.title, to: `/products/${product.id}` }
-        : null,
+        : undefined,
     ];
     return items.filter((item): item is { label: string; to: string; } => Boolean(item?.label));
   }, [product]);
 
-  const productWithFavoritesAndRatings: ProductWithFavoritesAndRatings | null = useMemo(() => {
-    if (!product) return null;
+  const productWithFavoritesAndRatings: ProductWithFavoritesAndRatings | undefined = useMemo(() => {
+    if (!product) return;
     return {
       ...product,
       isFavorite: hasFavorite(product.id),

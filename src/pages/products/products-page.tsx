@@ -58,7 +58,7 @@ export function ProductsPage() {
   const [visibleFiltersPanel, setVisibleFiltersPanel] = useState<boolean>(false);
 
   const handleClickShowFilters = () => {
-    setVisibleFiltersPanel(prev => !prev);
+    setVisibleFiltersPanel(previous => !previous);
   };
 
   const handleClickToAddToCart = async (product: Product) => {

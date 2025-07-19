@@ -2,11 +2,11 @@ import { Widget } from '@modules/user/ui/widget/widget';
 import { Badge, Flex, Text } from '@radix-ui/themes';
 import { dateParser } from '@shared/lib';
 
-interface Props {
+interface Properties {
   id: string;
   updatedAt: string;
 }
-export function AccountInfoWidget({ id, updatedAt }: Props) {
+export function AccountInfoWidget({ id, updatedAt }: Properties) {
   return (
     <Widget
       title="Account Information"

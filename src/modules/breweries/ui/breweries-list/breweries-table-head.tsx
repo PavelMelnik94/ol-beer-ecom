@@ -3,7 +3,7 @@ import { Show } from '@shared/components';
 import clsx from 'clsx';
 import { Search } from 'lucide-react';
 
-interface Props {
+interface Properties {
   showBreweriesInput: boolean;
   showLocationsInput: boolean;
   searchValue: string;
@@ -16,7 +16,7 @@ interface Props {
   toggleBrewerySearch: () => void;
   toggleLocationSearch: () => void;
 }
-export function BreweriesTableHead({ showBreweriesInput, isSearchLayout, showLocationsInput, searchValue, refs, handleSearch, toggleBrewerySearch, toggleLocationSearch }: Props) {
+export function BreweriesTableHead({ showBreweriesInput, isSearchLayout, showLocationsInput, searchValue, refs, handleSearch, toggleBrewerySearch, toggleLocationSearch }: Properties) {
   return (
     <Table.Header>
       <Table.Row>

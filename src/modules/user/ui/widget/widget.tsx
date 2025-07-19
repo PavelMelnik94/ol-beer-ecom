@@ -2,12 +2,12 @@ import type { ReactNode } from 'react';
 import { Card, Flex, Text } from '@radix-ui/themes';
 import { Show } from '@shared/components';
 
-interface WidgetProps {
+interface WidgetProperties {
   title: string;
   description?: string;
   children: ReactNode;
 }
-export function Widget({ title, description, children }: WidgetProps) {
+export function Widget({ title, description, children }: WidgetProperties) {
   return (
     <Card>
       <Flex direction="column">

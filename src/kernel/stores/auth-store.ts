@@ -3,18 +3,18 @@ import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
 interface AuthState {
-  token: string | null;
+  token: string | undefined;
   isAuth: boolean;
 }
 interface AuthStore extends AuthState {
-  setToken: (token: string | null) => void;
+  setToken: (token: string | undefined) => void;
   clearToken: () => void;
 }
 export const useAuthStore = create<AuthStore>()(
   devtools(
     persist(
       set => ({
-        token: null,
+        token: undefined,
         isAuth: false,
         setToken: (token) => {
           tokenStorage.set(token);
@@ -24,7 +24,7 @@ export const useAuthStore = create<AuthStore>()(
         clearToken: () => {
           tokenStorage.remove();
           set({
-            token: null,
+            token: undefined,
             isAuth: false,
           });
         },

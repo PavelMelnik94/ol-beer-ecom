@@ -12,12 +12,12 @@ interface LikeState {
   likeCounter: number;
 }
 
-interface UseLikeArticleProps {
+interface UseLikeArticleProperties {
   initialIsLiked: boolean;
   initialLikesCount: number;
 }
 
-export function useLikeArticle({ initialIsLiked, initialLikesCount }: UseLikeArticleProps) {
+export function useLikeArticle({ initialIsLiked, initialLikesCount }: UseLikeArticleProperties) {
   const articleId = useArticleStore(store => store.articleId);
 
   const baseState = useMemo<LikeState>(() => ({

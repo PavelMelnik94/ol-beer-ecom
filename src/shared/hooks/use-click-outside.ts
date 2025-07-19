@@ -11,7 +11,7 @@ type EventType
     | 'focusout';
 
 export function useOnClickOutside<T extends HTMLElement = HTMLElement>(
-  ref: RefObject<T> | RefObject<T>[],
+  reference: RefObject<T> | RefObject<T>[],
   handler: (event: MouseEvent | TouchEvent | FocusEvent) => void,
   eventType: EventType = 'mousedown',
   eventListenerOptions: AddEventListenerOptions = {},
@@ -26,11 +26,11 @@ export function useOnClickOutside<T extends HTMLElement = HTMLElement>(
         return;
       }
 
-      const isOutside = Array.isArray(ref)
-        ? ref
+      const isOutside = Array.isArray(reference)
+        ? reference
             .filter(r => Boolean(r.current))
             .every(r => r.current && !r.current.contains(target))
-        : ref.current && !ref.current.contains(target);
+        : reference.current && !reference.current.contains(target);
 
       if (isOutside) {
         handler(event);

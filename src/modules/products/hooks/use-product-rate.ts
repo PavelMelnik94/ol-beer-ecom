@@ -12,7 +12,6 @@ export function useProductRate() {
       return productsApi.rateProduct(productId, rate);
     },
     onMutate: async ({ productId, rate }) => {
-      // Optimistic update
       const hasExistingRating = useUserStore.getState().hasRating(productId);
 
       if (hasExistingRating) {
@@ -22,13 +21,13 @@ export function useProductRate() {
         optimisticAddRating(productId, rate);
       }
     },
-    onSuccess: (res) => {
-      if (res.success && res.message) {
-        toast.success(res.message);
+    onSuccess: (ratingResponse) => {
+      if (ratingResponse.success && ratingResponse.message) {
+        toast.success(ratingResponse.message);
       }
 
-      if (!res.success && res.message) {
-        toast.warning(res.message);
+      if (!ratingResponse.success && ratingResponse.message) {
+        toast.warning(ratingResponse.message);
       }
     },
     onError: () => {

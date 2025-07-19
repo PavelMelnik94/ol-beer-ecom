@@ -19,12 +19,7 @@ export const dateParser = {
       date = input;
     }
     else {
-      if (inputFormat) {
-        date = parse(input, inputFormat, new Date());
-      }
-      else {
-        date = parseISO(input);
-      }
+      date = inputFormat ? parse(input, inputFormat, new Date()) : parseISO(input);
     }
 
     if (!isValid(date)) {

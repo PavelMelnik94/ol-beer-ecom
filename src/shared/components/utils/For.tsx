@@ -1,5 +1,5 @@
 type Dict<T = any> = Record<string, T>;
-export interface ForProps<T> {
+export interface ForProperties<T> {
 
   each: T[] | readonly T[] | undefined;
   fallback?: React.ReactNode | undefined;
@@ -7,12 +7,12 @@ export interface ForProps<T> {
 }
 
 export function For<T extends string | number | Dict | undefined>(
-  props: ForProps<T>,
+  properties: ForProperties<T>,
 ): React.ReactNode {
-  const { each, fallback, children } = props;
+  const { each, fallback, children } = properties;
 
   if (each?.length === 0) {
-    return fallback || null;
+    return fallback || undefined;
   }
 
   return each?.map(children as any);
