@@ -16,26 +16,46 @@ interface CartItemsProps {
 }
 
 export function CartItems(props: CartItemsProps) {
-  const { items, updateItem, removeItem, removeItemStatus, updateItemStatus } = props;
+  const { updateItem, removeItem, removeItemStatus, updateItemStatus } = props;
   const [localQuantities, setLocalQuantities] = React.useState<Record<string, number>>(() => cartModel.getInitialLocalQuantities(props.items));
+  const [orderedItems, setOrderedItems] = React.useState<CartItem[]>(props.items);
+  const activeElementRef = React.useRef<HTMLInputElement | null>(null);
 
   React.useEffect(() => {
     setLocalQuantities(prev => cartModel.syncLocalQuantities(prev, props.items));
+
+    setOrderedItems(prev => {
+      const updatedItems = [...prev];
+      props.items.forEach(newItem => {
+        const index = updatedItems.findIndex(item => item.id === newItem.id);
+        if (index !== -1) {
+          updatedItems[index] = newItem;
+        } else {
+          updatedItems.push(newItem);
+        }
+      });
+      return updatedItems;
+    });
+
+    if (activeElementRef.current) {
+      activeElementRef.current.focus();
+    }
   }, [props.items]);
 
   const debouncedUpdateItem = React.useMemo(() => debounce(updateItem, 300), [updateItem]);
 
-  const handleQuantityChange = React.useCallback((id: string, quantity: number) => {
+  const handleQuantityChange = React.useCallback((id: string, quantity: number, element?: HTMLInputElement) => {
     setLocalQuantities(q => ({ ...q, [id]: quantity }));
+    if (element) activeElementRef.current = element;
     debouncedUpdateItem({ id, quantity });
   }, [debouncedUpdateItem]);
 
   return (
     <div className={styles.items}>
 
-      <Show when={items.length > 0} fallback={<div className={styles.empty}>No items in cart</div>}>
+      <Show when={orderedItems.length > 0} fallback={<div className={styles.empty}>No items in cart</div>}>
         <Flex gap="3" className={styles.itemList} wrap="wrap">
-          <For each={items}>
+          <For each={orderedItems}>
             {item => (
               <CartItemCard
                 key={item.id}

@@ -4,18 +4,21 @@ import { Image } from '@shared/components';
 import clsx from 'clsx';
 import { Flame, X } from 'lucide-react';
 import { useMediaQuery } from 'react-responsive';
+import { useState } from 'react';
 import styles from './cart-item.module.scss';
 
 interface Props {
   item: CartItemType;
   localQuantities: Record<string, number>;
-  handleQuantityChange: (id: string, quantity: number) => void;
+  handleQuantityChange: (id: string, quantity: number, element?: HTMLInputElement) => void;
   removeItem: (data: { id: string; }) => void;
   removeItemStatus: string;
   updateItemStatus: string;
 }
 
 export function CartItem({ item, localQuantities, handleQuantityChange, removeItem, removeItemStatus, updateItemStatus }: Props) {
+  const [localQuantity, setLocalQuantity] = useState(localQuantities[item.id] ?? item.quantity);
+
   const isSmallScreen = useMediaQuery({
     query: '(max-width: 768px)',
   });
@@ -23,6 +26,12 @@ export function CartItem({ item, localQuantities, handleQuantityChange, removeIt
   const isRemovePending = removeItemStatus === 'pending';
   const isUpdatePending = updateItemStatus === 'pending';
   const isProcessing = isRemovePending || isUpdatePending;
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newQuantity = Number(e.target.value);
+    setLocalQuantity(newQuantity);
+    handleQuantityChange(item.id, newQuantity, e.target);
+  };
 
   return (
     <Card key={item.id} className={styles.item} data-item>
@@ -34,7 +43,6 @@ export function CartItem({ item, localQuantities, handleQuantityChange, removeIt
             src={item.product.images[0]}
             alt={item.product.title}
             containerClassName={styles.image}
-            // sizeMode="background"
           />
         </Inset>
 
@@ -111,14 +119,11 @@ export function CartItem({ item, localQuantities, handleQuantityChange, removeIt
           name="quantity"
           type="number"
           min={1}
-          value={String(localQuantities[item.id] ?? item.quantity)}
+          value={String(localQuantity)}
           className={clsx(styles.quantityInput, {
             [styles.disabledQuantity]: isProcessing,
           })}
-          inputMode="numeric"
-          pattern="[0-9]*"
-          onChange={e => handleQuantityChange(item.id, Number((e.target).value))}
-          onFocus={e => e.target.select()}
+          onChange={handleInputChange}
           disabled={isProcessing}
         />
       </Flex>
