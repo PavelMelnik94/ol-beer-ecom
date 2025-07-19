@@ -1,11 +1,10 @@
 import type { ROUTES } from '@kernel/router';
 import type { User } from '@kernel/types';
 import type { HeaderRenderMode } from '@modules/header/types';
-import { createContext, useContext, useMemo } from 'react';
-import { useHeader } from '../hooks/use-header';
+import { createContext, useContext } from 'react';
 
 interface HeaderContextProperties {
-  user: User | null;
+  user: User | undefined;
   isAuth: boolean;
   isMobileLayout: boolean;
   mobileMenuOpen: boolean;
@@ -28,37 +27,12 @@ interface HeaderContextProperties {
   renderMode: HeaderRenderMode;
 }
 
-const HeaderContext = createContext<HeaderContextProperties | undefined>(undefined);
+export const HeaderContext = createContext<HeaderContextProperties | undefined>(undefined);
 
-export const HeaderProvider: React.FC<{ children: React.ReactNode; }> = ({ children }) => {
-  const headerData = useHeader();
-
-  const value = useMemo(() => ({
-    ...headerData,
-  }), [headerData]);
-
-  return <HeaderContext.Provider value={value}>{children}</HeaderContext.Provider>;
-};
-
-function useHeaderContext(): HeaderContextProperties {
+export function useHeaderContext(): HeaderContextProperties {
   const context = useContext(HeaderContext);
   if (!context) {
     throw new Error('useHeaderContext must be used within a HeaderProvider');
   }
   return context;
 }
-
-function extractStringRoutes(routes: typeof ROUTES): { [key: string]: string; } {
-  const result: { [key: string]: string; } = {};
-  for (const [key, value] of Object.entries(routes)) {
-    if (typeof value === 'string') {
-      result[key] = value;
-    }
-    else if (value && typeof value === 'object' && 'root' in value) {
-      result[key] = value.root;
-    }
-  }
-  return result;
-}
-
-export { extractStringRoutes, useHeaderContext };
