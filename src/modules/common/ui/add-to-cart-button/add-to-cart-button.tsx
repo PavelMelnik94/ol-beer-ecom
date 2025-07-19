@@ -10,13 +10,17 @@ export function AddToCartButton({
 }) {
   const cartItem = useCartItem();
   const isAdded = useCartStore(s => s.hasItemId(product.id));
+  const getOrderIdByProductId = useCartStore(s => s.getOrderIdByProductId);
 
   const handleAddToCart = async () => {
     await cartItem.addItem({ productId: product.id, quantity: 1 });
   };
 
   const handleRemoveFromCart = async () => {
-    await cartItem.removeItem({ id: product.id });
+    const orderId = getOrderIdByProductId(product.id);
+
+    if (!orderId) return;
+    await cartItem.removeItem({ id: orderId });
   };
 
   const handler = isAdded ? handleRemoveFromCart : handleAddToCart;

@@ -10,7 +10,7 @@ import { CheckoutButton } from './checkout-button/checkout-button';
 import { PromoCodeInput } from './promo-code-input/promo-code-input';
 
 export function CartMediator() {
-  const { cart, isLoading, isError, error, clearCart, clearCartStatus } = useCart();
+  const { cart, isLoading, isError, error, clearCart, clearCartStatus } = useCart({ enabled: true });
   const cartItem = useCartItem();
   const promo = usePromoCode();
   const payment = useCartPayment();

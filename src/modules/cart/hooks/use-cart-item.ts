@@ -23,29 +23,8 @@ export function useCartItem() {
       }
 
       toast.success(`Added to cart`);
-
-      await queryClient.cancelQueries({ queryKey: QUERY_KEYS.cart.details() });
-      const previousCart = queryClient.getQueryData<ApiSuccessResponseCart>(QUERY_KEYS.cart.details());
-
-      if (!previousCart?.data) return { previousCart };
-      const product = previousCart.data.items.find(item => item.product.id === data.productId)?.product ?? cartModel.getDefaultProduct(data.productId);
-      addItemId(product.id);
-      const optimisticItem = cartModel.createOptimisticCartItem(product, data.quantity);
-      queryClient.setQueryData(QUERY_KEYS.cart.details(), {
-        ...previousCart,
-        data: {
-          ...previousCart.data,
-          items: [...previousCart.data.items, optimisticItem],
-        },
-      });
-
-      return { previousCart } as { previousCart?: ApiSuccessResponseCart; };
     },
-    onError: (_error, _data, context) => {
-      if ((context as { previousCart?: ApiSuccessResponseCart; }).previousCart) {
-        queryClient.setQueryData(QUERY_KEYS.cart.details(), (context as { previousCart?: ApiSuccessResponseCart; }).previousCart);
-      }
-    },
+
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.cart.details() });
     },

@@ -7,11 +7,13 @@ import { useEffect } from 'react';
 import { cartApi } from '../api/cart-api';
 import { cartModel } from '../model';
 
-export function useCart() {
+export function useCart({ enabled = true }: { enabled?: boolean; }) {
   const clearItemIds = useCartStore(s => s.clearItemIds);
   const addItemId = useCartStore(s => s.addItemId);
+  const setOrders = useCartStore(s => s.setOrders);
+
   const {
-    data,
+    data: cartResponse,
     isLoading,
     isError,
     error,
@@ -19,16 +21,22 @@ export function useCart() {
   } = useQuery<ApiSuccessResponseCart, ApiErrorResponse>({
     queryKey: QUERY_KEYS.cart.details(),
     queryFn: cartApi.getCart,
+    enabled,
   });
 
   useEffect(() => {
-    if (data?.data) {
+    const data = cartResponse?.data;
+    if (data) {
       clearItemIds();
-      for (const item of data.data.items) {
+      for (const item of cartResponse.data.items) {
         addItemId(item.product.id);
       }
+
+      if (data?.items) {
+        setOrders(data?.items);
+      }
     }
-  }, [data?.data]);
+  }, [cartResponse, isLoading]);
 
   const clearCartMutation = useMutation({
     mutationFn: cartApi.clearCart,
@@ -55,7 +63,7 @@ export function useCart() {
   });
 
   return {
-    cart: data?.data,
+    cart: cartResponse?.data,
     isLoading,
     isError,
     error,

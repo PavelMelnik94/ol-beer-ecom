@@ -1,7 +1,6 @@
 import type { Product } from '@kernel/types';
 
-import type { Cart, CartItem, OptimisticCartItem, PromoCode } from '../types';
-import { nanoid } from 'nanoid';
+import type { Cart, CartItem, PromoCode } from '../types';
 
 function clearCart(previous: Cart): Cart {
   return {
@@ -55,19 +54,6 @@ function getDefaultProduct(productId: string): Product {
     averageRating: 0,
     createdAt: '',
     updatedAt: '',
-  };
-}
-
-function createOptimisticCartItem(product: CartItem['product'], quantity: number): OptimisticCartItem {
-  return {
-    id: nanoid(),
-    product,
-    quantity,
-    subtotal: product.price * quantity,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    isOptimistic: true,
-    isPending: false,
   };
 }
 
@@ -128,7 +114,6 @@ function updateOrderedItems(previousItems: CartItem[], newItems: CartItem[]): Ca
 }
 
 export const cartModel = {
-  createOptimisticCartItem,
   calculateCartTotal,
   normalizeCartItems,
   applyPromoCode,
