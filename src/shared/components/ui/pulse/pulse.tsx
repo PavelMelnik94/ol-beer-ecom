@@ -1,4 +1,4 @@
-import { ColorUtils } from '@shared/lib';
+import { ColorUtilities } from '@shared/utils';
 import clsx from 'clsx';
 import React, { useMemo } from 'react';
 import styles from './pulse.module.scss';
@@ -26,7 +26,7 @@ export const Pulse: React.FC<PulseProperties> = ({
   React.useEffect(() => {
     if (disabled) return;
 
-    const { r, g, b } = ColorUtils.hexToRgb(color);
+    const { r, g, b } = ColorUtilities.hexToRgb(color);
     const spread = size * 0.5;
 
     const keyframes = `

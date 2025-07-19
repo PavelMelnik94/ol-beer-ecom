@@ -1,18 +1,18 @@
+/* eslint-disable unicorn/prefer-module */
 import path from 'node:path';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
-const startPath = path.dirname('./src');
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@shared': path.resolve(startPath, '/shared'),
-      '@kernel': path.resolve(startPath, '/kernel'),
-      '@modules': path.resolve(startPath, '/modules'),
-      '@pages': path.resolve(startPath, '/pages'),
-      '@app': path.resolve(startPath, '/app'),
-      '@': path.resolve(startPath, '/'),
+      '@shared': path.resolve(__dirname, './src/shared'),
+      '@kernel': path.resolve(__dirname, './src/kernel'),
+      '@modules': path.resolve(__dirname, './src/modules'),
+      '@pages': path.resolve(__dirname, './src/pages'),
+      '@app': path.resolve(__dirname, './src/app'),
+      '@': path.resolve(__dirname, './src'),
     },
   },
   css: {
