@@ -10,7 +10,6 @@ import { AppRoutes } from './routes';
 
 function App() {
   const { theme } = useTheme();
-
   return (
     <ErrorBoundary>
       <NuqsAdapter>

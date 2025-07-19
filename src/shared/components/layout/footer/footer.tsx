@@ -26,13 +26,14 @@ export function Footer() {
 
         <Flex gap="1">
           <Text size="2">
-            All information on the site is for informational purposes only.
+            All information on the site is for informational purposes only
           </Text>
         </Flex>
 
         <Flex
           justify="center"
           align="end"
+          mt="1"
         >
           <Text
             size="2"

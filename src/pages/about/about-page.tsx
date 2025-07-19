@@ -262,6 +262,11 @@ export function AboutPage() {
                 </ul>
               </Text>
 
+              <Text mb="-2"><strong>Architecture:</strong></Text>
+              <Text size="3">
+                Improvisation without a mockup and continuous improvement. The project is designed with scalability, maintainability and performance in mind, with an emphasis on providing a high-quality user experience.
+              </Text>
+
               <Text as="p" color="gray" size="2">
                 This project serves as a comprehensive demonstration of your ability to design, develop, and maintain a scalable, performant, and maintainable application using modern web development practices.
               </Text>

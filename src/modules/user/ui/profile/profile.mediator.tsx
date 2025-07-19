@@ -49,6 +49,7 @@ export function ProfileMediator() {
         firstName={profile.firstName}
         lastName={profile.lastName}
         createdAt={profile.createdAt}
+        email={profile.email}
       />
 
       {isOneColumn

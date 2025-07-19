@@ -1,12 +1,15 @@
 import { useUserStore } from '@kernel/stores';
+import { normalizeAvatarUrl } from '@kernel/utils';
 import { Hero } from '@pages/orders/ui/hero';
 import { Avatar, Container, Flex, Section, Table, Text } from '@radix-ui/themes';
+import { sortByCreatedAt } from '@shared/utils';
 import { format } from 'date-fns';
 
 export function OrdersPage() {
   const orders = useUserStore(s => s.profile?.orders ?? []);
+  const sortedOrders = sortByCreatedAt(orders);
 
-  if (orders.length === 0) {
+  if (sortedOrders.length === 0) {
     return <Section><Text size="1">No orders found</Text></Section>;
   }
 
@@ -19,7 +22,7 @@ export function OrdersPage() {
       <Container mr="5" ml="5">
         <Section>
           <Table.Root variant="surface" size="3">
-            <Table.Header>
+            <Table.Header style={{ position: 'sticky', top: 0, zIndex: 1, backgroundColor: 'inherit' }}>
               <Table.Row>
                 <Table.ColumnHeaderCell><Text size="1">User</Text></Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell><Text size="1">Order ID</Text></Table.ColumnHeaderCell>
@@ -30,11 +33,11 @@ export function OrdersPage() {
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {orders.map(order => (
+              {sortedOrders.map(order => (
                 <Table.Row key={order.id}>
                   <Table.Cell>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <Avatar src={order.userSnapshot.avatar ?? undefined} fallback={order.userSnapshot.firstName[0]} size="2" radius="full" />
+                      <Avatar src={normalizeAvatarUrl(order.userSnapshot.avatar) ?? undefined} fallback={order.userSnapshot.firstName[0]} size="2" radius="full" />
                       <Text size="1">
                         {order.userSnapshot.firstName}
                         {' '}
