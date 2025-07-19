@@ -3,15 +3,16 @@ import { CartButton } from '@modules/cart';
 import { Button, Flex, IconButton, Popover, Separator } from '@radix-ui/themes';
 import { GithubButton } from '@shared/components/ui/github-button';
 import { Menu } from 'lucide-react';
+import { useHeaderContext } from '../context/header-context';
 import { AuthSection } from './auth-section';
 import { HeaderNav } from './header-nav';
-import { useHeaderContext } from '../context/header-context';
 
 import styles from './header.module.scss';
 
 function MobileSection() {
   const {
     navigationHandlers,
+    isAuth,
   } = useHeaderContext();
 
   return (
@@ -21,16 +22,22 @@ function MobileSection() {
       <Separator my="1" size="4" />
       <ThemeButton withTitle style={{ width: '100%' }} />
       <GithubButton withTitle style={{ width: '100%' }} />
-      <Separator my="1" size="4" />
-      <Button
-        variant="ghost"
-        size="1"
-        color="red"
-        onClick={navigationHandlers.onLogout}
-        style={{ width: '100%' }}
-      >
-        Log out
-      </Button>
+
+      {isAuth && (
+        <>
+          {' '}
+          <Separator my="1" size="4" />
+          <Button
+            variant="ghost"
+            size="1"
+            color="red"
+            onClick={navigationHandlers.onLogout}
+            style={{ width: '100%' }}
+          >
+            Log out
+          </Button>
+        </>
+      )}
     </>
   );
 }
