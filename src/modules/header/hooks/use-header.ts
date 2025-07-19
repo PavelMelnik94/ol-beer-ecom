@@ -1,4 +1,4 @@
-import type { HeaderRenderMode } from '@modules/common/ui/header/types';
+import type { HeaderRenderMode } from '@modules/header/types';
 import { useGoTo } from '@kernel/hooks';
 import { ROUTES, useAuthStore, useUserStore } from '@kernel/index';
 import { useAuth } from '@modules/auth';

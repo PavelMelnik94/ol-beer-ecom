@@ -2,7 +2,7 @@ import { Logo } from '@kernel/components';
 import { ThemeButton } from '@kernel/index';
 import { CartButton } from '@modules/cart';
 import { ButtonWithAuthPopup } from '@modules/common/ui/button-with-auth-popup';
-import { useHeaderContext } from '@modules/common/ui/header/context/header-context';
+import { useHeaderContext } from '@modules/header/context/header-context';
 import { Box, Button, Flex, IconButton, Popover, Separator } from '@radix-ui/themes';
 import { Pulse } from '@shared/components';
 import { GithubButton } from '@shared/components/ui/github-button';

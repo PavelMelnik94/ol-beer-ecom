@@ -1,6 +1,6 @@
 import { Logo, ThemeButton } from '@kernel/components';
 import { ButtonWithAuthPopup } from '@modules/common/ui/button-with-auth-popup';
-import { useHeaderContext } from '@modules/common/ui/header/context/header-context';
+import { useHeaderContext } from '@modules/header/context/header-context';
 import { Box, Button, Flex } from '@radix-ui/themes';
 import { Pulse } from '@shared/components';
 import { GithubButton } from '@shared/components/ui/github-button';

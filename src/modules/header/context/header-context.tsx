@@ -1,6 +1,6 @@
 import type { ROUTES } from '@kernel/router';
 import type { User } from '@kernel/types';
-import type { HeaderRenderMode } from '@modules/common/ui/header/types';
+import type { HeaderRenderMode } from '@modules/header/types';
 import { createContext, useContext, useMemo } from 'react';
 import { useHeader } from '../hooks/use-header';
 

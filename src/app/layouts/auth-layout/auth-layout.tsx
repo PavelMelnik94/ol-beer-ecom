@@ -1,5 +1,6 @@
 import { useGlobalScroll } from '@kernel/hooks';
-import { Header, PromoCodeInfoDialog } from '@modules/common';
+import { PromoCodeInfoDialog } from '@modules/common';
+import { Header } from '@modules/header';
 import { Box } from '@radix-ui/themes';
 import { Footer } from '@shared/components';
 import clsx from 'clsx';
