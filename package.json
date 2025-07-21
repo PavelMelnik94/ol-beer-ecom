@@ -1,7 +1,7 @@
 {
   "name": "clean-arch-frontend-template",
   "type": "module",
-  "version": "0.6.21",
+  "version": "0.6.22",
   "private": true,
   "scripts": {
     "start": "vite",
@@ -53,6 +53,7 @@
     "@typescript-eslint/parser": "^8.35.1",
     "@vitejs/plugin-react": "^4.6.0",
     "autoprefixer": "^10.4.21",
+    "cssnano": "^7.1.0",
     "eslint": "^9.30.0",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-boundaries": "^5.0.1",
