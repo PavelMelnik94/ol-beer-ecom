@@ -18,7 +18,6 @@ export function CartMediator() {
 
   const lockStatus = 'pending';
 
-  console.log(cart?.items, 'cart.items');
   const isLockUserInteraction = [
     clearCartStatus,
     payment.paymentStatus,
