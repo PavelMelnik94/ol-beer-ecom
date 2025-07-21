@@ -2,12 +2,16 @@ import type { Product } from '@kernel/types';
 import { useGoTo } from '@kernel/hooks';
 import { useUserStore } from '@kernel/stores';
 import { ArticleList } from '@modules/articles';
-import { PromoCodeVelocity, useCartStore, usePromoCode } from '@modules/cart';
-import { ProductsGrid, useProductsRandom } from '@modules/products';
+import { useCartStore, usePromoCode } from '@modules/cart';
+import { useProductsRandom } from '@modules/products';
 import { useToggleFavorite } from '@modules/user';
 import { Box, Container } from '@radix-ui/themes';
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Hero } from './ui/hero';
+
+const PromoCodeVelocity = React.lazy(() => import('@modules/cart').then(module => ({ default: module.PromoCodeVelocity })));
+
+const ProductsGrid = React.lazy(() => import('@modules/products').then(module => ({ default: module.ProductsGrid })));
 
 export function BlogPage() {
   const { products } = useProductsRandom(3);

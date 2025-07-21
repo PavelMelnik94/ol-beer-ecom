@@ -2,14 +2,20 @@ import type { Product, ProductWithFavoritesAndRatings } from '@kernel/types';
 import { useGoTo } from '@kernel/hooks';
 import { QUERY_KEYS, queryClient } from '@kernel/query';
 import { useAuthStore, useUserStore } from '@kernel/stores';
-import { PromoCodeVelocity, useCartStore, usePromoCode } from '@modules/cart';
-import { Comments, commentsProductsApi, useComments } from '@modules/comments';
-import { ProductDetails, ProductsGrid, useProductDetails, useProductRate, useProductsRelated } from '@modules/products';
+import { useCartStore, usePromoCode } from '@modules/cart';
+import { commentsProductsApi, useComments } from '@modules/comments';
+import { ProductDetails, useProductDetails, useProductRate, useProductsRelated } from '@modules/products';
 import { useToggleFavorite, useUserFavorites, useUserRatings } from '@modules/user';
 import { Box, Container, Text } from '@radix-ui/themes';
 import { Breadcrumbs, Pagination, Show } from '@shared/components';
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
+
+const Comments = React.lazy(() => import('@modules/comments').then(module => ({ default: module.Comments })));
+
+const PromoCodeVelocity = React.lazy(() => import('@modules/cart').then(module => ({ default: module.PromoCodeVelocity })));
+
+const ProductsGrid = React.lazy(() => import('@modules/products').then(module => ({ default: module.ProductsGrid })));
 
 const { usePagination: useCommentPagination } = Pagination;
 export function ProductDetailsPage() {

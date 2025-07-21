@@ -1,14 +1,16 @@
 import { RegisterCongrats } from '@modules/auth/ui/register/register-congrats/register-congrats';
 import { RegisterContainer } from '@modules/auth/ui/register/register-container/register-container';
+import { PersonalInfoStep } from '@modules/auth/ui/register/steps/personal-info-step';
 import { Box, Container, Flex, Text } from '@radix-ui/themes';
 import { Stepper } from '@shared/components/stepper';
+import { useMediaQuery } from '@shared/hooks';
 import { LockIcon, Truck, UserIcon } from 'lucide-react';
+import React from 'react';
 import { useRegisterForm } from '../../hooks/use-register-form';
 import styles from './register.module.scss';
-import { AddressesStep } from './steps/addresses-step';
-import { PersonalInfoStep } from './steps/personal-info-step';
-import { SecurityStep } from './steps/security-step';
-import { useMediaQuery } from '@shared/hooks';
+
+const AddressesStep = React.lazy(() => import('./steps/addresses-step').then(module => ({ default: module.AddressesStep })));
+const SecurityStep = React.lazy(() => import('./steps/security-step').then(module => ({ default: module.SecurityStep })));
 
 const STEPS_STATIC = [
   {

@@ -1,7 +1,7 @@
 import { AuthLayout } from '@app/layouts/auth-layout/auth-layout';
 import { MainLayout } from '@app/layouts/main-layout/main-layout';
 import { RouteErrorBoundary, ROUTES, useAuthStore } from '@kernel/index';
-import { ArticlePage, LazyAboutPage, LazyBlogPage, LazyBreweriesPage, LazyCartPage, LazyFavoritesPage, LazyHomePage, LazyOrdersPage, LazyProductsPage, LazyProfilePage, LazyRegisterPage, ProductDetailsPage } from '@pages/index';
+import { LazyAboutPage, LazyArticlePage, LazyBlogPage, LazyBreweriesPage, LazyCartPage, LazyFavoritesPage, LazyHomePage, LazyOrdersPage, LazyProductDetailsPage, LazyProductsPage, LazyProfilePage, LazyRegisterPage } from '@pages/index';
 import { PagePreloader } from '@shared/components';
 import { Suspense } from 'react';
 
@@ -44,7 +44,7 @@ const router = createBrowserRouter([
     path: ROUTES.articles.root,
     element: <MainLayout />,
     children: [
-      { path: ':id', element: <ArticlePage /> },
+      { path: ':id', element: <LazyArticlePage /> },
     ],
   },
   {
@@ -59,7 +59,7 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       { index: true, element: <LazyProductsPage /> },
-      { path: ':id', element: <ProductDetailsPage /> },
+      { path: ':id', element: <LazyProductDetailsPage /> },
     ],
   },
   {

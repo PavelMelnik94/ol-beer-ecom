@@ -3,11 +3,11 @@ import { AddToCartButton, ButtonWithAuthPopup } from '@modules/common';
 import { ProductDetailsSkeleton } from '@modules/products/ui/product-details/product-details-skeleton';
 import { Box, Container, Flex, ScrollArea, Separator, Text } from '@radix-ui/themes';
 import { Carousel, Image, Show } from '@shared/components';
+import { useMediaQuery } from '@shared/hooks';
 import { useEffect, useRef, useState } from 'react';
 import { BreweryDescription } from './brewery-description/brewery-description';
 import { ProductDatalist } from './product-datalist/product-datalist';
 import styles from './product-details.module.scss';
-import { useMediaQuery } from '@shared/hooks';
 
 interface ProductDetailsProperties {
   product?: ProductWithFavoritesAndRatings | null;

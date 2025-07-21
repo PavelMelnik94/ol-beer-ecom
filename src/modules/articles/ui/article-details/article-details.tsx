@@ -1,12 +1,14 @@
 import { getIsLiked, useGlobalScroll } from '@kernel/index';
 import { useLikeArticle } from '@modules/articles/hooks/use-like-article';
 import { Box, Container, Section } from '@radix-ui/themes';
-import { useLayoutEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useArticlesDetails } from '../../hooks/use-article-details';
-import { LikeAndComment } from '../like-and-comment';
 import { ArticleContent } from './article-content/article-content';
-import { ArticleRandom } from './article-random';
 import { ArticleSkeleton } from './article-skeleton/article-skeleton';
+
+const ArticleRandom = React.lazy(() => import('./article-random').then(module => ({ default: module.ArticleRandom })));
+
+const LikeAndComment = React.lazy(() => import('../like-and-comment').then(module => ({ default: module.LikeAndComment })));
 
 export function ArticleDetails({ id, commentSlot }: { id: string; commentSlot: React.ReactNode; }) {
   const { article } = useArticlesDetails(id);

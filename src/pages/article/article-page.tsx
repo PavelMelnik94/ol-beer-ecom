@@ -1,11 +1,13 @@
 import { QUERY_KEYS } from '@kernel/query';
 import { ArticleDetails } from '@modules/articles';
-import { Comments, commentsArticleApi, useComments } from '@modules/comments';
+import { commentsArticleApi, useComments } from '@modules/comments';
 import { Pagination } from '@shared/components';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 
 const { usePagination: useCommentPagination } = Pagination;
 
+const Comments = React.lazy(() => import('@modules/comments').then(module => ({ default: module.Comments })));
 export function ArticlePage() {
   const { id } = useParams();
 
