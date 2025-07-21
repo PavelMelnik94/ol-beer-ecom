@@ -3,7 +3,7 @@ import type { Comment, CommentsActions, OptimisticComment } from '../types';
 import { normalizeAvatarUrl } from '@kernel/utils';
 import { generateRandomId } from '@shared/utils';
 
-function createOptimisticComment(content: string, user: Author): OptimisticComment {
+function createOptimisticComment(content: string, user: Author | User): OptimisticComment {
   const optimisticId = generateRandomId();
   return {
     id: optimisticId,

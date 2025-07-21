@@ -22,8 +22,11 @@ export function CommentList({
   const user = useUserStore(s => s.profile);
 
   const commentsActions = useMemo(() => {
-    const actions = commentsModel.getCommentAllowActions(user, commentList as Comment[]);
-    return actions;
+    if (user) {
+      const actions = commentsModel.getCommentAllowActions(user, commentList as Comment[]);
+      return actions;
+    }
+    return {};
   }, [user, commentList]);
 
   return (

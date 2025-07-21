@@ -1,4 +1,4 @@
-import type { LikesCounterProps as LikesCounterProperties } from './types';
+import type { LikesCounterProperties } from './types';
 import { Flex, Text, Tooltip } from '@radix-ui/themes';
 import { Show } from '@shared/components';
 import { Heart } from 'lucide-react';

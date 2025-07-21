@@ -12,7 +12,7 @@ export function ArticleMeta({ author, tags }: Properties) {
       <Flex gap="3" align="center">
         <Avatar
           size="3"
-          src={author.avatar}
+          src={author?.avatar ?? undefined}
           radius="full"
           fallback="T"
         />

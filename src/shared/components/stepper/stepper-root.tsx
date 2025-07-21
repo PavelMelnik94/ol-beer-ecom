@@ -1,4 +1,4 @@
-import type { StepperRootProps as StepperRootProperties } from './types';
+import type {  StepperRootProperties } from './types';
 import { Flex } from '@radix-ui/themes';
 import { StepperContext } from '@shared/components/stepper/use-stepper';
 import clsx from 'clsx';

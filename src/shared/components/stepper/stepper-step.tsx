@@ -1,4 +1,4 @@
-import type { StepperStepProps as StepperStepProperties } from './types';
+import type { StepperStepProperties } from './types';
 import { Flex, Text } from '@radix-ui/themes';
 import clsx from 'clsx';
 import React from 'react';

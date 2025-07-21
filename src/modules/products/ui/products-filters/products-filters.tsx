@@ -10,7 +10,7 @@ import styles from './products-filters.module.scss';
 
 interface ProductsFiltersProperties {
   form: UseFormReturn<FiltersForm>;
-  setValue: (name: keyof FiltersForm, value: unknown) => void;
+  setValue: (name: keyof FiltersForm, value: string | string[]) => void;
   onReset: () => void;
   categories?: Array<{ id: string; name: string; }>;
   breweries?: Array<{ id: string; name: string; }>;

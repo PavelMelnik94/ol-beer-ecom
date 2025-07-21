@@ -36,7 +36,6 @@ export function Products(properties: ProductsProperties) {
     isLoading,
 
     onClickCard,
-    onAddToBasket,
     onAddToWishlist,
   } = properties;
   const { scrollToTop } = useGlobalScroll();
@@ -57,7 +56,6 @@ export function Products(properties: ProductsProperties) {
         products={products}
         isShow={!isPageChanging && !isLoading}
         onClickCard={onClickCard}
-        onAddToBasket={onAddToBasket}
         onAddToWishlist={onAddToWishlist}
       />
 

@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react';
 
 import { useIsomorphicLayoutEffect } from './use-isomorphic-event';
 
-// MediaQueryList Event based useEventListener interface
 function useEventListener<K extends keyof MediaQueryListEventMap>(
   eventName: K,
   handler: (event: MediaQueryListEventMap[K]) => void,
@@ -12,7 +11,6 @@ function useEventListener<K extends keyof MediaQueryListEventMap>(
   options?: boolean | AddEventListenerOptions,
 ): void;
 
-// Window Event based useEventListener interface
 function useEventListener<K extends keyof WindowEventMap>(
   eventName: K,
   handler: (event: WindowEventMap[K]) => void,
@@ -20,7 +18,6 @@ function useEventListener<K extends keyof WindowEventMap>(
   options?: boolean | AddEventListenerOptions,
 ): void;
 
-// Element Event based useEventListener interface
 function useEventListener<
   K extends keyof HTMLElementEventMap & keyof SVGElementEventMap,
   T extends Element = K extends keyof HTMLElementEventMap
@@ -35,7 +32,6 @@ function useEventListener<
   options?: boolean | AddEventListenerOptions,
 ): void;
 
-// Document Event based useEventListener interface
 function useEventListener<K extends keyof DocumentEventMap>(
   eventName: K,
   handler: (event: DocumentEventMap[K]) => void,
@@ -61,7 +57,6 @@ function useEventListener<
   element?: RefObject<T>,
   options?: boolean | AddEventListenerOptions,
 ) {
-  // Create a ref that stores handler
   const savedHandler = useRef(handler);
 
   useIsomorphicLayoutEffect(() => {
@@ -69,7 +64,7 @@ function useEventListener<
   }, [handler]);
 
   useEffect(() => {
-    const targetElement: T | Window = element?.current ?? globalThis;
+    const targetElement: T | typeof globalThis = element?.current ?? globalThis;
 
     if (!(targetElement && targetElement.addEventListener)) return;
 
