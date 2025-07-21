@@ -9,6 +9,7 @@ export function GithubButton({ withTitle = false, style }: { withTitle?: boolean
       variant="ghost"
       size="1"
       name="github-button"
+      aria-label="Open Github profile"
       onClick={() => window.open(
         'https://github.com/PavelMelnik94',
         '_blank',

@@ -12,13 +12,14 @@ export function ThemeButton({ withTitle = false, style }: { withTitle?: boolean;
       size="1"
       name="theme-button"
       onClick={toggleTheme}
+      aria-label={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
     >
       {theme === 'light' && (
         <>
           <Sun height={16} width={16} />
           {withTitle && 'Light'}
         </>
-      ) }
+      )}
       {theme === 'dark' && (
         <>
           <Moon height={16} width={16} />
