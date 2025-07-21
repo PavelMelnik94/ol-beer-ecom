@@ -10,6 +10,7 @@ export function ThemeButton({ withTitle = false, style }: { withTitle?: boolean;
       style={{ ...(withTitle ? {} : { padding: '6px' }), ...style }}
       variant="ghost"
       size="1"
+      name="theme-button"
       onClick={toggleTheme}
     >
       {theme === 'light' && (
