@@ -1,11 +1,12 @@
 {
   "name": "clean-arch-frontend-template",
   "type": "module",
-  "version": "0.6.42",
+  "version": "0.6.43",
   "private": true,
   "scripts": {
     "start": "vite",
     "build": "npm run optimize:illustration:common && npm run optimize:illustration:dev && vite build",
+    "build:with-purge": "npm run optimize:illustration:common && npm run optimize:illustration:dev && cross-env ENABLE_PURGECSS=true vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",
@@ -39,6 +40,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^4.16.1",
     "@eslint-react/eslint-plugin": "^1.51.2",
+    "@fullhuman/postcss-purgecss": "^7.0.2",
     "@tanstack/react-query-devtools": "^5.83.0",
     "@types/node": "^24.0.8",
     "@types/react": "^18.2.66",
