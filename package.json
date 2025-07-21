@@ -1,7 +1,7 @@
 {
   "name": "clean-arch-frontend-template",
   "type": "module",
-  "version": "0.6.27",
+  "version": "0.6.28",
   "private": true,
   "scripts": {
     "start": "vite",
@@ -31,7 +31,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.59.0",
-    "react-responsive": "^10.0.1",
     "react-router-dom": "^7.6.3",
     "sonner": "^2.0.5",
     "zod": "^3.25.67",

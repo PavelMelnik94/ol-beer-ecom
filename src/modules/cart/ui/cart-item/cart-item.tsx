@@ -4,7 +4,7 @@ import { Image } from '@shared/components';
 import clsx from 'clsx';
 import { Flame, X } from 'lucide-react';
 import { useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from '@shared/hooks';
 import styles from './cart-item.module.scss';
 
 interface Properties {
@@ -18,10 +18,7 @@ interface Properties {
 
 export function CartItem({ item, localQuantities, handleQuantityChange, removeItem, removeItemStatus, updateItemStatus }: Properties) {
   const [localQuantity, setLocalQuantity] = useState(localQuantities[item.id] ?? item.quantity);
-
-  const isSmallScreen = useMediaQuery({
-    query: '(max-width: 768px)',
-  });
+  const isMobile = useMediaQuery('(max-width: 576px)');
 
   const isRemovePending = removeItemStatus === 'pending';
   const isUpdatePending = updateItemStatus === 'pending';
@@ -129,7 +126,7 @@ export function CartItem({ item, localQuantities, handleQuantityChange, removeIt
       </Flex>
       <IconButton
         color="ruby"
-        variant={isSmallScreen ? 'solid' : 'soft'}
+        variant={isMobile ? 'solid' : 'soft'}
         data-remove-button
         onClick={() => { removeItem({ id: item.id }); }}
         disabled={isProcessing}

@@ -1,16 +1,13 @@
 import { QUERY_KEYS } from '@kernel/index';
-import { useOnClickOutside } from '@shared/hooks';
+import { useOnClickOutside, useMediaQuery } from '@shared/hooks';
 import { useQuery } from '@tanstack/react-query';
 
 import { useMemo, useRef, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { breweriesApi } from '../api';
 import { breweriesModel } from '../model';
 
 export function useBreweriesSearch() {
-  const isEnabled = useMediaQuery({
-    query: '(min-width: 568px)',
-  });
+  const isEnabled = useMediaQuery('(min-width: 568px)');
   const [isActiveBrewerySearch, setIsActiveBrewerySearch] = useState<boolean>(false);
   const [isActiveLocationSearch, setIsActiveLocationSearch] = useState<boolean>(false);
 

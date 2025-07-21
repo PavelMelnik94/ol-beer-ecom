@@ -4,10 +4,10 @@ import { ProductDetailsSkeleton } from '@modules/products/ui/product-details/pro
 import { Box, Container, Flex, ScrollArea, Separator, Text } from '@radix-ui/themes';
 import { Carousel, Image, Show } from '@shared/components';
 import { useEffect, useRef, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { BreweryDescription } from './brewery-description/brewery-description';
 import { ProductDatalist } from './product-datalist/product-datalist';
 import styles from './product-details.module.scss';
+import { useMediaQuery } from '@shared/hooks';
 
 interface ProductDetailsProperties {
   product?: ProductWithFavoritesAndRatings | null;
@@ -16,7 +16,7 @@ interface ProductDetailsProperties {
 }
 export function ProductDetails({ product, onClickRating, onClickAddToWishlist }: ProductDetailsProperties) {
   const [imageScrollAreaHeight, setImageScrollAreaHeight] = useState<number | undefined>(700);
-  const isLargeScreen = useMediaQuery({ minWidth: 800 });
+  const isLargeScreen = useMediaQuery('(min-width: 800px)');
 
   const detailReference = useRef<HTMLDivElement | null>(null);
   const imageContainerReference = useRef<HTMLDivElement | null>(null);

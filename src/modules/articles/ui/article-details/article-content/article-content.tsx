@@ -3,9 +3,9 @@ import { LikesCounterWithAuthorizePopup } from '@modules/common';
 import { Container, Flex, Heading, Separator, Text } from '@radix-ui/themes';
 import { Image } from '@shared/components';
 
-import { useMediaQuery } from 'react-responsive';
 import styles from './article-content.module.scss';
 import { ArticleMeta } from './article-meta';
+import { useMediaQuery } from '@shared/hooks';
 
 export function ArticleContent({
   article,
@@ -18,9 +18,7 @@ export function ArticleContent({
   isLiked: boolean;
   likeCounter: number;
 }) {
-  const isMobile = useMediaQuery({
-    query: '(max-width: 576px)',
-  });
+  const isMobile = useMediaQuery('(max-width: 576px)');
 
   return (
     <>

@@ -3,8 +3,8 @@ import { Image, Show } from '@shared/components';
 import { Stepper } from '@shared/components/stepper';
 import { Briefcase, BriefcaseBusiness, Github, Goal, Linkedin, Mailbox, SquareChartGantt } from 'lucide-react';
 import React from 'react';
-import { useMediaQuery } from 'react-responsive';
 import styles from './about-page.module.scss';
+import { useMediaQuery } from '@shared/hooks';
 
 const contactLinks = [
   {
@@ -103,9 +103,9 @@ const personalSection = {
 };
 
 export function AboutPage() {
-  const isTabletLayout = useMediaQuery({ query: '(max-width: 1180px)' });
-  const isMediumScreen = useMediaQuery({ query: '(max-width: 1000px)' });
-  const isMobileScreen = useMediaQuery({ query: '(max-width: 576px)' });
+  const isTabletLayout = useMediaQuery('(max-width: 1180px)');
+  const isMediumScreen = useMediaQuery('(max-width: 1000px)');
+  const isMobileScreen = useMediaQuery('(max-width: 576px)');
 
   return (
     <Container mr="5" ml="5">

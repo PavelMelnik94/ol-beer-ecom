@@ -4,8 +4,8 @@ import { ROUTES, useAuthStore, useUserStore } from '@kernel/index';
 import { useAuth } from '@modules/auth';
 import clsx from 'clsx';
 import { useMemo, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import { useLocation } from 'react-router-dom';
+import { useMediaQuery } from '@shared/hooks';
 import styles from '../header.module.scss';
 
 export function useHeader() {
@@ -15,9 +15,7 @@ export function useHeader() {
   const { logout } = useAuth();
   const user = useUserStore(s => s.profile);
   const isAuth = useAuthStore(s => s.isAuth);
-  const isMobileLayout = useMediaQuery({
-    query: '(max-width: 670px)',
-  });
+  const isMobileLayout = useMediaQuery('(max-width: 670px)');
 
   const getActiveProperties = (path: string) => ({
     'data-active': path === pathname ? 'true' : 'false',

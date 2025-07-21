@@ -2,7 +2,7 @@ import { Flex, IconButton, SegmentedControl } from '@radix-ui/themes';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { parseAsInteger, useQueryState } from 'nuqs';
 import React, { useCallback, useEffect, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from '@shared/hooks';
 
 import styles from './pagination.module.scss';
 
@@ -15,11 +15,11 @@ interface PaginationProperties {
 }
 
 interface UsePaginationOptions {
-  shouldGoToPrevPage?: boolean;
+  shouldGoToPreviousPage?: boolean;
   isLoading?: boolean;
 }
 
-function usePagination({ shouldGoToPrevPage: shouldGoToPreviousPage = false, isLoading = false }: UsePaginationOptions = {}) {
+function usePagination({ shouldGoToPreviousPage = false, isLoading = false }: UsePaginationOptions = {}) {
   const [page = 1, setPage] = useQueryState('commentPage', parseAsInteger);
   const [isPageChanging, setIsPageChanging] = useState(false);
 
@@ -58,9 +58,7 @@ const Pagination: PaginationComponent = ({
   onPageChange,
   className,
 }) => {
-  const isMobile = useMediaQuery({
-    query: '(max-width: 599px)',
-  });
+  const isMobile = useMediaQuery('(max-width: 576px)');
 
   const generatePageNumbers = (): number[] => {
     if (isMobile) {

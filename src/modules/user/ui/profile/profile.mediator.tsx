@@ -7,11 +7,11 @@ import { AddressesWidget } from '@modules/user/ui/widgets/address-widget/address
 import { HeaderWidget } from '@modules/user/ui/widgets/header-widget/header-widget';
 import { QuickActionsWidget } from '@modules/user/ui/widgets/quick-actions-widget/quick-actions-widget';
 import { Flex } from '@radix-ui/themes';
-import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from '@shared/hooks';
 import styles from './profile.module.scss';
 
 export function ProfileMediator() {
-  const isOneColumn = useMediaQuery({ query: '(max-width: 610px)' });
+  const isOneColumn = useMediaQuery('(max-width: 610px)');
 
   const { profile } = useUserProfile();
 

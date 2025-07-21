@@ -3,10 +3,10 @@ import { Box, Flex, Heading, Section } from '@radix-ui/themes';
 import { Image } from '@shared/components';
 import { Alert } from '@shared/components/ui/alert/alert';
 import { useConfetti } from '@shared/hooks';
+import { useMediaQuery } from '@shared/hooks';
 import clsx from 'clsx';
 import { Beer } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import styles from './register-congrats.module.scss';
 
 interface RegisterCongratsProperties {
@@ -14,12 +14,8 @@ interface RegisterCongratsProperties {
 }
 
 export function RegisterCongrats({ onReset }: RegisterCongratsProperties) {
-  const isColumnDirection = useMediaQuery({
-    query: '(max-width: 1100px)',
-  });
-  const isMobile = useMediaQuery({
-    query: '(max-width: 576px)',
-  });
+  const isColumnDirection = useMediaQuery('(max-width: 1100px)');
+  const isMobile = useMediaQuery('(max-width: 576px)');
 
   const [countdown, setCountdown] = useState(7);
   const navigateToProfile = useGoTo().navigateToProfile;

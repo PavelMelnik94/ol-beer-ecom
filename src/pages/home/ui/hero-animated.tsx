@@ -5,8 +5,8 @@ import { Image, Show } from '@shared/components';
 import { useConfetti } from '@shared/hooks/use-confetti';
 import JSConfetti from 'js-confetti';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
 import styles from './hero-animated.module.scss';
+import { useMediaQuery } from '@shared/hooks';
 
 interface ScrollAnimationState {
   progress: number;
@@ -108,13 +108,9 @@ function useScrollAnimation(
 }
 
 export function AnimatedHero(): JSX.Element {
-  const isColumnDirection = useMediaQuery({
-    query: '(max-width: 1100px)',
-  });
+  const isColumnDirection = useMediaQuery('(max-width: 1100px)');
 
-  const isMobile = useMediaQuery({
-    query: '(max-width: 576px)',
-  });
+  const isMobile = useMediaQuery('(max-width: 576px)');
 
   const { navigateToShowcase } = useGoTo();
 

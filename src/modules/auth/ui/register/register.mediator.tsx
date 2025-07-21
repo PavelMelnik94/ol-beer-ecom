@@ -3,12 +3,12 @@ import { RegisterContainer } from '@modules/auth/ui/register/register-container/
 import { Box, Container, Flex, Text } from '@radix-ui/themes';
 import { Stepper } from '@shared/components/stepper';
 import { LockIcon, Truck, UserIcon } from 'lucide-react';
-import { useMediaQuery } from 'react-responsive';
 import { useRegisterForm } from '../../hooks/use-register-form';
 import styles from './register.module.scss';
 import { AddressesStep } from './steps/addresses-step';
 import { PersonalInfoStep } from './steps/personal-info-step';
 import { SecurityStep } from './steps/security-step';
+import { useMediaQuery } from '@shared/hooks';
 
 const STEPS_STATIC = [
   {
@@ -36,7 +36,7 @@ function getStepProperties(step: number) {
 }
 
 export function RegisterMediator() {
-  const isColumn = useMediaQuery({ query: '(max-width: 1100px)' });
+  const isColumn = useMediaQuery('(max-width: 1100px)');
   const {
     step,
     personalInfo,

@@ -1,14 +1,9 @@
 import { Box, Flex, Heading, Section } from '@radix-ui/themes';
 import { Image, Show } from '@shared/components';
-import { useMediaQuery } from 'react-responsive';
-
+import { useMediaQuery } from '@shared/hooks';
 export function Hero() {
-  const isColumnDirection = useMediaQuery({
-    query: '(max-width: 1100px)',
-  });
-  const isMobile = useMediaQuery({
-    query: '(max-width: 576px)',
-  });
+  const isColumnDirection = useMediaQuery('(max-width: 1100px)');
+  const isMobile = useMediaQuery('(max-width: 576px)');
 
   return (
     <Section pb="0" pt={isMobile ? '7' : '9'}>

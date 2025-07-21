@@ -9,14 +9,12 @@ import { useToggleFavorite, useUserFavorites } from '@modules/user';
 import { Button, Container, Flex, Tooltip } from '@radix-ui/themes';
 import { For, Show } from '@shared/components';
 import { Heart } from 'lucide-react';
-import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from '@shared/hooks';
 import styles from './favorites-page.module.scss';
 import { Hero } from './ui/hero';
 
 export function FavoritesPage() {
-  const isCentered = useMediaQuery({
-    query: '(max-width: 1200px)',
-  });
+  const isCentered = useMediaQuery('(max-width: 1200px)');
   const { isLoading } = useUserFavorites({ enabled: true });
   const { mutateAsync: toggleFavorite } = useToggleFavorite();
 

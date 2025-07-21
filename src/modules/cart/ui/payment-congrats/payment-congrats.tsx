@@ -5,15 +5,11 @@ import { Alert } from '@shared/components/ui/alert/alert';
 import { useConfetti } from '@shared/hooks';
 import { Beer } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from '@shared/hooks';
 
 export function PaymentCongrats() {
-  const isColumnDirection = useMediaQuery({
-    query: '(max-width: 1100px)',
-  });
-  const isMobile = useMediaQuery({
-    query: '(max-width: 576px)',
-  });
+  const isColumnDirection = useMediaQuery('(max-width: 1100px)');
+  const isMobile = useMediaQuery('(max-width: 576px)');
 
   const [countdown, setCountdown] = useState(7);
   const navigateToBlog = useGoTo().navigateToBlog;

@@ -4,8 +4,8 @@ import { ProductCardSkeleton } from '@modules/products/ui/product-card/product-c
 import { ProductCard } from '@modules/products/ui/product-card/products-card';
 import { Flex, Grid, Tooltip } from '@radix-ui/themes';
 import { For, Show } from '@shared/components';
+import { useMediaQuery } from '@shared/hooks';
 import { Bookmark } from 'lucide-react';
-import { useMediaQuery } from 'react-responsive';
 
 function isProductWithFavorites(product: Product | ProductWithFavorites): product is ProductWithFavorites {
   return 'isFavorite' in product;
@@ -29,17 +29,11 @@ export function ProductsGrid({
   onAddToWishlist,
   onClickCard,
 }: Properties) {
-  const largeScreen = useMediaQuery({
-    query: '(min-width: 1000px) and (max-width: 1400px)',
-  });
+  const largeScreen = useMediaQuery('(min-width: 1000px) and (max-width: 1400px)');
 
-  const mediumScreen = useMediaQuery({
-    query: '(min-width: 600px) and (max-width: 999px)',
-  });
+  const mediumScreen = useMediaQuery('(min-width: 600px) and (max-width: 999px)');
 
-  const smallScreen = useMediaQuery({
-    query: '(max-width: 599px)',
-  });
+  const smallScreen = useMediaQuery('(max-width: 599px)');
 
   const columns = (() => {
     if (largeScreen) return '3';
