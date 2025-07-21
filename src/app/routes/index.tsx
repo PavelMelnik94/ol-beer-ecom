@@ -1,7 +1,7 @@
 import { AuthLayout } from '@app/layouts/auth-layout/auth-layout';
 import { MainLayout } from '@app/layouts/main-layout/main-layout';
 import { RouteErrorBoundary, ROUTES, useAuthStore } from '@kernel/index';
-import { AboutPage, ArticlePage, CartPage, FavoritesPage, HomePage, LazyBlogPage, LazyBreweriesPage, LazyProductsPage, LazyRegisterPage, OrdersPage, ProductDetailsPage, ProfilePage } from '@pages/index';
+import { ArticlePage, LazyAboutPage, LazyBlogPage, LazyBreweriesPage, LazyCartPage, LazyFavoritesPage, LazyHomePage, LazyOrdersPage, LazyProductsPage, LazyProfilePage, LazyRegisterPage, ProductDetailsPage } from '@pages/index';
 import { PagePreloader } from '@shared/components';
 import { Suspense } from 'react';
 
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: <LazyHomePage />,
       },
     ],
   },
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
     path: ROUTES.about.root,
     element: <MainLayout />,
     children: [
-      { index: true, element: <AboutPage /> },
+      { index: true, element: <LazyAboutPage /> },
     ],
   },
   {
@@ -67,9 +67,9 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     loader: registerLoader,
     children: [
-      { index: true, element: <ProfilePage /> },
-      { path: ROUTES.profile.orders.short, element: <OrdersPage /> },
-      { path: ROUTES.profile.favorites.short, element: <FavoritesPage /> },
+      { index: true, element: <LazyProfilePage /> },
+      { path: ROUTES.profile.orders.short, element: <LazyOrdersPage /> },
+      { path: ROUTES.profile.favorites.short, element: <LazyFavoritesPage /> },
     ],
   },
   {
@@ -78,7 +78,7 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     loader: registerLoader,
     children: [
-      { index: true, element: <CartPage /> },
+      { index: true, element: <LazyCartPage /> },
     ],
 
   },
@@ -91,7 +91,7 @@ const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <AboutPage />,
+    element: <LazyAboutPage />,
   },
 ]
   .map(route => ({ ...route, errorElement: <RouteErrorBoundary /> })),
