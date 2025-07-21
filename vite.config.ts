@@ -2,10 +2,14 @@
 import path from 'node:path';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
+import viteCompression from 'vite-plugin-compression';
 
 export default defineConfig({
   plugins: [
     react(),
+    viteCompression({
+      algorithm: 'brotliCompress',
+    }),
   ],
   resolve: {
     alias: {
@@ -25,6 +29,7 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
+    cssCodeSplit: true,
     sourcemap: true,
     rollupOptions: {
       output: {

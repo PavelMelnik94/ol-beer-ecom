@@ -1,7 +1,7 @@
 {
   "name": "clean-arch-frontend-template",
   "type": "module",
-  "version": "0.6.39",
+  "version": "0.6.40",
   "private": true,
   "scripts": {
     "start": "vite",
@@ -61,7 +61,8 @@
     "simple-git-hooks": "^2.13.0",
     "svgo": "^4.0.0",
     "typescript": "^5.8.3",
-    "vite": "^7.0.0"
+    "vite": "^7.0.0",
+    "vite-plugin-compression": "^0.5.1"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
