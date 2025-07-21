@@ -4,10 +4,10 @@ import { addressesSchema } from '@kernel/types';
 import { Flex, Text } from '@radix-ui/themes';
 import { InputText } from '@shared/components';
 import { Building, Building2, House, MailOpen } from 'lucide-react';
-import { nanoid } from 'nanoid';
 import { memo } from 'react';
 import { useForm } from 'react-hook-form';
 import { RegisterFooter } from '../register-footer/register-footer';
+import { generateRandomId } from '@shared/utils';
 
 interface AddressesStepProperties {
   addresses: Address[];
@@ -25,7 +25,7 @@ export const AddressesStep = memo(({ addresses, setAddresses, onSubmit, step, to
     streetName: '',
     zip: '',
     type: 'shipping',
-    id: nanoid(),
+    id: generateRandomId(),
     isPrimaryAddress: true,
   } satisfies Address;
 

@@ -44,7 +44,7 @@ export default defineConfig({
           if (id.includes('node_modules/react-hook-form') || id.includes('node_modules/@hookform/resolvers')) {
             return 'forms';
           }
-          if (id.includes('node_modules/lodash-es') || id.includes('node_modules/clsx') || id.includes('node_modules/zod')) {
+          if (id.includes('node_modules/clsx') || id.includes('node_modules/zod')) {
             return 'utils';
           }
         },

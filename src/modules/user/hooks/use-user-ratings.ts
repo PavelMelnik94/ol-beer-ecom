@@ -4,8 +4,8 @@ import { useUserStore } from '@kernel/index';
 import { QUERY_KEYS } from '@kernel/query';
 import { userApi } from '@modules/user/api';
 import { useQuery } from '@tanstack/react-query';
-import { clone } from 'lodash-es';
 import { useEffect } from 'react';
+import { clone } from '@shared/utils';
 
 export function useUserRatings({ enabled = true }: { enabled?: boolean; }) {
   const { data: response, error, isLoading, refetch } = useQuery<SuccessResponseRatings, ErrorResponse>({

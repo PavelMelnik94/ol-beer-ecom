@@ -4,7 +4,6 @@ import type {
 } from '../model';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { throttle } from 'lodash-es';
 import { useQueryState } from 'nuqs';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
@@ -13,6 +12,7 @@ import {
   filtersFormSchema,
   productsModel,
 } from '../model';
+import { throttle } from '@shared/utils';
 
 interface UseProductsFiltersProperties {
   onFiltersChange?: (filters: Record<string, unknown>) => void;

@@ -4,8 +4,8 @@ import { useUserStore } from '@kernel/stores';
 import { normalizeAvatarUrl } from '@kernel/utils';
 import { userApi } from '@modules/user/api';
 import { useQuery } from '@tanstack/react-query';
-import { clone } from 'lodash-es';
 import { useEffect } from 'react';
+import { clone } from '@shared/utils';
 
 export function useUserProfile({ enabled = true }: { enabled?: boolean; } = {}) {
   const setProfile = useUserStore(s => s.setProfile);
@@ -18,7 +18,10 @@ export function useUserProfile({ enabled = true }: { enabled?: boolean; } = {}) 
     select: (response) => {
       if (response.success && response.data.avatar) {
         const cloned = clone(response);
+
+        if (typeof cloned.data.avatar === 'string') {
         cloned.data.avatar = normalizeAvatarUrl(cloned.data.avatar);
+        }
 
         return cloned;
       }

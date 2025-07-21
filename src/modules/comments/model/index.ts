@@ -1,10 +1,10 @@
 import type { Author, User } from '@kernel/types';
 import type { Comment, CommentsActions, OptimisticComment } from '../types';
 import { normalizeAvatarUrl } from '@kernel/utils';
-import { nanoid } from 'nanoid';
+import { generateRandomId } from '@shared/utils';
 
 function createOptimisticComment(content: string, user: Author): OptimisticComment {
-  const optimisticId = nanoid();
+  const optimisticId = generateRandomId();
   return {
     id: optimisticId,
     content: content.trim(),
@@ -28,7 +28,7 @@ function normalizeComments(comments: Comment[]): Comment[] {
     ...comment,
     author: {
       ...comment.author,
-      avatar: normalizeAvatarUrl(comment.author.avatar),
+      ...(comment.author.avatar ? { avatar: normalizeAvatarUrl(comment.author.avatar) } : {}),
     },
   }));
 }

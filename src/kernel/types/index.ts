@@ -7,6 +7,7 @@ export interface Address {
   streetName: string;
   zip: string;
   type: 'billing' | 'shipping';
+  isPrimaryAddress?: boolean;
 }
 
 interface Order {

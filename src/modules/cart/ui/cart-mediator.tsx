@@ -2,7 +2,6 @@ import { NoData } from '@kernel/components';
 import { useGoTo } from '@kernel/hooks';
 import { PaymentCongrats } from '@modules/cart/ui/payment-congrats/payment-congrats';
 import { Button, Container, Flex } from '@radix-ui/themes';
-import { debounce } from 'lodash';
 import React from 'react';
 import { useCart, useCartItem, useCartPayment, usePromoCode } from '../hooks';
 import { CartItems } from './cart-items/cart-items';
@@ -10,6 +9,7 @@ import styles from './cart-mediator.module.scss';
 import { CartSummary } from './cart-summary/cart-summary';
 import { CheckoutButton } from './checkout-button/checkout-button';
 import { PromoCodeInput } from './promo-code-input/promo-code-input';
+import { debounce } from '@shared/utils';
 
 export function CartMediator() {
   const { cart, isLoading, isError, error, clearCart, clearCartStatus } = useCart({ enabled: true });
