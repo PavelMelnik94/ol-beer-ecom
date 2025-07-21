@@ -1,16 +1,18 @@
 {
   "name": "clean-arch-frontend-template",
   "type": "module",
-  "version": "0.6.19",
+  "version": "0.6.20",
   "private": true,
   "scripts": {
     "start": "vite",
-    "build": "vite build",
+    "build": "npm run optimize:illustration:common && npm run optimize:illustration:dev && vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",
     "check-types": "tsc --noEmit",
-    "prepare": "husky"
+    "prepare": "husky",
+    "optimize:illustration:common": "svgo -f public/illustrations -o public/illustrations",
+    "optimize:illustration:dev": "svgo -f public/illustrations/dev -o public/illustrations/dev"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
@@ -62,6 +64,7 @@
     "lint-staged": "^16.1.2",
     "postcss": "^8.5.6",
     "simple-git-hooks": "^2.13.0",
+    "svgo": "^4.0.0",
     "typescript": "^5.8.3",
     "vite": "^7.0.0"
   },
