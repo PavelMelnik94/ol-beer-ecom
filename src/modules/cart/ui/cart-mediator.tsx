@@ -2,6 +2,8 @@ import { NoData } from '@kernel/components';
 import { useGoTo } from '@kernel/hooks';
 import { PaymentCongrats } from '@modules/cart/ui/payment-congrats/payment-congrats';
 import { Button, Container, Flex } from '@radix-ui/themes';
+import { debounce } from 'lodash';
+import React from 'react';
 import { useCart, useCartItem, useCartPayment, usePromoCode } from '../hooks';
 import { CartItems } from './cart-items/cart-items';
 import styles from './cart-mediator.module.scss';
@@ -24,6 +26,43 @@ export function CartMediator() {
     cartItem.removeItemStatus,
     cartItem.updateItemStatus,
   ].includes(lockStatus);
+
+  const activeElementReference = React.useRef<HTMLInputElement | null>(null);
+
+  const [initialOrder, setInitialOrder] = React.useState<string[]>([]);
+
+  React.useEffect(() => {
+    if (cart?.items && initialOrder.length === 0) {
+      setInitialOrder(cart.items.map(item => item.id));
+    }
+  }, [cart?.items, initialOrder.length]);
+
+  const orderedItems = React.useMemo(() => {
+    if (!cart?.items) return [];
+
+    const itemsMap = new Map(cart.items.map(item => [item.id, item]));
+    return initialOrder.map(id => itemsMap.get(id)).filter(Boolean);
+  }, [cart?.items, initialOrder]);
+
+  const debouncedUpdateItem = React.useMemo(() => debounce(cartItem.updateItem, 300), [cartItem.updateItem]);
+
+  const handleQuantityChange = React.useCallback((id: string, quantity: number) => {
+    debouncedUpdateItem({ id, quantity });
+  }, [debouncedUpdateItem]);
+
+  React.useEffect(() => {
+    if (activeElementReference.current) {
+      activeElementReference.current.focus();
+    }
+  }, [cart?.items]);
+
+  const localQuantities = React.useMemo(() => {
+    const quantities: Record<string, number> = {};
+    cart?.items.forEach(item => {
+      quantities[item.id] = item.quantity;
+    });
+    return quantities;
+  }, [cart?.items]);
 
   if (payment.paymentStatus === 'success') return <PaymentCongrats />;
 
@@ -57,11 +96,12 @@ export function CartMediator() {
     <div className={styles.layout}>
       <div className={styles.itemsCol}>
         <CartItems
-          items={cart?.items ?? []}
-          updateItem={cartItem.updateItem}
+          items={orderedItems.filter(Boolean).map(item => ({ ...item!, quantity: localQuantities[item!.id] ?? 0 }))}
           removeItem={cartItem.removeItem}
           removeItemStatus={cartItem.removeItemStatus}
           updateItemStatus={cartItem.updateItemStatus}
+          localQuantities={localQuantities}
+          handleQuantityChange={handleQuantityChange}
         />
       </div>
 
