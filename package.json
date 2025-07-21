@@ -1,7 +1,7 @@
 {
   "name": "clean-arch-frontend-template",
   "type": "module",
-  "version": "0.6.20",
+  "version": "0.6.21",
   "private": true,
   "scripts": {
     "start": "vite",
@@ -63,6 +63,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.1.2",
     "postcss": "^8.5.6",
+    "rollup-plugin-purgecss": "^7.0.2",
     "simple-git-hooks": "^2.13.0",
     "svgo": "^4.0.0",
     "typescript": "^5.8.3",

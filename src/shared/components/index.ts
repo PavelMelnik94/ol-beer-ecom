@@ -7,7 +7,6 @@ export { WarningAlert } from './ui/alert/warning-alert';
 export { Breadcrumbs } from './ui/breadcrumbs';
 export { Carousel } from './ui/carousel/carousel';
 export { Dialog } from './ui/dialog/dialog';
-export { Illustration } from './ui/illustration';
 export { Image } from './ui/image/image';
 export { InputPassword } from './ui/input-password/input-password';
 export { InputText } from './ui/input-text/input-text';
