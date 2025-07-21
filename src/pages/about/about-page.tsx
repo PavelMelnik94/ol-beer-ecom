@@ -147,9 +147,9 @@ export function AboutPage() {
         <Section>
           <Heading size="9" as="h3" align="center">{goalsSection.title}</Heading>
 
-          <Flex direction={isMediumScreen ? 'column' : 'row'} gap="3">
+          <Flex direction={isMediumScreen ? 'column' : 'row'} gap="9">
             <Show when={!isMediumScreen}>
-              <Image src={goalsSection.illustration} alt="Goals illustration" containerClassName={styles.imageLeft} />
+              <Image width="50%" src={goalsSection.illustration} alt="Goals illustration" containerClassName={styles.imageLeft} />
             </Show>
             <Flex direction="column" gap="2" justify="center" mt={isMediumScreen ? '6' : '0'}>
               {goalsSection.points.map(point => (

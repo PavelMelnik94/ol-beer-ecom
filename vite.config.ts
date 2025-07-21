@@ -1,24 +1,11 @@
 /* eslint-disable unicorn/prefer-module */
 import path from 'node:path';
 import react from '@vitejs/plugin-react';
-import purgecss from 'rollup-plugin-purgecss';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [
     react(),
-    {
-      ...purgecss({
-        content: [
-          './index.html',
-          './src/**/*.{ts,tsx,scss}',
-        ],
-        safelist: [/^u_/], // Сохраняем классы, начинающиеся с u_
-        output: false, // Отключаем вывод в отдельный файл
-        exclude: [/\.module\.(css|scss)$/], // Исключаем CSS-модули
-      }),
-      enforce: 'post',
-    },
   ],
   resolve: {
     alias: {

@@ -232,7 +232,7 @@ export function AnimatedHero(): JSX.Element {
             </Heading>
           </Box>
           <Show when={!isColumnDirection}>
-            <Image src="/illustrations/u_beer.svg" alt="have a fun" />
+            <Image src="/illustrations/u_beer.svg" alt="have a fun" width={800} />
           </Show>
         </Flex>
         <Flex justify="center" align="center" className={styles.buttonContainer}>

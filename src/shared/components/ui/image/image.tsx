@@ -38,7 +38,7 @@ export const Image: React.FC<ImageProperties> = ({
   fallbackSrc,
   blurOnLoad = true,
   sizeMode = 'cover',
-  width,
+  width = '100%',
   height,
   skeletonStyle,
   ...restProperties

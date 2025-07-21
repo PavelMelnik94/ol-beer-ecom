@@ -3,7 +3,7 @@ import { CartItem as CartItemCard } from '@modules/cart/ui/cart-item/cart-item';
 import { Flex } from '@radix-ui/themes';
 import { For, Show } from '@shared/components';
 import { debounce } from 'lodash-es';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { cartModel } from '../../model';
 import styles from './cart-items.module.scss';
 
@@ -16,20 +16,24 @@ interface CartItemsProperties {
 }
 
 export function CartItems(properties: CartItemsProperties) {
-  const { updateItem, removeItem, removeItemStatus, updateItemStatus } = properties;
-  const [localQuantities, setLocalQuantities] = React.useState<Record<string, number>>(() => cartModel.getInitialLocalQuantities(properties.items));
-  const [orderedItems, setOrderedItems] = React.useState<CartItem[]>(properties.items);
+  const { updateItem, removeItem, removeItemStatus, updateItemStatus, items } = properties;
+  const [localQuantities, setLocalQuantities] = React.useState<Record<string, number>>(() => cartModel.getInitialLocalQuantities(items));
+  const [orderedItems, setOrderedItems] = React.useState<CartItem[]>(items);
   const activeElementReference = React.useRef<HTMLInputElement | null>(null);
 
-  React.useEffect(() => {
-    setLocalQuantities(previous => cartModel.syncLocalQuantities(previous, properties.items));
+  useEffect(() => {
+    setLocalQuantities(previous => cartModel.syncLocalQuantities(previous, items));
 
-    setOrderedItems(previous => cartModel.updateOrderedItems(previous, properties.items));
+    setOrderedItems(previous => cartModel.updateOrderedItems(previous, items));
 
     if (activeElementReference.current) {
       activeElementReference.current.focus();
     }
-  }, [properties.items]);
+  }, [items]);
+
+  useEffect(() => {
+    setOrderedItems(cartModel.updateOrderedItems([], items));
+  }, [items]);
 
   const debouncedUpdateItem = React.useMemo(() => debounce(updateItem, 300), [updateItem]);
 
