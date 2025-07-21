@@ -23,19 +23,14 @@ export function CartItems(properties: CartItemsProperties) {
 
   useEffect(() => {
     setLocalQuantities(previous => cartModel.syncLocalQuantities(previous, items));
-
-    setOrderedItems(previous => cartModel.updateOrderedItems(previous, items));
-
-    if (activeElementReference.current) {
-      activeElementReference.current.focus();
-    }
-  }, [items]);
-
-  useEffect(() => {
-    setOrderedItems(cartModel.updateOrderedItems([], items));
   }, [items]);
 
   const debouncedUpdateItem = React.useMemo(() => debounce(updateItem, 300), [updateItem]);
+
+  const handleRemoveItem = React.useCallback((data: { id: string; }) => {
+    removeItem(data);
+    setOrderedItems(previous => previous.filter(item => item.id !== data.id));
+  }, [removeItem]);
 
   const handleQuantityChange = React.useCallback((id: string, quantity: number, element?: HTMLInputElement) => {
     setLocalQuantities(q => ({ ...q, [id]: quantity }));
@@ -45,7 +40,6 @@ export function CartItems(properties: CartItemsProperties) {
 
   return (
     <div className={styles.items}>
-
       <Show when={orderedItems.length > 0} fallback={<div className={styles.empty}>No items in cart</div>}>
         <Flex gap="3" className={styles.itemList} wrap="wrap">
           <For each={orderedItems}>
@@ -55,7 +49,7 @@ export function CartItems(properties: CartItemsProperties) {
                 item={item}
                 localQuantities={localQuantities}
                 handleQuantityChange={handleQuantityChange}
-                removeItem={removeItem}
+                removeItem={handleRemoveItem}
                 removeItemStatus={removeItemStatus}
                 updateItemStatus={updateItemStatus}
               />
