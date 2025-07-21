@@ -1,4 +1,5 @@
 import type { AxiosError, AxiosResponse } from 'axios';
+import { ROUTES } from '@kernel/router';
 import { tokenStorage } from '@kernel/storage';
 import axios from 'axios';
 
@@ -45,10 +46,10 @@ apiClient.interceptors.response.use(
     console.error('❌ Response Error:', error.response?.status, error.config?.url);
 
     // Handle unauthorized
-    // if (error.response?.status === 401) {
-    //   localStorage.removeItem('auth_token')
-    //   window.location.href = '/login'
-    // }
+    if (error.response?.status === 401) {
+      tokenStorage.remove();
+      globalThis.location.href = ROUTES.auth.register.full;
+    }
 
     return Promise.reject(error);
   },
