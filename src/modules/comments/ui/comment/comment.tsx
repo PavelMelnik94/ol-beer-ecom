@@ -124,7 +124,7 @@ export function CommentItem({
       </Show>
 
       <Box className={styles.likeBlock}>
-        {actions.withLike && (
+        {actions?.withLike && (
           <LikesCounterWithAuthorizePopup
             isLiked={getIsLiked(comment.likedByUserIds)}
             likesCount={comment.likesCount}
@@ -137,7 +137,7 @@ export function CommentItem({
         <CommentActions
           editLabel={mode === 'edit' ? 'Cancel' : 'Edit'}
 
-          withDelete={actions.withDelete}
+          withDelete={actions?.withDelete}
           onDelete={handleDelete}
 
           withEdit={actions.withEdit}
