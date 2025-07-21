@@ -65,6 +65,8 @@ export function Footer() {
               href="https://github.com/PavelMelnik94"
               rel="noopener noreferrer"
               target="_blank"
+              underline="always"
+              weight="bold"
             >
               me
             </Link>
