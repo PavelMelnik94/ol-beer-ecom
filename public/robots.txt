@@ -1,0 +1,8 @@
+# robots.txt for ol-beer-ecom
+
+User-agent: *
+Disallow: /auth/
+Disallow: /profile/
+Disallow: /basket/
+
+Sitemap: https://www.ol-beer-ecom.com/sitemap.xml
