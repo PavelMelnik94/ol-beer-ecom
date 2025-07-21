@@ -2,11 +2,11 @@ import { useGoTo } from '@kernel/index';
 import { Box, Button, Flex, Heading, Section } from '@radix-ui/themes';
 import { animated, config, useSpring } from '@react-spring/web';
 import { Image, Show } from '@shared/components';
+import { useMediaQuery } from '@shared/hooks';
 import { useConfetti } from '@shared/hooks/use-confetti';
 import JSConfetti from 'js-confetti';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import styles from './hero-animated.module.scss';
-import { useMediaQuery } from '@shared/hooks';
 
 interface ScrollAnimationState {
   progress: number;
@@ -129,7 +129,7 @@ export function AnimatedHero(): JSX.Element {
   const goldSpring = useSpring({
     scale: 1 + scrollState.progress ** 1.5 * (animationConfig.maxScale - 1),
     blur: Math.min(scrollState.progress * 5, 5),
-    opacity: scrollState.isComplete ? 0.4 : Math.max(0.7 - scrollState.progress * 0.5, 0.2),
+    opacity: scrollState.isComplete ? 0.4 : 1,
     config: {
       ...config.molasses,
       tension: 180,
