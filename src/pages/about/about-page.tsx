@@ -1,8 +1,8 @@
-import { Box, Container, Flex, Heading, Link, Section, Separator, Text } from '@radix-ui/themes';
+import { Box, Button, Container, Flex, Heading, Link, Section, Separator, Text } from '@radix-ui/themes';
 import { Image, Show } from '@shared/components';
 import { Stepper } from '@shared/components/stepper';
 import { useMediaQuery } from '@shared/hooks';
-import { Briefcase, BriefcaseBusiness, Github, Goal, Linkedin, Mailbox, SquareChartGantt, User2 } from 'lucide-react';
+import { Briefcase, BriefcaseBusiness, Github, Goal, Linkedin, Mailbox, MailCheck, SquareChartGantt, User2 } from 'lucide-react';
 import React from 'react';
 import styles from './about-page.module.scss';
 
@@ -281,6 +281,18 @@ export function AboutPage() {
                 {' '}
                 <Link href="https://github.com/PavelMelnik94/ol-beer-ecom">https://github.com/PavelMelnik94/ol-beer-ecom</Link>
               </Text>
+              <Text mt="4" as="div" align="center" color="gray" size="2">Incognito desktop</Text>
+              <Image src="/metrics/desktop.png" alt="metric" />
+
+              <Flex justify="center" mt="6">
+                <Button variant="solid" size="4" asChild>
+                  <a href="mailto:pavelmelnik94@icloud.com">
+                    <MailCheck />
+                    {' '}
+                    Contact me
+                  </a>
+                </Button>
+              </Flex>
             </Flex>
           </Flex>
         </Section>
