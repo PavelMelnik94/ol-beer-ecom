@@ -5,7 +5,7 @@ import { Box, Container, Flex, Text } from '@radix-ui/themes';
 import { Stepper } from '@shared/components/stepper';
 import { useMediaQuery } from '@shared/hooks';
 import { LockIcon, Truck, UserIcon } from 'lucide-react';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useRegisterForm } from '../../hooks/use-register-form';
 import styles from './register.module.scss';
 
@@ -54,6 +54,32 @@ export function RegisterMediator() {
     resetForm,
   } = useRegisterForm();
 
+  const lazyAddressesStep = (
+    <Suspense fallback={<div />}>
+      <AddressesStep
+        addresses={addresses}
+        setAddresses={setAddresses}
+        onSubmit={nextStep}
+        step={step}
+        totalSteps={3}
+        onClickBack={prevStep}
+      />
+    </Suspense>
+  );
+
+  const lazySecurityStep = (
+    <Suspense fallback={<div />}>
+      <SecurityStep
+        security={security}
+        setSecurity={setSecurity}
+        onSubmit={submit}
+        step={step}
+        totalSteps={3}
+        onClickBack={prevStep}
+      />
+    </Suspense>
+  );
+
   return (
     <Container pr="5" pl="5">
       <Box className={styles.centered}>
@@ -93,27 +119,9 @@ export function RegisterMediator() {
                   />
                 )}
 
-                {step === 2 && (
-                  <AddressesStep
-                    addresses={addresses}
-                    setAddresses={setAddresses}
-                    onSubmit={nextStep}
-                    step={step}
-                    totalSteps={3}
-                    onClickBack={prevStep}
-                  />
-                )}
+                {step === 2 && lazyAddressesStep}
 
-                {step === 3 && (
-                  <SecurityStep
-                    security={security}
-                    setSecurity={setSecurity}
-                    onSubmit={submit}
-                    step={step}
-                    totalSteps={3}
-                    onClickBack={prevStep}
-                  />
-                )}
+                {step === 3 && lazySecurityStep}
 
               </RegisterContainer>
             </Flex>

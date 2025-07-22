@@ -6,7 +6,7 @@ import { useCartStore, usePromoCode } from '@modules/cart';
 import { useProductsRandom } from '@modules/products';
 import { useToggleFavorite } from '@modules/user';
 import { Box, Container } from '@radix-ui/themes';
-import React, { useMemo } from 'react';
+import React, { Suspense, useMemo } from 'react';
 import { Hero } from './ui/hero';
 
 const PromoCodeVelocity = React.lazy(() => import('@modules/cart').then(module => ({ default: module.PromoCodeVelocity })));
@@ -40,6 +40,25 @@ export function BlogPage() {
     }));
   }, [favorites, products]);
 
+  const lazyPromoVelocity = (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PromoCodeVelocity onClickPromocode={handleClickPromoCode} />
+    </Suspense>
+  );
+
+  const lazyProductGrid = (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Container>
+        <ProductsGrid
+          products={productsWithFavorites}
+          columnsCount="3"
+          onClickCard={({ id }) => { handleClickProductCard(id); }}
+          onAddToWishlist={handleOnClickAddToWishlist}
+        />
+      </Container>
+    </Suspense>
+  );
+
   return (
     <Box>
       <Container>
@@ -47,17 +66,8 @@ export function BlogPage() {
       </Container>
       <ArticleList
         promoSlots={{
-          every4: cartSize > 0 ? <PromoCodeVelocity onClickPromocode={handleClickPromoCode} /> : undefined,
-          every7: (
-            <Container>
-              <ProductsGrid
-                products={productsWithFavorites}
-                columnsCount="3"
-                onClickCard={({ id }) => { handleClickProductCard(id); }}
-                onAddToWishlist={handleOnClickAddToWishlist}
-              />
-            </Container>
-          ),
+          every4: cartSize > 0 ? lazyPromoVelocity : undefined,
+          every7: lazyProductGrid,
         }}
       />
     </Box>

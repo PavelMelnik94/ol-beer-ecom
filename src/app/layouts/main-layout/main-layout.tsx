@@ -5,13 +5,14 @@ import { Box } from '@radix-ui/themes';
 import { Footer } from '@shared/components';
 import clsx from 'clsx';
 import { useLayoutEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import styles from './main-layout.module.scss';
 
 export function MainLayout() {
   const { scrollY, scrollToTop } = useGlobalScroll();
+  const location = useLocation();
 
-  useLayoutEffect(() => scrollToTop(), [globalThis.location.pathname]);
+  useLayoutEffect(() => scrollToTop(), [location.pathname]);
 
   const isFixedHeader = scrollY > 3;
 
