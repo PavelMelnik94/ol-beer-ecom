@@ -2,7 +2,7 @@ import { Box, Container, Flex, Heading, Link, Section, Separator, Text } from '@
 import { Image, Show } from '@shared/components';
 import { Stepper } from '@shared/components/stepper';
 import { useMediaQuery } from '@shared/hooks';
-import { Briefcase, BriefcaseBusiness, Github, Goal, Linkedin, Mailbox, SquareChartGantt } from 'lucide-react';
+import { Briefcase, BriefcaseBusiness, Github, Goal, Linkedin, Mailbox, SquareChartGantt, User2 } from 'lucide-react';
 import React from 'react';
 import styles from './about-page.module.scss';
 
@@ -21,6 +21,11 @@ const contactLinks = [
     icon: <Linkedin size={18} />,
     text: 'LinkedIn',
     href: 'https://www.linkedin.com/in/pavel-melnik-562495203/',
+  },
+  {
+    icon: <User2 size={18} />,
+    text: 'Personal Page',
+    href: 'https://pavelmelnik.vercel.app/',
   },
 
 ];
