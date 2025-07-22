@@ -1,10 +1,10 @@
 import { Box, Container, Flex, Heading, Link, Section, Separator, Text } from '@radix-ui/themes';
 import { Image, Show } from '@shared/components';
 import { Stepper } from '@shared/components/stepper';
+import { useMediaQuery } from '@shared/hooks';
 import { Briefcase, BriefcaseBusiness, Github, Goal, Linkedin, Mailbox, SquareChartGantt } from 'lucide-react';
 import React from 'react';
 import styles from './about-page.module.scss';
-import { useMediaQuery } from '@shared/hooks';
 
 const contactLinks = [
   {
@@ -262,17 +262,13 @@ export function AboutPage() {
                 </ul>
               </Text>
 
-              <Text mb="-2"><strong>Architecture:</strong></Text>
+              <Text mb="-2"><strong>Design:</strong></Text>
               <Text size="3">
                 Improvisation without a mockup and continuous improvement. The project is designed with scalability, maintainability and performance in mind, with an emphasis on providing a high-quality user experience.
               </Text>
 
               <Text as="p" color="gray" size="2">
-                This project serves as a comprehensive demonstration of your ability to design, develop, and maintain a scalable, performant, and maintainable application using modern web development practices.
-              </Text>
-
-              <Text as="p" color="gray" size="2">
-                This project is powered by a real backend built using NestJS, showcasing your full-stack development skills. The backend was developed with the assistance of GitHub Copilot, demonstrating your ability to leverage AI tools for efficient and high-quality code generation. It includes features like RESTful APIs and robust data validation, ensuring seamless communication between the frontend and backend.
+                The project features a robust backend built with NestJS, designed to deliver seamless integration with the frontend. It includes RESTful APIs and comprehensive data validation, ensuring reliable and efficient communication between components. Advanced tools like GitHub Copilot were utilized during development to enhance code quality and streamline the process. This backend architecture emphasizes scalability, maintainability, and performance, making it a solid foundation for future growth and feature expansion.
               </Text>
 
               <Text as="p" color="gray" size="2">
