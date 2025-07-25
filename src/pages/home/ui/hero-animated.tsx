@@ -226,15 +226,16 @@ export function AnimatedHero(): JSX.Element {
               From Belgian abbeys to American craft breweries, explore curated reviews,
               brewing insights, and exclusive marketplace finds that elevate your beer experience.
             </Heading>
+
+            <Flex justify="center" align="center" className={styles.buttonContainer}>
+              <animated.div style={buttonSpring}>
+                <Button size="2" onClick={navigateToShowcase}>Explore Now</Button>
+              </animated.div>
+            </Flex>
           </Box>
           <Show when={!isColumnDirection}>
             <Image src="/illustrations/u_beer.svg" alt="have a fun" width={800} />
           </Show>
-        </Flex>
-        <Flex justify="center" align="center" className={styles.buttonContainer}>
-          <animated.div style={buttonSpring}>
-            <Button size="2" onClick={navigateToShowcase}>Explore Now</Button>
-          </animated.div>
         </Flex>
 
       </animated.div>
