@@ -1,6 +1,7 @@
 import type { AxiosError, AxiosResponse } from 'axios';
 import { ROUTES } from '@kernel/router';
 import { tokenStorage } from '@kernel/storage';
+import { useAuthStore } from '@kernel/stores';
 import axios from 'axios';
 
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -47,8 +48,11 @@ apiClient.interceptors.response.use(
 
     // Handle unauthorized
     if (error.response?.status === 401) {
-      tokenStorage.remove();
-      globalThis.location.href = ROUTES.auth.register.full;
+      useAuthStore.getState().clearToken();
+
+      if (globalThis.location.pathname !== ROUTES.auth.register.full) {
+        globalThis.location.replace(ROUTES.auth.register.full);
+      }
     }
 
     return Promise.reject(error);
